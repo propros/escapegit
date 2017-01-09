@@ -98,9 +98,26 @@ function Mainscene:AllMenu()
         self:Girl_bg_move( item_location ,event)
         print("aideng location ", location)
 
+        local keyitem = Data.getItemData(5)
+
         -- 椅子旋转45度
         local function reorderSprite()
             self.stool:setRotation(45)
+            local function key_item(event,eventType)
+                if eventType == TOUCH_EVENT_ENDED then
+                print("ccui.TouchEventType.ended")
+                item_key:setPosition(cc.p(self.stool:getPositionX()*2,500))
+                end  
+
+            end
+
+            local item_key = ccui.Button:create(keyitem.pic)
+            item_btn:setAnchorPoint(cc.p(0,0))
+            item_btn:setPosition(cc.p(self.stool:getPositionX(),500))
+            item_btn:addTo(self,1)
+
+    
+            item_key:addClickEventListener(key_item)
         end
 
         local scheduler=cc.Director:getInstance():getScheduler()
