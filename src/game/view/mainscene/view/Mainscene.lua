@@ -106,18 +106,18 @@ function Mainscene:AllMenu()
             local function key_item(event,eventType)
                 if eventType == TOUCH_EVENT_ENDED then
                 print("ccui.TouchEventType.ended")
-                item_key:setPosition(cc.p(self.stool:getPositionX()*2,500))
+                self.item_key:setPosition(cc.p(self.stool:getPositionX()*2,500))
                 end  
 
             end
 
-            local item_key = ccui.Button:create(keyitem.pic)
-            item_btn:setAnchorPoint(cc.p(0,0))
-            item_btn:setPosition(cc.p(self.stool:getPositionX(),500))
-            item_btn:addTo(self,1)
+            self.item_key = ccui.Button:create(keyitem.pic)
+            self.item_key:setAnchorPoint(cc.p(0,0))
+            self.item_key:setPosition(cc.p(self.stool:getPositionX(),500))
+            self.item_key:addTo(self,1)
 
     
-            item_key:addClickEventListener(key_item)
+            self.item_key:addClickEventListener(key_item)
         end
 
         local scheduler=cc.Director:getInstance():getScheduler()
