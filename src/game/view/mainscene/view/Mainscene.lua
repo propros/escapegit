@@ -34,8 +34,8 @@ function Mainscene:onCreate()
     
 --]]
 
-    self.itemlocation = nil
-    self.item_table = {}
+    self.item_table = {} -- 
+    self.scheduler = nil -- 定时器
 
     self:ontouch()
     self:AllMenu()
@@ -72,11 +72,10 @@ function Mainscene:AllMenu()
     local function wardrobecallback( )
     	--衣柜
         UItool:message("凯瑟琳：\n时间的卡索拉就放开打mm,,\n,Menu/menu.pngMenu/menu.png",30)
-        local location = self.wardrobe:getPositionX()
-
-        self.wardrobelocation = location
-        self.itemlocation= location
-        print("wardrobe location ", self.wardrobelocation)
+        
+        local item_location = UItool:getitem_location(self.wardrobe:getPositionX(), self.bg:getPositionX())
+        print("item_location ",item_location)
+        self:Girl_bg_move( item_location ,event)
         
 
     end
@@ -87,7 +86,6 @@ function Mainscene:AllMenu()
         local item_location = UItool:getitem_location(self.mirror:getPositionX(), self.bg:getPositionX())
         print("item_location ",item_location)
         self:Girl_bg_move( item_location ,event)
-        print("jingzi location ", location)
 
     end
 
@@ -96,19 +94,22 @@ function Mainscene:AllMenu()
         local item_location = UItool:getitem_location(self.stool:getPositionX(), self.bg:getPositionX())
         print("item_location ",item_location)
         self:Girl_bg_move( item_location ,event)
-        print("aideng location ", location)
 
         local keyitem = Data.getItemData(5)
-
+        print("keyitem  : ",keyitem.pic)
+        local sa=1
         -- 椅子旋转45度
+         
         local function reorderSprite()
+            cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduler)
             self.stool:setRotation(45)
+            sa=sa+1
+            print("aaaaaaaaaaaaaaa",sa)
             local function key_item(event,eventType)
                 if eventType == TOUCH_EVENT_ENDED then
                 print("ccui.TouchEventType.ended")
                 self.item_key:setPosition(cc.p(self.stool:getPositionX()*2,500))
                 end  
-
             end
 
             self.item_key = ccui.Button:create(keyitem.pic)
@@ -120,10 +121,7 @@ function Mainscene:AllMenu()
             self.item_key:addClickEventListener(key_item)
         end
 
-        local scheduler=cc.Director:getInstance():getScheduler()
-        scheduler:scheduleScriptFunc(reorderSprite,self.time,false)
-        
-
+        self.scheduler=cc.Director:getInstance():getScheduler():scheduleScriptFunc(reorderSprite,self.time,false)
 
     end
 
