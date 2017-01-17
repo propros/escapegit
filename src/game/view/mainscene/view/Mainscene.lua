@@ -1,16 +1,13 @@
 
-local Mainscene = class("Mainscene", cc.load("mvc").ViewBase)
 
-Mainscene.director = nil
-Mainscene.item_table = nil
-
-function Mainscene:onCreate()
+Mainscene=class("Mainscene", function()
+    return cc.Scene:create()
+end)
+function Mainscene:ctor()
 
 	self.director = cc.Director:getInstance()
 	self.visibleSize = cc.Director:getInstance():getVisibleSize()
     self.origin = cc.Director:getInstance():getVisibleOrigin()
-
-    cc.UserDefault:getInstance():setBoolForKey("bool", true)-- 布尔型 
 
     self.node = cc.Node:create()
     self.node:addTo(self)
@@ -34,12 +31,19 @@ function Mainscene:onCreate()
     
 --]]
 
-    self.item_table = {} -- 
+     -- 
     self.scheduler = nil -- 定时器
 
     self:ontouch()
     self:AllMenu()
 
+    print("math.floor(_allNodeNum/_countNum)  ", math.floor(1/3))
+    print("_allNodeNum%_countNum     ",1%3)
+    print(" 0 % 3 ",0%3)
+    print(" 2 % 3 ",2%3)
+    print(" 3 % 3 ",3%3)
+    print(" 4 % 3 ",4%3)
+    print(" 5 % 3 ",5%3)
 
 end
 
@@ -58,7 +62,7 @@ function Mainscene:AllMenu()
     local function menuscallback()
     	--菜单
     	print("menuscallback")
-        local onetextdata = Datatext.gettextData(2)
+        local onetextdata = Data.gettextData(2)
         local alert = ccui.Text:create()
 	    alert:setString(onetextdata.text)
 	    alert:setFontName(Zapfino)
@@ -92,33 +96,36 @@ function Mainscene:AllMenu()
     local function stoolcallback()
         -- 矮凳 stool
         local item_location = UItool:getitem_location(self.stool:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
+         --girl walk
+        self:grossiniwalk()
+        -- bg && girl move
         self:Girl_bg_move( item_location ,event)
-
-        local keyitem = Data.getItemData(5)
-        print("keyitem  : ",keyitem.pic)
-        local sa=1
+        local key_item = Data.getItemData(5)
+        print("key_item  : ",key_item.pic)
         -- 椅子旋转45度
          
         local function reorderSprite()
             cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduler)
             self.stool:setRotation(45)
-            sa=sa+1
-            print("aaaaaaaaaaaaaaa",sa)
-            local function key_item(event,eventType)
+            local function key_itemfun(event,eventType)
                 if eventType == TOUCH_EVENT_ENDED then
-                print("ccui.TouchEventType.ended")
-                self.item_key:setPosition(cc.p(self.stool:getPositionX()*2,500))
+                
+                self.btn_key:setPosition(cc.p(self.stool:getPositionX()*2,500))
+                ModifyData.tableinsert(key_item.key)
+                print("ModifyData.tableinsert...")
+                print("ModifyData.getTableNum()",ModifyData.getTableNum())
+                -- self:getItemTablenum(  )
+                -- self:getItemTable(  )
                 end  
             end
 
-            self.item_key = ccui.Button:create(keyitem.pic)
-            self.item_key:setAnchorPoint(cc.p(0,0))
-            self.item_key:setPosition(cc.p(self.stool:getPositionX(),500))
-            self.item_key:addTo(self,1)
+            self.btn_key = ccui.Button:create(key_item.pic)
+            self.btn_key:setAnchorPoint(cc.p(0,0))
+            self.btn_key:setPosition(cc.p(self.stool:getPositionX(),500))
+            self.btn_key:addTo(self,1)
 
     
-            self.item_key:addClickEventListener(key_item)
+            self.btn_key:addClickEventListener(key_itemfun)
         end
 
         self.scheduler=cc.Director:getInstance():getScheduler():scheduleScriptFunc(reorderSprite,self.time,false)
@@ -160,9 +167,41 @@ function Mainscene:AllMenu()
         --抽屉 toilet
         print("抽屉 toilet")
         local item_location = UItool:getitem_location(self.toilet:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
+
+        --girl walk
+        self:grossiniwalk()
+        -- bg && girl move
         self:Girl_bg_move( item_location ,event)
         print("chouti location ", location)
+
+        local padlock_item = Data.getItemData(6)
+        print("padlock_item  : ",padlock_item.pic)
+
+        -- 椅子旋转45度 
+        local function reorderSprite()
+            cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduler)
+            self.toilet:setRotation(45)
+            local function padlock_itemcall(event,eventType)
+                if eventType == TOUCH_EVENT_ENDED then
+                
+                self.btn_lock:setPosition(cc.p(self.toilet:getPositionX()*0.5,500))
+                ModifyData.tableinsert(padlock_item.key)
+                print("ModifyData.tableinsert...")
+                print("ModifyData.getTableNum()",ModifyData.getTableNum())
+                end  
+            end
+
+            self.btn_lock = ccui.Button:create(padlock_item.pic)
+            self.btn_lock:setAnchorPoint(cc.p(0,0))
+            self.btn_lock:setPosition(cc.p(self.toilet:getPositionX(),500))
+            self.btn_lock:addTo(self ,1)
+
+    
+            self.btn_lock:addClickEventListener(padlock_itemcall)
+        end
+
+        self.scheduler=cc.Director:getInstance():getScheduler():scheduleScriptFunc(reorderSprite,self.time,false)
+
     end
 
     local function lampcallback()
@@ -240,7 +279,7 @@ function Mainscene:AllMenu()
     local function mergecallback(  )
         print("合成 merge")
         local merge = Merge:createScene()
-        self:addChild(merge)
+        self:addChild(merge,5)
     end
 
     local merge = cc.MenuItemImage:create("he_btn.png","he_btn,png")
@@ -354,6 +393,7 @@ end
 
 --角色移动
 function Mainscene:grossiniwalk()
+    print("girl walks")
     local animation = cc.Animation:create()  
     local name  
     for i = 1, 4 do  
@@ -413,7 +453,7 @@ function Mainscene:Girl_bg_move(touch, event)
         local x = apoint-self.visibleSize.width/2
         local x1 = gril_pointx - apoint
     --速度
-        local speed = 60
+        local speed = 110
     --时间
         self.time = delta / speed
         self.time1 = (math.abs(delta)-x)/speed
@@ -451,9 +491,8 @@ function Mainscene:Girl_bg_move(touch, event)
             end
 
             if self.bg:getPositionX()<=0 then
-                print("350 hang ")
-                --todo
-
+                
+                --
                 if self.bg:getPositionX()<= -self.visibleSize.width/2 then
                     --todo
                     print("355 hang")
@@ -510,10 +549,17 @@ function Mainscene:Girl_bg_move(touch, event)
              self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
             elseif self.bg:getPositionX() == 0 and self.grossini:getPositionX() == self.visibleSize.width/2 then
                 print("== 0  ==")
-                self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
+                if apoint <= self.visibleSize.width/2  then
+                    print("无delay ")
+                    self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
+                    else
+                        print(" 有 delay")
+                        self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
+                end
+                
                 elseif self.grossini:getPositionX() >= self.visibleSize.width/2 and self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width then
                     print("girl >= /2 ")
-                    if apoint <= self.visibleSize.width/2 and self.grossini:getPositionX() == self.visibleSize.width/2 then
+                    if apoint <= self.visibleSize.width/2 and self.grossini:getPositionX() == self.visibleSize.width/2 and self.bg:getPositionX() ~= 0 then
                         --todo
                         print("zuo ")
                         self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
@@ -531,21 +577,8 @@ function Mainscene:Girl_bg_move(touch, event)
         self.bg:runAction(self.bgmove)
 end
 
--- function Mainscene:layercenter( position )
-
---     local winSize = cc.Director:getInstance():getWinSizeInPixels()--像素为单位 获取屏幕坐标''
---      print("winsize",winSize.width)
---      print("visibleSize",self.visibleSize.width)
---     local x = math.max(position, winSize.width/2)
---     -- local y = math.max(yy, winSize.height/2)
---     x = math.min(x, self.bg:getContentSize().width-winSize.width/2)
---     -- y = math.min(y, self.layer:getContentSize().height-winSize.height/2)
---     local PM = cc.p(winSize.width/2, winSize.height/2)--屏幕中心的点
---     self.bg:setPosition(PM.x-x,0)
--- end
-
 function Mainscene:onEnter()
-
+    
 end
 
 function Mainscene:onExit()

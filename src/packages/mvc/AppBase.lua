@@ -3,10 +3,16 @@ local AppBase = class("AppBase")
 
 function AppBase:ctor(configs)
     self.configs_ = {
-        viewsRoot  = "game.view.mainscene.view",
+        viewsRoot  = "game.view.Loading.view",
         modelsRoot = "game.models",
-        defaultSceneName = "Mainscene",
+        defaultSceneName = "Loading",
     }
+
+    -- self.configs_ = {
+    --     viewsRoot  = "game.view.mainscene.view",
+    --     modelsRoot = "game.models",
+    --     defaultSceneName = "Mainscene",
+    -- }
 
     for k, v in pairs(configs or {}) do
         self.configs_[k] = v

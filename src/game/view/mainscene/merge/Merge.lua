@@ -1,3 +1,4 @@
+
 Merge=class("Merge", function()
     return cc.Scene:create()
 end)
@@ -7,6 +8,7 @@ function Merge:createScene()
     self.visibleSize = cc.Director:getInstance():getVisibleSize()
     self.origin = cc.Director:getInstance():getVisibleOrigin()
     merge:initScene()
+    
     return merge
 end
 
@@ -23,27 +25,35 @@ function Merge:initScene()
     self.bag_table = {}
     self.merge_table = {}
 
-    local pos_x, pos_y = self.bag:getPosition()
-    
-    for i = 1, 2 do
-        for j = 1, 3 do
-            self.sprite = cc.Sprite:create("icon/icon_"..i..j..".png")
-            self.sprite:setName("icon/icon_"..i..j..".png")
-            print("******",self.sprite:getName())
-            self.sprite:setAnchorPoint(0.5, 0.5)
-            self:addChild(self.sprite,2)
-            self.bag_table[#self.bag_table + 1] = self.sprite
-            self.sprite:setPosition(320 + pos_x + (j-1)*self.content_size.width/4, 320 + pos_y + (i-1)*self.content_size.height/3)
-            
+    --返回button 
+    local button = ccui.Button:create("bu_back1.png","bu_back2.png")
+    button:setAnchorPoint(cc.p(1,1))
+    button:setPosition(cc.p(-button:getContentSize().width , self.visibleSize.height/3))        
+    self.bag:addChild(button)
 
-        end
+    button:addClickEventListener(function ( psender,event )
+        self:removeFromParent();
+    end)
+    
+    local onetextdata = Data.gettextData(2)
+    print("test onetextdata",onetextdata)
+
+
+    local pos_x, pos_y = self.bag:getPosition()
+
+
+-- 排列得到的item 
+    for key,var in pairs(ModifyData.getTable()) do
+        local icon = Data.getItemData(var)
+        self.sprite = cc.Sprite:create(icon.pic)
+        local y = self.bag:getContentSize().height-(math.floor((key-1)/3)+1)*275
+        self.sprite:setPosition(((key-1)%3)*320 + 320 ,y)
+        self.bag:addChild(self.sprite,2) 
     end
 --进入合成界面
     local he_btn = ccui.Button:create("he_btn.png")
     he_btn:setPosition(cc.p(960,135))
     he_btn:addTo(self.bag,2)
-
-
     he_btn:addClickEventListener(function(psender,event)
         print("bag")
         self:merge()
@@ -51,30 +61,25 @@ function Merge:initScene()
 
 end
 
-function Merge:merge( ... )
+function Merge:merge( )
 
+print("Merge:merge")
     self.bag:removeFromParent()
-    
-
     self.merge = cc.Sprite:create("combination.png")
     self.merge:setAnchorPoint(cc.p(0,0))
     self.merge:setPosition(cc.p(self.visibleSize.width/6,self.visibleSize.height/8))
-    -- local shildinglayer = Shieldingscreen:new()
-    -- self:addChild(shildinglayer)
+    local shildinglayer = Shieldingscreen:new()
+    self:addChild(shildinglayer)
     self.merge:addTo(self,3)
 
-    for key, var in pairs(self.bag_table) do
-
-        -- print(key,var)
-        print("0000000",var:getName())
-        local name = var:getName()
-        local item_btn = ccui.Button:create(name)
+    for key, var in pairs(ModifyData.getTable()) do
+        local icon = Data.getItemData(var)
+        local item_btn = ccui.Button:create(icon.pic)
         item_btn:setAnchorPoint(cc.p(0,0))
         item_btn:setPosition(cc.p(180+140*(key-1),220))
         item_btn:addTo(self.merge,1)
         self.merge_table[#self.merge_table + 1] = item_btn
-
-    end
+    end 
 
     -- 待合成的控件
     local num = 1
@@ -83,10 +88,9 @@ function Merge:merge( ... )
     local function merge_item(event,eventType)
         if eventType == TOUCH_EVENT_ENDED then
             print("eventsss ",event:getTag())
-        print("ccui.TouchEventType.ended")
         
-        local eventmove1 = cc.MoveTo:create(1,cc.p(275,450))
-        local eventmove2 = cc.MoveTo:create(1, cc.p(600,450))
+        local eventmove1 = cc.MoveTo:create(0.3, cc.p(275,450))
+        local eventmove2 = cc.MoveTo:create(0.3, cc.p(600,450))
         if num == 1 or num == 2 then
             if num == 1 then
                 self.item_1 = event:getTag()
@@ -97,61 +101,91 @@ function Merge:merge( ... )
                 event:runAction(eventmove2)
                 num = num + 1   
         end
-           else end
+           else
+            num = nil 
+            print(" num ~= 1 or 2 ")
+           end
         
-        end  
-
+        end
     end
 
     for key , var in pairs(self.merge_table) do
-        print(key,var)
         var:setTag(key)
         var:addClickEventListener(merge_item)
     end
 
---点击合成按钮
+    --点击合成按钮
     local function clickmerge( event, eventType)
 
         if eventType == TOUCH_EVENT_ENDED then
             self.id=nil
-            -- print("-=-=-=-=-=-=-=-",self.item_1,self.item_2)
             if self.item_1>self.item_2 then
                 print("self.item_1>self.item_2")
                 --删除button
-                print("+++++++++++",self.merge_table[self.item_1])
-                print("+++++++++++",self.merge_table[self.item_2])
                 self.merge_table[self.item_1]:removeFromParent()
                 self.merge_table[self.item_2]:removeFromParent()
-                --从表中删除
-                table.remove(self.merge_table,self.item_1)
-                self.item_2 = self.item_2 + 1
-                table.remove(self.merge_table,self.item_2)
 
-                self.id=self.item_1+self.item_2
-                local x = cc.Sprite:create("icon/test_"..self.id..".jpg")
-                x:setPosition(cc.p(920,450))
-                x:addTo(self.merge,1)
+                print("self.item_1: %f  self.item_2: %f ",self.item_1,self.item_2)
+                local alltable = ModifyData.getTable()
+                print("ModifyData.getTable()(self.item_2).key",alltable[self.item_2])
+
+                for i=1,7 do
+                     local merged = Data.getMergeData(i) 
+                     print("id1 %f ,id2 %f", merged.id[1],merged.id[2])
+                     if merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1] then
+                        print("merged.nid",merged.nid)
+                        self.id=self.item_1+self.item_2
+                        local x = cc.Sprite:create(Data.getItemData(merged.nid).pic)
+                        x:setAnchorPoint(cc.p(0,0))
+                        x:setPosition(cc.p(900,450))
+                        x:addTo(self.merge,1)
+                        break
+                     end
+                 end
+
+                --从self.merge_table表中删除 
+                table.remove(self.merge_table,self.item_1)
+                --从ModifyData.getTable() 表中删除
+                table.remove(ModifyData.getTable(),self.item_1)
+                
+                table.remove(self.merge_table,self.item_2)
+                table.remove(ModifyData.getTable(),self.item_2)
 
                 elseif self.item_1<self.item_2 then
                     print("self.item_1<self.item_2")
+
+                    print("self.item_1: %f  self.item_2: %f ",self.item_1,self.item_2)
+                    local alltable = ModifyData.getTable()
+                    print("ModifyData.getTable()(self.item_2).key",alltable[self.item_2])
+
+                    for i=1,7 do
+                        local merged = Data.getMergeData(i) 
+                        print("id1 %f ,id2 %f", merged.id[1],merged.id[2])
+                        if merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1] then
+                            print("merged.nid",merged.nid)
+                            self.id=self.item_1+self.item_2
+                            local x = cc.Sprite:create(Data.getItemData(merged.nid).pic)
+                            x:setAnchorPoint(cc.p(0,0))
+                            x:setPosition(cc.p(900,450))
+                            x:addTo(self.merge,1)
+                            break
+                        end
+                    end
+
                     --删除button
-                    print("------------",self.merge_table[self.item_1])
-                    print("------------",self.merge_table[self.item_2])
                     self.merge_table[self.item_1]:removeFromParent()
                     self.merge_table[self.item_2]:removeFromParent()
                     --从表中删除
                     table.remove(self.merge_table,self.item_2)
-                    self.item_1 = self.item_1 + 1
+                    table.remove(ModifyData.getTable(),self.item_2)
+                    
                     table.remove(self.merge_table,self.item_1)
+                    table.remove(ModifyData.getTable(),self.item_1)
 
-                    self.id=self.item_1+self.item_2
-                    local x = cc.Sprite:create("icon/icon"..self.id..".png")
-                    x:setPosition(cc.p(920,450))
-                    x:addTo(self.merge,1)
-
+                    
+                    
             end
-            -- self.he_btn:removeFromParent()
-
+            self.he_btn:removeFromParent()
         end
     end
 
@@ -159,15 +193,42 @@ function Merge:merge( ... )
     self.he_btn:setPosition(cc.p(630,135))
     self.he_btn:addTo(self.merge,2)
     self.he_btn:addClickEventListener(clickmerge)
+
+
+    local button = ccui.Button:create("bu_back1.png","bu_back2.png")
+    button:setAnchorPoint(cc.p(1,1))
+    button:setPosition(cc.p(-button:getContentSize().width , self.visibleSize.height/2))        
+    self.merge:addChild(button)
+
+    button:addClickEventListener(function ( psender,event )
+        self:removeFromParent();
+    end)
     
 end
 
+function table.removebyvalue(array, value, removeall)
+    local c, i, max = 0, 1, #array
+    while i <= max do
+        if array[i] == value then
+            table.remove(array, i)
+            c = c + 1
+            i = i - 1
+            max = max - 1
+            if not removeall then break end
+        end
+        i = i + 1
+    end
+    return c
+end
 
 
+function Merge:onEnter()
+    print("onEnter")
+end
 
-
-
-
+function Merge:onExit()
+    print("onExit")
+end
 
 return Merge
 
