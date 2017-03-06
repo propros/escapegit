@@ -16,7 +16,7 @@ function MyApp:onCreate()
 --        director:setDisplayStats(true)
     end
 
-    math.randomseed(os.time())
+    -- math.randomseed(os.time())
 
     --适配
 

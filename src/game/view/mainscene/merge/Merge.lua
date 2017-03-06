@@ -8,7 +8,6 @@ function Merge:createScene()
     self.visibleSize = cc.Director:getInstance():getVisibleSize()
     self.origin = cc.Director:getInstance():getVisibleOrigin()
     merge:initScene()
-    
     return merge
 end
 
@@ -18,7 +17,7 @@ function Merge:initScene()
     self.bag:setAnchorPoint(cc.p(0,0))
 	self.bag:setPosition(cc.p(self.visibleSize.width/6,self.visibleSize.height/8))
 	local shildinglayer = Shieldingscreen:new()
-    self:addChild(shildinglayer) 
+    self:addChild(shildinglayer)
 	self.bag:addTo(self)
     self.content_size = self.bag:getContentSize()
 
@@ -88,14 +87,13 @@ print("Merge:merge")
     local function merge_item(event,eventType)
         if eventType == TOUCH_EVENT_ENDED then
             print("eventsss ",event:getTag())
-        
         local eventmove1 = cc.MoveTo:create(0.3, cc.p(275,450))
         local eventmove2 = cc.MoveTo:create(0.3, cc.p(600,450))
         if num == 1 or num == 2 then
             if num == 1 then
                 self.item_1 = event:getTag()
-            event:runAction(eventmove1)
-            num = num+1
+                event:runAction(eventmove1)
+                num = num+1
             elseif num==2 then
                 self.item_2 = event:getTag()
                 event:runAction(eventmove2)
@@ -105,7 +103,6 @@ print("Merge:merge")
             num = nil 
             print(" num ~= 1 or 2 ")
            end
-        
         end
     end
 
@@ -132,13 +129,21 @@ print("Merge:merge")
                 for i=1,7 do
                      local merged = Data.getMergeData(i) 
                      print("id1 %f ,id2 %f", merged.id[1],merged.id[2])
-                     if merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1] then
+                     if (merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1]) or (merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1]) then
                         print("merged.nid",merged.nid)
                         self.id=self.item_1+self.item_2
                         local x = cc.Sprite:create(Data.getItemData(merged.nid).pic)
                         x:setAnchorPoint(cc.p(0,0))
                         x:setPosition(cc.p(900,450))
                         x:addTo(self.merge,1)
+                        local padlock_item = Data.getItemData(merged.nid)
+                        ModifyData.tableinsert(padlock_item.key)
+                        print("&&&&&&padlock_item  : ",padlock_item.pic)
+
+                        if merged.nid==8 then
+                                Data.setItemappear(8,true)
+                            end
+                            
                         break
                      end
                  end
@@ -161,13 +166,19 @@ print("Merge:merge")
                     for i=1,7 do
                         local merged = Data.getMergeData(i) 
                         print("id1 %f ,id2 %f", merged.id[1],merged.id[2])
-                        if merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1] then
+                        if (merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1]) or (merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1]) then
                             print("merged.nid",merged.nid)
                             self.id=self.item_1+self.item_2
                             local x = cc.Sprite:create(Data.getItemData(merged.nid).pic)
                             x:setAnchorPoint(cc.p(0,0))
                             x:setPosition(cc.p(900,450))
                             x:addTo(self.merge,1)
+                            local padlock_item = Data.getItemData(merged.nid)
+                            ModifyData.tableinsert(padlock_item.key)
+                            print("*****padlock_item  : ",padlock_item.pic)
+                            if merged.nid==8 then
+                                Data.setItemappear(8,true)
+                            end
                             break
                         end
                     end

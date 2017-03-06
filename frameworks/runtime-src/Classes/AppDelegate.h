@@ -2,7 +2,8 @@
 #define __APP_DELEGATE_H__
 
 #include "cocos2d.h"
-
+#include <curl/curl.h>
+#include <curl/easy.h>
 /**
 @brief    The cocos2d Application.
 
