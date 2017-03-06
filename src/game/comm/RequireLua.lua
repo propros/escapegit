@@ -1,5 +1,4 @@
--- require("game/view/mainscene/onescene/Onescene")
-require("game/view/mainscene/onescene/PlayerLayer")
+require("game/view/mainscene/onescene/Onescene")
 require("game/comm/Shieldingscreen")
 require("data/Data")
 require("game/view/mainscene/message/Message")

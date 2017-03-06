@@ -863,7 +863,6 @@
 					"$(SRCROOT)/../Classes/protobuf-lite",
 					"$(SRCROOT)/../Classes",
 					"$(SRCROOT)/../../cocos2d-x/tools/simulator/libsimulator/lib",
-					"$(SRCROOT)/../../cocos2d-x/external/curl/include/ios",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -897,7 +896,6 @@
 					"$(SRCROOT)/../Classes/protobuf-lite",
 					"$(SRCROOT)/../Classes",
 					"$(SRCROOT)/../../cocos2d-x/tools/simulator/libsimulator/lib",
-					"$(SRCROOT)/../../cocos2d-x/external/curl/include/ios",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;

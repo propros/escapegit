@@ -20,11 +20,6 @@ function getMergeData( num )
 	return MERGEdata
 end
 
-function setItemappear(num , bool)
-	ITEM[num].appear = bool
-end
-
-
 
 
 
