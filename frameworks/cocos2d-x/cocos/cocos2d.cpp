@@ -27,6 +27,7 @@ THE SOFTWARE.
 
 #include "platform/CCPlatformMacros.h"
 
+
 NS_CC_BEGIN
 
 CC_DLL const char* cocos2dVersion()
