@@ -1,28 +1,34 @@
 
-  
 Sushi = require("game/view/mainscene/onescene/SushiSprite")  
   
 PlayerLayer = class("PlayerLayer", function()  
     return cc.Scene:create()  
-end)  
-  
-function PlayerLayer:ctor()  
+end)
+
+function PlayerLayer:createScene()  
+    local PlayerLayer = PlayerLayer:new()
+    
+    PlayerLayer:initScene()
+    return PlayerLayer
+
+end  
+
+function PlayerLayer:initScene()
     self.spriteSheet = nil  
     self.m_isNeedFillVacancies = false  
     self.m_isAnimationing = true  
     self.m_isTouchEnable = true  
     self.m_srcSushi = nil  
     self.m_destSushi = nil   
-    self.m_movingVertical = true  
+    self.m_movingVertical = true
     self.m_hasCanSushi = true  
     self:init()
-
-      
-
-end  
+end
   
 function PlayerLayer:init()   
     math.randomseed(os.time())  
+
+    self.visibleSize = cc.Director:getInstance():getVisibleSize()
 
     local N = 16
     self.array = {}
@@ -33,30 +39,48 @@ function PlayerLayer:init()
     local j = math.random(N - i + 1) + i - 1;
     self.array[i],self.array[j] = self.array[j],self.array[i]
     end
-    for i = 1 , N do
-    print("*&&&&&&&&&&*",self.array[i])
+
+    --返回主页面
+    local function key_itemfun(event,eventType)
+        if eventType == TOUCH_EVENT_ENDED then
+        self:removeFromParent()
+        
+        end  
     end
+
+    self.btn_back = ccui.Button:create("bu_back1.png","bu_back2.png")
+    self.btn_back:setAnchorPoint(cc.p(1,1))
+    self.btn_back:setPosition(cc.p(self.btn_back:getContentSize().width , self.visibleSize.height/3))
+    self.btn_back:addTo(self,1)
+    self.btn_back:addClickEventListener(key_itemfun)
 
     --创建游戏背景  
     local winSize = cc.Director:getInstance():getWinSize()  
     local background = cc.Sprite:create("background.png")  
     background:setAnchorPoint(0.5,1)  
     background:setPosition(winSize.width/2,winSize.height)  
-    self:addChild(background)  
+
+    local shildinglayer = Shieldingscreen:new()
+    self:addChild(shildinglayer,-1) 
+    
+    self:addChild(background)    
       
     --初始化寿司精灵表单  
-    cc.SpriteFrameCache:getInstance():addSpriteFrames("qiepian.plist","qiepian.pvr.ccz")  
+    cc.SpriteFrameCache:getInstance():addSpriteFrames("qietu.plist","qietu.pvr.ccz")  
       
     --初始化矩阵的宽和高  
     self.m_width = 4
     self.m_height = 4
-      
+    
     --初始化寿司矩阵左下角的点  
     self.m_matrixLeftBottomX = (background:getContentSize().width - Sushi.getContentWidth() * self.m_width - (self.m_width - 1) * 6) / 2  
     self.m_matrixLeftBottomY = 0  
       
     --初始化数组  
     self.m_matrix = {}  
+
+    --备用数组
+    self.s_matrix = {}
   
     --初始化寿司矩阵  
     self:initMatrix();  
@@ -79,8 +103,9 @@ function PlayerLayer:init()
     listener:registerScriptHandler(onTouchMoved,cc.Handler.EVENT_TOUCH_MOVED )  
     local eventDispatcher = self:getEventDispatcher()  
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self)  
+
 end  
-  
+
 function PlayerLayer:OnTouchBegan(touch, event)  
     local target = event:getCurrentTarget()  
   
@@ -102,7 +127,7 @@ function PlayerLayer:OnTouchBegan(touch, event)
     end  
     return false  
 end  
-  
+
 function PlayerLayer:onTouchMoved(touch, event)  
     if not self.m_isTouchEnable or not self.m_srcSushi then  
         return  
@@ -217,13 +242,40 @@ function PlayerLayer:swapSushi()
     self.m_srcSushi:setCol(self.m_destSushi:getCol())  
     self.m_destSushi:setRow(tmpRow)  
     self.m_destSushi:setCol(tmpCol)  
-    local test = cc.Sprite:create()  
+
     self.m_srcSushi:stopAllActions()  
     self.m_destSushi:stopAllActions()  
     self.m_srcSushi:runAction(cc.MoveTo:create(time,{x=destX,y=destY}))  
     self.m_destSushi:runAction(cc.MoveTo:create(time,{x=srcX,y=srcY}))  
     -- return  
+    self:pos()
 end  
+
+function PlayerLayer:pos( ... )
+
+    local i=3
+    self.fixed_fragment_num = 0
+    for row=4,1,-1 do
+        for col=1,4 do
+            local x,y = self.s_matrix[(row-i - 1) * self.m_width + col]:getPosition()
+            print("**********",x,y)
+            -- print("##########",666+self.m_matrixLeftBottomX + (Sushi.getContentWidth() + 6) * (col - 1) + Sushi.getContentWidth() / 2,self.m_matrixLeftBottomY + (Sushi.getContentWidth() + 6) * (row - 1) + Sushi.getContentWidth() / 2)
+            if x==666+self.m_matrixLeftBottomX + (Sushi.getContentWidth() + 6) * (col - 1) + Sushi.getContentWidth() / 2 and y==self.m_matrixLeftBottomY + (Sushi.getContentWidth() + 6) * (row - 1) + Sushi.getContentWidth() / 2 then
+                
+                self.fixed_fragment_num = self.fixed_fragment_num + 1
+                print("self.fixed_fragment_num =",self.fixed_fragment_num )
+                if self.fixed_fragment_num == 16 then
+                    print("🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎")
+                    self:removeFromParent()
+                    UItool:message2("数字1837",30)
+                    
+                    
+                end
+            end
+        end
+        i=i-2
+    end
+end
   
 function PlayerLayer:update(delta)  
     if self.m_isAnimationing then  
@@ -236,30 +288,30 @@ function PlayerLayer:update(delta)
                 break  
             end  
         end  
-    end  
-      
+    end
     self.m_isTouchEnable = not self.m_isAnimationing  
-      
-    if not self.m_isAnimationing then  
-        if self.m_isNeedFillVacancies then 
-            self.m_isNeedFillVacancies = false  
-        end  
-    end  
+    
 end 
   
 function PlayerLayer:initMatrix()
-    print("+++++++++++++++++++")
 
     local i=1 
     
     for row=1,self.m_height do  
         for col=1,self.m_width do  
             local a=self.array[i]
-            print("aaaaaaaaaaaaaaaaa",a)
             self:createAndDropSushi(row, col,a)  
             i=i+1
         end  
-    end   
+    end 
+
+    for i=1,16 do
+        for j=1,16 do
+            if i == self.m_matrix[j]:getTag()  then
+                self.s_matrix[i] = self.m_matrix[j]
+            end
+        end
+    end
 end  
   
 function PlayerLayer:createAndDropSushi(row, col,i)  
@@ -277,17 +329,18 @@ function PlayerLayer:createAndDropSushi(row, col,i)
     local vec2_table = {x=endx+666, y=endy};  
     sushi:stopAllActions()  
     sushi:runAction(cc.MoveTo:create(speed,vec2_table))  
-    self:addChild(sushi)  
+    self:addChild(sushi,125)  
   
     --给指定位置的数组赋值  
-    self.m_matrix[(row - 1) * self.m_width + col] = sushi;  
+    sushi:setTag(i)
+    self.m_matrix[(row - 1) * self.m_width + col] = sushi;
 end  
   
 function PlayerLayer:positionOfItem(row, col)  
     local x = self.m_matrixLeftBottomX + (Sushi.getContentWidth() + 6) * (col - 1) + Sushi.getContentWidth() / 2;  
     local y = self.m_matrixLeftBottomY + (Sushi.getContentWidth() + 6) * (row - 1) + Sushi.getContentWidth() / 2;  
     return x,y;  
-end  
+end
   
 return PlayerLayer
 

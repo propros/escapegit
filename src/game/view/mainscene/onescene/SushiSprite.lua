@@ -19,8 +19,8 @@ sushiNormal = {
     "qiepian_10.jpg",
     "qiepian_11.jpg",
     "qiepian_12.jpg",
-    "qiepian_13.jpg",
     "qiepian_14.jpg",
+    "qiepian_13.jpg",
     "qiepian_15.jpg",
     "qiepian_16.jpg" 
 }

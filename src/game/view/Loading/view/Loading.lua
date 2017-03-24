@@ -9,6 +9,12 @@ function Loading:onCreate()
     self.bg:setPosition(cc.p(0,0))
     self.bg:setAnchorPoint(cc.p(0,0))
     self.bg:addTo(self)
+    UItool:setBool("merge", true) -- 物品栏是否可以点击
+    
+--测试物品栏
+    for i=1,6 do
+        ModifyData.tableinsert(i)
+    end
 
     local function wardrobecallback( )
     	--衣柜
@@ -19,10 +25,10 @@ function Loading:onCreate()
     end
 
     local function settingcallback( )
-        --衣柜
         UItool:message("设置",45)
         
     end
+    print(type(settingcallback))
     
     self.wardrobe=cc.MenuItemImage:create("comm/start.png","comm/start.png")
     self.wardrobe:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
@@ -40,6 +46,17 @@ function Loading:onCreate()
     menu:setPosition(0,0) 
     self:addChild(menu)
 
+    -- for i=1,16 do
+    --     print("*****",(i-1)%4)
+    -- end
+-- local i=3   
+--     for row=4,1,-1 do
+--         for col=1,4 do
+--             print(",,,,,",(row-i-1)*4+col)
+--         end
+--         i=i-2
+--     end
+
 
     -- 随机数
     -- math.randomseed(tostring(os.time()):reverse():sub(1, 7)) --设置时间种子
@@ -52,11 +69,50 @@ function Loading:onCreate()
 end
 
 function Loading:onEnter()
-    print("onEnter() ")
+    print("2222222onEnter() ")
 end
 
 function Loading:onExit()
-    print("onExit ")
+    print("222222onExit（） ")
 end
 
 return Loading
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

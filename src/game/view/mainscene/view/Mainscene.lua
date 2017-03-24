@@ -3,6 +3,8 @@ require("game/view/mainscene/onescene/PlayerLayer")
 Mainscene=class("Mainscene", function()
     return cc.Scene:create()
 end)
+
+Mainscene.panel = nil
 function Mainscene:ctor()
 
 	self.director = cc.Director:getInstance()
@@ -11,522 +13,893 @@ function Mainscene:ctor()
 
     self.node = cc.Node:create()
     self.node:addTo(self)
-
-    self.bg = cc.Sprite:create("bg/bg.png")
+    -- 家具底层
+    self.panel = cc.CSLoader:createNode(Config.RES_MAINSCENE)
+    self.panel:setPosition(cc.p(0,0))
+    self:addChild(self.panel)
+    --主节点
+    self.node =  self.panel:getChildByName("Node_left_bottom")
+    --背景
+    self.bg = self.node:getChildByName("bg")
     self.bg:setPosition(cc.p(0,0))
-    self.bg:setAnchorPoint(cc.p(0,0))
-    self.bg:addTo(self)
+    --家具
+    self.furniture = self.bg:getChildByName("furniture")
 
-    local fbg = cc.Sprite:create("bg/fbg.png")
-    fbg:setPosition(cc.p(0,0))
-    fbg:setAnchorPoint(cc.p(0,0))
-    fbg:addTo(self.bg,1)
 
----[[
+    ---[[
 	self.grossini = cc.Sprite:create("walk/w1.png")
     self.grossini:setAnchorPoint(cc.p(0.5,0))
     self.grossini:setScaleX(-1)
     self.grossini:setPosition(cc.p(self.grossini:getContentSize().width,self.grossini:getContentSize().height*0.1))
     self.grossini:addTo(self)
     
---]]
-
-     -- 
+    --]]
+    -- 
     self.scheduler = nil -- 定时器
     self.goscheduler = nil --过关定时器
 
     self:ontouch()
-    self:AllMenu()
+    self:AllButtons()
 
-    local function update()
-        if Data.getItemData(8).appear then
-        print("true")
-         UItool:message("通关 通关",30)
-        cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.goscheduler)
-        else
-            print("false")
+    local button = ccui.Button:create("bu_back1.png","bu_back1.png")
+    button:setAnchorPoint(cc.p(1,1))
+    button:setPosition(cc.p(self.visibleSize.width - button:getContentSize().width + 30 , self.visibleSize.height/1.03))        
+    self:addChild(button,10)
+
+    button:addClickEventListener(function ( psender,event )
+        if  UItool:getBool("merge") then
+            if #ModifyData.getTable() == 0    then
+            UItool:message2("你的物品栏是空的",30)
+            else
+                UItool:setBool("merge", false)
+                print("bool 是true 还是 false ",UItool:getBool("merge"))
+                local merge = Merge:createScene()
+                self:addChild(merge,5)
+            end
         end
-    end
-
-
-    self.goscheduler=cc.Director:getInstance():getScheduler():scheduleScriptFunc(update,1,false)
-    -- self.scheduler=cc.Director:getInstance():getScheduler():scheduleScriptFunc(reorderSprite,self.time,false)
+        
+    end)
 end
 
-function Mainscene:updates()
-    
+local bed_upnum = 1
+function Mainscene:bed_up()
+    --床上
+    print("bed_up")
+    if bed_upnum>1 then
+        UItool:message2("墙上怎么挂着别人的照片",30)
+        else
+            local function bed_ups( select )
+                if select == "yes" then
+                    local bed_up_location = UItool:getitem_location(self.furniture:getChildByName("bed_up"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( bed_up_location ,event)
+                    bed_upnum = bed_upnum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,bed_ups)
+    end
 end
 
-function Mainscene:AllMenu()
+local bed_downnum = 1
+function Mainscene:bed_down()
+    --床底
+    if bed_downnum>1 then
+        UItool:message2("花瓶好漂亮啊",30)
+        else
+            local function bed_downs( select )
+                if select == "yes" then
+                    local bed_down_location = UItool:getitem_location(self.furniture:getChildByName("bed_down"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( bed_down_location ,event)
+                    bed_downnum = bed_downnum + 1
 
-	local frontnode = cc.Node:create()
-    frontnode:addTo(self.bg,2)
-
-    local function playMusic()
-        --
-        -- local onescene = Onescene:createScene()
-        -- self:addChild(onescene)
-        local scene = PlayerLayer.new()
-        local turn = cc.TransitionPageTurn:create(0.5, scene, false)
-        cc.Director:getInstance():replaceScene(turn)
-
-    end
-
-    local function menuscallback()
-    	--菜单
-    	print("menuscallback")
-        local onetextdata = Data.gettextData(2)
-        local alert = ccui.Text:create()
-	    alert:setString(onetextdata.text)
-	    alert:setFontName(Zapfino)
-	    alert:setFontSize(30)
-	    alert:setColor(cc.c3b(251, 138, 38))
-	    alert:setPosition(cc.p(500,500))
-	    self:addChild(alert,5)
-        
-    end
-
-    local function wardrobecallback( )
-    	--衣柜
-        UItool:message("凯瑟琳：\n时间的卡索拉就放开打mm,,\n,Menu/menu.pngMenu/menu.png",30)
-        self:grossiniwalk()
-        
-        local item_location = UItool:getitem_location(self.wardrobe:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:Girl_bg_move( item_location ,event)
-        
-
-    end
-
-    local function dressing_tablecallback( )
-        -- 左化妆台 dressing_table
-        print("左化妆台 dressing_table")
-        local item_location = UItool:getitem_location(self.dressing_table:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:grossiniwalk()
-        print("typetypetypetypetypetypetypetypetypetype")
-        
-        
-        self.m_send = cc.Sprite:create("bg_zuichang.png")
-        self.m_send:setPosition(cc.p(500,600))
-        self:addChild(self.m_send,9)
-        
-        print("type: %s", type(self.m_send))
-
-        self.m_sendField = ccui.TextField:create()
-        self.m_sendField:setTouchEnabled(true)
-        self.m_sendField:setFontSize(30)
-        local size = self.m_send:getContentSize()
-        self.m_sendField:setTouchSize(size)
-        self.m_sendField:setPlaceHolder("input words here")
-        self.m_sendField:setPosition(cc.p(size.width*0.5, size.height*0.5))
-        self.m_send:addChild( self.m_sendField)
-
-        print("type: %s", type(self.m_send))
-        print("self.m_sendField type: %s", type(self.m_sendField))
-
-        
-        local widgetSize = cc.Director:getInstance():getWinSize()
-        self._displayValueLabel = ccui.Text:create()
-        self._displayValueLabel:setString("NodeContainer Add CCNode")
-        -- self._displayValueLabel:setFontName(font_TextName)
-        self._displayValueLabel:setFontSize(32)
-        self._displayValueLabel:setAnchorPoint(cc.p(0.5, -1))
-        self._displayValueLabel:setPosition(cc.p(widgetSize.width / 2.0, widgetSize.height / 1.2 + self._displayValueLabel:getContentSize().height * 1.5))
-        self:addChild(self._displayValueLabel)
-
-
--- TEXTFIELD_EVENT_ATTACH_WITH_IME,
---     TEXTFIELD_EVENT_DETACH_WITH_IME,
---     TEXTFIELD_EVENT_INSERT_TEXT,
---     TEXTFIELD_EVENT_DELETE_BACKWARD,
-
--- TextFiledEventType.attach_with_ime
--- TextFiledEventType.detach_with_ime
--- TextFiledEventType.insert_text
--- TextFiledEventType.delete_backward
-
-        local function textFieldEvent(sender, eventType)
-            self._displayValueLabel:setString(self.m_sendField:getString())
-            if sender == ccui.TEXTFIELD_EVENT_ATTACH_WITH_IME then
-                local textField = sender
-                local screenSize = cc.Director:getInstance():getWinSize()
-                --点击输入框的时候，
-                print("attach with IME")
-            elseif sender == ccui.TEXTFIELD_EVENT_DETACH_WITH_IME then
-                local textField = sender
-                local screenSize = cc.Director:getInstance():getWinSize()
-                --输入完，离开输入框
-                -- self.firend_di:runAction(cc.MoveTo:create(0.125, cc.p(self.firend_di_X,self.firend_di_Y)))
-                print("detach with IME")
-                self._displayValueLabel:setString(self.m_sendField:getString())
-                print("****************")
-            elseif sender == ccui.TEXTFIELD_EVENT_INSERT_TEXT then
-                --输入字符
-                print("insert words")
-            elseif sender == ccui.TEXTFIELD_EVENT_DELETE_BACKWARD then
-                --删除字符
-                print("delete word")
-                else
-                    print("没有没有没有")
+                    elseif select == "no" then
+                        print("不去")
+                end
             end
+            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,bed_downs)
+    end
+end 
 
-            if self.m_sendField:getString()=="12345" then
-                print("otototototototototo")
-                self._displayValueLabel:setString("succeed")
+local bedside_tablenum = 1
+function Mainscene:bedside_table()
+    --床头柜
+    print("bedside_table")
+    if bedside_tablenum==2 then
+        UItool:password("1502",1) -- 密码四
+
+        else
+            local function bedside_tables( select )
+                if select == "yes" then
+                    local bedside_table_location = UItool:getitem_location(self.furniture:getChildByName("bedside_table"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( bedside_table_location ,event)
+                    bedside_tablenum = bedside_tablenum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
             end
+            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,bedside_tables)
+    end
+end
+
+local L_curtainnum = 1
+function Mainscene:L_curtain()
+    --左窗帘
+    print("L_curtain")
+
+    if L_curtainnum>1 then
+        
+        UItool:message2("（3572）",30)
+        else
+            local function L_curtains(select)
+                if select == "yes" then
+                    print(" L_curtains  yes ")
+                    local L_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("L_curtain"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( L_curtain_location1 ,event)
+                    L_curtainnum = L_curtainnum + 1
+                    elseif select == "no" then    
+                    print("  no ")  
+                end
+            end
+            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,L_curtains)
+    end
+end
+
+local clicknum = 0
+local R_curtainnum = 1
+function Mainscene:R_curtain()
+    --右窗帘
+    print("R_curtain")
+    if R_curtainnum>1 then        
+        -- self:R_curtain_tentimes()
+        clicknum = clicknum+1
+        if clicknum==5  then
+           UItool:message2(" 你的到了一把钥匙放在了包里  ",30)
+           local key_item = Data.getItemData(5)
+           ModifyData.tableinsert(key_item.key)
+        end
+        print("number == %d",clicknum)
+        else
+            local function R_curtains(select)
+                if select == "yes" then
+                    print("是的")
+                    local R_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("R_curtain"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( R_curtain_location1 ,event)
+                    R_curtainnum = R_curtainnum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,R_curtains)
+                
+    end
+end
+
+local toilet_glassnum = 1
+function Mainscene:toilet_glass()
+    --梳妆台-镜子
+    print("toilet_glass")
+    if toilet_glassnum>1 then
+        UItool:message2(" 我倒映出了凳子 ",30 )
+        else
+            local function toilet_glasss(select)
+                if select == "yes" then
+                    print("是的")
+                    local toilet_glass_location1 = UItool:getitem_location(self.furniture:getChildByName("toilet_glass"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( toilet_glass_location1 ,event)
+                    toilet_glassnum = toilet_glassnum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,toilet_glasss)
+    end
+end
+
+local toilet_drawernum = 1
+function Mainscene:toilet_drawer()
+    --梳妆台-抽屉
+    print("toilet_drawer")
+    if toilet_drawernum>1 then
+        UItool:password("0311",11)
+        else
+            local function toilet_drawers( select )
+                if select == "yes" then
+                    local toilet_drawer_location = UItool:getitem_location(self.furniture:getChildByName("toilet_drawer"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( toilet_drawer_location ,event)
+                    toilet_drawernum = toilet_drawernum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,toilet_drawers)
+    end
+end
+local stoolnum = 1
+function Mainscene:stool()
+    --凳子
+    print("stool")
+    if stoolnum>1 then
+        UItool:message2(" 两个物品加起来可能会有效 ",30 )
+        else
+            local function stools(select)
+                if select == "yes" then
+                    print("是的")
+                    local stool_location1 = UItool:getitem_location(self.furniture:getChildByName("stool"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( stool_location1 ,event)
+                    stoolnum = stoolnum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,stools)
+    end
+
+end
+
+local wardrobenum = 1
+function Mainscene:wardrobe()
+    --衣柜
+    print("wardrobe")
+    if wardrobenum>1 then
+        if UItool:ifcontain( 5 ) then
+            UItool:message2(" 得到一个箱子 ,钥匙消失 ",30 )
+            local key_item = Data.getItemData(3)
+            ModifyData.tableinsert(key_item.key)
+            for i=1,#ModifyData.getTable() do
+                if ModifyData.getTable()[i] == 5 then
+                     table.remove(ModifyData.getTable(),i) 
+                     break
+                end
+            end
+        end
+        else
+            local function wardrobess(select)
+                if select == "yes" then
+                    print("是的")
+                    local wardrobe_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( wardrobe_location1 ,event)
+                    wardrobenum = wardrobenum + 1
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,wardrobess)
+    end
+end
+
+local cushionnum = 1
+function Mainscene:cushion()
+    --靠垫
+    print("cushion")
+    if cushionnum>1 then
+           UItool:message2(" 得到一个护身符 ",30 )
+           local key_item = Data.getItemData(4)
+            ModifyData.tableinsert(key_item.key)
+        else
+            local function cushions(select)
+                if select == "yes" then
+                    print("是的")
+                    local cushion_location1 = UItool:getitem_location(self.furniture:getChildByName("cushion"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( cushion_location1 ,event)
+                    cushionnum = cushionnum + 1
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,cushions)
+    end
+end
+
+
+local B_vasenum = 1
+function Mainscene:B_vase()
+    --大花瓶
+    print("B_vase")
+    if B_vasenum>1 then
+           UItool:message2(" 鲜花插在花瓶中 ",30 )
+        else
+            local function B_vases(select)
+                if select == "yes" then
+                    print("是的")
+                    local B_vase_location1 = UItool:getitem_location(self.furniture:getChildByName("B_vase"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( B_vase_location1 ,event)
+                    B_vasenum = B_vasenum + 1
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,B_vases)
+    end
+end
+
+local S_vasenum = 1
+function Mainscene:S_vase()
+    --小花瓶
+    print("S_vase")
+    if S_vasenum>1 then
+        UItool:message2(" 你好像在找东西，1502 ",30 )
+        else
+            local function S_vases(select)
+                if select == "yes" then
+                    print("是的")
+                    local stool_location1 = UItool:getitem_location(self.furniture:getChildByName("S_vase"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( stool_location1 ,event)
+                    S_vasenum = S_vasenum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,S_vases)
+    end
+end
+
+local sofabacknum = 1
+function Mainscene:sofaback()
+    --沙发背
+    print("sofaback")
+    if sofabacknum>1 then
+        
+           UItool:message2(" 沙发不能移动 ",30 )
+        
+        else
+            local function sofabacks(select)
+                if select == "yes" then
+                    print("是的")
+                    local sofaback_location1 = UItool:getitem_location(self.furniture:getChildByName("sofaback"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( sofaback_location1 ,event)
+                    sofabacknum = sofabacknum + 1
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,sofabacks)
+    end
+end
+
+
+
+local bookshelf_onenum = 1
+function Mainscene:bookshelf_one()
+    --书架一
+    print("bookshelf_one")
+    if bookshelf_onenum>1 then
+        UItool:message2(" 这都是书  ",30 )
+        else
+            local function bookshelf_ones(select)
+                if select == "yes" then
+                    print("是的")
+                    local bookshelf_one_location1 = UItool:getitem_location(self.furniture:getChildByName("bookshelf_one"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( bookshelf_one_location1 ,event)
+                    bookshelf_onenum = bookshelf_onenum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,bookshelf_ones)
+    end
+end
+
+local bookshelf_twonum = 1
+function Mainscene:bookshelf_two()
+    --书架二
+    print("bookshelf_two")
+    if bookshelf_twonum>1 then
+        if bookshelf_twonum == 4  then
+            local key_item = Data.getItemData(9)
+            ModifyData.tableinsert(key_item.key) 
+            UItool:message2("得到了一张纸",30)
             
         end
-        self.m_sendField:addEventListener(textFieldEvent) 
-        self:Girl_bg_move( item_location ,event)
+        bookshelf_twonum = bookshelf_twonum + 1
+        else
+            local function bookshelf_twonums( select )
+                if select == "yes" then
+                    local bookshelf_two_location = UItool:getitem_location(self.furniture:getChildByName("bookshelf_two"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( bookshelf_two_location ,event)
+                    bookshelf_twonum = bookshelf_twonum + 1
 
-
-
-    end
-
-    local function stoolcallback()
-        print(" 矮凳 stool 矮凳 stool 矮凳 stool 矮凳 stool 矮凳 stool")
-        -- 矮凳 stool
-        local item_location = UItool:getitem_location(self.stool:getPositionX(), self.bg:getPositionX())
-         --girl walk
-        self:grossiniwalk()
-        -- bg && girl move
-        self:Girl_bg_move( item_location ,event)
-        local key_item = Data.getItemData(5)
-        print("key_item  : ",key_item.pic)
-         
-        local function reorderSprite()
-            print("&&&&&&&&&&")
-            cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduler)
-            self.stool:setRotation(45)
-            local function key_itemfun(event,eventType)
-                if eventType == TOUCH_EVENT_ENDED then
-                
-                self.btn_key:setPosition(cc.p(self.stool:getPositionX()*2,500))
-                ModifyData.tableinsert(key_item.key)
-                print("ModifyData.tableinsert...")
-                print("ModifyData.getTableNum()",ModifyData.getTableNum())
-                
-                end  
-            end
-
-            self.btn_key = ccui.Button:create(key_item.pic)
-            self.btn_key:setAnchorPoint(cc.p(0,0))
-            self.btn_key:setPosition(cc.p(self.stool:getPositionX(),500))
-            self.btn_key:addTo(self,1)
-            self.btn_key:addClickEventListener(key_itemfun)
-        end
-        
-
-        self.scheduler=cc.Director:getInstance():getScheduler():scheduleScriptFunc(reorderSprite,self.time,false)
-        
-    end
-local num = 1
-    local function candlestickcallback()
-
-        if num >= 2 then
-            local item_location = UItool:getitem_location(self.candlestick:getPositionX(), self.bg:getPositionX())
-            print("item_location ",item_location)
-            self:grossiniwalk()
-            self:Girl_bg_move( item_location ,event)
-            print("zhutai location ", location)
-            UItool:message(" 你get到了烛台技能 ",30)
-            else
-                local item_location = UItool:getitem_location(self.candlestick:getPositionX(), self.bg:getPositionX())
-                print("item_location ",item_location)
-                self:grossiniwalk()
-                self:Girl_bg_move( item_location ,event)
-                UItool:message(" 你再点击一下试试",30)
-                num = num + 1
-        end
-        -- 烛台 candlestick
-        
-
-    end
-
-    local function table_furniturecallback( )
-        -- 家具桌 table_furniture
-        print("家具桌 table_furniture")
-        local item_location = UItool:getitem_location(self.mirror:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:grossiniwalk()
-        self:Girl_bg_move( item_location ,event)
-        print("jingzi location ", location)
-
-    end
-
-    local number = 1
-    local function rackcallback()
-        --衣架 rack
-
-        self.scheduleras = nil
-        local item_location = UItool:getitem_location(self.rack:getPositionX(), self.bg:getPositionX())
-        self:grossiniwalk()
-        self:Girl_bg_move( item_location ,event)
-        local schedulers = cc.Director:getInstance():getScheduler()
-        local function tentimes()
-            print("tentimes")
-            if number >=10 then
-                --todo
-                UItool:message(" 你打开了新技能 ",30)
-                cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduler)
-                else
-                    print("***********")
-            end
-        end
-        
-
-        if number>1 then
-            --todo
-            else
-                self.scheduler = schedulers:scheduleScriptFunc(tentimes,3,false)
-        end
-        number = number+1
-        print("number == %d",number)
-
-    end
-
-    local function toiletcallback()
-        -- 抽屉
-        if self.grossini:getPositionX()<self.visibleSize.width/2  then
-            local item_location = UItool:getitem_location(self.toilet:getPositionX(), self.bg:getPositionX())
-            --girl walk
-            self:grossiniwalk()
-            -- bg && girl move
-            self:Girl_bg_move( item_location ,event)
-
-            else
-                print("抽屉 toilet")
-                local item_location = UItool:getitem_location(self.toilet:getPositionX(), self.bg:getPositionX())
-                --girl walk
-                self:grossiniwalk()
-                -- bg && girl move
-                self:Girl_bg_move( item_location ,event)
-
-                local padlock_item = Data.getItemData(6)
-                print("padlock_item  : ",padlock_item.pic)
-
-                -- 抽屉 toilet旋转45度 
-                local function reorderSprite()
-                    cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self.scheduler)
-                    self.toilet:setRotation(45)
-                    local function padlock_itemcall(event,eventType)
-                        if eventType == TOUCH_EVENT_ENDED then
-                        
-                        self.btn_lock:setPosition(cc.p(self.toilet:getPositionX()*0.5,500))
-                        ModifyData.tableinsert(padlock_item.key)
-                        print("ModifyData.tableinsert...")
-                        print("ModifyData.getTableNum()",ModifyData.getTableNum())
-                        end  
-                    end
-
-                    self.btn_lock = ccui.Button:create(padlock_item.pic)
-                    self.btn_lock:setAnchorPoint(cc.p(0,0))
-                    self.btn_lock:setPosition(cc.p(self.toilet:getPositionX(),500))
-                    self.btn_lock:addTo(self ,1)
-                    self.btn_lock:addClickEventListener(padlock_itemcall)
+                    elseif select == "no" then
+                        print("不去")
                 end
-
-                self.scheduler=cc.Director:getInstance():getScheduler():scheduleScriptFunc(reorderSprite,self.time,false)
-        end
-
+            end
+            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,bookshelf_twonums)
     end
-
-    local function lampcallback()
-        --吊灯 lamp
-        print("吊灯 lamp")
-        local item_location = UItool:getitem_location(self.lamp:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:grossiniwalk()
-        self:Girl_bg_move( item_location ,event)
-        print("diaodeng location ", location)
-
-    end
-
-    local function clockcallback()
-        -- 吊钟 clock
-        print("吊钟 clock")
-        local item_location = UItool:getitem_location(self.clock:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:grossiniwalk()
-        self:Girl_bg_move( item_location ,event)
-        print("吊钟 location ", location)
-
-    end
-
-    local function mirrorcallback()
-        -- 镜子 mirror
-        print("镜子 mirror")
-        local item_location = UItool:getitem_location(self.mirror:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:grossiniwalk()
-        self:Girl_bg_move( item_location ,event)
-        print("jingzi location ", location)
-
-    end
-
-    local function bellcallback()
-        -- 座地钟 bell
-        print("座地钟 bell")
-        local item_location = UItool:getitem_location(self.bell:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:grossiniwalk()
-        self:Girl_bg_move( item_location ,event)
-        print("zuodizhong location ", location)
-
-
-
-    end
-
-    local function dressingtablecallback()
-        -- 右梳妆台 dressingtable
-        print("右梳妆台 dressingtable")
-        local item_location = UItool:getitem_location(self.dressingtable:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:grossiniwalk()
-        self:Girl_bg_move( item_location ,event)
-        print("dressingtable location ", location)
-
-    end
-
-    local function chaircallback()
-        -- 椅子 chair
-        print("椅子 chair")
-        local item_location = UItool:getitem_location(self.chair:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:grossiniwalk()
-        self:Girl_bg_move( item_location ,event)
-        print("chair location ", location)
-
-    end
-
-    local function modelcallback()
-        -- 模特model
-        print("模特 model")
-        local item_location = UItool:getitem_location(self.model:getPositionX(), self.bg:getPositionX())
-        print("item_location ",item_location)
-        self:grossiniwalk()
-        self:Girl_bg_move( item_location ,event)
-        print("model location ", location)
-
-    end
-
-    local function mergecallback(  )
-        print("合成 merge")
-        local merge = Merge:createScene()
-        self:addChild(merge,5)
-    end
-
-    local merge = cc.MenuItemImage:create("he_btn.png","he_btn,png")
-    merge:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2)  )
-    merge:setAnchorPoint(cc.p(0.5,0.5))
-    -- 对该按钮注册按键响应函数：
-    merge:registerScriptTapHandler(mergecallback)
-	--下拉菜单
- 	
-    local menus=cc.MenuItemImage:create("Menu/menu.png","Menu/menu.png")
-    menus:setPosition(self.origin.x + menus:getContentSize().width*0.55, self.origin.y + self.visibleSize.height*0.9 )
-    menus:setAnchorPoint(cc.p(0.5,0.5))
-    -- 对该按钮注册按键响应函数：
-    menus:registerScriptTapHandler(menuscallback)
-    
-    local menulabel = cc.Label:createWithSystemFont("Menu" ,"Zapfino", 38)
-    menulabel:setColor(cc.c3b(251, 138, 38))
-    menulabel:setPosition(cc.p(menus:getContentSize().width/2.8,menus:getContentSize().height/1.7))
-    menulabel:addTo(menus,5)
-
-    -- 衣柜
-    self.wardrobe=cc.MenuItemImage:create("furniture/left/wardrobe.png","furniture/left/wardrobe.png")
-    self.wardrobe:setPosition(self.origin.x + self.wardrobe:getContentSize().width*0.55, self.origin.y + self.visibleSize.height *0.01)
-    self.wardrobe:setAnchorPoint(cc.p(0.5,0))
-    -- 对该按钮注册按键响应函数：
-    self.wardrobe:registerScriptTapHandler(wardrobecallback)
-   
-    --左化妆台
-    self.dressing_table = cc.MenuItemImage:create("furniture/left/dressing_table.png","furniture/left/dressing_table.png")
-    self.dressing_table:setAnchorPoint(cc.p(0.5,0))
-    self.dressing_table:setPosition(cc.p(self.wardrobe:getPositionX()+self.dressing_table:getContentSize().width*1.65,self.origin.y + self.visibleSize.height *0.01))
-    self.dressing_table:registerScriptTapHandler(dressing_tablecallback)
-
-    --矮凳 stool矮凳 stool
-    self.stool = cc.MenuItemImage:create("furniture/left/stool.png","furniture/left/stool.png")
-    self.stool:setAnchorPoint(cc.p(0.5,0))
-    self.stool:setPosition(cc.p(self.dressing_table:getPositionX()+self.stool:getContentSize().width*1.35,self.origin.y + self.visibleSize.height *0.01))
-    self.stool:registerScriptTapHandler(stoolcallback)
-
-    --烛台
-    self.candlestick = cc.MenuItemImage:create("furniture/left/candlestick.png","furniture/left/candlestick.png")
-    self.candlestick:setAnchorPoint(cc.p(0.5,0))
-    self.candlestick:setPosition(cc.p(self.stool:getPositionX()+self.candlestick:getContentSize().width*0.95,self.origin.y + self.visibleSize.height *0.01))
-    self.candlestick:registerScriptTapHandler(candlestickcallback)
-
-    --家具桌
-    self.table_furniture = cc.MenuItemImage:create("furniture/left/table_furniture.png","furniture/left/table_furniture.png")
-    self.table_furniture:setAnchorPoint(cc.p(0.5,0))
-    self.table_furniture:setPosition(cc.p(self.candlestick:getPositionX()+self.table_furniture:getContentSize().width*0.95,self.origin.y + self.visibleSize.height *0.01))
-    self.table_furniture:registerScriptTapHandler(table_furniturecallback)
-
-    --衣架
-    self.rack = cc.MenuItemImage:create("furniture/left/rack.png","furniture/left/rack.png")
-    self.rack:setAnchorPoint(cc.p(0.5,0))
-    self.rack:setPosition(cc.p(self.table_furniture:getPositionX()+self.rack:getContentSize().width*1.79,self.origin.y + self.visibleSize.height *0.01))
-    self.rack:registerScriptTapHandler(rackcallback)
-
-    --抽屉
-    self.toilet = cc.MenuItemImage:create("furniture/left/toilet.png","furniture/left/toilet.png")
-    self.toilet:setAnchorPoint(cc.p(0.5,0))
-    self.toilet:setPosition(cc.p(self.rack:getPositionX()+self.toilet:getContentSize().width*0.99,self.origin.y + self.visibleSize.height *0.01))
-    self.toilet:registerScriptTapHandler(toiletcallback)
-
-    --吊灯
-    self.lamp = cc.MenuItemImage:create("furniture/left/lamp.png","furniture/left/lamp.png")
-    self.lamp:setAnchorPoint(cc.p(0.5,1))
-    self.lamp:setPosition(cc.p(self.wardrobe:getPositionX()+self.lamp:getContentSize().width*1.25,self.origin.y + self.visibleSize.height))
-    self.lamp:registerScriptTapHandler(playMusic)
-
-    -- 吊钟
-    self.clock = cc.MenuItemImage:create("furniture/left/clock.png","furniture/left/clock.png")
-    self.clock:setAnchorPoint(cc.p(0.5,1))
-    self.clock:setPosition(cc.p(self.visibleSize.width/2,self.origin.y + self.visibleSize.height))
-    self.clock:registerScriptTapHandler(clockcallback)
-
-    --镜子
-    self.mirror = cc.MenuItemImage:create("furniture/left/mirror.png","furniture/left/mirror.png")
-    self.mirror:setAnchorPoint(cc.p(0.5,0.4))
-    self.mirror:setPosition(cc.p(self.toilet:getPositionX()-10,self.origin.y + self.visibleSize.height/2))
-    self.mirror:registerScriptTapHandler(mirrorcallback)
-
-    --座地钟
-    self.bell = cc.MenuItemImage:create("furniture/right/bell.png","furniture/right/bell.png")
-    self.bell:setAnchorPoint(cc.p(0.5,0))
-    self.bell:setPosition(cc.p(self.visibleSize.width+1.25*self.bell:getContentSize().width,self.origin.y + self.visibleSize.height *0.01))
-    self.bell:registerScriptTapHandler(bellcallback)
-
-    --右梳妆台
-    self.dressingtable = cc.MenuItemImage:create("furniture/right/dressingtable.png","furniture/right/dressingtable.png")
-    self.dressingtable:setAnchorPoint(cc.p(0.5,0))
-    self.dressingtable:setPosition(cc.p(self.visibleSize.width*1.35+self.dressingtable:getContentSize().width,self.origin.y + self.visibleSize.height *0.01))
-    self.dressingtable:registerScriptTapHandler(dressingtablecallback)
-
-    --椅子
-    self.chair = cc.MenuItemImage:create("furniture/right/chair.png","furniture/right/chair.png")
-    self.chair:setAnchorPoint(cc.p(0.5,0))
-    self.chair:setPosition(cc.p(self.dressingtable:getPositionX()+self.chair:getContentSize().width*1.5,self.origin.y + self.visibleSize.height *0.01))
-    self.chair:registerScriptTapHandler(chaircallback)
-
-    --模特
-    self.model = cc.MenuItemImage:create("furniture/right/model.png","furniture/right/model.png")
-    self.model:setAnchorPoint(cc.p(0.5,0))
-    self.model:setPosition(cc.p(self.chair:getPositionX()+self.model:getContentSize().width*1.5,self.origin.y + self.visibleSize.height *0.01))
-    self.model:registerScriptTapHandler(modelcallback)
-
-    local menu=cc.Menu:create(menus,self.wardrobe,self.dressing_table,self.stool,self.candlestick,self.table_furniture,self.rack,self.toilet,self.lamp,self.clock,self.mirror,self.bell,self.dressingtable,self.chair,self.model,merge)
-    menu:setPosition(0,0)
-    frontnode:addChild(menu)
 
 end
 
---角色移动
+local L_drawernum = 1
+function Mainscene:L_drawer()
+    print("L_drawer")
+    if L_drawernum>1 then
+           UItool:password("3572")
+        else
+            local function L_drawers(select)
+                if select == "yes" then
+                    print("是的")
+                    local L_drawer_location1 = UItool:getitem_location(self.furniture:getChildByName("L_drawer"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( L_drawer_location1 ,event)
+                    L_drawernum = L_drawernum + 1
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,L_drawers)
+    end
+end
+
+local R_drawernum = 1
+function Mainscene:R_drawer()
+    print("R_drawer")
+    if R_drawernum>1 then
+        UItool:password("1011",6) -- 密码3
+        else
+            local function R_drawers( select )
+                if select == "yes" then
+                    local R_drawer_location = UItool:getitem_location(self.furniture:getChildByName("R_drawer"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( R_drawer_location ,event)
+                    R_drawernum = R_drawernum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,R_drawers)
+    end
+
+end
+
+local booknum = 1
+function Mainscene:book()
+    print("book")
+    if booknum>1 then
+        
+        UItool:message2("  书是人类进步的阶梯  ",30)
+        else
+            local function books( select )
+                if select == "yes" then
+                    local book_location = UItool:getitem_location(self.furniture:getChildByName("book"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( book_location ,event)
+                    booknum = booknum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,books)
+    end
+end
+
+local Pintunum = 1
+function Mainscene:Pintu()
+    print("Pintu")
+    if Pintunum>1 then
+        if UItool:ifcontain( 8 ) then
+           local PlayerLayer = PlayerLayer:createScene()
+            print("进入拼图界面", PlayerLayer)
+            self:addChild(PlayerLayer,125)
+            else
+                UItool:message2("缺少东西浸润它 ",30)
+        end
+        else
+            local function Pintus( select )
+                if select == "yes" then
+                    local Pintu_location = UItool:getitem_location(self.furniture:getChildByName("Pintu"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( Pintu_location ,event)
+                    Pintunum = Pintunum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,Pintus)
+    end
+
+end
+
+local wardrobe_drawer_1num = 1
+function Mainscene:wardrobe_drawer_1()
+    --立柜抽屉一层
+    print("wardrobe_drawer_1")
+    if wardrobe_drawer_1num>1 then
+        if wardrobe_drawer_1num==10  then
+           UItool:message2(" 数字（0311）  ",30)
+        end
+        wardrobe_drawer_1num = wardrobe_drawer_1num+1
+        print("number == %d",wardrobe_drawer_1num)
+        else
+            local function wardrobe_drawer_1s(select)
+                if select == "yes" then
+                    print("是的")
+                    local R_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_1"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( R_curtain_location1 ,event)
+                    wardrobe_drawer_1num = wardrobe_drawer_1num + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,wardrobe_drawer_1s)
+                
+    end
+end
+
+local wardrobe_drawer_2num = 1
+function Mainscene:wardrobe_drawer_2()
+    print("wardrobe_drawer_2")
+    if wardrobe_drawer_2num == 2 then
+        UItool:password("1837",7)
+        else
+            local function wardrobe_drawer_2s( select )
+                if select == "yes" then
+                    local wardrobe_drawer_2_location = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_2"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( wardrobe_drawer_2_location ,event)
+                    wardrobe_drawer_2num = wardrobe_drawer_2num + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,wardrobe_drawer_2s)
+    end
+end
+
+local wardrobe_drawer_3num = 1
+function Mainscene:wardrobe_drawer_3()
+    print("wardrobe_drawer_3")
+    if wardrobe_drawer_3num>1 then
+        -- if UItool:ifcontain( 1 ) then
+           UItool:message2(" 好像被锁住了 ",30 )
+        -- end
+
+        else
+            local function wardrobe_drawer_3s(select)
+                if select == "yes" then
+                    print(" L_curtains  yes ")
+                    local L_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_3"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( L_curtain_location1 ,event)
+                    wardrobe_drawer_3num = wardrobe_drawer_3num + 1
+                    elseif select == "no" then    
+                    print("  no ")  
+                end
+            end
+            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,wardrobe_drawer_3s)
+    end
+
+end
+
+local phonenum = 1
+function Mainscene:phone()
+    print("phone")
+    if wardrobe_drawer_3num>1 then
+        UItool:message2(" 电话沟通你我他 ",30 )
+        else
+            local function wardrobe_drawer_3s(select)
+                if select == "yes" then
+                    print(" L_curtains  yes ")
+                    local L_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_3"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( L_curtain_location1 ,event)
+                    wardrobe_drawer_3num = wardrobe_drawer_3num + 1
+                    elseif select == "no" then    
+                    print("  no ")  
+                end
+            end
+            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,wardrobe_drawer_3s)
+    end
+end
+
+local wardrobe_albumnum = 1
+function Mainscene:wardrobe_album()
+    print("wardrobe_album")
+    if wardrobe_albumnum>1 then
+        -- UItool:message2("线索一",30)
+        else
+            local function wardrobe_albums( select )
+                if select == "yes" then
+                    local wardrobe_album_location = UItool:getitem_location(self.furniture:getChildByName("wardrobe_album"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( wardrobe_album_location ,event)
+                    wardrobe_albumnum = wardrobe_albumnum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,wardrobe_albums)
+    end
+
+end
+
+local doornum = 1
+function Mainscene:door()
+    print("door")
+    --门 
+    if doornum == 2 then
+        if UItool:ifcontain( 6 ) then
+           UItool:message2(" 门打开，你可以出去了 。 ",30 )
+
+        end
+        
+        else
+            local function doors( select )
+                if select == "yes" then
+                    local door_location = UItool:getitem_location(self.furniture:getChildByName("door"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( door_location ,event)
+                    doornum = doornum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("你要出去嘛 ？，好像需要先得到钥匙。既然你想过去，就去看看吧。",30,doors)
+    end
+
+    
+
+end
+
+local Big_framenum = 1
+function Mainscene:Big_frame()
+    print("Big_frame")
+    if Big_framenum>1 then
+        UItool:message2("房间的一切尽在我眼中",30)
+        else
+            local function Big_frames( select )
+                if select == "yes" then
+                    local bed_up_location = UItool:getitem_location(self.furniture:getChildByName("Big_frame"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( bed_up_location ,event)
+                    Big_framenum = Big_framenum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,Big_frames)
+    end
+end
+
+local hua_framenum = 1
+function Mainscene:hua_frame()
+    print("hua_frame")
+    if hua_framenum>1 then
+        UItool:message2(" 知识就是力量 ",30 )
+        else
+            local function hua_frames(select)
+                if select == "yes" then
+                    print("是的")
+                    local toilet_glass_location1 = UItool:getitem_location(self.furniture:getChildByName("hua_frame"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( toilet_glass_location1 ,event)
+                    hua_framenum = hua_framenum + 1
+
+                    elseif select == "no" then
+                        print("不去")
+                end
+            end
+            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,hua_frames)
+    end
+end
+
+local yuan_framenum = 1
+function Mainscene:yuan_frame()
+    print("yuan_frame")
+
+    if yuan_framenum>1 then
+        
+        UItool:message2(" 我最高你碰不到 ",30)
+
+        else
+            local function yuan_framenums(select)
+                if select == "yes" then
+                    print(" L_curtains  yes ")
+                    local L_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("yuan_frame"):getPositionX(), self.bg:getPositionX())
+                    self:grossiniwalk()
+                    self:Girl_bg_move( L_curtain_location1 ,event)
+                    yuan_framenum = yuan_framenum + 1
+                    elseif select == "no" then    
+                    print("  no ")  
+                end
+            end
+            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,yuan_framenums)
+    end
+end
+
+local frame_1num = 1
+function Mainscene:frame_1()
+    print("frame_1")
+end
+
+local frame_2num = 1
+function Mainscene:frame_2()
+    print("frame_2")
+end
+
+local frame_3num = 1
+function Mainscene:frame_3()
+    print("frame_3")
+end
+
+
+
+function Mainscene:AllButtons(  )
+    local AllButtons = 
+    {
+            self.furniture:getChildByName("L_curtain"),
+            self.furniture:getChildByName("R_curtain"),
+            self.furniture:getChildByName("bed_up"),
+            self.furniture:getChildByName("bed_down"),
+            self.furniture:getChildByName("toilet_glass"),
+            self.furniture:getChildByName("bedside_table"),
+            self.furniture:getChildByName("toilet_drawer"),
+            self.furniture:getChildByName("stool"),
+            self.furniture:getChildByName("wardrobe"),
+            self.furniture:getChildByName("cushion"),
+            self.furniture:getChildByName("B_vase"),
+            self.furniture:getChildByName("S_vase"),
+            self.furniture:getChildByName("sofaback"),
+            self.furniture:getChildByName("L_drawer"),
+            self.furniture:getChildByName("R_drawer"),
+            self.furniture:getChildByName("bookshelf_one"),
+            self.furniture:getChildByName("bookshelf_two"),
+            self.furniture:getChildByName("book"),
+            self.furniture:getChildByName("Pintu"),
+            self.furniture:getChildByName("wardrobe_drawer_1"),
+            self.furniture:getChildByName("wardrobe_drawer_2"),
+            self.furniture:getChildByName("wardrobe_drawer_3"),
+            self.furniture:getChildByName("phone"),
+            self.furniture:getChildByName("wardrobe_album"),
+            self.furniture:getChildByName("door"),
+            self.furniture:getChildByName("Big_frame"),
+            self.furniture:getChildByName("hua_frame"),
+            self.furniture:getChildByName("yuan_frame"),
+            self.furniture:getChildByName("frame_1"),
+            self.furniture:getChildByName("frame_2"),
+            self.furniture:getChildByName("frame_3")
+
+    }
+    local function renwu_haoyou_shezhiButtonClick(event,eventType)
+        if eventType == TOUCH_EVENT_ENDED then
+            if event:getName()=="L_curtain" then
+                print("L_curtain")
+                self:L_curtain()
+                elseif event:getName()=="R_curtain" then
+                    print("R_curtain")
+                    self:R_curtain()
+                    elseif event:getName()=="bed_up" then
+                        print("bed_up")
+                        self:bed_up()
+                        elseif event:getName()=="bed_down" then
+                            print("bed_down")
+                            self:bed_down()
+                            elseif event:getName()=="toilet_glass" then
+                                print("toilet_glass")
+                                self:toilet_glass()
+                                elseif event:getName()=="bedside_table" then
+                                    print("bedside_table")
+                                    self:bedside_table()
+                                    elseif event:getName()=="toilet_drawer" then
+                                        print("toilet_drawer")
+                                        self:toilet_drawer()
+                                        elseif event:getName()=="stool" then
+                                            print("stool")
+                                            self:stool()
+                                            elseif event:getName()=="wardrobe" then
+                                                print("wardrobe")
+                                                self:wardrobe()
+                                                elseif event:getName()=="cushion" then
+                                                    print("cushion")
+                                                    self:cushion()
+                                                    elseif event:getName()=="B_vase" then
+                                                        print("B_vase")
+                                                        self:B_vase()
+                                                        elseif event:getName()=="S_vase" then
+                                                            print("S_vase")
+                                                            self:S_vase()
+                                                            elseif event:getName()=="sofaback" then
+                                                                print("sofaback")
+                                                                self:sofaback()
+                                                                elseif event:getName()=="L_drawer" then
+                                                                    print("L_drawer")
+                                                                    self:L_drawer()
+                                                                    elseif event:getName()=="R_drawer" then
+                                                                        print("··R_drawer·")
+                                                                        self:R_drawer()
+                                                                        elseif event:getName()=="bookshelf_one" then
+                                                                            print("bookshelf_one")
+                                                                            self:bookshelf_one()
+                                                                            elseif event:getName()=="bookshelf_two" then
+                                                                                print("··bookshelf_two·")
+                                                                                self:bookshelf_two()
+                                                                                elseif event:getName()=="book" then
+                                                                                    print("book")
+                                                                                    self:book()
+                                                                                    elseif event:getName()=="Pintu" then
+                                                                                        print("Pintu")
+                                                                                        self:Pintu()
+                                                                                        elseif event:getName()=="wardrobe_drawer_1" then
+                                                                                            print("wardrobe_drawer_1")
+                                                                                            self:wardrobe_drawer_1()
+                                                                                            elseif event:getName()=="wardrobe_drawer_2" then
+                                                                                                print("·wardrobe_drawer_2··")
+                                                                                                self:wardrobe_drawer_2()
+                                                                                                elseif event:getName()=="wardrobe_drawer_3" then
+                                                                                                    print("··wardrobe_drawer_3·")
+                                                                                                    self:wardrobe_drawer_3()
+                                                                                                    elseif event:getName()=="phone" then
+                                                                                                        print("··phone·")
+                                                                                                        self:phone()
+                                                                                                        elseif event:getName()=="wardrobe_album" then
+                                                                                                            print("··wardrobe_album·")
+                                                                                                            self:wardrobe_album()
+                                                                                                            elseif event:getName()=="door" then
+                                                                                                                print("··door·")
+                                                                                                                self:door()
+                                                                                                                elseif event:getName()=="Big_frame" then
+                                                                                                                    print("··Big_frame·")
+                                                                                                                    self:Big_frame()
+                                                                                                                    elseif event:getName()=="hua_frame" then
+                                                                                                                        print("·hua_frame··")
+                                                                                                                        self:hua_frame()
+                                                                                                                        elseif event:getName()=="frame_1" then
+                                                                                                                            print("··frame_1·")
+                                                                                                                            self:frame_1()
+                                                                                                                            elseif event:getName()=="frame_2" then
+                                                                                                                                print("··frame_2·")
+                                                                                                                                self:frame_2()
+                                                                                                                                elseif event:getName()=="frame_3" then
+                                                                                                                                    print("·frame_3··")
+                                                                                                                                    self:frame_3()
+                                                                                                                                    elseif event:getName()=="yuan_frame" then
+                                                                                                                                        print("yuan_frame")
+                                                                                                                                        self:yuan_frame()
+                                                                                                                
+
+
+
+
+                        
+            end
+        end
+    end
+    for key, var in pairs(AllButtons) do
+        var:addClickEventListener(renwu_haoyou_shezhiButtonClick)
+    end
+end
+
+    --角色移动
 function Mainscene:grossiniwalk()
     local animation = cc.Animation:create()  
     local name  
@@ -546,6 +919,13 @@ function Mainscene:grossiniwalk()
      local repeatForevers = cc.RepeatForever:create(action)
      repeatForevers:setTag(22)
     self.grossini:runAction( repeatForevers)
+
+    -- ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/walk/walkstand.ExportJson") 
+    -- self.grossini = ccs.Armature:create("walkstand")
+    -- self.grossini:getAnimation():playWithIndex(3, -1, 1)
+    -- self.grossini:getAnimation():setSpeedScale(0.2)
+    -- self.grossini:setPosition(cc.p(100,125))
+    -- self.bg:addChild(self.grossini,125)
 end
 
 function Mainscene:ontouch( ... )
@@ -553,7 +933,15 @@ function Mainscene:ontouch( ... )
 	--实现事件触发回调
 	local function onTouchBegan(touch, event)
 		--人物行走调用
-		self:grossiniwalk()
+        if self.grossini:getNumberOfRunningActions()>0 or self.bg:getNumberOfRunningActions()>0 then
+            print("正在执行动作，")
+            print("执行动作等个数",self.grossini:getNumberOfRunningActions(),self.bg:getNumberOfRunningActions())
+            self.grossini:stopAllActions()
+            self.bg:stopAllActions()
+            else
+                print("没有执行动作")
+        end
+        self:grossiniwalk()
         return true
 		
 	end
@@ -565,7 +953,6 @@ function Mainscene:ontouch( ... )
         local touchs= touch:getLocation()
         self:Girl_bg_move(touchs.x, events)
 	end
-
 	local listener = cc.EventListenerTouchOneByOne:create() -- 创建一个事件监听器
 	listener:setSwallowTouches(true)
 	listener:registerScriptHandler(onTouchBegan, cc.Handler.EVENT_TOUCH_BEGAN)
@@ -601,112 +988,18 @@ function Mainscene:Girl_bg_move(touch, event)
         end
         --一步，屏蔽层
         local function onestep()
-            print("one")
-
-            self.layer=cc.Layer:create()
-            local shildinglayer = Shieldingscreen:new()
-            self.layer:addChild(shildinglayer)
-            self.layer:addTo(self,6)
+            -- self.layer=cc.Layer:create()
+            -- local shildinglayer = Shieldingscreen:new()
+            -- self.layer:addChild(shildinglayer)
+            -- self.layer:addTo(self,6)
         end
         -- 取消屏蔽层 停止动作
         local function threestep()
-            print("three")
-            self.layer:removeFromParent()
+            -- self.layer:removeFromParent()
             self.grossini:stopActionByTag(22)
         end
 
 
-
-        -- 人物在屏幕左二分之一 点击在左边
-        -- if apoint <= self.visibleSize.width/2 and self.grossini:getPositionX()<=self.visibleSize.width/2  then
-        --     if self.bg:getPositionX()==0 then
-        --         print("345 hang ")
-        --         self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
-        --     end
-
-        --     if self.bg:getPositionX()<=0 then
-                
-        --         --
-        --         if self.bg:getPositionX()<= -self.visibleSize.width/2 then
-        --             --todo
-        --             print("355 hang")
-        --             self.bgmove=cc.MoveBy:create( math.abs(self.time), cc.p(-delta,self.bg:getPositionY()))
-        --             elseif self.bg:getPositionX()> -self.visibleSize.width/2 then
-        --                 self.bgmove=cc.MoveTo:create( math.abs(self.time), cc.p(0,self.bg:getPositionY()))
-        --         end
-                
-        --     end
-
-        --     elseif 
-        --         -- 点击在右边人物在左边
-        --         apoint>self.visibleSize.width/2 and self.grossini:getPositionX()<self.visibleSize.width/2  then
-        --         print("365 hang ")
-        --         self.girlmoveto = cc.MoveTo:create(math.abs(self.time1), cc.p(self.visibleSize.width/2 ,self.grossini:getPositionY()))
-            
-        --              --  人物在中间的时候
-        --         elseif self.grossini:getPositionX() >= self.visibleSize.width/2 then
-        --             print("369 hang")
-
-        --             if self.bg:getPositionX()>=1.2*self.visibleSize.width-self.bg:getContentSize().width  then
-        --                 print("376 hang ")
-        --                 self.bgmove=cc.MoveBy:create( math.abs(self.time), cc.p(-delta,self.bg:getPositionY()))
-                        
-        --             end
-        --             if self.bg:getPositionX()<= 1.2*self.visibleSize.width-self.bg:getContentSize().width
-        --                 and
-        --                 self.bg:getPositionX()>=self.visibleSize.width-self.bg:getContentSize().width
-        --                 then
-        --                 print("382 hang ")
-        --                 self.bgmove=cc.MoveTo:create( math.abs(self.time), cc.p(self.visibleSize.width-self.bg:getContentSize().width,self.bg:getPositionY()))
-        --             end
-        --                  -- 当画面在最左的时候人物的行走
-        --                  -- 画面在最左点击在右边，人物在中间或右边
-        --              if self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width and
-        --                 apoint>=self.visibleSize.width/2
-        --                 then
-        --                 print("389 hang ")
-        --                 self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
-        --                 -- 画面在最左点击在左边，人物在中间或右边
-        --                 elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width and
-        --                 apoint<self.visibleSize.width/2 then
-        --                 self.girlmoveto = cc.MoveTo:create(math.abs(self.time2), cc.p(self.visibleSize.width/2,self.grossini:getPositionY()))
-        --                     --todo
-        --             end
-                
-        --         end
-
-        -- local delay= cc.DelayTime:create(math.abs(self.time))
-        -- local bgdelay = cc.DelayTime:create(math.abs(self.time))
-        -- local bgsequence = cc.Sequence:create(self.bgmove)
-        -- if self.bg:getPositionX() == 0  and self.grossini:getPositionX() ~= self.visibleSize.width/2 then
-        --     print(" == 0  and ~= ")
-        --      self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
-        --     elseif self.bg:getPositionX() == 0 and self.grossini:getPositionX() == self.visibleSize.width/2 then
-        --         print("== 0  ==")
-        --         if apoint <= self.visibleSize.width/2  then
-        --             print("无delay ")
-        --             self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
-        --             else
-        --                 print(" 有 delay")
-        --                 self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-        --         end
-                
-        --         elseif self.grossini:getPositionX() >= self.visibleSize.width/2 and self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width then
-        --             print("girl >= /2 ")
-        --             if apoint <= self.visibleSize.width/2 and self.grossini:getPositionX() == self.visibleSize.width/2 and self.bg:getPositionX() ~= 0 then
-        --                 --todo
-        --                 print("zuo ")
-        --                 self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-        --                 else
-        --                     print("else ")
-        --                     self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
-        --             end
-                    
-        --             elseif self.bg:getPositionX() ~= 0  then
-        --                 print("delay ~= 0")
-        --                 self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-        -- end
---
         if apoint<self.visibleSize.width/2 then
             --点击在左边的时候
             print("l点击在左边的时候")
@@ -803,9 +1096,7 @@ function Mainscene:Girl_bg_move(touch, event)
                             self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
                             print("657")
             end
-            
             if self.bg:getPositionX()~=0 and self.bg:getPositionX() ~= self.visibleSize.width-self.bg:getContentSize().width then
-                
                 if apoint>self.visibleSize.width/2 then
                     if self.bg:getPositionX()+ self.visibleSize.width>apoint-self.visibleSize.width/2 then
                         self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
@@ -823,10 +1114,7 @@ function Mainscene:Girl_bg_move(touch, event)
                                 print("677")
                         end
                 end
-
                 else
-                    -- self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
-                    print("683")
             end
 
             else
@@ -834,23 +1122,8 @@ function Mainscene:Girl_bg_move(touch, event)
                 self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
         end
         self.grossini:runAction(self.sequence)
-        -- self.bg:runAction(self.bgmove)
 end
 
-function Mainscene:onEnter()
-    
-end
-
-function Mainscene:onExit()
-	print("onExit")
-end
-
-
-
- 
-function Mainscene:destroyScene()
-
-end
 
 return Mainscene
 

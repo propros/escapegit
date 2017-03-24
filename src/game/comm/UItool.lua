@@ -1,9 +1,23 @@
+
 UItool = class("UItool")
 
 --弹出框
 function UItool:message(...)
     local message = Message.new()   
     message:open(...)
+end
+
+function UItool:message2(...)
+    local message = Message2.new()
+    message:open(...)
+end
+function UItool:password(...)
+    local password = password.new()
+    password:open(...)
+end
+function UItool:message2removeFromParent()
+    local message = Message2.new()
+    message:removeFromParents()
 end
 
 function UItool:getRunningSceneObj()
@@ -14,6 +28,49 @@ end
 
 function UItool:getitem_location(item,bg)
 	return item+bg
+end
+
+function UItool:setString( key , value )
+    cc.UserDefault:getInstance():setStringForKey(key, value)
+    cc.UserDefault:getInstance():flush()
+    
+end
+
+-- 根据key获取字符串，default为获取失败时返回的默认值
+function UItool:getString( key , default)
+   local string=cc.UserDefault:getInstance():getStringForKey(key)
+
+   if isNull(string) then
+       return defauly
+   end
+
+    return string
+end
+-- bool类型
+function UItool:setBool( key , value )
+    cc.UserDefault:getInstance():setBoolForKey(key, value)
+    print("sound is :",cc.UserDefault:getInstance():getBoolForKey(key))
+print("··///·",cc.FileUtils:getInstance():getWritablePath())
+end
+
+-- 根据key获取字符串，default为获取失败时返回的默认值
+function UItool:getBool( key , default)
+    local value = cc.UserDefault:getInstance():getBoolForKey(key)
+   return value
+end
+
+function UItool:ifcontain( num )
+    for key,var in pairs(ModifyData.getTable()) do
+        print("varvarvarvar",var)
+        if var == num then
+            print("含有item， 可以",key)
+            return true
+
+            else
+                print("不含有 ")
+                -- return false
+        end
+    end
 end
 
 

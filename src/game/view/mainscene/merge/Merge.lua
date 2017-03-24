@@ -25,13 +25,16 @@ function Merge:initScene()
     self.merge_table = {}
 
     --返回button 
-    local button = ccui.Button:create("bu_back1.png","bu_back2.png")
+    local button = ccui.Button:create("cn/menu/bu_x.png","cn/menu/bu_x.png")
     button:setAnchorPoint(cc.p(1,1))
-    button:setPosition(cc.p(-button:getContentSize().width , self.visibleSize.height/3))        
+    button:setPosition(cc.p(self.bag:getContentSize().width , self.bag:getContentSize().height))        
     self.bag:addChild(button)
 
     button:addClickEventListener(function ( psender,event )
         self:removeFromParent();
+        UItool:setBool("merge", true)
+        print("按钮是不是不能点击",UItool:getBool("merge"))
+
     end)
     
     local onetextdata = Data.gettextData(2)
@@ -43,6 +46,7 @@ function Merge:initScene()
 
 -- 排列得到的item 
     for key,var in pairs(ModifyData.getTable()) do
+        
         local icon = Data.getItemData(var)
         self.sprite = cc.Sprite:create(icon.pic)
         local y = self.bag:getContentSize().height-(math.floor((key-1)/3)+1)*275
@@ -62,7 +66,7 @@ end
 
 function Merge:merge( )
 
-print("Merge:merge")
+    print("Merge:merge")
     self.bag:removeFromParent()
     self.merge = cc.Sprite:create("combination.png")
     self.merge:setAnchorPoint(cc.p(0,0))
@@ -115,12 +119,13 @@ print("Merge:merge")
     local function clickmerge( event, eventType)
 
         if eventType == TOUCH_EVENT_ENDED then
-            self.id=nil
+            if self.item_1 == nil or self.item_2 == nil  then
+                 UItool:message2("一个物品不能合成，")
+                else
+                   self.id=nil
             if self.item_1>self.item_2 then
                 print("self.item_1>self.item_2")
-                --删除button
-                self.merge_table[self.item_1]:removeFromParent()
-                self.merge_table[self.item_2]:removeFromParent()
+               
 
                 print("self.item_1: %f  self.item_2: %f ",self.item_1,self.item_2)
                 local alltable = ModifyData.getTable()
@@ -140,22 +145,21 @@ print("Merge:merge")
                         ModifyData.tableinsert(padlock_item.key)
                         print("&&&&&&padlock_item  : ",padlock_item.pic)
 
-                        if merged.nid==8 then
-                                Data.setItemappear(8,true)
-                            end
+                         --删除button
+                        self.merge_table[self.item_1]:removeFromParent()
+                        self.merge_table[self.item_2]:removeFromParent()
+
+                                --从self.merge_table表中删除 
+                        table.remove(self.merge_table,self.item_1)
+                        --从ModifyData.getTable() 表中删除
+                        table.remove(ModifyData.getTable(),self.item_1)
+                        
+                        table.remove(self.merge_table,self.item_2)
+                        table.remove(ModifyData.getTable(),self.item_2)
                             
                         break
                      end
                  end
-
-                --从self.merge_table表中删除 
-                table.remove(self.merge_table,self.item_1)
-                --从ModifyData.getTable() 表中删除
-                table.remove(ModifyData.getTable(),self.item_1)
-                
-                table.remove(self.merge_table,self.item_2)
-                table.remove(ModifyData.getTable(),self.item_2)
-
                 elseif self.item_1<self.item_2 then
                     print("self.item_1<self.item_2")
 
@@ -176,27 +180,23 @@ print("Merge:merge")
                             local padlock_item = Data.getItemData(merged.nid)
                             ModifyData.tableinsert(padlock_item.key)
                             print("*****padlock_item  : ",padlock_item.pic)
-                            if merged.nid==8 then
-                                Data.setItemappear(8,true)
-                            end
+
+                            --删除button
+                            self.merge_table[self.item_1]:removeFromParent()
+                            self.merge_table[self.item_2]:removeFromParent()
+                            --从表中删除
+                            table.remove(self.merge_table,self.item_2)
+                            table.remove(ModifyData.getTable(),self.item_2)
+                            
+                            table.remove(self.merge_table,self.item_1)
+                            table.remove(ModifyData.getTable(),self.item_1)
+                
                             break
                         end
                     end
-
-                    --删除button
-                    self.merge_table[self.item_1]:removeFromParent()
-                    self.merge_table[self.item_2]:removeFromParent()
-                    --从表中删除
-                    table.remove(self.merge_table,self.item_2)
-                    table.remove(ModifyData.getTable(),self.item_2)
-                    
-                    table.remove(self.merge_table,self.item_1)
-                    table.remove(ModifyData.getTable(),self.item_1)
-
-                    
-                    
             end
             self.he_btn:removeFromParent()
+            end
         end
     end
 
@@ -206,12 +206,14 @@ print("Merge:merge")
     self.he_btn:addClickEventListener(clickmerge)
 
 
-    local button = ccui.Button:create("bu_back1.png","bu_back2.png")
+    local button = ccui.Button:create("cn/menu/bu_x.png","cn/menu/bu_x.png")
     button:setAnchorPoint(cc.p(1,1))
     button:setPosition(cc.p(-button:getContentSize().width , self.visibleSize.height/2))        
     self.merge:addChild(button)
 
     button:addClickEventListener(function ( psender,event )
+        UItool:setBool("merge", true)
+        print("按钮是不是不能点击",UItool:getBool("merge"))
         self:removeFromParent();
     end)
     

@@ -24,32 +24,24 @@ function setItemappear(num , bool)
 	ITEM[num].appear = bool
 end
 
-
-
-
-
-
 --物品
 ITEM={}
 ITEM[1] = {key=1,pic="icon/bell.png",name="铃铛",appear=false}
 ITEM[2] = {key=2,pic="icon/book.png",name="书",appear=false}
 ITEM[3] = {key=3,pic="icon/box.png",name="箱子",appear=false}
-ITEM[4] = {key=4,pic="icon/elegant.png",name="图标",appear=false}
+ITEM[4] = {key=4,pic="icon/elegant_easyicon.png",name="护身符",appear=false}
 ITEM[5] = {key=5,pic="icon/key.png",name="钥匙",appear=false}
-ITEM[6] = {key=6,pic="icon/padlock.png",name="锁",appear=false}
+ITEM[6] = {key=6,pic="icon/doorkey.png",name="门钥匙",appear=false}
 ITEM[7] = {key=7,pic="icon/stamp.png",name="印章",appear=false}
 ITEM[8] = {key=8,pic="icon/water.png",name="墨水",appear=false}
-
+ITEM[9] = {key=9,pic="icon/paper.png",name="纸",appear=false}
+ITEM[10] = {key=10,pic="icon/mima3.png",name="密码3",appear=false}
+ITEM[11] = {key=11,pic="icon/scissors.png",name="剪刀",appear=false}
 
 MERGE={}
-MERGE[1] = {key=1,id={5,6},nid=8}
-MERGE[2] = {key=2,id={1,2},nid=1}
-MERGE[3] = {key=3,id={3,4},nid=2}
-MERGE[4] = {key=4,id={5,7},nid=3}
-MERGE[5] = {key=5,id={4,5},nid=4}
-MERGE[6] = {key=6,id={2,9},nid=5}
-MERGE[7] = {key=7,id={8,9},nid=6}
 
+MERGE[1] = {key=1,id={3,11},nid=8}
+MERGE[2] = {key=2,id={9,7},nid=10}
 
 
 
