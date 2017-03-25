@@ -25,7 +25,6 @@ function Mainscene:ctor()
     --家具
     self.furniture = self.bg:getChildByName("furniture")
 
-
     ---[[
 	self.grossini = cc.Sprite:create("walk/w1.png")
     self.grossini:setAnchorPoint(cc.p(0.5,0))
@@ -37,14 +36,18 @@ function Mainscene:ctor()
     -- 
     self.scheduler = nil -- 定时器
     self.goscheduler = nil --过关定时器
+    self.m_isAnimationing = nil 
 
     self:ontouch()
     self:AllButtons()
+
+    self.runtime = nil 
 
     local button = ccui.Button:create("bu_back1.png","bu_back1.png")
     button:setAnchorPoint(cc.p(1,1))
     button:setPosition(cc.p(self.visibleSize.width - button:getContentSize().width + 30 , self.visibleSize.height/1.03))        
     self:addChild(button,10)
+    button:setSwallowTouches(true)
 
     button:addClickEventListener(function ( psender,event )
         if  UItool:getBool("merge") then
@@ -52,13 +55,20 @@ function Mainscene:ctor()
             UItool:message2("你的物品栏是空的",30)
             else
                 UItool:setBool("merge", false)
-                print("bool 是true 还是 false ",UItool:getBool("merge"))
                 local merge = Merge:createScene()
                 self:addChild(merge,5)
             end
         end
         
     end)
+
+
+    local function update(delta)  
+        self:update(delta)  
+    end  
+    self:scheduleUpdateWithPriorityLua(update,0.1)
+
+
 end
 
 local bed_upnum = 1
@@ -109,6 +119,7 @@ function Mainscene:bedside_table()
     --床头柜
     print("bedside_table")
     if bedside_tablenum==2 then
+
         UItool:password("1502",1) -- 密码四
 
         else
@@ -133,8 +144,12 @@ function Mainscene:L_curtain()
     print("L_curtain")
 
     if L_curtainnum>1 then
-        
-        UItool:message2("（3572）",30)
+        local L_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("L_curtain"):getPositionX(), self.bg:getPositionX())
+        self:grossiniwalk()
+        self:Girl_bg_move( L_curtain_location1 ,function (  )
+            UItool:message2("（3572）",30)
+        end)
+
         else
             local function L_curtains(select)
                 if select == "yes" then
@@ -160,6 +175,7 @@ function Mainscene:R_curtain()
         -- self:R_curtain_tentimes()
         clicknum = clicknum+1
         if clicknum==5  then
+
            UItool:message2(" 你的到了一把钥匙放在了包里  ",30)
            local key_item = Data.getItemData(5)
            ModifyData.tableinsert(key_item.key)
@@ -755,7 +771,7 @@ end
 
 
 function Mainscene:AllButtons(  )
-    local AllButtons = 
+    self.AllButtons = 
     {
             self.furniture:getChildByName("L_curtain"),
             self.furniture:getChildByName("R_curtain"),
@@ -885,18 +901,35 @@ function Mainscene:AllButtons(  )
                                                                                                                                     elseif event:getName()=="yuan_frame" then
                                                                                                                                         print("yuan_frame")
                                                                                                                                         self:yuan_frame()
-                                                                                                                
-
-
-
-
-                        
+                                                                                                                 
             end
         end
     end
-    for key, var in pairs(AllButtons) do
-        var:addClickEventListener(renwu_haoyou_shezhiButtonClick)
+    for key, var in pairs(self.AllButtons) do
+        if self.grossini:getNumberOfRunningActions()>0 or self.bg:getNumberOfRunningActions()>0 then
+            print("状态在运行中。")
+            else
+                print("状态没有运行。")
+                var:addClickEventListener(renwu_haoyou_shezhiButtonClick)
+                var:setSwallowTouches(true)
+        end
     end
+end
+
+function Mainscene:update( delta )
+    
+    if self.grossini:getNumberOfRunningActions()>0 or self.bg:getNumberOfRunningActions()>0 then
+        for key, var in pairs(self.AllButtons) do
+            var:setTouchEnabled(false)
+            var:setSwallowTouches(true)
+        end
+        else
+            for key, var in pairs(self.AllButtons) do
+                var:setTouchEnabled(true)
+                var:setSwallowTouches(true)
+        end
+    end
+
 end
 
     --角色移动
@@ -933,13 +966,11 @@ function Mainscene:ontouch( ... )
 	--实现事件触发回调
 	local function onTouchBegan(touch, event)
 		--人物行走调用
+        self.m_isAnimationing = true
         if self.grossini:getNumberOfRunningActions()>0 or self.bg:getNumberOfRunningActions()>0 then
-            print("正在执行动作，")
-            print("执行动作等个数",self.grossini:getNumberOfRunningActions(),self.bg:getNumberOfRunningActions())
             self.grossini:stopAllActions()
             self.bg:stopAllActions()
             else
-                print("没有执行动作")
         end
         self:grossiniwalk()
         return true
@@ -951,7 +982,7 @@ function Mainscene:ontouch( ... )
 
 	local function onTouchEnded(touch, events)
         local touchs= touch:getLocation()
-        self:Girl_bg_move(touchs.x, events)
+        self:Girl_bg_move(touchs.x)
 	end
 	local listener = cc.EventListenerTouchOneByOne:create() -- 创建一个事件监听器
 	listener:setSwallowTouches(true)
@@ -974,7 +1005,7 @@ function Mainscene:Girl_bg_move(touch, event)
         local x = apoint-self.visibleSize.width/2
         local x2 = self.bg:getPositionX()+ self.visibleSize.width
     --速度
-        local speed = 140
+        local speed = 160
     --时间
         self.time = delta / speed  --普通距离
         self.time1 = math.abs((math.abs(delta)-math.abs(x)))/speed -- 人物到中间的时候
@@ -994,11 +1025,19 @@ function Mainscene:Girl_bg_move(touch, event)
             -- self.layer:addTo(self,6)
         end
         -- 取消屏蔽层 停止动作
+        self.callback = function () end 
         local function threestep()
             -- self.layer:removeFromParent()
             self.grossini:stopActionByTag(22)
+            event = event or nil 
+            if event ~= nil  then
+                print("event  ~= nil ")
+                event()
+                else
+                    print("event == nil ")
+                    
+            end
         end
-
 
         if apoint<self.visibleSize.width/2 then
             --点击在左边的时候
@@ -1009,13 +1048,14 @@ function Mainscene:Girl_bg_move(touch, event)
                 if self.bg:getPositionX()==0 then
                     print("l地图在原点")
                     self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
-
+                    self.runtime = math.abs(self.time)
                 end
                 
                 elseif self.grossini:getPositionX()>self.visibleSize.width/2 then
                     --人物在右边的时候
                     print("l人物在右边的时候")
                     self.girlmoveto = cc.MoveTo:create(math.abs(self.time1), cc.p(self.visibleSize.width/2 ,self.grossini:getPositionY()))
+                    self.runtime = math.abs(self.time1)
                     elseif self.grossini:getPositionX()==self.visibleSize.width/2 then
                         --人物在中间的时候
                         print("l人物在中间的时候")
@@ -1025,13 +1065,16 @@ function Mainscene:Girl_bg_move(touch, event)
                                 print("l地图小于")
                                 self.bgmove=cc.MoveBy:create( math.abs(self.time), cc.p(-delta,self.bg:getPositionY()))
                                 self.bg:runAction(self.bgmove)
+                                self.runtime = math.abs(self.time)
                                 else
                                     print("l地图大于")
                                     self.bgmove=cc.MoveTo:create( math.abs(self.time2), cc.p(0,self.bg:getPositionY()))
+                                    self.runtime = math.abs(self.time2)
                                     self.bg:runAction(self.bgmove)
                             end
                             elseif self.bg:getPositionX()==0 then
                                 self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
+                                self.runtime = math.abs(self.time)
                         end
             end
 
@@ -1044,27 +1087,30 @@ function Mainscene:Girl_bg_move(touch, event)
                     if self.bg:getPositionX()==0 then
                         print("r地图在原点")
                         self.girlmoveto = cc.MoveTo:create(math.abs(self.time1), cc.p(self.visibleSize.width/2 ,self.grossini:getPositionY()))
+                        self.runtime = math.abs(self.time1)
                     end
                 
                 elseif self.grossini:getPositionX()>self.visibleSize.width/2 then
                     --人物在右边的时候
                     print("r人物在右边的时候")
                     self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
-
+                    self.runtime = math.abs(self.time)
                      elseif self.grossini:getPositionX()==self.visibleSize.width/2 then
                         print("r人物在中间的时候")
                         if self.bg:getPositionX() <= 0 and self.bg:getPositionX() > self.visibleSize.width-self.bg:getContentSize().width then
                             if self.bg:getPositionX()+ self.visibleSize.width>apoint-self.visibleSize.width/2 then
                                 self.bgmove=cc.MoveBy:create( math.abs(self.time), cc.p(-delta,self.bg:getPositionY()))
+                                self.runtime = math.abs(self.time)
                                 self.bg:runAction(self.bgmove)
                                 else
                                     self.bgmove=cc.MoveTo:create( math.abs(self.time3), cc.p(self.visibleSize.width-self.bg:getContentSize().width,self.bg:getPositionY()))
                                     self.bg:runAction(self.bgmove)
+                                    self.runtime = math.abs(self.time3)
                             end
                             elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width then
                                 print("r画面在最左的时候")
                                 self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
-                            
+                                self.runtime = math.abs(self.time)
                         end
             end
             
@@ -1080,38 +1126,37 @@ function Mainscene:Girl_bg_move(touch, event)
 
             if self.bg:getPositionX() == 0 and apoint > self.visibleSize.width/2  then
                 self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-                print("643")
+                
                 elseif self.bg:getPositionX() == 0 and apoint < self.visibleSize.width/2 then
 
                     self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
-                    print("647")
+                    
                     elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width and 
                     apoint >self.visibleSize.width/2  then
 
                         self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
-                        print("652")
+                        
                         elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width and
                     apoint < self.visibleSize.width/2 then
 
                             self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-                            print("657")
+                            
             end
             if self.bg:getPositionX()~=0 and self.bg:getPositionX() ~= self.visibleSize.width-self.bg:getContentSize().width then
                 if apoint>self.visibleSize.width/2 then
                     if self.bg:getPositionX()+ self.visibleSize.width>apoint-self.visibleSize.width/2 then
                         self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-                        print("666")
+                        
                         else
                             self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay3,self.girlmoveto,cc.CallFunc:create(threestep))
-                            print("669")
+                            
                     end
                     else
                         if self.bg:getPositionX()<delta then
                             self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-                            print("674")
+                            
                             else
                                 self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay2,self.girlmoveto,cc.CallFunc:create(threestep))
-                                print("677")
                         end
                 end
                 else

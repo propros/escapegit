@@ -12,9 +12,9 @@ function Loading:onCreate()
     UItool:setBool("merge", true) -- 物品栏是否可以点击
     
 --测试物品栏
-    for i=1,6 do
-        ModifyData.tableinsert(i)
-    end
+    -- for i=1,6 do
+    --     ModifyData.tableinsert(i)
+    -- end
 
     local function wardrobecallback( )
     	--衣柜
@@ -25,7 +25,15 @@ function Loading:onCreate()
     end
 
     local function settingcallback( )
-        UItool:message("设置",45)
+        local timer = TimerExBuf()
+        timer:create(3,1,1)
+        function timer:onTime()
+            UItool:message("设置",45)
+            timer:stop()
+        end
+        timer:start()
+
+        
         
     end
     print(type(settingcallback))

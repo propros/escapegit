@@ -10,4 +10,9 @@ require("game/view/mainscene/view/Mainscene")
 require("data/ModifyData")
 require("game/comm/Config")
 require("game/view/mainscene/password/password")
+require("game/comm/TimerTgr")
+
+-- require("game/comm/StateMachine")
+-- require("game/comm/Component")
+
 

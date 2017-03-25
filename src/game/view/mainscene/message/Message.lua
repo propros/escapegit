@@ -67,7 +67,6 @@ function  Message:addButton(info)
             if eventType==TOUCH_EVENT_ENDED then
                 --有注册回调函数
                 if type(self.callback) == "function" then
-                	
                     if self.parameters then
                     	print("yyyyyyyyyyyy")
                         self.callback(self.parameters, sender:getName())

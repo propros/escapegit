@@ -120,9 +120,9 @@ function PlayerLayer:OnTouchBegan(touch, event)
         self.m_srcSushi = nil  
         self.m_destSushi = nil  
         if self.m_isTouchEnable then  
-            local location = touch:getLocation()  
+            local location = touch:getLocation()
             self.m_srcSushi = self:sushiOfPoint(location)  
-        end  
+        end
         return self.m_isTouchEnable;  
     end  
     return false  
@@ -131,7 +131,7 @@ end
 function PlayerLayer:onTouchMoved(touch, event)  
     if not self.m_isTouchEnable or not self.m_srcSushi then  
         return  
-    end  
+    end
     local row = self.m_srcSushi:getRow()  
     local col = self.m_srcSushi:getCol()  
     local location = touch:getLocation()  
@@ -142,8 +142,8 @@ function PlayerLayer:onTouchMoved(touch, event)
         self.m_srcSushi:getPositionX() - halfSushiWidth,  
         self.m_srcSushi:getPositionY() + halfSushiHeight,  
         self.m_srcSushi:getContentSize().width,  
-        self.m_srcSushi:getContentSize().height  
-    )  
+        self.m_srcSushi:getContentSize().height
+    )
     if cc.rectContainsPoint(upRect,location) then  
         row = row + 1  
         if row <= self.m_height then  

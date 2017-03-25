@@ -11,17 +11,6 @@ function password:ctor( )
     local shildinglayer = Shieldingscreen:new()
     self:addChild(shildinglayer)
     self:addChild(self.panel)
-
-    local closebutton = self.bg:getChildByName("OK")
-    closebutton:addClickEventListener(function(psender,event)
-        if self.TextFieldstring == self.bg:getChildByName("TextField_1"):getString() then
-        	self:removeFromParent()
-        	else
-        	    self:removeFromParent()
-        		UItool:message2("密码不正确",30)
-        end
-    end)
-
 end
 
 function password:open( ... )
@@ -48,6 +37,14 @@ function password:setpassword(str,itemnum)
         	self.TextFieldstring = str
         end
         if self.TextFieldstring == self.bg:getChildByName("TextField_1"):getString() then
+        	
+        end
+    end
+    self.bg:getChildByName("TextField_1"):addEventListener(textFieldEvent) 
+
+    local OKbutton = self.bg:getChildByName("OK")
+    OKbutton:addClickEventListener(function(psender,event)
+        if self.TextFieldstring == self.bg:getChildByName("TextField_1"):getString() then
         	if itemnum == nil  then
         		UItool:message2("里面是空的。",30)
         		self:removeFromParent()
@@ -59,14 +56,15 @@ function password:setpassword(str,itemnum)
 			        	Data.getItemData(itemnum).appear = true 
 			        	self:removeFromParent()
 		        	else
-		        		UItool:message2(" 里面没东西了  ",30)
+		        		UItool:message2(" 里面已经没东西了  ",30)
 			        	self:removeFromParent()
-
         			end
         	end
+        	else
+        	    self:removeFromParent()
+        		UItool:message2("密码不正确",30)
         end
-    end
-    self.bg:getChildByName("TextField_1"):addEventListener(textFieldEvent) 
+    end)
 end
 
 
