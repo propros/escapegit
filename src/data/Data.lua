@@ -30,17 +30,17 @@ end
 
 --物品
 ITEM={}
-ITEM[1] = {key=1,pic="icon/bell.png",name="铃铛",appear=false}
-ITEM[2] = {key=2,pic="icon/book.png",name="书",appear=false}
-ITEM[3] = {key=3,pic="icon/box.png",name="箱子",appear=false}
-ITEM[4] = {key=4,pic="icon/elegant_easyicon.png",name="护身符",appear=false}
-ITEM[5] = {key=5,pic="icon/key.png",name="钥匙",appear=false}
-ITEM[6] = {key=6,pic="icon/doorkey.png",name="门钥匙",appear=false}
-ITEM[7] = {key=7,pic="icon/stamp.png",name="印章",appear=false}
-ITEM[8] = {key=8,pic="icon/water.png",name="墨水",appear=false}
-ITEM[9] = {key=9,pic="icon/paper.png",name="纸",appear=false}
-ITEM[10] = {key=10,pic="icon/mima3.png",name="密码3",appear=false}
-ITEM[11] = {key=11,pic="icon/scissors.png",name="剪刀",appear=false}
+ITEM[1] = {key=1,pic="icon/bell.png",name="铃铛",appear=false,ifcontain = true}
+ITEM[2] = {key=2,pic="icon/book.png",name="书",appear=false,ifcontain = true}
+ITEM[3] = {key=3,pic="icon/box.png",name="箱子",appear=false,ifcontain = true}
+ITEM[4] = {key=4,pic="icon/elegant_easyicon.png",name="护身符",appear=false,ifcontain = true}
+ITEM[5] = {key=5,pic="icon/key.png",name="钥匙",appear=false,ifcontain = true}
+ITEM[6] = {key=6,pic="icon/doorkey.png",name="门钥匙",appear=false,ifcontain = true}
+ITEM[7] = {key=7,pic="icon/stamp.png",name="印章",appear=false,ifcontain = true}
+ITEM[8] = {key=8,pic="icon/water.png",name="墨水",appear=false,ifcontain = true}
+ITEM[9] = {key=9,pic="icon/paper.png",name="纸",appear=false,ifcontain = true}
+ITEM[10] = {key=10,pic="icon/mima3.png",name="密码3",appear=false,ifcontain = true}
+ITEM[11] = {key=11,pic="icon/scissors.png",name="剪刀",appear=false,ifcontain = true}
 
 MERGE={}
 

@@ -49,11 +49,11 @@ function password:setpassword(str,itemnum)
         		UItool:message2("里面是空的。",30)
         		self:removeFromParent()
         		else
-        			if Data.getItemData(itemnum).appear == false  then
+        			if Data.getItemData(itemnum).ifcontain == true  then
         				self.key_item = Data.getItemData(itemnum)
 			        	ModifyData.tableinsert(self.key_item.key)
 			        	UItool:message2("密码正确，你的到了 "..self.key_item.name,30)
-			        	Data.getItemData(itemnum).appear = true 
+			        	Data.getItemData(itemnum).ifcontain = false 
 			        	self:removeFromParent()
 		        	else
 		        		UItool:message2(" 里面已经没东西了  ",30)

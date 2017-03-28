@@ -65,304 +65,153 @@ function Mainscene:ctor()
     
 end
 
-local bed_upnum = 1
 function Mainscene:bed_up()
     --床上
     print("bed_up")
-    if bed_upnum>1 then
-        
-        local bed_up_location1 = UItool:getitem_location(self.furniture:getChildByName("bed_up"):getPositionX(), self.bg:getPositionX())
-        self.grossini:getAnimation():play("walk")
-        self:Girl_bg_move( bed_up_location1 ,function (  )
-            UItool:message2("墙上怎么挂着别人的照片",30)
-        end)
-        else
-            local function bed_ups( select )
-                if select == "yes" then
-                    local bed_up_location = UItool:getitem_location(self.furniture:getChildByName("bed_up"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( bed_up_location ,event)
-                    bed_upnum = bed_upnum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,bed_ups)
-    end
+    local bed_up_location1 = UItool:getitem_location(self.furniture:getChildByName("bed_up"):getPositionX(), self.bg:getPositionX())
+    self.grossini:getAnimation():play("walk")
+    self:Girl_bg_move( bed_up_location1 ,function (  )
+        UItool:message2("墙上怎么挂着别人的照片",30)
+    end)
 end
 
-local bed_downnum = 1
 function Mainscene:bed_down()
     --床底
-    if bed_downnum>1 then
-        
-        local bed_down_location1 = UItool:getitem_location(self.furniture:getChildByName("bed_down"):getPositionX(), self.bg:getPositionX())
-        self.grossini:getAnimation():play("walk")
-        self:Girl_bg_move( bed_down_location1 ,function (  )
-            UItool:message2("花瓶好漂亮啊",30)
-        end)
-        else
-            local function bed_downs( select )
-                if select == "yes" then
-                    local bed_down_location = UItool:getitem_location(self.furniture:getChildByName("bed_down"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( bed_down_location ,event)
-                    bed_downnum = bed_downnum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,bed_downs)
-    end
+    local bed_down_location1 = UItool:getitem_location(self.furniture:getChildByName("bed_down"):getPositionX(), self.bg:getPositionX())
+    self.grossini:getAnimation():play("walk")
+    self:Girl_bg_move( bed_down_location1 ,function (  )
+        UItool:message2("花瓶好漂亮啊",30)
+    end)
 end 
 
-local bedside_tablenum = 1
 function Mainscene:bedside_table()
     --床头柜
     print("bedside_table")
-    if bedside_tablenum==2 then
         local bedside_table_location1 = UItool:getitem_location(self.furniture:getChildByName("bedside_table"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( bedside_table_location1 ,function (  )
+            
+            if Data.getItemData(1).ifcontain == true  then
             UItool:password("1502",1) -- 密码四
+            else
+                UItool:message2("已经获得了"..Data.getItemData(1).name,30)
+        end
+
         end)
-
-        else
-            local function bedside_tables( select )
-                if select == "yes" then
-                    local bedside_table_location = UItool:getitem_location(self.furniture:getChildByName("bedside_table"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( bedside_table_location ,event)
-                    bedside_tablenum = bedside_tablenum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,bedside_tables)
-    end
 end
 
-local L_curtainnum = 1
 function Mainscene:L_curtain()
     --左窗帘
     print("L_curtain")
-
-    if L_curtainnum>1 then
         local L_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("L_curtain"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( L_curtain_location1 ,function (  )
             UItool:message2("（3572）",30)
         end)
-
-        else
-            local function L_curtains(select)
-                if select == "yes" then
-                    print(" L_curtains  yes ")
-                    local L_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("L_curtain"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( L_curtain_location1 ,event)
-                    L_curtainnum = L_curtainnum + 1
-                    elseif select == "no" then    
-                    print("  no ")  
-                end
-            end
-            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,L_curtains)
-    end
 end
 
 local clicknum = 0
-local R_curtainnum = 1
 function Mainscene:R_curtain()
-    --右窗帘
+    --右窗帘  多次点击
     print("R_curtain")
-    if R_curtainnum>1 then        
-        -- self:R_curtain_tentimes()
-        clicknum = clicknum+1
-        if clicknum==5  then
+        
+       
             local R_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("R_curtain"):getPositionX(), self.bg:getPositionX())
             self.grossini:getAnimation():play("walk")
             self:Girl_bg_move( R_curtain_location1 ,function (  )
-                UItool:message2(" 你的到了一把钥匙放在了包里  ",30)
-                local key_item = Data.getItemData(5)
-                ModifyData.tableinsert(key_item.key)
-            end)
-           
-        end
-        print("number == %d",clicknum)
-        else
-            local function R_curtains(select)
-                if select == "yes" then
-                    print("是的")
-                    local R_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("R_curtain"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( R_curtain_location1 ,event)
-                    R_curtainnum = R_curtainnum + 1
-
-                    elseif select == "no" then
-                        print("不去")
+                clicknum = clicknum+1
+                UItool:message2("有效点击次数"..clicknum , 30)
+                 if clicknum==5  then
+                    UItool:message2(" 你的到了一把钥匙放在了包里  ",30)
+                    local key_item = Data.getItemData(5)
+                    ModifyData.tableinsert(key_item.key)
+                    elseif clicknum > 5  then
+                        UItool:message2("只剩下窗帘了",30)
                 end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,R_curtains)
                 
-    end
+            end)
+            
+           
+        
+        print("number == %d",clicknum)
 end
 
-local toilet_glassnum = 1
 function Mainscene:toilet_glass()
     --梳妆台-镜子
     print("toilet_glass")
-    if toilet_glassnum>1 then
-        
-        local toilet_glass_location1 = UItool:getitem_location(self.furniture:getChildByName("toilet_glass"):getPositionX(), self.bg:getPositionX())
-            self.grossini:getAnimation():play("walk")
-            self:Girl_bg_move( toilet_glass_location1 ,function (  )
-                UItool:message2(" 我倒映出了凳子 ",30 )
-            end)
-        else
-            local function toilet_glasss(select)
-                if select == "yes" then
-                    print("是的")
-                    local toilet_glass_location1 = UItool:getitem_location(self.furniture:getChildByName("toilet_glass"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( toilet_glass_location1 ,event)
-                    toilet_glassnum = toilet_glassnum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,toilet_glasss)
-    end
+    local toilet_glass_location1 = UItool:getitem_location(self.furniture:getChildByName("toilet_glass"):getPositionX(), self.bg:getPositionX())
+        self.grossini:getAnimation():play("walk")
+        self:Girl_bg_move( toilet_glass_location1 ,function (  )
+            UItool:message2(" 我倒映出了凳子 ",30 )
+        end)
 end
-
 local toilet_drawernum = 1
 function Mainscene:toilet_drawer()
     --梳妆台-抽屉
     print("toilet_drawer")
-    if toilet_drawernum>1 then
-        
-        local toilet_drawer_location = UItool:getitem_location(self.furniture:getChildByName("toilet_drawer"):getPositionX(), self.bg:getPositionX())
-            self.grossini:getAnimation():play("walk")
-            self:Girl_bg_move( toilet_drawer_location ,function (  )
-                UItool:password("0311",11)
-            end)
-        else
-            local function toilet_drawers( select )
-                if select == "yes" then
-                    local toilet_drawer_location = UItool:getitem_location(self.furniture:getChildByName("toilet_drawer"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( toilet_drawer_location ,event)
-                    toilet_drawernum = toilet_drawernum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,toilet_drawers)
-    end
+    local toilet_drawer_location = UItool:getitem_location(self.furniture:getChildByName("toilet_drawer"):getPositionX(), self.bg:getPositionX())
+        self.grossini:getAnimation():play("walk")
+        self:Girl_bg_move( toilet_drawer_location ,function (  )
+            
+            if Data.getItemData(11).ifcontain == true  then
+            UItool:password("0311",11) -- 密码四
+            else
+                UItool:message2("已经获得了"..Data.getItemData(11).name,30)
+        end
+        end)
 end
-local stoolnum = 1
+
 function Mainscene:stool()
     --凳子
     print("stool")
-    if stoolnum>1 then
-        
-        local stool_location = UItool:getitem_location(self.furniture:getChildByName("stool"):getPositionX(), self.bg:getPositionX())
-            self.grossini:getAnimation():play("walk")
-            self:Girl_bg_move( stool_location ,function (  )
-                UItool:message2(" 两个物品加起来可能会更有效 ",30 )
-            end)
-        else
-            local function stools(select)
-                if select == "yes" then
-                    print("是的")
-                    local stool_location = UItool:getitem_location(self.furniture:getChildByName("stool"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( stool_location ,event)
-                    stoolnum = stoolnum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,stools)
-    end
-
+    local stool_location = UItool:getitem_location(self.furniture:getChildByName("stool"):getPositionX(), self.bg:getPositionX())
+        self.grossini:getAnimation():play("walk")
+        self:Girl_bg_move( stool_location ,function (  )
+            UItool:message2(" 两个物品加起来可能会更有效 ",30 )
+        end)
 end
 
-local wardrobenum = 1
 function Mainscene:wardrobe()
     --衣柜
     print("wardrobe")
-    if wardrobenum>1 then
-        
             
-            local wardrobe_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe"):getPositionX(), self.bg:getPositionX())
-                self.grossini:getAnimation():play("walk")
-                self:Girl_bg_move( wardrobe_location1 ,function (  )
-                    if UItool:ifcontain( 5 ) then
-                        UItool:message2(" 得到一个箱子 ,钥匙消失 ",30 )
-                        local key_item = Data.getItemData(3)
-                        ModifyData.tableinsert(key_item.key)
-                        for i=1,#ModifyData.getTable() do
-                            if ModifyData.getTable()[i] == 5 then
-                                table.remove(ModifyData.getTable(),i) 
-                                break
-                            end
-                        end
-                        else
-                            UItool:message2(" 你还没得到能打开衣柜的东西呢 ",30 )
+    local wardrobe_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe"):getPositionX(), self.bg:getPositionX())
+        self.grossini:getAnimation():play("walk")
+        self:Girl_bg_move( wardrobe_location1 ,function (  )
+            if UItool:ifcontain( 5 ) then
+                UItool:message2(" 得到一个箱子 ,钥匙消失 ",30 )
+                local key_item = Data.getItemData(3)
+                ModifyData.tableinsert(key_item.key)
+                for i=1,#ModifyData.getTable() do
+                    if ModifyData.getTable()[i] == 5 then
+                        table.remove(ModifyData.getTable(),i) 
+                        break
                     end
-                
-            end)
-            
-        
-        else
-            local function wardrobess(select)
-                if select == "yes" then
-                    print("是的")
-                    local wardrobe_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( wardrobe_location1 ,event)
-                    wardrobenum = wardrobenum + 1
-                    elseif select == "no" then
-                        print("不去")
                 end
+                else
+                    UItool:message2(" 你还没得到能打开衣柜的东西呢 ",30 )
             end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,wardrobess)
-    end
+        
+    end)
 end
 
 local cushionnum = 1
 function Mainscene:cushion()
     --靠垫
     print("cushion")
-    if cushionnum>1 then
            
-            local cushion_location1 = UItool:getitem_location(self.furniture:getChildByName("cushion"):getPositionX(), self.bg:getPositionX())
-            self.grossini:getAnimation():play("walk")
-            self:Girl_bg_move( cushion_location1 ,function (  )
-                UItool:message2(" 得到一个护身符 ",30 )
-               local key_item = Data.getItemData(4)
-                ModifyData.tableinsert(key_item.key)
-            end)
+    local cushion_location1 = UItool:getitem_location(self.furniture:getChildByName("cushion"):getPositionX(), self.bg:getPositionX())
+    self.grossini:getAnimation():play("walk")
+    self:Girl_bg_move( cushion_location1 ,function (  )
+        if cushionnum==1 then
+            UItool:message2(" 得到一个护身符 ",30 )
+           local key_item = Data.getItemData(4)
+            ModifyData.tableinsert(key_item.key)
+            cushionnum = cushionnum +1
         else
-            local function cushions(select)
-                if select == "yes" then
-                    print("是的")
-                    local cushion_location1 = UItool:getitem_location(self.furniture:getChildByName("cushion"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( cushion_location1 ,event)
-                    cushionnum = cushionnum + 1
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,cushions)
-    end
+            UItool:message2(" 你已经有一个了护身符了  ",30 )
+        end
+    end)
 end
 
 
@@ -370,81 +219,34 @@ local B_vasenum = 1
 function Mainscene:B_vase()
     --大花瓶
     print("B_vase")
-    if B_vasenum>1 then
-            local B_vase_location1 = UItool:getitem_location(self.furniture:getChildByName("B_vase"):getPositionX(), self.bg:getPositionX())
-            self.grossini:getAnimation():play("walk")
-            self:Girl_bg_move( B_vase_location1 ,function (  )
-                UItool:message2(" 鲜花插在花瓶中 ",30 )
-            end)
-        else
-            local function B_vases(select)
-                if select == "yes" then
-                    print("是的")
-                    local B_vase_location1 = UItool:getitem_location(self.furniture:getChildByName("B_vase"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( B_vase_location1 ,event)
-                    B_vasenum = B_vasenum + 1
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,B_vases)
-    end
+    local B_vase_location1 = UItool:getitem_location(self.furniture:getChildByName("B_vase"):getPositionX(), self.bg:getPositionX())
+    self.grossini:getAnimation():play("walk")
+    self:Girl_bg_move( B_vase_location1 ,function (  )
+        UItool:message2(" 鲜花插在花瓶中 ",30 )
+    end)
 end
 
-local S_vasenum = 1
+
 function Mainscene:S_vase()
     --小花瓶
     print("S_vase")
-    if S_vasenum>1 then
         
         local S_vase_location1 = UItool:getitem_location(self.furniture:getChildByName("S_vase"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( S_vase_location1 ,function ()
             UItool:message2(" 你好像在找东西，1502 ",30 )
         end)
-        else
-            local function S_vases(select)
-                if select == "yes" then
-                    print("是的")
-                    local S_vase_location1 = UItool:getitem_location(self.furniture:getChildByName("S_vase"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( S_vase_location1 ,event)
-                    S_vasenum = S_vasenum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,S_vases)
-    end
 end
 
 local sofabacknum = 1
 function Mainscene:sofaback()
     --沙发背
     print("sofaback")
-    if sofabacknum>1 then
-        local sofaback_location1 = UItool:getitem_location(self.furniture:getChildByName("sofaback"):getPositionX(), self.bg:getPositionX())
-        self.grossini:getAnimation():play("walk")
-        self:Girl_bg_move( sofaback_location1 ,function ()
-            UItool:message2(" 沙发不能移动 ",30 )
-        end)
-        
-        else
-            local function sofabacks(select)
-                if select == "yes" then
-                    print("是的")
-                    local sofaback_location1 = UItool:getitem_location(self.furniture:getChildByName("sofaback"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( sofaback_location1 ,event)
-                    sofabacknum = sofabacknum + 1
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,sofabacks)
-    end
+    local sofaback_location1 = UItool:getitem_location(self.furniture:getChildByName("sofaback"):getPositionX(), self.bg:getPositionX())
+    self.grossini:getAnimation():play("walk")
+    self:Girl_bg_move( sofaback_location1 ,function ()
+        UItool:message2(" 沙发不能移动 ",30 )
+    end)
 end
 
 
@@ -453,316 +255,177 @@ local bookshelf_onenum = 1
 function Mainscene:bookshelf_one()
     --书架一
     print("bookshelf_one")
-    if bookshelf_onenum>1 then
        
         local bookshelf_one_location1 = UItool:getitem_location(self.furniture:getChildByName("bookshelf_one"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( bookshelf_one_location1 ,function ()
             UItool:message2(" 这都是书  ",30 )
         end)
-        else
-            local function bookshelf_ones(select)
-                if select == "yes" then
-                    print("是的")
-                    local bookshelf_one_location1 = UItool:getitem_location(self.furniture:getChildByName("bookshelf_one"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( bookshelf_one_location1 ,event)
-                    bookshelf_onenum = bookshelf_onenum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,bookshelf_ones)
-    end
 end
 
-local bookshelf_twonum = 1
+local bookshelf_twonum = 0
 function Mainscene:bookshelf_two()
-    --书架二
+    --书架二  多次点击
     print("bookshelf_two")
-    if bookshelf_twonum>1 then
-        if bookshelf_twonum == 4  then
-            local bookshelf_two_location1 = UItool:getitem_location(self.furniture:getChildByName("bookshelf_two"):getPositionX(), self.bg:getPositionX())
-            self.grossini:getAnimation():play("walk")
-            self:Girl_bg_move( bookshelf_two_location1 ,function ()
+    
+        local bookshelf_two_location1 = UItool:getitem_location(self.furniture:getChildByName("bookshelf_two"):getPositionX(), self.bg:getPositionX())
+        self.grossini:getAnimation():play("walk")
+        self:Girl_bg_move( bookshelf_two_location1 ,function ()
+            bookshelf_twonum = bookshelf_twonum + 1
+            UItool:message2("有效点击次数"..bookshelf_twonum , 30)
+            if bookshelf_twonum == 5  then
                 local key_item = Data.getItemData(9)
                 ModifyData.tableinsert(key_item.key) 
                 UItool:message2("得到了一张纸",30)
-        end)
-            
-        end
-        bookshelf_twonum = bookshelf_twonum + 1
-        else
-            local function bookshelf_twonums( select )
-                if select == "yes" then
-                    local bookshelf_two_location = UItool:getitem_location(self.furniture:getChildByName("bookshelf_two"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( bookshelf_two_location ,event)
-                    bookshelf_twonum = bookshelf_twonum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
+                elseif bookshelf_twonum >5 then
+                    --todo
+                    UItool:message2("已经没有纸可以拿了",30)
             end
-            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,bookshelf_twonums)
-    end
-
+            
+            
+    end)
+        
+    
+    
 end
 
 local L_drawernum = 1
 function Mainscene:L_drawer()
     print("L_drawer")
-    if L_drawernum>1 then
            
         local L_drawer_location1 = UItool:getitem_location(self.furniture:getChildByName("L_drawer"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( L_drawer_location1 ,function ()
             UItool:password("3572")
+
+        --     if Data.getItemData(7).ifcontain == true  then
+        --     UItool:password("1837",7)
+        --     else
+        --         UItool:message2("已经获得了"..Data.getItemData(7).name,30)
+        -- end
+
         end)
-        else
-            local function L_drawers(select)
-                if select == "yes" then
-                    print("是的")
-                    local L_drawer_location1 = UItool:getitem_location(self.furniture:getChildByName("L_drawer"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( L_drawer_location1 ,event)
-                    L_drawernum = L_drawernum + 1
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,L_drawers)
-    end
 end
 
 local R_drawernum = 1
 function Mainscene:R_drawer()
     print("R_drawer")
-    if R_drawernum>1 then
-        local R_drawer_location1 = UItool:getitem_location(self.furniture:getChildByName("R_drawer"):getPositionX(), self.bg:getPositionX())
-        self.grossini:getAnimation():play("walk")
-        self:Girl_bg_move( L_drawer_location1 ,function ()
+    local R_drawer_location1 = UItool:getitem_location(self.furniture:getChildByName("R_drawer"):getPositionX(), self.bg:getPositionX())
+    self.grossini:getAnimation():play("walk")
+    self:Girl_bg_move( R_drawer_location1 ,function ()
+        
+        if Data.getItemData(6).ifcontain == true  then
             UItool:password("1011",6) -- 密码3
-        end)
-        else
-            local function R_drawers( select )
-                if select == "yes" then
-                    local R_drawer_location = UItool:getitem_location(self.furniture:getChildByName("R_drawer"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( R_drawer_location ,event)
-                    R_drawernum = R_drawernum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,R_drawers)
-    end
+            else
+                UItool:message2("已经获得了"..Data.getItemData(6).name,30)
+        end
+    end)
 
 end
 
 local booknum = 1
 function Mainscene:book()
     print("book")
-    if booknum>1 then
-        local book_location1 = UItool:getitem_location(self.furniture:getChildByName("book"):getPositionX(), self.bg:getPositionX())
-        self.grossini:getAnimation():play("walk")
-        self:Girl_bg_move( book_location1 ,function ()
-            UItool:message2("  书是人类进步的阶梯  ",30) 
-        end)
-        else
-            local function books( select )
-                if select == "yes" then
-                    local book_location = UItool:getitem_location(self.furniture:getChildByName("book"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( book_location ,event)
-                    booknum = booknum + 1
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,books)
-    end
+    local book_location1 = UItool:getitem_location(self.furniture:getChildByName("book"):getPositionX(), self.bg:getPositionX())
+    self.grossini:getAnimation():play("walk")
+    self:Girl_bg_move( book_location1 ,function ()
+        UItool:message2("  书是人类进步的阶梯  ",30) 
+    end)
 end
 
 local Pintunum = 1
 function Mainscene:Pintu()
     print("Pintu")
-    if Pintunum>1 then
-        
-        local Pintu_location = UItool:getitem_location(self.furniture:getChildByName("Pintu"):getPositionX(), self.bg:getPositionX())
-        self.grossini:getAnimation():play("walk")
-        self:Girl_bg_move( Pintu_location ,function ()
-            if UItool:ifcontain( 8 ) then
+    local Pintu_location = UItool:getitem_location(self.furniture:getChildByName("Pintu"):getPositionX(), self.bg:getPositionX())
+    self.grossini:getAnimation():play("walk")
+    self:Girl_bg_move( Pintu_location ,function ()
+        if UItool:ifcontain( 8 ) then
 
-           local PlayerLayer = PlayerLayer:createScene()
-            print("进入拼图界面", PlayerLayer)
-            self:addChild(PlayerLayer,125)
-            else
-                UItool:message2("缺少东西浸润它 ",30)
-            end
-        end)
+       local PlayerLayer = PlayerLayer:createScene()
+        print("进入拼图界面", PlayerLayer)
+        self:addChild(PlayerLayer,125)
         else
-            local function Pintus( select )
-                if select == "yes" then
-                    local Pintu_location = UItool:getitem_location(self.furniture:getChildByName("Pintu"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( Pintu_location ,event)
-                    Pintunum = Pintunum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,Pintus)
-    end
+            UItool:message2("缺少东西浸润它 ",30)
+        end
+    end)
 
 end
 
-local wardrobe_drawer_1num = 1
+local wardrobe_drawer_1num = 0
 function Mainscene:wardrobe_drawer_1()
-    --立柜抽屉一层
+    --立柜抽屉一层  多次点击 
     print("wardrobe_drawer_1")
-    if wardrobe_drawer_1num>1 then
-        if wardrobe_drawer_1num==10  then
+        
             local wardrobe_drawer_1_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_1"):getPositionX(), self.bg:getPositionX())
             self.grossini:getAnimation():play("walk")
             self:Girl_bg_move( wardrobe_drawer_1_location1 ,function ()
-            UItool:message2(" 数字（0311）  ",30)
-            end)
-        end
-        wardrobe_drawer_1num = wardrobe_drawer_1num+1
-        
-        else
-            local function wardrobe_drawer_1s(select)
-                if select == "yes" then
-                    print("是的")
-                    local wardrobe_drawer_1_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_1"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( wardrobe_drawer_1_location1 ,event)
-                    wardrobe_drawer_1num = wardrobe_drawer_1num + 1
-
-                    elseif select == "no" then
-                        print("不去")
+                wardrobe_drawer_1num = wardrobe_drawer_1num+1
+                UItool:message2("有效点击次数"..wardrobe_drawer_1num , 30)
+            if wardrobe_drawer_1num==8  then
+                UItool:message2(" 数字（0311）  ",30)
+                elseif wardrobe_drawer_1num>8  then
+                     UItool:message2("密码已发出",30)
                 end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,wardrobe_drawer_1s)
                 
-    end
+            end)
+        
+        
 end
 
 local wardrobe_drawer_2num = 1
 function Mainscene:wardrobe_drawer_2()
     print("wardrobe_drawer_2")
-    if wardrobe_drawer_2num == 2 then
         local wardrobe_drawer_2_location = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_2"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( wardrobe_drawer_2_location ,function ()
-        UItool:password("1837",7)
+        
+        if Data.getItemData(7).ifcontain == true  then
+            UItool:password("1837",7)
+            else
+                UItool:message2("已经获得了"..Data.getItemData(7).name,30)
+        end
         end)
-        else
-            local function wardrobe_drawer_2s( select )
-                if select == "yes" then
-                    local wardrobe_drawer_2_location = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_2"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( wardrobe_drawer_2_location ,event)
-                    wardrobe_drawer_2num = wardrobe_drawer_2num + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,wardrobe_drawer_2s)
-    end
 end
 
 local wardrobe_drawer_3num = 1
 function Mainscene:wardrobe_drawer_3()
     print("wardrobe_drawer_3")
-    if wardrobe_drawer_3num>1 then
            
         local wardrobe_drawer_3_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_3"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( wardrobe_drawer_3_location1 ,function ()
         UItool:message2(" 好像被锁住了 ",30 )
         end)
-        else
-            local function wardrobe_drawer_3s(select)
-                if select == "yes" then
-                    print(" L_curtains  yes ")
-                    local wardrobe_drawer_3_location1 = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_3"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( wardrobe_drawer_3_location1 ,event)
-                    wardrobe_drawer_3num = wardrobe_drawer_3num + 1
-                    elseif select == "no" then    
-                    print("  no ")  
-                end
-            end
-            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,wardrobe_drawer_3s)
-    end
 
 end
 
 local phonenum = 1
 function Mainscene:phone()
     print("phone")
-    if phonenum>1 then
         
         local phone_location1 = UItool:getitem_location(self.furniture:getChildByName("phone"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( phone_location1 ,function ()
         UItool:message2(" 电话沟通你我他 ",30 )
         end)
-        else
-            local function phones(select)
-                if select == "yes" then
-                    print(" L_curtains  yes ")
-                    local L_curtain_location1 = UItool:getitem_location(self.furniture:getChildByName("phone"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( phone_location1 ,event)
-                    phonenum = phonenum + 1
-                    elseif select == "no" then    
-                    print("  no ")  
-                end
-            end
-            UItool:message("前面好像有物品，\n要去查看一下嘛？",30,phones)
-    end
 end
 
 local wardrobe_albumnum = 1
 function Mainscene:wardrobe_album()
     print("wardrobe_album") -- 立柜相册
-    if wardrobe_albumnum>1 then
         -- UItool:message2("线索一",30)
         local wardrobe_album_location = UItool:getitem_location(self.furniture:getChildByName("wardrobe_album"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( wardrobe_album_location ,function ()
         UItool:message2(" 和电话挨着的是相册 ",30 )
         end)
-        else
-            local function wardrobe_albums( select )
-                if select == "yes" then
-                    local wardrobe_album_location = UItool:getitem_location(self.furniture:getChildByName("wardrobe_album"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( wardrobe_album_location ,event)
-                    wardrobe_albumnum = wardrobe_albumnum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,wardrobe_albums)
-    end
 
 end
 
 local doornum = 1
 function Mainscene:door()
     print("door")
-    --门 
-    if doornum == 2 then
-        
+    --门
         local door_location = UItool:getitem_location(self.furniture:getChildByName("door"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( door_location ,function ()
@@ -772,21 +435,6 @@ function Mainscene:door()
                UItool:message2(" 你还没有钥匙呢 。 ",30 )
         end
         end)
-        
-        else
-            local function doors( select )
-                if select == "yes" then
-                    local door_location = UItool:getitem_location(self.furniture:getChildByName("door"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( door_location ,event)
-                    doornum = doornum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("需要先得到钥匙，你想过去看看嘛？",30,doors)
-    end
 
     
 
@@ -795,54 +443,23 @@ end
 local Big_framenum = 1
 function Mainscene:Big_frame()
     print("Big_frame")
-    if Big_framenum>1 then
         
         local Big_frame_location = UItool:getitem_location(self.furniture:getChildByName("Big_frame"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( Big_frame_location ,function ()
         UItool:message2("房间的一切尽在我眼中",30)
         end)
-        else
-            local function Big_frames( select )
-                if select == "yes" then
-                    local bed_up_location = UItool:getitem_location(self.furniture:getChildByName("Big_frame"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( bed_up_location ,event)
-                    Big_framenum = Big_framenum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("前面好像有线索，\n要去查看一下嘛？",30,Big_frames)
-    end
 end
 
 local hua_framenum = 1
 function Mainscene:hua_frame()
     print("hua_frame")
-    if hua_framenum>1 then
         
         local hua_frame_location = UItool:getitem_location(self.furniture:getChildByName("hua_frame"):getPositionX(), self.bg:getPositionX())
         self.grossini:getAnimation():play("walk")
         self:Girl_bg_move( hua_frame_location ,function ()
         UItool:message2(" 知识就是力量 ",30 )
         end)
-        else
-            local function hua_frames(select)
-                if select == "yes" then
-                    print("是的")
-                    local toilet_glass_location1 = UItool:getitem_location(self.furniture:getChildByName("hua_frame"):getPositionX(), self.bg:getPositionX())
-                    self.grossini:getAnimation():play("walk")
-                    self:Girl_bg_move( toilet_glass_location1 ,event)
-                    hua_framenum = hua_framenum + 1
-
-                    elseif select == "no" then
-                        print("不去")
-                end
-            end
-            UItool:message("好像有什么东西, \n要过去查看一下嘛 ？",30,hua_frames)
-    end
 end
 
 local yuan_framenum = 1
@@ -1031,7 +648,7 @@ end
 
     --角色移动
 function Mainscene:grossiniwalk()
-
+    --骨骼动画
     ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/loli/Export/loli/loli.ExportJson") 
     self.grossini = ccs.Armature:create("loli")
     self.grossini:setScaleX(-0.25)
@@ -1089,7 +706,7 @@ function Mainscene:Girl_bg_move(touch, event)
         local x = apoint-self.visibleSize.width/2
         local x2 = self.bg:getPositionX()+ self.visibleSize.width
     --速度
-        local speed = 160
+        local speed = 200
     --时间
         self.time = delta / speed  --普通距离
         self.time1 = math.abs((math.abs(delta)-math.abs(x)))/speed -- 人物到中间的时候

@@ -1,5 +1,4 @@
--- require "Cocos2d"  
--- require "Cocos2dConstants"  
+
   
 SushiSprite = class("SushiSprite", function(...)  
     local str = select(1,...)  
