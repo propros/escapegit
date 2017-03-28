@@ -662,18 +662,59 @@ function Mainscene:grossiniwalk()
 end
 
 function Mainscene:ontouch( ... )
-	-- body
+	--触摸
 	--实现事件触发回调
 	local function onTouchBegan(touch, event)
 		--人物行走调用
         self.m_isAnimationing = true
-        if self.grossini:getNumberOfRunningActions()>0 or self.bg:getNumberOfRunningActions()>0 then
-            self.grossini:stopAllActions()
-            self.bg:stopAllActions()
+        local gril_pointx = self.grossini:getPositionX()
+        local touchx = touch:getLocation().x
+        local delta =  touchx - gril_pointx
+        if delta>0   then
+            self.grossini:setScaleX(-0.25)
+            self.grossini:setScaleY(0.25)
             else
+                self.grossini:setScaleX(0.25)
+                self.grossini:setScaleY(0.25)
         end
-        -- self.grossini:getAnimation():play("walk")
-         self.grossini:getAnimation():play("walk")
+        -- if self.grossini:getNumberOfRunningActions()>0 or self.bg:getNumberOfRunningActions()>0 then
+        --     self.grossini:stopAction(self.girlmoveto)
+        --     self.bg:stopAllActions()
+            
+            -- if self.grossini:getScaleX()>0  and touchx < gril_pointx then
+            --     print("self.grossini:getScaleX() > 0 , 脸是左朝向 点击左边")
+            --     if self.grossini:getNumberOfRunningActions()>0  then
+
+            --     else
+            --         self.grossini:getAnimation():play("walk")
+            --     end
+
+            --  elseif self.grossini:getScaleX() > 0  and touchx > gril_pointx then
+            --     print("self.grossini:getScaleX() > 0 ，脸是左朝向  点击右边")
+            --     if self.grossini:getNumberOfRunningActions()>0  then
+                
+            --     else
+            --         self.grossini:getAnimation():play("walk")
+            --     end
+
+            --     elseif self.grossini:getScaleX() < 0  and touchx > gril_pointx then
+            --         print("self.grossini:getScaleX() < 0 ，脸是右朝向  点击右边")
+            --         if self.grossini:getNumberOfRunningActions()>0  then
+
+            --         else
+            --             self.grossini:getAnimation():play("walk")
+            --         end
+
+            --         elseif self.grossini:getScaleX() < 0  and touchx < gril_pointx then
+            --             print("self.grossini:getScaleX() < 0 ，脸是右朝向  点击左边")
+            --             if self.grossini:getNumberOfRunningActions()>0  then
+                
+            --             else
+            --                 self.grossini:getAnimation():play("walk")
+            --             end
+            -- end
+         
+         
         return true
 		
 	end
@@ -682,8 +723,42 @@ function Mainscene:ontouch( ... )
 	end
 
 	local function onTouchEnded(touch, events)
-        local touchs= touch:getLocation()
-        self:Girl_bg_move(touchs.x)
+        local touchx= touch:getLocation().x
+        local gril_pointx = self.grossini:getPositionX()
+        if self.grossini:getScaleX()>0  and touchx < gril_pointx then
+                print("self.grossini:getScaleX() > 0 , 脸是左朝向 点击左边")
+                if self.grossini:getNumberOfRunningActions()>0  then
+                    self.grossini:stopAction(self.sequence)
+                else
+                    self.grossini:getAnimation():play("walk")
+                end
+
+             elseif self.grossini:getScaleX() > 0  and touchx > gril_pointx then
+                print("self.grossini:getScaleX() > 0 ，脸是左朝向  点击右边")
+                if self.grossini:getNumberOfRunningActions()>0  then
+                    self.grossini:stopAction(self.sequence)
+                else
+                    self.grossini:getAnimation():play("walk")
+                end
+
+                elseif self.grossini:getScaleX() < 0  and touchx > gril_pointx then
+                    print("self.grossini:getScaleX() < 0 ，脸是右朝向  点击右边")
+                    if self.grossini:getNumberOfRunningActions()>0  then
+                        self.grossini:stopAction(self.sequence)
+                    else
+                        self.grossini:getAnimation():play("walk")
+                    end
+
+                    elseif self.grossini:getScaleX() < 0  and touchx < gril_pointx then
+                        print("self.grossini:getScaleX() < 0 ，脸是右朝向  点击左边")
+                        if self.grossini:getNumberOfRunningActions()>0  then
+                            self.grossini:stopAction(self.sequence)
+                        else
+                            self.grossini:getAnimation():play("walk")
+                        end
+            end
+        
+        self:Girl_bg_move(touchx)
 	end
 	local listener = cc.EventListenerTouchOneByOne:create() -- 创建一个事件监听器
 	listener:setSwallowTouches(true)
@@ -752,6 +827,7 @@ function Mainscene:Girl_bg_move(touch, event)
                 if self.bg:getPositionX()==0 then
                     print("l地图在原点")
                     self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
+                    -- self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
                     self.runtime = math.abs(self.time)
                 end
                 
@@ -791,6 +867,7 @@ function Mainscene:Girl_bg_move(touch, event)
                     if self.bg:getPositionX()==0 then
                         print("r地图在原点")
                         self.girlmoveto = cc.MoveTo:create(math.abs(self.time1), cc.p(self.visibleSize.width/2 ,self.grossini:getPositionY()))
+                        
                         self.runtime = math.abs(self.time1)
                     end
                 

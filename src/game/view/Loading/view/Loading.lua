@@ -10,6 +10,12 @@ function Loading:onCreate()
     self.bg:setAnchorPoint(cc.p(0,0))
     self.bg:addTo(self)
     UItool:setBool("merge", true) -- 物品栏是否可以点击
+
+    -- local aaa= cc.Sprite:create("comm/setting.png")
+    -- aaa:setPosition(cc.p(100,100))
+    -- self:addChild(aaa)
+    -- local momo=cc.MoveTo:create(15, cc.p(1000,900))
+    -- aaa:runAction(momo)
     
 --测试物品栏
     -- for i=1,9 do
@@ -17,7 +23,6 @@ function Loading:onCreate()
     -- end
 
     local function wardrobecallback( )
-    	--衣柜
         local scene = Mainscene.new()
 		local turn = cc.TransitionPageTurn:create(0.5, scene, false)
 		cc.Director:getInstance():replaceScene(turn)
@@ -27,15 +32,15 @@ function Loading:onCreate()
     local function settingcallback( )
         local timer = TimerExBuf()
         timer:create(3,1,1)
-        function timer:onTime()
+        function tismer:onTime()
             UItool:message("设置",45)
             timer:stop()
         end
         timer:start()
 
-        
-        
+        -- self:stopAction(momo)  
     end
+    
     print(type(settingcallback))
     
     self.wardrobe=cc.MenuItemImage:create("comm/start.png","comm/start.png")
