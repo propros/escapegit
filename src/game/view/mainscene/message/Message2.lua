@@ -13,7 +13,7 @@ function Message2:ctor()
     local shildinglayer = Shieldingscreen:new()
     self:addChild(shildinglayer)
     
-    self:addChild(self.panel,5)
+    self:addChild(self.panel,125)
 
     local closebutton = self.bg:getChildByName("back")
     closebutton:addClickEventListener(function(psender,event)

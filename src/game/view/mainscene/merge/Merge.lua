@@ -68,11 +68,12 @@ function Merge:merge( )
     self.merge:setPosition(cc.p(self.visibleSize.width/6,self.visibleSize.height/8))
     local shildinglayer = Shieldingscreen:new()
     self:addChild(shildinglayer)
-    self.merge:addTo(self,3)
+    self.merge:addTo(self)
 
     for key, var in pairs(ModifyData.getTable()) do
         local icon = Data.getItemData(var)
         local item_btn = ccui.Button:create(icon.pic)
+        item_btn:setTag(var)
         item_btn:setAnchorPoint(cc.p(0,0))
         item_btn:setPosition(cc.p(180+140*(key-1),220))
         item_btn:addTo(self.merge,1)
@@ -80,34 +81,54 @@ function Merge:merge( )
     end 
 
     -- 待合成的控件
-    local num = 1
+    self.itemnum = 0
     self.item_1 = nil
     self.item_2 = nil
+    self.locationtable = {} -- 位置table
     local function merge_item(event,eventType)
         if eventType == TOUCH_EVENT_ENDED then
-            print("eventsss ",event:getTag())
-        local eventmove1 = cc.MoveTo:create(0.3, cc.p(275,450))
-        local eventmove2 = cc.MoveTo:create(0.3, cc.p(600,450))
-        if num == 1 or num == 2 then
-            if num == 1 then
-                self.item_1 = event:getTag()
-                event:runAction(eventmove1)
-                num = num+1
-            elseif num==2 then
-                self.item_2 = event:getTag()
-                event:runAction(eventmove2)
-                num = num + 1   
+            print("num等于",self.itemnum )
+            
+            local eventmove1 = cc.MoveTo:create(0.3, cc.p(275,450))
+            local eventmove2 = cc.MoveTo:create(0.3, cc.p(600,450))
+            local srcX , srcY = event:getPosition()
+
+            local srclocation = self.locationtable[tonumber(event:getName())]--原来的世界坐标
+            local nodelation = self.merge:convertToNodeSpace(srclocation) -- 转换为节点坐标
+            self.eventsrcmove = cc.MoveTo:create(0.3,{x=nodelation.x,y=nodelation.y})
+            if self.itemnum <=2  then
+                if Data.getItemData(event:getTag()).appear == false then
+                    if self.itemnum == 0 then
+                        self.item_1 = event:getTag()
+                        event:runAction(eventmove1)
+                        self.itemnum = self.itemnum+1
+                        Data.getItemData(event:getTag()).appear = true
+                    elseif self.itemnum==1 then
+                        self.item_2 = event:getTag()
+                        event:runAction(eventmove2)
+                        self.itemnum = self.itemnum + 1   
+                        Data.getItemData(event:getTag()).appear = true
+                        else
+                            --todo
+                    end
+                    else
+                        event:runAction(self.eventsrcmove)
+                        self.itemnum = self.itemnum - 1
+                        Data.getItemData(event:getTag()).appear = false
+                end
+            end
+            
         end
-           else
-            num = nil 
-            print(" num ~= 1 or 2 ")
-           end
-        end
+
     end
 
     for key , var in pairs(self.merge_table) do
-        var:setTag(key)
         var:addClickEventListener(merge_item)
+        var:setName(key)
+        local x,y = var:getPosition()
+        self.worldlocation= self.merge:convertToWorldSpace(cc.p(x,y)) -- 转换为世界坐标
+        table.insert(self.locationtable,self.worldlocation)
+
     end
 
     --点击合成按钮
@@ -118,38 +139,13 @@ function Merge:merge( )
                  UItool:message2("一个物品不能合成，")
                 else
                    self.id=nil
-            if self.item_1>self.item_2 then
-                local alltable = ModifyData.getTable()
-                for i=1,7 do
-                     local merged = Data.getMergeData(i) 
-                     print("id1 %f ,id2 %f", merged.id[1],merged.id[2])
-                     if (merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1]) or (merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1]) then
-                        print("merged.nid",merged.nid)
-                        self.id=self.item_1+self.item_2
-                        local x = cc.Sprite:create(Data.getItemData(merged.nid).pic)
-                        x:setAnchorPoint(cc.p(0,0))
-                        x:setPosition(cc.p(900,450))
-                        x:addTo(self.merge,1)
-                        local padlock_item = Data.getItemData(merged.nid)
-                        ModifyData.tableinsert(padlock_item.key)
-                        print("&&&&&&padlock_item  : ",padlock_item.pic)
-                         --删除button
-                        self.merge_table[self.item_1]:removeFromParent()
-                        self.merge_table[self.item_2]:removeFromParent()
-                        --从self.merge_table表中删除 
-                        table.remove(self.merge_table,self.item_1)
-                        --从ModifyData.getTable() 表中删除
-                        table.remove(ModifyData.getTable(),self.item_1)
-                        table.remove(self.merge_table,self.item_2)
-                        table.remove(ModifyData.getTable(),self.item_2)
-                        break
-                     end
-                 end
-                elseif self.item_1<self.item_2 then
+                if self.item_1>self.item_2 then
                     local alltable = ModifyData.getTable()
-                    for i=1,7 do
-                        local merged = Data.getMergeData(i) 
-                        if (merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1]) or (merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1]) then
+                    for i=1,#Data.getdestMergeTable() do
+                         local merged = Data.getMergeData(i) 
+                         print("id1 %f ,id2 %f", merged.id[1],merged.id[2])
+                         if (merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1]) or (merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1]) then
+                            print("merged.nid",merged.nid)
                             self.id=self.item_1+self.item_2
                             local x = cc.Sprite:create(Data.getItemData(merged.nid).pic)
                             x:setAnchorPoint(cc.p(0,0))
@@ -157,19 +153,53 @@ function Merge:merge( )
                             x:addTo(self.merge,1)
                             local padlock_item = Data.getItemData(merged.nid)
                             ModifyData.tableinsert(padlock_item.key)
-                            --删除button
+                             --删除button
                             self.merge_table[self.item_1]:removeFromParent()
                             self.merge_table[self.item_2]:removeFromParent()
-                            --从表中删除
+                            --从self.merge_table表中删除 
+                            table.remove(self.merge_table,self.item_1)
+                            --从ModifyData.getTable() 表中删除
+                            table.remove(ModifyData.getTable(),self.item_1)
                             table.remove(self.merge_table,self.item_2)
                             table.remove(ModifyData.getTable(),self.item_2)
-                            table.remove(self.merge_table,self.item_1)
-                            table.remove(ModifyData.getTable(),self.item_1)
+                            self.itemnum = 0
                             break
+                            else
+                                -- print("####合成不了####")
+                                -- UItool:message2("物品不符不能合成",30)
+                                -- -- break
+                         end
+                     end
+                    elseif self.item_1<self.item_2 then
+                        local alltable = ModifyData.getTable()
+                        for i=1, #Data.getdestMergeTable() do
+                            local merged = Data.getMergeData(i) 
+                            if (merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1]) or (merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1]) then
+                                self.id=self.item_1+self.item_2
+                                local x = cc.Sprite:create(Data.getItemData(merged.nid).pic)
+                                x:setAnchorPoint(cc.p(0,0))
+                                x:setPosition(cc.p(900,450))
+                                x:addTo(self.merge,1)
+                                local padlock_item = Data.getItemData(merged.nid)
+                                ModifyData.tableinsert(padlock_item.key)
+                                --删除button
+                                self.merge_table[self.item_1]:removeFromParent()
+                                self.merge_table[self.item_2]:removeFromParent()
+                                --从表中删除
+                                table.remove(self.merge_table,self.item_2)
+                                table.remove(ModifyData.getTable(),self.item_2)
+                                table.remove(self.merge_table,self.item_1)
+                                table.remove(ModifyData.getTable(),self.item_1)
+                                self.itemnum = 0
+                                break
+                                else
+                                    -- print("####不能合成####")
+                                    -- UItool:message2("物品不符不能合成",30)
+                                    -- break
+                            end
                         end
-                    end
-            end
-            self.he_btn:removeFromParent()
+                end
+                self.he_btn:removeFromParent()
             end
         end
     end

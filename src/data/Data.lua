@@ -20,6 +20,10 @@ function getMergeData( num )
 	return MERGEdata
 end
 
+function getdestMergeTable( )
+	return MERGE
+end
+
 function setItemappear(num , bool)
 	ITEM[num].appear = bool
 end
@@ -42,6 +46,7 @@ MERGE={}
 
 MERGE[1] = {key=1,id={3,11},nid=8}
 MERGE[2] = {key=2,id={9,7},nid=10}
+MERGE[3] = {key=3,id={1,2},nid=11}
 
 
 

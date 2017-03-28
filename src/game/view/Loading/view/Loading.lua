@@ -12,7 +12,7 @@ function Loading:onCreate()
     UItool:setBool("merge", true) -- 物品栏是否可以点击
     
 --测试物品栏
-    -- for i=1,6 do
+    -- for i=1,9 do
     --     ModifyData.tableinsert(i)
     -- end
 
@@ -74,14 +74,6 @@ function Loading:onCreate()
     --     print(math.random(1,100)) --产生1到100之间的随机数
     -- end
 
-end
-
-function Loading:onEnter()
-    print("2222222onEnter() ")
-end
-
-function Loading:onExit()
-    print("222222onExit（） ")
 end
 
 return Loading
