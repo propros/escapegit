@@ -13,10 +13,9 @@ function MyApp:onCreate()
         director:setDisplayStats(true)
     else
           director:setDisplayStats(false)
---        director:setDisplayStats(true)
     end
-
-    -- math.randomseed(os.time())
+    
+    director:setAnimationInterval(1.0 / 30)
 
     --适配
 

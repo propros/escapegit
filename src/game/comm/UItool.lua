@@ -1,6 +1,10 @@
 
 UItool = class("UItool")
 
+-- 当前状态.
+UItool.m_currentState = nil
+UItool.message = nil 
+
 --弹出框
 function UItool:message(...)
     local message = Message.new()   
@@ -8,10 +12,32 @@ function UItool:message(...)
 end
 
 function UItool:message2(...)
-    local message = Message2.new()
-    message:open(...)
+    
+    if UItool.message ~= nil then
+
+        if UItool:getBool("topbar") then
+
+            UItool:setBool("topbar",true)
+            UItool.message:removeSelf()
+            UItool.message = Message2.new()
+            UItool.message:open(...)
+
+            else
+
+                UItool.message = Message2.new()
+                UItool.message:open(...)
+                UItool:setBool("topbar",true)
+        end
+        else
+
+            UItool.message = Message2.new()
+            UItool.message:open(...)
+            UItool:setBool("topbar",true)
+    end
+    
 end
 function UItool:password(...)
+
     local password = password.new()
     password:open(...)
 end
@@ -27,7 +53,7 @@ function UItool:getRunningSceneObj()
 end
 
 function UItool:getitem_location(item,bg)
-	return item+bg
+	return item:getPositionX()+bg , item:getPositionY()
 end
 
 function UItool:setString( key , value )
@@ -49,8 +75,8 @@ end
 -- bool类型
 function UItool:setBool( key , value )
     cc.UserDefault:getInstance():setBoolForKey(key, value)
-    print("sound is :",cc.UserDefault:getInstance():getBoolForKey(key))
-print("··///·",cc.FileUtils:getInstance():getWritablePath())
+    -- print("sound is :",cc.UserDefault:getInstance():getBoolForKey(key))
+-- print("··///·",cc.FileUtils:getInstance():getWritablePath())
 end
 
 -- 根据key获取字符串，default为获取失败时返回的默认值
@@ -59,18 +85,39 @@ function UItool:getBool( key , default)
    return value
 end
 
+-- 整数类型
+function UItool:setInteger( key , value )
+    cc.UserDefault:getInstance():setIntegerForKey(key, value)
+--     print("sound is :",cc.UserDefault:getInstance():getBoolForKey(key))
+-- print("··///·",cc.FileUtils:getInstance():getWritablePath())
+end
+
+-- 根据key获取字符串，default为获取失败时返回的默认值
+function UItool:getInteger( key , default)
+    local value = cc.UserDefault:getInstance():getIntegerForKey(key)
+   return value
+end
+
 function UItool:ifcontain( num )
     for key,var in pairs(ModifyData.getTable()) do
-        print("varvarvarvar",var)
         if var == num then
-            print("含有item， 可以",key)
             return true
 
             else
-                print("不含有 ")
+                -- print("不含有 ")
                 -- return false
         end
     end
+end
+
+-- 设置当前状态.
+function UItool:setCurrentState(state)
+    self.m_currentState = state
+    return true
+end
+-- 获取当前状态.
+function UItool:getCurrentState()
+    return self.m_currentState
 end
 
 

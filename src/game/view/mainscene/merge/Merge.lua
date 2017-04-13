@@ -12,228 +12,332 @@ function Merge:createScene()
 end
 
 function Merge:initScene()
+    self.m_srcItem = nil  
+    -- self.m_destItem = nil   
+    self.m_isTouchEnable = true
+    self.touhitem = true 
+    self.bag_table = {}
+    self.capyitem = {}
+    -- self.itemtouchnum = true 
 --底层
-	self.bag = cc.Sprite:create("inventory.png")
-    self.bag:setAnchorPoint(cc.p(0,0))
-	self.bag:setPosition(cc.p(self.visibleSize.width/6,self.visibleSize.height/8))
-	local shildinglayer = Shieldingscreen:new()
-    self:addChild(shildinglayer)
-	self.bag:addTo(self)
+    self.panel = cc.CSLoader:createNode(Config.RES_MERGE)
+    self.bag = self.panel:getChildByName("Node_center"):getChildByName("bg")
+    
+    self:addChild(self.panel,125)
     self.content_size = self.bag:getContentSize()
 
-    self.bag_table = {}
-    self.merge_table = {}
-    --返回button
-    local button = ccui.Button:create("cn/menu/bu_x.png","cn/menu/bu_x.png")
-    button:setAnchorPoint(cc.p(1,1))
-    button:setPosition(cc.p(self.bag:getContentSize().width , self.bag:getContentSize().height))        
-    self.bag:addChild(button)
+    self:initMatrix()
+    self:itemtouch()
+    self:touchpoint()
 
-    button:addClickEventListener(function ( psender,event )
-        self:removeFromParent();
-        UItool:setBool("merge", true)
-        print("按钮是不是不能点击",UItool:getBool("merge"))
+    for key,var in pairs(self.bag_table) do
+        local key_items = Data.getItemData(var:getTag())
+        -- key_item.appear = true
+        if key_item== var:getTag()then
+            
+            else
+                key_items.appear = true
+                UItool:setBool(key_items.inname, false)
+        end
+     end
+end
 
-    end)
-    
-    local onetextdata = Data.gettextData(2)
-    print("test onetextdata",onetextdata)
-    local pos_x, pos_y = self.bag:getPosition()
--- 排列得到的item 
+function Merge:initMatrix()
+    -- 初始化item 
     for key,var in pairs(ModifyData.getTable()) do
-        
         local icon = Data.getItemData(var)
         self.sprite = cc.Sprite:create(icon.pic)
-        local y = self.bag:getContentSize().height-(math.floor((key-1)/3)+1)*275
-        self.sprite:setPosition(((key-1)%3)*320 + 320 ,y)
+        local y = 80 
+        self.sprite:setTag(var)
+        self.sprite:setAnchorPoint(cc.p(0.5,0.5))
+        self.sprite:setPosition((key-1)*150+120  ,y)
         self.bag:addChild(self.sprite,2) 
+        self.bag_table[key] = self.sprite
+
     end
---进入合成界面
-    local he_btn = ccui.Button:create("he_btn.png")
-    he_btn:setPosition(cc.p(960,135))
-    he_btn:addTo(self.bag,2)
-    he_btn:addClickEventListener(function(psender,event)
-        print("bag")
-        self:merge()
-        end)
+end
+
+function Merge:itemshake( item )
+    
+    if #self.capyitem==1 then
+        
+        elseif #self.capyitem==2 then
+            
+            if self.capyitem[1]==self.capyitem[2] then
+                -- print("两个是相同的")
+                local inname = Data.getItemData(self.capyitem[1]:getTag())
+                UItool:setBool(inname.inname, false)
+                self.capyitem[1]:removeFromParent()
+                table.remove(self.capyitem,2)
+                table.remove(self.capyitem,1)
+                else
+                    -- print("不相同")
+                    self.capyitem[1]:removeFromParent()
+                    table.remove(self.capyitem,1)
+            end
+            
+    end
+    local moveup = cc.MoveTo:create(0.5, cc.p(self.srcitemx , self.srcitemy+10))
+    local movedown = cc.MoveTo:create(0.5, cc.p(self.srcitemx , self.srcitemy))
+    local sequencd= cc.Sequence:create(moveup,movedown)
+    print("个数",#self.capyitem)
+    if #self.capyitem==0 then
+
+        else
+            local inname = Data.getItemData(self.capyitem[1]:getTag())
+            UItool:setBool(inname.inname, true)
+            UItool:setInteger(inname.inname.."num",self.capyitem[1]:getTag())
+            self.capyitem[1]:runAction( cc.RepeatForever:create(sequencd))
+            
+            if self.capyitem[1]:getTag()==21 then
+                UItool:password("15473",5) -- 密码四
+            end
+    end
+end
+
+function Merge:touchpoint()
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/dianji/Export/dianji/dianji.ExportJson") 
+    self.dianji = ccs.Armature:create("dianji")
+    self.dianji:getAnimation():playWithIndex(0,-1,-1)
+    self.dianji:setPosition(cc.p(-200,-200))
+    
+    self.bag:addChild(self.dianji,13)
+end
+
+function Merge:clone( sprite )
+    local icon = sprite:getTag()
+    local name = sprite:getName()
+    local  filename= Data.getItemData(icon)
+    local newsprite = cc.Sprite:create(filename.pic)
+    newsprite:setName(name)
+    newsprite:setTag(icon)
+    newsprite:setPosition(cc.p(sprite:getPositionX(),sprite:getPositionY()))
+    self.bag:addChild(newsprite,3)
+    return newsprite
 
 end
 
-function Merge:merge( )
+function Merge:OnTouchBegan(touch, event)
+    
+    local target = event:getCurrentTarget()  
+    self.m_isTouchEnable = true
+    local locationInNode = target:convertToNodeSpace(touch:getLocation())  
+    local s = target:getContentSize()  
+    local rect = cc.rect(0, 0, s.width, s.height) 
 
-    print("Merge:merge")
-    self.bag:removeFromParent()
-    self.merge = cc.Sprite:create("combination.png")
-    self.merge:setAnchorPoint(cc.p(0,0))
-    self.merge:setPosition(cc.p(self.visibleSize.width/6,self.visibleSize.height/8))
-    local shildinglayer = Shieldingscreen:new()
-    self:addChild(shildinglayer)
-    self.merge:addTo(self)
+    if cc.rectContainsPoint(rect, locationInNode) then
+        -- self.dianji:getAnimation():playWithIndex(0,-1,-1)
+        -- self.dianji:setPosition(cc.p(locationInNode.x,locationInNode.y))
+        self.m_srcItem = nil  
+        if self.m_isTouchEnable then  
+            local location = touch:getLocation()
+            self.m_srcItem = self:itempoint(location) 
+            if self.m_srcItem then
+                local key_item = Data.getItemData(self.m_srcItem:getTag())
 
-    for key, var in pairs(ModifyData.getTable()) do
-        local icon = Data.getItemData(var)
-        local item_btn = ccui.Button:create(icon.pic)
-        item_btn:setTag(var)
-        item_btn:setAnchorPoint(cc.p(0,0))
-        item_btn:setPosition(cc.p(180+140*(key-1),220))
-        item_btn:addTo(self.merge,1)
-        self.merge_table[#self.merge_table + 1] = item_btn
+                if key_item.appear == true then
+                    -- print("11111111")
+                    self.new_srcItem = self:clone(self.m_srcItem)
+                    table.insert(self.capyitem, self.new_srcItem)
+                    self.srcitemx , self.srcitemy =  self.new_srcItem:getPosition()
+                    self.m_srcItem:setVisible(false)
+                    for key,var in pairs(self.bag_table) do
+                        local key_items = Data.getItemData(var:getTag())
+                        -- key_item.appear = true
+                        if key_item== var:getTag()then
+                            
+                            else
+                                key_items.appear = true
+                                UItool:setBool(key_items.inname, false)
+                        end
+                     end
+                    key_item.appear = false
+                    elseif key_item.appear == false then
+                        -- print("2222222222")
+                        table.insert(self.capyitem, self.new_srcItem)
+                        self.m_srcItem:setVisible(true)
+                        key_item.appear = true
+                end
+            end
+        end
+        return self.m_isTouchEnable
+          
+    end  
+    
+    return false 
+end
+
+function Merge:itemtouch()
+    
+
+    local function onTouchBegan(touch, event)
+        
+        return self:OnTouchBegan(touch, event)
+         
+    end
+
+    local function onTouchMoved(touch, event)
+        if not self.m_isTouchEnable or not self.m_srcItem then  
+            return  
+        end
+
+        local location = touch:getLocation()
+        local rects = cc.rect(0, 0,self.bag:getContentSize().width, self.bag:getContentSize().height)
+        local halfSushiWidth = self.m_srcItem:getContentSize().width * 0.5  
+        local halfSushiHeight = self.m_srcItem:getContentSize().height * 0.5 
+
+        local zuoRect = cc.rect(  
+        self.m_srcItem:getPositionX() - 17* halfSushiWidth,  
+        self.m_srcItem:getPositionY() - halfSushiHeight,  
+        self.m_srcItem:getContentSize().width*8,  
+        self.m_srcItem:getContentSize().height  
+        )  
+        local youRect = cc.rect(  
+        self.m_srcItem:getPositionX() + halfSushiWidth,  
+        self.m_srcItem:getPositionY() - halfSushiHeight,  
+        self.m_srcItem:getContentSize().width*8,  
+        self.m_srcItem:getContentSize().height  
+        ) 
+
+        if cc.rectContainsPoint(rects, location) then
+           if cc.rectContainsPoint(zuoRect,location) then
+            
+            self.new_srcItem:setPosition(cc.p(touch:getLocation().x,self.srcitemy))
+            -- self:moveitem()
+            return
+            end  
+
+            if cc.rectContainsPoint(youRect,location) then
+           
+            self.new_srcItem:setPosition(cc.p(touch:getLocation().x,self.srcitemy))
+            -- self:moveitem()
+            return
+            end 
+           
+           else
+        end  
+    end
+
+    local function onTouchEnded(touch, events)
+        -- self:moveitem()
+        local location = touch:getLocation()
+        local rects = cc.rect(0, 0,self.bag:getContentSize().width, self.bag:getContentSize().height)
+        if cc.rectContainsPoint(rects, location) then
+            
+            if self.new_srcItem then
+                self:moveitem()
+                self:itemshake(self.new_srcItem)
+            end
+        end
+
+    end
+    
+    local listener = cc.EventListenerTouchOneByOne:create() -- 创建一个事件监听器
+    listener:setSwallowTouches(true )
+    listener:registerScriptHandler(onTouchBegan, cc.Handler.EVENT_TOUCH_BEGAN)
+    listener:registerScriptHandler(onTouchMoved, cc.Handler.EVENT_TOUCH_MOVED)
+    listener:registerScriptHandler(onTouchEnded, cc.Handler.EVENT_TOUCH_ENDED)
+
+    local eventDispatcher = self:getEventDispatcher() -- 得到事件派发器
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, self.bag) -- 将监听器注册到派发器中
+end
+
+function Merge:itempoint( location )
+    local item 
+    local rect = cc.rect(0,0,0,0)  
+    for key,var in pairs(self.bag_table) do
+        -- local key_item = Data.getItemData(var:getTag())
+        -- key_item.appear = true
+        var:setVisible(true)
+         var:setName(key)
+     end
+    for key,var in pairs(self.bag_table) do
+         item = self.bag_table[key]  
+         -- item:setSwallowTouches(true)
+        if item then
+           rect.x = item:getPositionX() - item:getContentSize().width * 0.5  
+           rect.y = item:getPositionY() - item:getContentSize().height * 0.5  
+           rect.width = item:getContentSize().width  
+           rect.height = item:getContentSize().height  
+           if cc.rectContainsPoint(rect,location) then
+            self.itemnumber = key
+            return item  
+               
+           end  
+        end  
     end 
 
-    -- 待合成的控件
-    self.itemnum = 0
-    self.item_1 = nil
-    self.item_2 = nil
-    self.locationtable = {} -- 位置table
-    local function merge_item(event,eventType)
-        if eventType == TOUCH_EVENT_ENDED then
-            print("num等于",self.itemnum )
-            
-            local eventmove1 = cc.MoveTo:create(0.3, cc.p(275,450))
-            local eventmove2 = cc.MoveTo:create(0.3, cc.p(600,450))
-            local srcX , srcY = event:getPosition()
+    return nil  
+end
 
-            local srclocation = self.locationtable[tonumber(event:getName())]--原来的世界坐标
-            local nodelation = self.merge:convertToNodeSpace(srclocation) -- 转换为节点坐标
-            self.eventsrcmove = cc.MoveTo:create(0.3,{x=nodelation.x,y=nodelation.y})
-            if self.itemnum <=2  then
-                if Data.getItemData(event:getTag()).appear == false then
-                    if self.itemnum == 0 then
-                        self.item_1 = event:getTag()
-                        event:runAction(eventmove1)
-                        self.itemnum = self.itemnum+1
-                        Data.getItemData(event:getTag()).appear = true
-                    elseif self.itemnum==1 then
-                        self.item_2 = event:getTag()
-                        event:runAction(eventmove2)
-                        self.itemnum = self.itemnum + 1   
-                        Data.getItemData(event:getTag()).appear = true
-                        else
-                            --todo
-                    end
-                    else
-                        event:runAction(self.eventsrcmove)
-                        self.itemnum = self.itemnum - 1
-                        Data.getItemData(event:getTag()).appear = false
-                end
-            end
-            
-        end
+function Merge:moveitem( ... )
+    for key,var in pairs(self.bag_table) do
+       
+        if key==self.itemnumber then
+            else
+                local rec1 = self.new_srcItem:getBoundingBox()
+                local srcid = self.new_srcItem:getTag()
+                local destid = var:getTag()
+                local srcname = self.m_srcItem:getName()
+                local destname = var:getName()
+               
+                local rec2 = var:getBoundingBox()
+                if cc.rectIntersectsRect(rec1,rec2) then
 
-    end
-
-    for key , var in pairs(self.merge_table) do
-        var:addClickEventListener(merge_item)
-        var:setName(key)
-        local x,y = var:getPosition()
-        self.worldlocation= self.merge:convertToWorldSpace(cc.p(x,y)) -- 转换为世界坐标
-        table.insert(self.locationtable,self.worldlocation)
-
-    end
-
-    --点击合成按钮
-    local function clickmerge( event, eventType)
-
-        if eventType == TOUCH_EVENT_ENDED then
-            if self.item_1 == nil or self.item_2 == nil  then
-                 UItool:message2("一个物品不能合成，")
-                else
-                   self.id=nil
-                if self.item_1>self.item_2 then
-                    local alltable = ModifyData.getTable()
                     for i=1,#Data.getdestMergeTable() do
-                         local merged = Data.getMergeData(i) 
-                         print("id1 %f ,id2 %f", merged.id[1],merged.id[2])
-                         if (merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1]) or (merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1]) then
-                            print("merged.nid",merged.nid)
-                            self.id=self.item_1+self.item_2
-                            local x = cc.Sprite:create(Data.getItemData(merged.nid).pic)
-                            x:setAnchorPoint(cc.p(0,0))
-                            x:setPosition(cc.p(900,450))
-                            x:addTo(self.merge,1)
+                        local merged = Data.getMergeData(i) 
+                         
+                        if merged.id[1]==srcid and merged.id[2]==destid or merged.id[2]==srcid and merged.id[1]==destid  then
+                            if srcname > destname then
+                                table.remove(ModifyData.getTable(),tonumber(srcname))
+                                table.remove(ModifyData.getTable(),tonumber(destname))
+                                -- print("srcname > destname  srcname :%s , destname : %s",srcname,destname)
+                                else
+                                    -- print("srcname < destname  srcname :%s , destname : %s",srcname,destname)
+                                    table.remove(ModifyData.getTable(),tonumber(destname))
+                                    table.remove(ModifyData.getTable(),tonumber(srcname))
+                            end
+                            local src_item=Data.getItemData(srcid)
+                            local dest_item=Data.getItemData(destid)
                             local padlock_item = Data.getItemData(merged.nid)
                             ModifyData.tableinsert(padlock_item.key)
-                             --删除button
-                            self.merge_table[self.item_1]:removeFromParent()
-                            self.merge_table[self.item_2]:removeFromParent()
-                            --从self.merge_table表中删除 
-                            table.remove(self.merge_table,self.item_1)
-                            --从ModifyData.getTable() 表中删除
-                            table.remove(ModifyData.getTable(),self.item_1)
-                            table.remove(self.merge_table,self.item_2)
-                            table.remove(ModifyData.getTable(),self.item_2)
-                            self.itemnum = 0
+                             UItool:setBool("pasitem", true)
+                             UItool:setBool("touchend", false)
+                             UItool:message2(src_item.name.." 和 "..dest_item.name.." 合成了 "..padlock_item.name,30)
+
                             break
+
                             else
-                                -- print("####合成不了####")
-                                -- UItool:message2("物品不符不能合成",30)
-                                -- -- break
-                         end
-                     end
-                    elseif self.item_1<self.item_2 then
-                        local alltable = ModifyData.getTable()
-                        for i=1, #Data.getdestMergeTable() do
-                            local merged = Data.getMergeData(i) 
-                            if (merged.id[2] == alltable[self.item_2] and merged.id[1] == alltable[self.item_1]) or (merged.id[1] == alltable[self.item_2] and merged.id[2] == alltable[self.item_1]) then
-                                self.id=self.item_1+self.item_2
-                                local x = cc.Sprite:create(Data.getItemData(merged.nid).pic)
-                                x:setAnchorPoint(cc.p(0,0))
-                                x:setPosition(cc.p(900,450))
-                                x:addTo(self.merge,1)
-                                local padlock_item = Data.getItemData(merged.nid)
-                                ModifyData.tableinsert(padlock_item.key)
-                                --删除button
-                                self.merge_table[self.item_1]:removeFromParent()
-                                self.merge_table[self.item_2]:removeFromParent()
-                                --从表中删除
-                                table.remove(self.merge_table,self.item_2)
-                                table.remove(ModifyData.getTable(),self.item_2)
-                                table.remove(self.merge_table,self.item_1)
-                                table.remove(ModifyData.getTable(),self.item_1)
-                                self.itemnum = 0
-                                break
-                                else
-                                    -- print("####不能合成####")
-                                    -- UItool:message2("物品不符不能合成",30)
-                                    -- break
-                            end
+                                local src_item=Data.getItemData(srcid)
+                                local dest_item=Data.getItemData(destid)
+                                UItool:message2(src_item.name.." 和 "..dest_item.name.." 合成失败 ",30)
+                                UItool:setBool("touchend", true)
+                                
                         end
+                    end
+
+                    else
                 end
-                self.he_btn:removeFromParent()
-            end
         end
     end
 
-    self.he_btn = ccui.Button:create("he_btn.png")
-    self.he_btn:setPosition(cc.p(630,135))
-    self.he_btn:addTo(self.merge,2)
-    self.he_btn:addClickEventListener(clickmerge)
-
-    local button = ccui.Button:create("cn/menu/bu_x.png","cn/menu/bu_x.png")
-    button:setAnchorPoint(cc.p(1,1))
-    button:setPosition(cc.p(-button:getContentSize().width , self.visibleSize.height/2))        
-    self.merge:addChild(button)
-
-    button:addClickEventListener(function ( psender,event )
-        UItool:setBool("merge", true)
-        self:removeFromParent();
-    end) 
 end
 
-function table.removebyvalue(array, value, removeall)
-    local c, i, max = 0, 1, #array
-    while i <= max do
-        if array[i] == value then
-            table.remove(array, i)
-            c = c + 1
-            i = i - 1
-            max = max - 1
-            if not removeall then break end
-        end
-        i = i + 1
-    end
-    return c
-end
+
+-- function table.removebyvalue(array, value, removeall)
+--     local c, i, max = 0, 1, #array
+--     while i <= max do
+--         if array[i] == value then
+--             table.remove(array, i)
+--             c = c + 1
+--             i = i - 1
+--             max = max - 1
+--             if not removeall then break end
+--         end
+--         i = i + 1
+--     end
+--     return c
+-- end
 
 return Merge
 

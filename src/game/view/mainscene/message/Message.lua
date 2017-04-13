@@ -25,7 +25,6 @@ function Message:ctor()
 	--按钮
 	self.buttons = {}
 
-
 end
 
 function Message:open( ... )
@@ -96,7 +95,7 @@ function Message:setContent(str,size)
     -- alert:setContentSize(cc.size(300, 400))
     alert:setString(str)
     alert:setFontName(Zapfino)
-    alert:setFontSize(size)
+    alert:setFontSize(size+20)
     -- alert:setColor(cc.c3b(251, 138, 38))
     -- alert:setPosition(cc.p(50,	self.bg:getContentSize().height/1.7))
     -- self.bg:addChild(alert,125)

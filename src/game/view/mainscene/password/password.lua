@@ -8,7 +8,7 @@ function password:ctor( )
     self.bg = self.panel:getChildByName("Node_center"):getChildByName("password_bg")
     self.TextFieldstring = nil
     self.key_item = nil 
-    local shildinglayer = Shieldingscreen:new()
+    local shildinglayer = Shieldingscreenpas:new()
     self:addChild(shildinglayer)
     self:addChild(self.panel)
 end
@@ -32,7 +32,7 @@ function password:setpassword(str,itemnum)
 	local str = str or "警告"
 	local itemnum = itemnum or nil 
     local function textFieldEvent(sender, eventType)
-    print("点击输入框")
+    -- print("点击输入框")
         if self.bg:getChildByName("TextField_1"):getString()==str then
         	self.TextFieldstring = str
         end
@@ -54,7 +54,17 @@ function password:setpassword(str,itemnum)
 			        	ModifyData.tableinsert(self.key_item.key)
 			        	UItool:message2("密码正确，你的到了 "..self.key_item.name,30)
 			        	Data.getItemData(itemnum).ifcontain = false 
+
+                        local itempassnum = UItool:getInteger("yansemima")
+                        for i=1,#ModifyData.getTable() do
+                            if ModifyData.getTable()[i] == itempassnum then
+                                table.remove(ModifyData.getTable(),i) 
+                                break
+                            end
+                        end
+
 			        	self:removeFromParent()
+                        UItool:setBool("pasitem", true)
 		        	else
 		        		UItool:message2(" 里面已经没东西了  ",30)
 			        	self:removeFromParent()

@@ -60,7 +60,7 @@ function PlayerLayer:init()
     background:setAnchorPoint(0.5,1)  
     background:setPosition(winSize.width/2,winSize.height)  
 
-    local shildinglayer = Shieldingscreen:new()
+    local shildinglayer = ShieldingLayerpin:new()
     self:addChild(shildinglayer,-1) 
     
     self:addChild(background)    
@@ -137,7 +137,7 @@ function PlayerLayer:onTouchMoved(touch, event)
     local location = touch:getLocation()  
     local halfSushiWidth = self.m_srcSushi:getContentSize().width * 0.5  
     local halfSushiHeight = self.m_srcSushi:getContentSize().height * 0.5  
-    --检查是否碰触上方寿司  
+    --检查是否碰触上方
     local upRect = cc.rect(  
         self.m_srcSushi:getPositionX() - halfSushiWidth,  
         self.m_srcSushi:getPositionY() + halfSushiHeight,  
@@ -153,7 +153,7 @@ function PlayerLayer:onTouchMoved(touch, event)
         self:swapSushi()  
         return  
     end  
-    --检查是否碰触左边寿司  
+    --检查是否碰触左边  
     upRect = cc.rect(  
         self.m_srcSushi:getPositionX() - 3 * halfSushiWidth,  
         self.m_srcSushi:getPositionY() - halfSushiHeight,  
@@ -259,11 +259,10 @@ function PlayerLayer:pos( ... )
         for col=1,4 do
             local x,y = self.s_matrix[(row-i - 1) * self.m_width + col]:getPosition()
             print("**********",x,y)
-            -- print("##########",666+self.m_matrixLeftBottomX + (Sushi.getContentWidth() + 6) * (col - 1) + Sushi.getContentWidth() / 2,self.m_matrixLeftBottomY + (Sushi.getContentWidth() + 6) * (row - 1) + Sushi.getContentWidth() / 2)
+            
             if x==666+self.m_matrixLeftBottomX + (Sushi.getContentWidth() + 6) * (col - 1) + Sushi.getContentWidth() / 2 and y==self.m_matrixLeftBottomY + (Sushi.getContentWidth() + 6) * (row - 1) + Sushi.getContentWidth() / 2 then
                 
                 self.fixed_fragment_num = self.fixed_fragment_num + 1
-                print("self.fixed_fragment_num =",self.fixed_fragment_num )
                 if self.fixed_fragment_num == 16 then
                     print("🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎")
                     self:removeFromParent()
