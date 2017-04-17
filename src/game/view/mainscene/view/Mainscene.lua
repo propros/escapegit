@@ -16,12 +16,17 @@ function Mainscene:ctor()
     self.panel = cc.CSLoader:createNode(Config.RES_MAINSCENE)
     self.panel:setPosition(cc.p(0,0))
     self:addChild(self.panel)
+    
+    
     --主节点
     self.node =  self.panel:getChildByName("Node_left_bottom")
     self.node:setPosition(0, self.visibleSize.height)
     --背景
     self.bg = self.node:getChildByName("bg")
-    print("背景的大小 %d  ,  %d ",self.bg:getContentSize().width,self.bg:getContentSize().height)
+    
+    local dianjilayer = TouchLayer:new()
+    self.bg:addChild(dianjilayer)
+    -- print("背景的大小 %d  ,  %d ",self.bg:getContentSize().width,self.bg:getContentSize().height)
     -- self.bg:setPosition(cc.p(0,0))
 
     local draw = cc.DrawNode:create()  
@@ -70,7 +75,7 @@ function Mainscene:ctor()
 end
 
 function Mainscene:init()
-    self:touchpoint()
+    -- self:touchpoint() --点击效果
     self:grossiniwalk()-- 人物动作
 
     self.scheduler = nil -- 定时器
@@ -83,6 +88,8 @@ function Mainscene:init()
     self.runtime = nil 
 
     self:fishmove() --鱼的移动 
+    
+    
     
 end
 
@@ -234,7 +241,7 @@ function Mainscene:bed_up()
         self.grossini:getAnimation():play("stoop_1")--弯腰
         UItool:setCurrentState("wanyao")
         if bed_upnum==1 then
-            UItool:message2(" 带绳子的小盒子，绳子太紧我解不开  ",30)
+            UItool:message2(" 有个盒子，绳子太紧了，我解不开。需要什么东西把绳子割开。  ",30)
             local key_item = Data.getItemData(3)
             ModifyData.tableinsert(key_item.key)
             self.merge:removeSelf()
@@ -244,7 +251,7 @@ function Mainscene:bed_up()
             else
                 -- self.grossini:getAnimation():play("stoop_1")--弯腰
                 -- UItool:setCurrentState("wanyao")
-                UItool:message2(" 已经空了  ",30)
+                UItool:message2(" 这是我的床。  ",30)
         end
     end)
 end
@@ -266,7 +273,7 @@ function Mainscene:bed_down()
             self:addChild(self.merge,5)
             bed_downnum=bed_downnum+1
             else
-                UItool:message2(" 已经空了  ",30)
+                UItool:message2(" 什么也没有了。  ",30)
         end
 
     end)
@@ -284,7 +291,7 @@ function Mainscene:bedside_table()
             if bedside_tablenum==1 then
                 
                 if UItool:getBool("bedkey") then
-                    UItool:message2(" 又发现一半 ",30)
+                    UItool:message2(" 这是什么东西……一半剪刀？ ",30)
                     local key_item = Data.getItemData(12)
                     ModifyData.tableinsert(key_item.key)
 
@@ -310,7 +317,7 @@ function Mainscene:bedside_table()
 
                 else
                     
-                    UItool:message2("空了",30)
+                    UItool:message2("里面什么也没有了。",30)
             end
             
 
@@ -361,7 +368,7 @@ function Mainscene:bear()
                         elseif bearnum==3 then
     
                             if UItool:getBool("scissors") then
-                                UItool:message2(" 对不起小熊",30)
+                                UItool:message2(" 为什么门钥匙会在这里……？ ",30)
                                 local key_item = Data.getItemData(19)
                                 ModifyData.tableinsert(key_item.key)
                                 
@@ -400,37 +407,18 @@ function Mainscene:toilet_glass()
     local toilet_glass_locationx,toilet_glass_locationy = UItool:getitem_location(self.furniture:getChildByName("toilet_glass"), self.bg:getPositionX())
         self:Girl_bg_move( toilet_glass_locationx,toilet_glass_locationy ,function (  )
             if toilet_glassnum == 1 then
-                if UItool:getBool("hammer") then
-                    UItool:message2(" 锋利的碎片 好像还有字，你需要纸和笔记录下来 ",30)
-                    local key_item = Data.getItemData(1)
-                    ModifyData.tableinsert(key_item.key)
-                    
-                    local itemnum = UItool:getInteger("hammernum")
-                    for i=1,#ModifyData.getTable() do
-                        if ModifyData.getTable()[i] == itemnum then
-                            table.remove(ModifyData.getTable(),i) 
-                            break
-                        end
-                    end
-
-                    self.merge:removeSelf()
-                    self.merge = Merge:createScene()
-                    self:addChild(self.merge,5)
-                    toilet_glassnum = toilet_glassnum + 1
-                    UItool:setBool("hammer",false)
-                    else
-                        UItool:message2(" 你要对镜子做什么？ ",30)
-
-                end
+                -- 刚开始没碎第一次点击
+                UItool:message3("为什么我在镜子里看不见自己？我在这里啊！","不……这镜子太邪门了，我不想看见它……",30)
+                toilet_glassnum = toilet_glassnum + 1
 
                 elseif toilet_glassnum == 2 then
-
-                    if UItool:getBool("paperpen") then
-                        UItool:message2(" 密码纸（6732）  ",30)
-                        local key_item = Data.getItemData(2)
+                    --第二次点击
+                    if UItool:getBool("hammer") then
+                        UItool:message2(" 锋利的碎片 好像还有字，你需要纸和笔记录下来 ",30)
+                        local key_item = Data.getItemData(1)
                         ModifyData.tableinsert(key_item.key)
                         
-                        local itemnum = UItool:getInteger("paperpennum")
+                        local itemnum = UItool:getInteger("hammernum")
                         for i=1,#ModifyData.getTable() do
                             if ModifyData.getTable()[i] == itemnum then
                                 table.remove(ModifyData.getTable(),i) 
@@ -442,14 +430,44 @@ function Mainscene:toilet_glass()
                         self.merge = Merge:createScene()
                         self:addChild(self.merge,5)
                         toilet_glassnum = toilet_glassnum + 1
-                        UItool:setBool("paperpen",false)
-                        
+                        UItool:setBool("hammer",false)
                         else
-                            UItool:message2(" 你需要新的道具 ",30)
+                            UItool:message2(" 不……这镜子太邪门了，我不想看见它…… ",30)
 
                     end
-                    else
-                        UItool:message2(" 你在干嘛？  ",30)
+                    
+
+                    elseif toilet_glassnum == 3 then
+                        UItool:message3("镜子碎了……里面有四个数字！……奇怪的是，当我移开目光之后，就记不清上面究竟写了些什么……","我需要把这段数字写下来。",30)
+                        toilet_glassnum = toilet_glassnum + 1
+                        elseif toilet_glassnum == 4 then
+                            if UItool:getBool("paperpen") then
+                                UItool:message2(" 密码纸（6732）  ",30)
+                                local key_item = Data.getItemData(2)
+                                ModifyData.tableinsert(key_item.key)
+                                
+                                local itemnum = UItool:getInteger("paperpennum")
+                                for i=1,#ModifyData.getTable() do
+                                    if ModifyData.getTable()[i] == itemnum then
+                                        table.remove(ModifyData.getTable(),i) 
+                                        break
+                                    end
+                                end
+
+                                self.merge:removeSelf()
+                                self.merge = Merge:createScene()
+                                self:addChild(self.merge,5)
+                                toilet_glassnum = toilet_glassnum + 1
+                                UItool:setBool("paperpen",false)
+                                
+                                else
+                                    UItool:message2(" 你需要纸把它记录下来 ",30)
+                                    
+                            end
+                            elseif toilet_glassnum >=5 then
+                                --todo好了，抄下来了
+                                 UItool:message2(" 好了，抄下来了 ",30)
+
             end
             
             
@@ -501,7 +519,7 @@ function Mainscene:wardrobe()
         self:Girl_bg_move( wardrobe_locationx,wardrobe_locationy ,function (  )
             if wardrobenum==1 then
                 if UItool:getBool("key") then
-                    UItool:message2(" 发现颜色密码箱 ",30)
+                    UItool:message2(" 发现有个箱子 ",30)
                     local key_item = Data.getItemData(21)
                     ModifyData.tableinsert(key_item.key)
 
@@ -519,7 +537,7 @@ function Mainscene:wardrobe()
                     wardrobenum = wardrobenum + 1
                     UItool:setBool("key",false) 
                     else
-                        UItool:message2(" 你需要打开衣柜的钥匙 ",30)
+                        UItool:message2(" 衣柜锁住了",30)
 
                 end
                 else
@@ -567,7 +585,7 @@ function Mainscene:B_vase()
     self:Girl_bg_move( B_vase_locationx,B_vase_locationy ,function (  )
         if B_vasenum==1 then
             if UItool:getBool("redbrush") then
-                UItool:message2(" 红色花朵 ",30)
+                UItool:message2(" 刷成了红色，感觉好看了些，就是不知道为什么让我觉得有些恐怖。 ",30)
                 local key_item = Data.getItemData(16)
                 ModifyData.tableinsert(key_item.key)
 
@@ -585,7 +603,7 @@ function Mainscene:B_vase()
                 B_vasenum = B_vasenum + 1
                 UItool:setBool("redbrush",false)
                 else
-                    UItool:message2(" 你要把它刷成红色的 ",30)
+                    UItool:message2(" 白色的插花。 ",30)
             end
             else
                 UItool:message2(" 花朵被摘走了 ",30)
@@ -643,7 +661,7 @@ function Mainscene:bookshelf_two()
         self:Girl_bg_move( bookshelf_two_locationx,bookshelf_two_locationy ,function ()
 
             if bookshelf_twonum == 1 then
-               UItool:message2("书可真多啊" , 30)
+               UItool:message2(" 书可真多啊 !" , 30)
                bookshelf_twonum = bookshelf_twonum + 1
                elseif  bookshelf_twonum == 2 then
                 bookshelf_twonum = bookshelf_twonum + 1
@@ -657,7 +675,7 @@ function Mainscene:bookshelf_two()
                         self.merge = Merge:createScene()
                         self:addChild(self.merge,5)
                         else
-                            UItool:message2(" 空了 " , 30)
+                            UItool:message2(" 书可真多啊 ! " , 30)
             end
             
             
@@ -747,7 +765,7 @@ function Mainscene:wardrobe_drawer_2()
             self.grossini:getAnimation():play("squat_1")--下蹲
             UItool:setCurrentState("xiadun")
             if wardrobe_drawer_2num==1 then
-                UItool:message2("  刷子  ",30) 
+                UItool:message2("  抽屉里有一把刷子。  ",30) 
                 wardrobe_drawer_2num = wardrobe_drawer_2num+1
                 local key_item = Data.getItemData(6)
                 ModifyData.tableinsert(key_item.key) 
@@ -767,9 +785,9 @@ function Mainscene:wardrobe_drawer_3()
         local wardrobe_drawer_3_locationx,wardrobe_drawer_3_locationy = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_3"), self.bg:getPositionX())
 
         self:Girl_bg_move( wardrobe_drawer_3_locationx,wardrobe_drawer_3_locationy ,function ()
-            self.grossini:getAnimation():play("squat_1")--下蹲
-            UItool:setCurrentState("xiadun")
-            UItool:message2(" 好像被锁住了 ",30 )
+            -- self.grossini:getAnimation():play("squat_1")--下蹲
+            -- UItool:setCurrentState("xiadun")
+            -- UItool:message2(" 好像被锁住了 ",30 )
         end)
 end
 
@@ -783,7 +801,7 @@ function Mainscene:phone()
             if phonenum==1 or phonenum==2 then
 
                if UItool:getBool("redflower") then
-                    UItool:message2(" 床头柜钥匙 ",30)
+                    UItool:message2(" 很好，我们可以进行交换了。 ",30)
                     local key_item = Data.getItemData(17)
                     ModifyData.tableinsert(key_item.key)
 
@@ -803,7 +821,7 @@ function Mainscene:phone()
 
                     elseif UItool:getBool("phonepaper") then
                         
-                        UItool:message2(" 你喜欢花嘛？我最喜欢了 ",30)
+                        UItool:message2(" 你喜欢花吗？我最喜欢了，尤其是红色的。 ",30)
                         local itemnum = UItool:getInteger("phonepapernum")
                         
                         for i=1,#ModifyData.getTable() do
@@ -833,7 +851,6 @@ function Mainscene:wardrobe_album()
         local wardrobe_album_locationx,wardrobe_album_locationy = UItool:getitem_location(self.furniture:getChildByName("wardrobe_album"), self.bg:getPositionX())
 
         self:Girl_bg_move( wardrobe_album_locationx,wardrobe_album_locationy ,function ()
-        UItool:message2(" 和电话挨着的是相册 ",30 )
         end)
 
 end
@@ -862,7 +879,7 @@ function Mainscene:door()
                 doornum = doornum + 1
                  UItool:setBool("doorkey",false)
                 else
-                    UItool:message2("  没有钥匙  ",30)
+                    UItool:message2("  打不开……我需要找到钥匙。  ",30)
 
                 end
         end)
@@ -896,7 +913,7 @@ function Mainscene:Big_frame()
                     Big_framenum = Big_framenum + 1
                     UItool:setBool("stamp",false)
                     else
-                        UItool:message2(" 你要怎样，要怎样 ",30)
+                        UItool:message2(" 这画下面有个凹槽，好像要用什么东西插进去才能打开。 ",30)
 
                 end
 
@@ -916,7 +933,12 @@ function Mainscene:hua_frame()
         local hua_frame_locationx,hua_frame_locationy = UItool:getitem_location(self.furniture:getChildByName("hua_frame"), self.bg:getPositionX())
 
         self:Girl_bg_move( hua_frame_locationx,hua_frame_locationy ,function ()
-        UItool:message2(" 黄花3朵 ",30 )
+            if UItool:ifcontain(21) then
+                UItool:message2(" 这里好多花啊 ，黄色的花有3朵 ",30 )
+                else
+                    UItool:message2(" 画上有好多花 ",30 )
+            end
+        
         end)
 end
 
@@ -927,7 +949,11 @@ function Mainscene:fang_frame()
         local fang_frame_locationx,fang_frame_locationy = UItool:getitem_location(self.furniture:getChildByName("fang_frame"), self.bg:getPositionX())
 
         self:Girl_bg_move( fang_frame_locationx,fang_frame_locationy ,function ()
-        UItool:message2(" 粉花7朵 ",30 )
+            if UItool:ifcontain(21) then
+                UItool:message2(" 这里好多花啊 ，粉色的花有7朵 ",30 )
+                else
+                    UItool:message2(" 画上有好多花 ",30 )
+            end
         end)
 end
 
@@ -938,7 +964,12 @@ function Mainscene:yuan_frame()
         local yuan_frame_locationx,yuan_frame_locationy = UItool:getitem_location(self.furniture:getChildByName("yuan_frame"), self.bg:getPositionX())
 
         self:Girl_bg_move( yuan_frame_locationx,yuan_frame_locationy ,function ()
-        UItool:message2(" 绿花4朵 ",30 )
+
+        if UItool:ifcontain(21) then
+                UItool:message2(" 这里好多花啊 ，绿色的花有4朵 ",30 )
+                else
+                    UItool:message2(" 画上有好多花 ",30 )
+            end
         end)
 end
 
@@ -949,7 +980,11 @@ function Mainscene:frame_1()
         local frame_locationx,frame_locationy = UItool:getitem_location(self.furniture:getChildByName("frame_1"), self.bg:getPositionX())
 
         self:Girl_bg_move( frame_locationx,frame_locationy ,function ()
-        UItool:message2("蓝花5朵",30)
+            if UItool:ifcontain(21) then
+                UItool:message2(" 这里好多花啊 ，蓝色的花有5朵 ",30 )
+                else
+                    UItool:message2(" 画上有好多花 ",30 )
+            end
         end)
 end
 
@@ -963,7 +998,7 @@ function Mainscene:wardrobe_top()
         self:Girl_bg_move( yuan_frame_locationx,yuan_frame_locationy ,function ()
         if wardrobe_topnum==1 then
             if UItool:getBool("stool") then
-                UItool:message2(" 带密码的小盒子  ",30)
+                UItool:message2(" 有个密码盒子  ",30)
                 local key_item = Data.getItemData(10)
                 ModifyData.tableinsert(key_item.key)
                 
@@ -979,10 +1014,9 @@ function Mainscene:wardrobe_top()
                 self:addChild(self.merge,5)
                 wardrobe_topnum = wardrobe_topnum+1
                 UItool:setBool("stool",false)
+                else
+                    UItool:message2(" 太高了我够不到！   ",30)
             end
-            
-            else
-                UItool:message2(" 太高了   ",30)
         end
         
 
@@ -1135,7 +1169,7 @@ function Mainscene:AllButtons(  )
         if self.grossini:getNumberOfRunningActions()>0 or self.bg:getNumberOfRunningActions()>0 then
             else
                 var:addClickEventListener(renwu_haoyou_shezhiButtonClick)
-                var:setSwallowTouches(false)
+                -- var:setSwallowTouches(false)
 
         end
     end
@@ -1162,8 +1196,13 @@ function Mainscene:touchpoint()
     self.dianji = ccs.Armature:create("dianji")
     self.dianji:getAnimation():playWithIndex(0,-1,-1)
     self.dianji:setPosition(cc.p(-200,-200))
-    
     self.bg:addChild(self.dianji)
+
+    -- ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/dianji/Export/dianji/dianji.ExportJson") 
+    -- self.dianji = ccs.Armature:create("dianji")
+    -- self.dianji:getAnimation():playWithIndex(0,-1,1)
+    -- self.dianji:setPosition(cc.p(300,400))
+    -- self.bg:addChild(self.dianji)
 end
 
 function Mainscene:ontouch( ... )
@@ -1178,11 +1217,16 @@ function Mainscene:ontouch( ... )
            local target = event:getCurrentTarget()
            local locationInNode = target:convertToNodeSpace(touch:getLocation())  
            local touchlocation = touch:getLocation()
-           self.dianji:getAnimation():playWithIndex(0,-1,-1)
-           self.dianji:setPosition(cc.p(locationInNode.x,locationInNode.y))
+           --点击效果
+           -- self.dianji:getAnimation():playWithIndex(0,-1,-1)
+           -- self.dianji:setPosition(cc.p(locationInNode.x,locationInNode.y))
+
            self:Girl_bg_move(touchlocation.x,touchlocation.y)
            else
         end  
+        self.merge:removeSelf()
+        self.merge = Merge:createScene()
+        self:addChild(self.merge,5)
          
         return true
 		
@@ -1208,14 +1252,10 @@ end
 
 function Mainscene:Girl_bg_move(X, Y,event)
 
-    self.merge:removeSelf()
-    self.merge = Merge:createScene()
-    self:addChild(self.merge,5)
     --点击位置
         local apoint = X
         local gril_pointx = self.grossini:getPositionX()
         local delta =  X - gril_pointx
-        
 
         -- 继续点击的时候是否连续
         if self.grossini:getScaleX()>0  and X < gril_pointx then
@@ -1328,6 +1368,7 @@ function Mainscene:Girl_bg_move(X, Y,event)
         
         --一步
         local function onestep()
+            
             --面部朝向
             if delta>0 then
                 self.grossini:setScaleX(-0.25)
@@ -1348,8 +1389,8 @@ function Mainscene:Girl_bg_move(X, Y,event)
             self.grossini:getAnimation():play("stand")
             event = event or nil 
             if event ~= nil  then
-                
                 event()
+                
                 else
                     
                     

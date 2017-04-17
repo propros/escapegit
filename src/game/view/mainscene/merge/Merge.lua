@@ -28,7 +28,7 @@ function Merge:initScene()
 
     self:initMatrix()
     self:itemtouch()
-    self:touchpoint()
+    -- self:touchpoint()
 
     for key,var in pairs(self.bag_table) do
         local key_items = Data.getItemData(var:getTag())

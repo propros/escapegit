@@ -11,6 +11,13 @@ function UItool:message(...)
     message:open(...)
 end
 
+function UItool:message3(str1,str2,size)
+
+    local message3 = Message3.new()   
+    message3:open(str1,str2,size)
+    print("uitool message3")
+end
+
 function UItool:message2(...)
     
     if UItool.message ~= nil then
@@ -104,8 +111,6 @@ function UItool:ifcontain( num )
             return true
 
             else
-                -- print("不含有 ")
-                -- return false
         end
     end
 end

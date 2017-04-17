@@ -1,3 +1,5 @@
+
+
 local Loading = class("Loading", cc.load("mvc").ViewBase)
 
 function Loading:onCreate()
@@ -9,8 +11,11 @@ function Loading:onCreate()
     self.bg:setPosition(cc.p(0,0))
     self.bg:setAnchorPoint(cc.p(0,0))
     self.bg:addTo(self)
+
     UItool:setBool("merge", true) -- 物品栏是否可以点击
     UItool:setBool("topbar",false)
+
+    
 
     -- local button = ccui.Button:create("bu_back1.png","bu_back1.png")
     -- button:setAnchorPoint(cc.p(1,1))
@@ -76,13 +81,18 @@ function Loading:onCreate()
     local function wardrobecallback( )
         UItool:setBool("topbar",false)
         local scene = Mainscene.new()
-		local turn = cc.TransitionPageTurn:create(0.5, scene, false)
-		cc.Director:getInstance():replaceScene(turn)
+		-- local turn = cc.TransitionPageTurn:create(0.5, scene, false)
+		cc.Director:getInstance():replaceScene(scene)
         
     end
 
+    
+
     local acount = 1
     local function settingcallback( )
+
+        UItool:message3("123","234",30)
+        print("loading message3")
         -- local timer = TimerExBuf()
         -- timer:create(3,1,1)
         -- function timer:onTime()
