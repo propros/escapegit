@@ -79,8 +79,7 @@ function Message3:touch(str1,str2,size)
                 end
                 timer:start()
             
-        end
-        print("EVENT_TOUCH_ENDED")  
+        end 
     end, cc.Handler.EVENT_TOUCH_ENDED )  
 
     local eventDispatcher = self:getEventDispatcher()  
@@ -118,8 +117,6 @@ function Message3:setContent(str1,str2,size)
         elseif self.touchnum==1 then
             self.alert:setString(str2)
     end
-
-    print("__________",str1,str2,size)
     
     self.alert:setFontName(Zapfino)
     self.alert:setFontSize(size+10)

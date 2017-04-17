@@ -128,7 +128,6 @@ function Merge:itemname(str,size,x,y,parente)
     alert:setFontName(Zapfino)
     alert:setFontSize(size+5)
     alert:setColor(cc.c3b(251, 138, 38))
-
     alert:setPosition(cc.p( 0,parente:getContentSize().height))
     parente:addChild(alert,12)
 end

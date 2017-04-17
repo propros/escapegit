@@ -238,6 +238,22 @@ function Mainscene:bed_up()
     print("bed_up")
     local bed_up_locationx ,bed_up_locationy = UItool:getitem_location(self.furniture:getChildByName("bed_up"), self.bg:getPositionX())
     self:Girl_bg_move( bed_up_locationx,bed_up_locationy ,function (  )
+
+        self.layer=cc.Layer:create()
+        local shildinglayer = Shieldingscreen:new()
+        self.layer:addChild(shildinglayer)
+        self.layer:addTo(self,6)
+        --1.8秒消失后
+        local layer =  self.layer
+        local timer = TimerExBuf()
+        timer:create(1.9,1,1)
+        function timer:onTime()
+            layer:removeFromParent()
+            timer:stop()
+        end
+        timer:start()
+
+
         self.grossini:getAnimation():play("stoop_1")--弯腰
         UItool:setCurrentState("wanyao")
         if bed_upnum==1 then
@@ -249,8 +265,6 @@ function Mainscene:bed_up()
             self:addChild(self.merge,5)
             bed_upnum=bed_upnum+1
             else
-                -- self.grossini:getAnimation():play("stoop_1")--弯腰
-                -- UItool:setCurrentState("wanyao")
                 UItool:message2(" 这是我的床。  ",30)
         end
     end)
@@ -262,8 +276,23 @@ function Mainscene:bed_down()
     local bed_down_locationx, bed_down_locationy= UItool:getitem_location(self.furniture:getChildByName("bed_down"), self.bg:getPositionX())
 
     self:Girl_bg_move( bed_down_locationx ,bed_down_locationy,function (  )
-            self.grossini:getAnimation():play("squat_1") -- 下蹲
-            UItool:setCurrentState("xiadun")
+        self.layer=cc.Layer:create()
+        local shildinglayer = Shieldingscreen:new()
+        self.layer:addChild(shildinglayer)
+        self.layer:addTo(self,6)
+        --1.8秒消失后
+        local layer =  self.layer
+        local timer = TimerExBuf()
+        timer:create(2,1,1)
+        function timer:onTime()
+            layer:removeFromParent()
+            timer:stop()
+        end
+        timer:start()
+
+        self.grossini:getAnimation():play("squat_1") -- 下蹲
+        UItool:setCurrentState("xiadun")
+
         if bed_downnum==1 then
             UItool:message2(" 这里有把小锤子，可能会有用。  ",30)
             local key_item = Data.getItemData(14)
@@ -286,6 +315,20 @@ function Mainscene:bedside_table()
         local bedside_table_locationx, bedside_table_locationy= UItool:getitem_location(self.furniture:getChildByName("bedside_table"), self.bg:getPositionX())
 
         self:Girl_bg_move( bedside_table_locationx,bedside_table_locationy ,function (  )
+            self.layer=cc.Layer:create()
+            local shildinglayer = Shieldingscreen:new()
+            self.layer:addChild(shildinglayer)
+            self.layer:addTo(self,6)
+            --1.8秒消失后
+            local layer =  self.layer
+            local timer = TimerExBuf()
+            timer:create(2,1,1)
+            function timer:onTime()
+                layer:removeFromParent()
+                timer:stop()
+            end
+            timer:start()
+
             self.grossini:getAnimation():play("squat_1") -- 下蹲
             UItool:setCurrentState("xiadun")
             if bedside_tablenum==1 then
@@ -355,14 +398,11 @@ function Mainscene:bear()
     print("bear")
             local R_curtain_locationx, R_curtain_locationy= UItool:getitem_location(self.furniture:getChildByName("bear"), self.bg:getPositionX())
             self:Girl_bg_move( R_curtain_locationx,R_curtain_locationy,function (  )
-                -- self.grossini:getAnimation():play("stoop_1")--弯腰
-                -- UItool:setCurrentState("wanyao")
                 if bearnum==1 then
                     UItool:message2(" 我喜欢的小熊，但和它在一起的洋娃娃不见了。 ",30)
                     bearnum = 1+bearnum 
                     elseif bearnum==2 then
-                        -- self.grossini:getAnimation():play("stoop_1")--弯腰
-                        -- UItool:setCurrentState("wanyao")
+    
                         bearnum = 1+bearnum 
                         UItool:message2(" 小熊的身体里好像有什么东西。 ",30)
                         elseif bearnum==3 then
@@ -491,6 +531,20 @@ function Mainscene:stool()
     local stool_locationx,stool_locationy = UItool:getitem_location(self.furniture:getChildByName("stool"), self.bg:getPositionX())
 
         self:Girl_bg_move( stool_locationx,stool_locationy ,function (  )
+            self.layer=cc.Layer:create()
+            local shildinglayer = Shieldingscreen:new()
+            self.layer:addChild(shildinglayer)
+            self.layer:addTo(self,6)
+            --1.8秒消失后
+            local layer =  self.layer
+            local timer = TimerExBuf()
+            timer:create(2,1,1)
+            function timer:onTime()
+                layer:removeFromParent()
+                timer:stop()
+            end
+            timer:start()
+            
             self.grossini:getAnimation():play("squat_1")--下蹲
             UItool:setCurrentState("xiadun")
             if stoolnum==1 then
@@ -556,6 +610,20 @@ function Mainscene:cushion()
     local cushion_locationx,cushion_locationy = UItool:getitem_location(self.furniture:getChildByName("cushion"), self.bg:getPositionX())
 
     self:Girl_bg_move( cushion_locationx,cushion_locationy ,function (  )
+        self.layer=cc.Layer:create()
+        local shildinglayer = Shieldingscreen:new()
+        self.layer:addChild(shildinglayer)
+        self.layer:addTo(self,6)
+        --1.8秒消失后
+        local layer =  self.layer
+        local timer = TimerExBuf()
+        timer:create(1.9,1,1)
+        function timer:onTime()
+            layer:removeFromParent()
+            timer:stop()
+        end
+        timer:start()
+
         self.grossini:getAnimation():play("stoop_1")--弯腰
         UItool:setCurrentState("wanyao")
         if cushionnum == 1 then
@@ -717,6 +785,20 @@ function Mainscene:book()
     local book_locationx,book_locationy = UItool:getitem_location(self.furniture:getChildByName("book"), self.bg:getPositionX())
 
     self:Girl_bg_move( book_locationx,book_locationy ,function ()
+        self.layer=cc.Layer:create()
+        local shildinglayer = Shieldingscreen:new()
+        self.layer:addChild(shildinglayer)
+        self.layer:addTo(self,6)
+        --1.8秒消失后
+        local layer =  self.layer
+        local timer = TimerExBuf()
+        timer:create(1.9,1,1)
+        function timer:onTime()
+            layer:removeFromParent()
+            timer:stop()
+        end
+        timer:start()
+
         self.grossini:getAnimation():play("stoop_1")--弯腰
         UItool:setCurrentState("wanyao")
         if booknum==1 then
@@ -762,6 +844,20 @@ function Mainscene:wardrobe_drawer_2()
         local wardrobe_drawer_2_locationx,wardrobe_drawer_2_locationy = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_2"), self.bg:getPositionX())
 
         self:Girl_bg_move( wardrobe_drawer_2_locationx,wardrobe_drawer_2_locationy ,function ()
+            self.layer=cc.Layer:create()
+            local shildinglayer = Shieldingscreen:new()
+            self.layer:addChild(shildinglayer)
+            self.layer:addTo(self,6)
+            --1.8秒消失后
+            local layer =  self.layer
+            local timer = TimerExBuf()
+            timer:create(2,1,1)
+            function timer:onTime()
+                layer:removeFromParent()
+                timer:stop()
+            end
+            timer:start()
+
             self.grossini:getAnimation():play("squat_1")--下蹲
             UItool:setCurrentState("xiadun")
             if wardrobe_drawer_2num==1 then
@@ -1184,7 +1280,7 @@ function Mainscene:grossiniwalk()
     self.grossini:setScaleY(0.25)
     
     self.grossini:getAnimation():playWithIndex(1)
-    self.grossini:getAnimation():setSpeedScale(1.2)
+    -- self.grossini:getAnimation():setSpeedScale(1.2)
     self.grossini:getAnimation():play("stand")
      UItool:setCurrentState("stand")
     self.grossini:setPosition(cc.p(170,155))
