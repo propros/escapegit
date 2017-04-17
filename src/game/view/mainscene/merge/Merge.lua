@@ -88,6 +88,8 @@ function Merge:itemshake( item )
             UItool:setBool(inname.inname, true)
             UItool:setInteger(inname.inname.."num",self.capyitem[1]:getTag())
             self.capyitem[1]:runAction( cc.RepeatForever:create(sequencd))
+            local key_item = Data.getItemData(self.capyitem[1]:getTag())
+            self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
             
             if self.capyitem[1]:getTag()==21 then
                 UItool:password("15473",5) -- 密码四
@@ -117,6 +119,20 @@ function Merge:clone( sprite )
 
 end
 
+function Merge:itemname(str,size,x,y,parente)
+    print("显示文字")
+    local alert = cc.LabelTTF:create()
+    alert:setAnchorPoint(cc.p(0,0))
+    alert:setContentSize(cc.size(300, 400))
+    alert:setString(str)
+    alert:setFontName(Zapfino)
+    alert:setFontSize(size+5)
+    alert:setColor(cc.c3b(251, 138, 38))
+
+    alert:setPosition(cc.p( 0,parente:getContentSize().height))
+    parente:addChild(alert,12)
+end
+
 function Merge:OnTouchBegan(touch, event)
     
     local target = event:getCurrentTarget()  
@@ -126,18 +142,18 @@ function Merge:OnTouchBegan(touch, event)
     local rect = cc.rect(0, 0, s.width, s.height) 
 
     if cc.rectContainsPoint(rect, locationInNode) then
-        -- self.dianji:getAnimation():playWithIndex(0,-1,-1)
-        -- self.dianji:setPosition(cc.p(locationInNode.x,locationInNode.y))
+        
         self.m_srcItem = nil  
         if self.m_isTouchEnable then  
             local location = touch:getLocation()
             self.m_srcItem = self:itempoint(location) 
             if self.m_srcItem then
-                local key_item = Data.getItemData(self.m_srcItem:getTag())
 
+                local key_item = Data.getItemData(self.m_srcItem:getTag())
                 if key_item.appear == true then
                     -- print("11111111")
                     self.new_srcItem = self:clone(self.m_srcItem)
+                    
                     table.insert(self.capyitem, self.new_srcItem)
                     self.srcitemx , self.srcitemy =  self.new_srcItem:getPosition()
                     self.m_srcItem:setVisible(false)
@@ -224,7 +240,7 @@ function Merge:itemtouch()
         local rects = cc.rect(0, 0,self.bag:getContentSize().width, self.bag:getContentSize().height)
         if cc.rectContainsPoint(rects, location) then
             
-            if self.new_srcItem then
+            if self.new_srcItem and self.m_srcItem then
                 self:moveitem()
                 self:itemshake(self.new_srcItem)
             end
