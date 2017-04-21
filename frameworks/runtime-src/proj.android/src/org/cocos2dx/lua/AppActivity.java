@@ -24,7 +24,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-package org.cocos2dx.lua;
+package org.cocos2dx.lua;  
+
+import android.os.Bundle;  
+import android.app.Activity;  
+import android.view.View;  
+import android.view.Window;  
+import android.view.WindowManager; 
+
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -55,6 +62,8 @@ import android.widget.Toast;
 public class AppActivity extends Cocos2dxActivity{
 
     static String hostIPAdress = "0.0.0.0";
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,0 +1,24 @@
+dependencies: \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/editor-support/spine/EventData.c \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/EventData.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/extension.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/Skeleton.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/SkeletonData.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/BoneData.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/SlotData.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/Skin.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/Attachment.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/Animation.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/Event.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/IkConstraintData.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/Slot.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/Bone.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/IkConstraint.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/Atlas.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/AttachmentLoader.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/RegionAttachment.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/MeshAttachment.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/SkinnedMeshAttachment.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/BoundingBoxAttachment.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/AnimationState.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/build/../cocos/editor-support/spine/AnimationStateData.h

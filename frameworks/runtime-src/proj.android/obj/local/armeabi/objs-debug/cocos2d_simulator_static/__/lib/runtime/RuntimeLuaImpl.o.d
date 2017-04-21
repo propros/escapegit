@@ -1,0 +1,1142 @@
+obj/local/armeabi/objs-debug/cocos2d_simulator_static/__/lib/runtime/RuntimeLuaImpl.o: \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/RuntimeLuaImpl.cpp \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/RuntimeLuaImpl.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/RuntimeProtocol.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/string \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/document.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/reader.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/rapidjson.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdlib \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cstring \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/inttypes.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cassert \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/internal/pow10.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/internal/stack.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/csetjmp \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/internal/strfunc.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdio \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/lua_debugger.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/CCLuaEngine.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../cocos2d.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccConfig.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformConfig.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCRef.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformMacros.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccConfig.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformDefine.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCPlatformDefine-android.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/android/log.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCRefPtr.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCRef.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccMacros.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCConsole.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/sys/select.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/thread \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/vector \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/map \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/mutex \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCStdC.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCStdC-android.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/math.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccRandom.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/random \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCVector.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/algorithm \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCMap.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/unordered_map \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCAutoreleasePool.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCNS.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCGeometry.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCMath.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec2.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCMathBase.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec2.inl \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec2.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec3.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec3.inl \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec3.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Mat4.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec4.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec4.inl \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Mat4.inl \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec4.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Mat4.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Quaternion.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Quaternion.inl \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCData.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCValue.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccMacros.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccTypes.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCGL.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCGL-android.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/GLES2/gl2platform.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/KHR/khrplatform.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/GLES2/gl2.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/GLES2/gl2ext.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCConfiguration.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCValue.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCDirector.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/stack \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCVector.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCScene.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCProtocols.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccTypes.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTexture2D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCScriptSupport.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCCommon.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCTouch.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventTouch.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEvent.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventKeyboard.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/list \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCAffineTransform.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCGLView.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCScheduler.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/set \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/uthash.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/base64.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ZipUtils.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCFileUtils-android.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCFileUtils.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCData.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/jni.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/android/asset_manager.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCProfiling.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCMap.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCConsole.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccUTF8.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCUserDefault.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCIMEDelegate.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCIMEDispatcher.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCIMEDelegate.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccUtils.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventType.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventDispatcher.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListener.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerTouch.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventTouch.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerKeyboard.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventKeyboard.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerMouse.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventMouse.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventMouse.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventAcceleration.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerAcceleration.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventCustom.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerCustom.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventFocus.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerFocus.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCAffineTransform.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCGeometry.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec2.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec3.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec4.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Mat4.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Quaternion.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/MathUtil.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCMathBase.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCVertex.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAction.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionInterval.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAction.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAnimation.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteFrame.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionCamera.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionInterval.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionManager.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionEase.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionPageTurn3D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionGrid3D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionGrid.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionInstant.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionGrid.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionProgressTimer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionGrid3D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionTiledGrid.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionInstant.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionTween.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionCatmullRom.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTweenFunction.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCProtectedNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAtlasNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCQuadCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgramState.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCDrawingPrimitives.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCDrawNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCCustomCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabelAtlas.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAtlasNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabelTTF.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabelBMFont.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabel.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteBatchNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTextureAtlas.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCBatchCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFontAtlas.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabel.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFontFNT.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFont.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLayer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCScene.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTransition.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTransitionPageTurn.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTransition.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTransitionProgress.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCMenu.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCMenuItem.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLayer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCMenuItem.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCClippingNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGroupCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCClippingRectangleNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCMotionStreak.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCProgressTimer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCRenderTexture.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSprite.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCDrawNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCImage.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCNodeGrid.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleBatchNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleSystem.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleExamples.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleSystemQuad.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleSystem.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleSystemQuad.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCGrabber.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCGrid.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCDirector.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCCamera.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCFrustum.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAABB.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCOBB.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAABB.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCPlane.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLight.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCProtocols.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCCustomCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGroupCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCQuadCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderCommandPool.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgram.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgram.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgramCache.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgramState.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/ccGLStateCache.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/ccShaders.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTexture2D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTextureCache.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/condition_variable \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/queue \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCVertexIndexBuffer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCVertexIndexData.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCPrimitive.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCVertexIndexData.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCPrimitiveCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCPrimitive.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTrianglesCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsBody.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsShape.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsContact.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerCustom.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventCustom.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsShape.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsJoint.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsWorld.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsBody.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCDevice.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCCommon.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCFileUtils.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCImage.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCSAXParser.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCThread.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformConfig.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformMacros.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCApplication-android.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCApplicationProtocol.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCAutoreleasePool.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCGLViewImpl-android.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCGL-android.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCStdC-android.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCScriptSupport.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAnimation.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAnimationCache.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSprite.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteBatchNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteFrame.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteFrameCache.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTextFieldTTF.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTextureAtlas.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParallaxNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXLayer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXXMLParser.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCSAXParser.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXObjectGroup.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccCArray.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXObjectGroup.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXTiledMap.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXXMLParser.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTileMapAtlas.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAtlasNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFastTMXTiledMap.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXObjectGroup.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFastTMXLayer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCPrimitiveCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCComponent.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCComponentContainer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAABB.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCOBB.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCRay.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCSprite3D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCMeshCommand.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCSkeleton3D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCBundle3DData.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCMeshVertexIndexData.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCVertexIndexBuffer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCMesh.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCMeshSkin.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimate3D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimation3D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimationCurve.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimationCurve.inl \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimation3D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCSprite3DMaterial.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAttachNode.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCMeshVertexIndexData.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCSkeleton3D.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCBillBoard.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCFrustum.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCPlane.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCDictionary.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCArray.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCDataVisitor.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCString.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/sstream \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCArray.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCSet.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCInteger.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCFloat.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCDouble.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCBool.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCString.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCNotificationCenter.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCDeprecated.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/CCLuaStack.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/CCLuaValue.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/cocos2d/LuaScriptHandlerMgr.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/tolua/tolua++.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/LuaBasicConversions.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/tolua_fix.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/Runtime.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/ProjectConfig/ProjectConfig.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/CCLuaStack.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/ConfigParser.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/ProjectConfig/SimulatorConfig.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/FileServer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/filestream.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/stringbuffer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/writer.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/Protos.pb.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/stubs/common.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cstddef \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/generated_message_util.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/message_lite.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/repeated_field.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/iterator \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/stubs/type_traits.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/stubs/template_util.h \
+ /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/extension_set.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/netdb.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/sys/socket.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/socket.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/asm/socket.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/asm/sockios.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/sockios.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/uio.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/arpa/inet.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/netinet/in.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/endian.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/sys/endian.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/machine/endian.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/in.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/asm/byteorder.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/byteorder/little_endian.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/byteorder/swab.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/byteorder/generic.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/in6.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/ipv6.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/netinet/in6.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/unistd.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/sys/sysconf.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/capability.h \
+ /Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/pathconf.h
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/RuntimeLuaImpl.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/RuntimeProtocol.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/string:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/document.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/reader.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/rapidjson.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdlib:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cstring:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/inttypes.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cassert:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/internal/pow10.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/internal/stack.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/csetjmp:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/internal/strfunc.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cstdio:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/lua_debugger.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/luaconf.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/CCLuaEngine.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../cocos2d.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccConfig.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformConfig.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCRef.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformMacros.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccConfig.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformDefine.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCPlatformDefine-android.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/android/log.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCRefPtr.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCRef.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccMacros.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCConsole.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/sys/select.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/thread:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/vector:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/map:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/mutex:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCStdC.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCStdC-android.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/math.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccRandom.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/random:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCVector.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/algorithm:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCMap.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/unordered_map:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCAutoreleasePool.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCNS.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCGeometry.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCMath.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec2.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCMathBase.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec2.inl:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec2.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec3.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec3.inl:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec3.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Mat4.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec4.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec4.inl:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Mat4.inl:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec4.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Mat4.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Quaternion.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Quaternion.inl:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCData.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCValue.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccMacros.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccTypes.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCGL.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCGL-android.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/GLES2/gl2platform.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/KHR/khrplatform.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/GLES2/gl2.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/GLES2/gl2ext.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCConfiguration.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCValue.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCDirector.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/stack:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCVector.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCScene.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCProtocols.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccTypes.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTexture2D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCScriptSupport.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCCommon.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCTouch.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventTouch.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEvent.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventKeyboard.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/list:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCAffineTransform.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCGLView.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCScheduler.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/set:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/uthash.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/base64.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ZipUtils.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCFileUtils-android.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCFileUtils.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCData.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/jni.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/android/asset_manager.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCProfiling.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCMap.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCConsole.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccUTF8.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCUserDefault.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCIMEDelegate.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCIMEDispatcher.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCIMEDelegate.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccUtils.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventType.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventDispatcher.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListener.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerTouch.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventTouch.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerKeyboard.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventKeyboard.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerMouse.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventMouse.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventMouse.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventAcceleration.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerAcceleration.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventCustom.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerCustom.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventFocus.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerFocus.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCAffineTransform.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCGeometry.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec2.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec3.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Vec4.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Mat4.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/Quaternion.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/MathUtil.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCMathBase.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../math/CCVertex.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAction.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionInterval.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAction.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAnimation.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteFrame.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionCamera.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionInterval.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionManager.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionEase.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionPageTurn3D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionGrid3D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionGrid.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionInstant.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionGrid.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionProgressTimer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionGrid3D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionTiledGrid.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionInstant.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionTween.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCActionCatmullRom.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTweenFunction.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCProtectedNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAtlasNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCQuadCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgramState.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCDrawingPrimitives.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCDrawNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCCustomCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabelAtlas.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAtlasNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabelTTF.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabelBMFont.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabel.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteBatchNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTextureAtlas.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCBatchCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFontAtlas.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLabel.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFontFNT.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFont.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLayer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCScene.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTransition.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTransitionPageTurn.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTransition.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTransitionProgress.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCMenu.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCMenuItem.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLayer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCMenuItem.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCClippingNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGroupCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCClippingRectangleNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCMotionStreak.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCProgressTimer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCRenderTexture.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSprite.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCDrawNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCImage.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCNodeGrid.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleBatchNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleSystem.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleExamples.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleSystemQuad.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleSystem.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParticleSystemQuad.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCGrabber.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCGrid.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCDirector.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCCamera.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCFrustum.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAABB.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCOBB.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAABB.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCPlane.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCLight.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCProtocols.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCCustomCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGroupCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCQuadCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderCommandPool.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCRenderer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgram.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgram.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgramCache.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCGLProgramState.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/ccGLStateCache.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/ccShaders.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTexture2D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTextureCache.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/condition_variable:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/queue:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCVertexIndexBuffer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCVertexIndexData.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCPrimitive.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCVertexIndexData.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCPrimitiveCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCPrimitive.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTrianglesCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsBody.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsShape.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsContact.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventListenerCustom.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCEventCustom.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsShape.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsJoint.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsWorld.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../physics/CCPhysicsBody.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCDevice.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCCommon.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCFileUtils.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCImage.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCSAXParser.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCThread.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformConfig.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCPlatformMacros.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCApplication-android.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCApplicationProtocol.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCAutoreleasePool.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCGLViewImpl-android.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCGL-android.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/android/CCStdC-android.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCScriptSupport.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAnimation.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAnimationCache.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSprite.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteBatchNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteFrame.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCSpriteFrameCache.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTextFieldTTF.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCTextureAtlas.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCParallaxNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXLayer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXXMLParser.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../platform/CCSAXParser.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXObjectGroup.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/ccCArray.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXObjectGroup.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXTiledMap.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXXMLParser.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTileMapAtlas.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCAtlasNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFastTMXTiledMap.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCTMXObjectGroup.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCFastTMXLayer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCPrimitiveCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCComponent.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../2d/CCComponentContainer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAABB.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCOBB.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCRay.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCSprite3D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCMeshCommand.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCSkeleton3D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCBundle3DData.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCMeshVertexIndexData.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../renderer/CCVertexIndexBuffer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCMesh.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCMeshSkin.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimate3D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimation3D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimationCurve.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimationCurve.inl:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAnimation3D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCSprite3DMaterial.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCAttachNode.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCMeshVertexIndexData.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCSkeleton3D.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCBillBoard.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCFrustum.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../3d/CCPlane.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCDictionary.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCArray.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../base/CCDataVisitor.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCString.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/sstream:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCArray.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCSet.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCInteger.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCFloat.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCDouble.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCBool.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCString.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCNotificationCenter.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//3d/../deprecated/CCDeprecated.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/CCLuaStack.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/CCLuaValue.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/cocos2d/LuaScriptHandlerMgr.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/tolua/tolua++.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lauxlib.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../../../../external/lua/luajit/include/lua.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/LuaBasicConversions.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/tolua_fix.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/Runtime.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/ProjectConfig/ProjectConfig.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/cocos//scripting/lua-bindings/proj.android/../manual/CCLuaStack.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/ConfigParser.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/ProjectConfig/SimulatorConfig.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/FileServer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/filestream.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/stringbuffer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/external/flatbuffers/../json/writer.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/runtime/Protos.pb.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/stubs/common.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/cstddef:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/generated_message_util.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/message_lite.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/repeated_field.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/sources/cxx-stl/gnu-libstdc++/4.8/include/iterator:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/stubs/type_traits.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/stubs/template_util.h:
+
+/Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/runtime-src/proj.android/../../cocos2d-x/tools/simulator/libsimulator/proj.android/../lib/protobuf-lite/google/protobuf/extension_set.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/netdb.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/sys/socket.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/socket.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/asm/socket.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/asm/sockios.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/sockios.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/uio.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/arpa/inet.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/netinet/in.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/endian.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/sys/endian.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/machine/endian.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/in.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/asm/byteorder.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/byteorder/little_endian.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/byteorder/swab.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/byteorder/generic.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/in6.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/ipv6.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/netinet/in6.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/unistd.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/sys/sysconf.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/linux/capability.h:
+
+/Users/kangfu/Documents/cocos2dsoft/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/pathconf.h:

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<AnimationProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\张嗣平\中古战记\角色\点击\dianji</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>E:\张嗣平\中古战记\角色\点击\dianji\Resources</Resources>
+  <Name>dianji</Name>
+  <JsonFileName>dianji.json</JsonFileName>
+  <JsonFolder>E:\张嗣平\中古战记\角色\点击\dianji\Json</JsonFolder>
+  <JsonList />
+  <CanvasSize>
+    <Width>0</Width>
+    <Height>0</Height>
+  </CanvasSize>
+  <filePath>E:\张嗣平\中古战记\角色\点击\dianji\dianji.xml.animation</filePath>
+  <ProjectType>AnimationProject</ProjectType>
+  <ResRelativePath />
+  <ResourceFileList>
+    <string>dianji0.plist</string>
+    <string>dianji1.plist</string>
+  </ResourceFileList>
+  <bBatchImage>true</bBatchImage>
+</AnimationProject>

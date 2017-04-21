@@ -1,0 +1,32 @@
+dependencies: \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/manual/CCLuaValue.cpp \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/manual/CCLuaValue.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../../external/lua/luajit/include/lua.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../../external/lua/luajit/include/luaconf.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../base/ccTypes.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/CCGeometry.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../platform/CCPlatformMacros.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../base/ccConfig.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../platform/CCPlatformConfig.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../platform/CCPlatformDefine.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../platform/ios/CCPlatformDefine-ios.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../base/ccMacros.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../base/CCConsole.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../base/CCRef.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../platform/CCStdC.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../platform/ios/CCStdC-ios.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../base/ccRandom.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/CCMath.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Vec2.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/CCMathBase.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Vec2.inl \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Vec3.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Vec3.inl \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Mat4.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Vec4.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Vec4.inl \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Mat4.inl \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Quaternion.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../math/Quaternion.inl \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../platform/CCGL.h \
+  /Users/kangfu/Documents/cocos/EscapeGamebag/frameworks/cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/../../../platform/ios/CCGL-ios.h
