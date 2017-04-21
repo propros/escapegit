@@ -50,7 +50,8 @@ function Merge:initMatrix()
         local y = 80 
         self.sprite:setTag(var)
         self.sprite:setAnchorPoint(cc.p(0.5,0.5))
-        self.sprite:setPosition((key-1)*150+120  ,y)
+        self.sprite:setPosition((key-1)*self.sprite:getContentSize().width*1.05 + 80 ,y)
+        print("坐标",self.sprite:getPositionX())
         self.bag:addChild(self.sprite,2) 
         self.bag_table[key] = self.sprite
 
@@ -90,10 +91,6 @@ function Merge:itemshake( item )
             self.capyitem[1]:runAction( cc.RepeatForever:create(sequencd))
             local key_item = Data.getItemData(self.capyitem[1]:getTag())
             self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
-            
-            if self.capyitem[1]:getTag()==21 then
-                UItool:password("15473",5) -- 密码四
-            end
     end
 end
 
@@ -128,7 +125,7 @@ function Merge:itemname(str,size,x,y,parente)
     alert:setFontName(Zapfino)
     alert:setFontSize(size+5)
     alert:setColor(cc.c3b(251, 138, 38))
-    alert:setPosition(cc.p( 0,parente:getContentSize().height))
+    alert:setPosition(cc.p( 10,parente:getContentSize().height+10))
     parente:addChild(alert,12)
 end
 

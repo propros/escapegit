@@ -52,7 +52,7 @@ function password:setpassword(str,itemnum)
         			if Data.getItemData(itemnum).ifcontain == true  then
         				self.key_item = Data.getItemData(itemnum)
 			        	ModifyData.tableinsert(self.key_item.key)
-			        	UItool:message2("密码正确，你的到了 "..self.key_item.name,30)
+			        	UItool:message2("密码正确，你的到了 "..self.key_item.name.."怎么竟是一些奇怪的东西",30)
 			        	Data.getItemData(itemnum).ifcontain = false 
 
                         local itempassnum = UItool:getInteger("yansemima")

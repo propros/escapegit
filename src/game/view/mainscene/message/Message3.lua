@@ -72,7 +72,6 @@ function Message3:touch(str1,str2,size)
                     if panel then
                         panel:removeFromParent()
                         else
-
                     end
                     
                     timer:stop()

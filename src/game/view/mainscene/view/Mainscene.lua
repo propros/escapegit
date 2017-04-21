@@ -24,14 +24,13 @@ function Mainscene:ctor()
     --背景
     self.bg = self.node:getChildByName("bg")
     
+    --点击效果层
     local dianjilayer = TouchLayer:new()
-    self.bg:addChild(dianjilayer)
-    -- print("背景的大小 %d  ,  %d ",self.bg:getContentSize().width,self.bg:getContentSize().height)
-    -- self.bg:setPosition(cc.p(0,0))
+    self.bg:addChild(dianjilayer,101)
 
     local draw = cc.DrawNode:create()  
     -- local points = {cc.p(0,0), cc.p(0 + size, 0), cc.p(0 + size, 0 + size), cc.p(0, 0 + size)}  
-    draw:drawDot(cc.p(self.bg:getPositionX(),self.visibleSize.height - self.bg:getContentSize().height*0.85),50,cc.c4b(0,0,0,1))  
+    draw:drawDot(cc.p(self.bg:getPositionX(),150),50,cc.c4b(0,0,0,1))  
     -- draw:setTag("draw")  
     self:addChild(draw,100)  
 
@@ -55,7 +54,7 @@ function Mainscene:ctor()
     self.furniture = self.bg:getChildByName("furniture")
 
     self:init()
---合成条
+    --合成条
     self.merge = Merge:createScene()
     self:addChild(self.merge,5)
     
@@ -133,7 +132,7 @@ function Mainscene:update( delta )
     possfish = possfish - speed -1.8
 
     possshark = possshark + speed 
-    postiaoyu = postiaoyu - speed -1.9
+    postiaoyu = postiaoyu - speed -1.8
     posfishx = posfishx - speed -1.5
     posfishy = posfishy - speed -1.1
 --
@@ -240,13 +239,13 @@ function Mainscene:bed_up()
     self:Girl_bg_move( bed_up_locationx,bed_up_locationy ,function (  )
 
         self.layer=cc.Layer:create()
-        local shildinglayer = Shieldingscreen:new()
+        local shildinglayer = ShieldingLayerpin:new()
         self.layer:addChild(shildinglayer)
         self.layer:addTo(self,6)
-        --1.8秒消失后
+        --1.35秒消失后
         local layer =  self.layer
         local timer = TimerExBuf()
-        timer:create(1.9,1,1)
+        timer:create(1.35,1,1)
         function timer:onTime()
             layer:removeFromParent()
             timer:stop()
@@ -258,6 +257,8 @@ function Mainscene:bed_up()
         UItool:setCurrentState("wanyao")
         if bed_upnum==1 then
             UItool:message2(" 有个盒子，绳子太紧了，我解不开。需要什么东西把绳子割开。  ",30)
+            self.furniture:getChildByName("bed_up"):setVisible(false)
+            self.furniture:getChildByName("bed_up"):setTouchEnabled(false)
             local key_item = Data.getItemData(3)
             ModifyData.tableinsert(key_item.key)
             self.merge:removeSelf()
@@ -277,13 +278,13 @@ function Mainscene:bed_down()
 
     self:Girl_bg_move( bed_down_locationx ,bed_down_locationy,function (  )
         self.layer=cc.Layer:create()
-        local shildinglayer = Shieldingscreen:new()
+        local shildinglayer = ShieldingLayerpin:new()
         self.layer:addChild(shildinglayer)
         self.layer:addTo(self,6)
         --1.8秒消失后
         local layer =  self.layer
         local timer = TimerExBuf()
-        timer:create(2,1,1)
+        timer:create(1.5,1,1)
         function timer:onTime()
             layer:removeFromParent()
             timer:stop()
@@ -301,6 +302,7 @@ function Mainscene:bed_down()
             self.merge = Merge:createScene()
             self:addChild(self.merge,5)
             bed_downnum=bed_downnum+1
+            self.bg:getChildByName("hammer_s"):setVisible(false)
             else
                 UItool:message2(" 什么也没有了。  ",30)
         end
@@ -311,18 +313,18 @@ end
 local bedside_tablenum= 1
 function Mainscene:bedside_table()
     --床头柜
-    print("bedside_table")
-        local bedside_table_locationx, bedside_table_locationy= UItool:getitem_location(self.furniture:getChildByName("bedside_table"), self.bg:getPositionX())
+    print("bedside_table_btn")
+        local bedside_table_locationx, bedside_table_locationy= UItool:getitem_location(self.furniture:getChildByName("bedside_table_btn"), self.bg:getPositionX())
 
         self:Girl_bg_move( bedside_table_locationx,bedside_table_locationy ,function (  )
             self.layer=cc.Layer:create()
-            local shildinglayer = Shieldingscreen:new()
+            local shildinglayer = ShieldingLayerpin:new()
             self.layer:addChild(shildinglayer)
             self.layer:addTo(self,6)
             --1.8秒消失后
             local layer =  self.layer
             local timer = TimerExBuf()
-            timer:create(2,1,1)
+            timer:create(1.5,1,1)
             function timer:onTime()
                 layer:removeFromParent()
                 timer:stop()
@@ -334,7 +336,15 @@ function Mainscene:bedside_table()
             if bedside_tablenum==1 then
                 
                 if UItool:getBool("bedkey") then
+                    bedside_tablenum= 1+ bedside_tablenum
                     UItool:message2(" 这是什么东西……一半剪刀？ ",30)
+                    self.furniture:getChildByName("bedside_table_s"):setTexture("changesprite/bedside_table2.png")
+
+                else
+                    UItool:message2(" 它锁住了 ",30)
+                end
+
+                elseif bedside_tablenum==2 then
                     local key_item = Data.getItemData(12)
                     ModifyData.tableinsert(key_item.key)
 
@@ -345,58 +355,23 @@ function Mainscene:bedside_table()
                             break
                         end
                     end
-
+                    
                     self.merge:removeSelf()
                     self.merge = Merge:createScene()
                     self:addChild(self.merge,5)
                     bedside_tablenum= 1+ bedside_tablenum
                     UItool:setBool("bedkey",false)
-
-                else
-                    
-                    UItool:message2(" 它锁住了 ",30)
-
-                end
-
-                else
-                    
-                    UItool:message2("里面什么也没有了。",30)
             end
             
 
         end)
 end
 
-function Mainscene:L_curtain()
-    --左窗帘
-    print("L_curtain")
-        local L_curtain_locationx,L_curtain_locationy = UItool:getitem_location(self.furniture:getChildByName("L_curtain"), self.bg:getPositionX())
-
-        self:Girl_bg_move( L_curtain_locationx,L_curtain_locationy ,function (  )
-            -- self.grossini:getAnimation():play("squat_2")  -- 下蹲站起
-            -- UItool:message2(" 得到数字（3572）",40)
-        end)
-end
-
-local clicknum = 0
-function Mainscene:R_curtain()
-    --右窗帘  多次点击
-    print("R_curtain")
-            local R_curtain_locationx, R_curtain_locationy= UItool:getitem_location(self.furniture:getChildByName("R_curtain"), self.bg:getPositionX())
-            self:Girl_bg_move( R_curtain_locationx,R_curtain_locationy,function (  )
-                
-            end)
-            
-           
-        
-        print("number == %d",clicknum)
-end
-
 local bearnum = 1
 function Mainscene:bear()
     --  熊 多次点击
-    print("bear")
-            local R_curtain_locationx, R_curtain_locationy= UItool:getitem_location(self.furniture:getChildByName("bear"), self.bg:getPositionX())
+    print("bear_btn")
+            local R_curtain_locationx, R_curtain_locationy= UItool:getitem_location(self.furniture:getChildByName("bear_btn"), self.bg:getPositionX())
             self:Girl_bg_move( R_curtain_locationx,R_curtain_locationy,function (  )
                 if bearnum==1 then
                     UItool:message2(" 我喜欢的小熊，但和它在一起的洋娃娃不见了。 ",30)
@@ -404,11 +379,11 @@ function Mainscene:bear()
                     elseif bearnum==2 then
     
                         bearnum = 1+bearnum 
-                        UItool:message2(" 小熊的身体里好像有什么东西。 ",30)
+                        UItool:message2(" 小熊的身体里好像有什么东西，但是我要怎么取出来 ",30)
                         elseif bearnum==3 then
     
                             if UItool:getBool("scissors") then
-                                UItool:message2(" 为什么门钥匙会在这里……？ ",30)
+                                UItool:message2(" 门钥匙？为什么会在这里… ",30)
                                 local key_item = Data.getItemData(19)
                                 ModifyData.tableinsert(key_item.key)
                                 
@@ -419,7 +394,7 @@ function Mainscene:bear()
                                         break
                                     end
                                 end
-
+                                self.furniture:getChildByName("bear"):setTexture("changesprite/bear2.png")
                                 self.merge:removeSelf()
                                 self.merge = Merge:createScene()
                                 self:addChild(self.merge,5)
@@ -429,13 +404,11 @@ function Mainscene:bear()
                                     UItool:message2(" 想得到小熊里面的东西吗？",30)
 
                             end
-
+                            else
+                                UItool:message2(" 对不起，小熊... ",30)
                 end
                 
-                
             end)
-            
-           
         
         print("number == %d",clicknum)
 end
@@ -465,24 +438,24 @@ function Mainscene:toilet_glass()
                                 break
                             end
                         end
-
+                        self.bg:getChildByName("dressing_table"):setTexture("changesprite/dressing_table2.png")
                         self.merge:removeSelf()
                         self.merge = Merge:createScene()
                         self:addChild(self.merge,5)
                         toilet_glassnum = toilet_glassnum + 1
                         UItool:setBool("hammer",false)
                         else
-                            UItool:message2(" 不……这镜子太邪门了，我不想看见它…… ",30)
+                            UItool:message2(" 我不想看见它…… ",30)
 
                     end
                     
 
                     elseif toilet_glassnum == 3 then
-                        UItool:message3("镜子碎了……里面有四个数字！……奇怪的是，当我移开目光之后，就记不清上面究竟写了些什么……","我需要把这段数字写下来。",30)
+                        UItool:message3("镜子碎了，里面有四个数字，奇怪的是，当我移开目光之后，就记不清上面究竟写了些什么","我需要把这段数字写下来。",30)
                         toilet_glassnum = toilet_glassnum + 1
                         elseif toilet_glassnum == 4 then
                             if UItool:getBool("paperpen") then
-                                UItool:message2(" 密码纸（6732）  ",30)
+                                UItool:message2(" 密码纸 ",30)
                                 local key_item = Data.getItemData(2)
                                 ModifyData.tableinsert(key_item.key)
                                 
@@ -504,25 +477,13 @@ function Mainscene:toilet_glass()
                                     UItool:message2(" 你需要纸把它记录下来 ",30)
                                     
                             end
-                            elseif toilet_glassnum >=5 then
-                                --todo好了，抄下来了
-                                 UItool:message2(" 好了，抄下来了 ",30)
 
             end
             
             
         end)
 end
-local toilet_drawernum = 1
-function Mainscene:toilet_drawer()
-    --梳妆台-抽屉
-    print("toilet_drawer")
-    local toilet_drawer_locationx,toilet_drawer_locationy = UItool:getitem_location(self.furniture:getChildByName("toilet_drawer"), self.bg:getPositionX())
 
-        self:Girl_bg_move( toilet_drawer_locationx,toilet_drawer_locationy ,function (  )
-            
-        end)
-end
 
 local stoolnum = 1
 function Mainscene:stool()
@@ -532,13 +493,13 @@ function Mainscene:stool()
 
         self:Girl_bg_move( stool_locationx,stool_locationy ,function (  )
             self.layer=cc.Layer:create()
-            local shildinglayer = Shieldingscreen:new()
+            local shildinglayer = ShieldingLayerpin:new()
             self.layer:addChild(shildinglayer)
             self.layer:addTo(self,6)
             --1.8秒消失后
             local layer =  self.layer
             local timer = TimerExBuf()
-            timer:create(2,1,1)
+            timer:create(1.5,1,1)
             function timer:onTime()
                 layer:removeFromParent()
                 timer:stop()
@@ -554,6 +515,8 @@ function Mainscene:stool()
                 self.merge:removeSelf()
                 self.merge = Merge:createScene()
                 self:addChild(self.merge,5)
+                self.furniture:getChildByName("stool"):setVisible(false)
+                self.furniture:getChildByName("stool"):setTouchEnabled(false)
                 stoolnum = stoolnum +1
                 else
                     UItool:message2(" 嘿……凳子搬走了。  ",30)
@@ -567,15 +530,12 @@ local wardrobenum=1
 function Mainscene:wardrobe()
     --衣柜
     print("wardrobe")
-            
     local wardrobe_locationx,wardrobe_locationy = UItool:getitem_location(self.furniture:getChildByName("wardrobe"), self.bg:getPositionX())
 
         self:Girl_bg_move( wardrobe_locationx,wardrobe_locationy ,function (  )
             if wardrobenum==1 then
                 if UItool:getBool("key") then
-                    UItool:message2(" 发现有个箱子 ",30)
-                    local key_item = Data.getItemData(21)
-                    ModifyData.tableinsert(key_item.key)
+                    UItool:message2(" 发现有个密码箱子 ",30)
 
                     local itemnum = UItool:getInteger("keynum")
                     for i=1,#ModifyData.getTable() do
@@ -584,7 +544,7 @@ function Mainscene:wardrobe()
                             break
                         end
                     end
-
+                    self.furniture:getChildByName("yigui"):setTexture("changesprite/wardrobe2.png")
                     self.merge:removeSelf()
                     self.merge = Merge:createScene()
                     self:addChild(self.merge,5)
@@ -594,30 +554,36 @@ function Mainscene:wardrobe()
                         UItool:message2(" 衣柜锁住了",30)
 
                 end
+                elseif wardrobenum==2 then
+                    UItool:password("15964",5) -- 密码四
                 else
                     UItool:message2(" 已经空了 ",30)
             end
-            
-        
     end)
 end
 
-local cushionnum = 1
+local cushionnum = 0
 function Mainscene:cushion()
     --靠垫
     print("cushion")
            
     local cushion_locationx,cushion_locationy = UItool:getitem_location(self.furniture:getChildByName("cushion"), self.bg:getPositionX())
-
+    
+    if self.grossini:getPositionX()<cushion_locationx then
+        cushion_locationx = cushion_locationx - self.grossini:getContentSize().width/5
+        else
+            cushion_locationx = cushion_locationx + self.grossini:getContentSize().width/5
+    end
+    -- print("99999999999",self.grossini:getPositionX(),cushion_locationx)
     self:Girl_bg_move( cushion_locationx,cushion_locationy ,function (  )
         self.layer=cc.Layer:create()
-        local shildinglayer = Shieldingscreen:new()
+        local shildinglayer = ShieldingLayerpin:new()
         self.layer:addChild(shildinglayer)
         self.layer:addTo(self,6)
         --1.8秒消失后
         local layer =  self.layer
         local timer = TimerExBuf()
-        timer:create(1.9,1,1)
+        timer:create(1.35,1,1)
         function timer:onTime()
             layer:removeFromParent()
             timer:stop()
@@ -626,17 +592,21 @@ function Mainscene:cushion()
 
         self.grossini:getAnimation():play("stoop_1")--弯腰
         UItool:setCurrentState("wanyao")
-        if cushionnum == 1 then
-            
-            UItool:message2(" 衣柜钥匙 ",30)
-            local key_item = Data.getItemData(18)
-            ModifyData.tableinsert(key_item.key)
-            self.merge:removeSelf()
-            self.merge = Merge:createScene()
-            self:addChild(self.merge,5)
+        if cushionnum == 0 then
+            self.furniture:getChildByName("cushion"):setPosition(cc.p(self.furniture:getChildByName("cushion"):getPositionX()+30,self.furniture:getChildByName("cushion"):getPositionY()-20))
+            UItool:message2(" 这有把钥匙. ",30)
             cushionnum = cushionnum+1
-            else
-                UItool:message2(" 已经来过了 ",30)
+            elseif cushionnum == 1 then
+                -- UItool:message2(" 衣柜钥匙 ",30)
+                self.furniture:getChildByName("key"):removeSelf()
+                local key_item = Data.getItemData(18)
+                ModifyData.tableinsert(key_item.key)
+                self.merge:removeSelf()
+                self.merge = Merge:createScene()
+                self:addChild(self.merge,5)
+                cushionnum = cushionnum+1
+
+            
         end
         
         
@@ -664,7 +634,7 @@ function Mainscene:B_vase()
                         break
                     end
                 end
-
+                self.furniture:getChildByName("redflower"):setTexture("changesprite/redflower2.png")
                 self.merge:removeSelf()
                 self.merge = Merge:createScene()
                 self:addChild(self.merge,5)
@@ -682,42 +652,6 @@ function Mainscene:B_vase()
     end)
 end
 
-
-function Mainscene:S_vase()
-    --小花瓶
-    print("S_vase")
-        
-        local S_vase_locationx,S_vase_locationy = UItool:getitem_location(self.furniture:getChildByName("S_vase"), self.bg:getPositionX())
-
-        self:Girl_bg_move( S_vase_locationx,S_vase_locationy ,function ()
-        
-        end)
-end
-
-local sofabacknum = 1
-function Mainscene:sofaback()
-    --沙发背
-    print("sofaback")
-    local sofaback_locationx,sofaback_locationy = UItool:getitem_location(self.furniture:getChildByName("sofaback"), self.bg:getPositionX())
-
-    self:Girl_bg_move( sofaback_locationx,sofaback_locationy ,function ()
-        UItool:message2(" 沙发不能移动 ",30 )
-    end)
-end
-
-
-
-local bookshelf_onenum = 1
-function Mainscene:bookshelf_one()
-    --书架一
-    print("bookshelf_one")
-       
-        local bookshelf_one_locationx,bookshelf_one_locationy = UItool:getitem_location(self.furniture:getChildByName("bookshelf_one"), self.bg:getPositionX())
-
-        self:Girl_bg_move( bookshelf_one_locationx,bookshelf_one_locationy ,function ()
-            UItool:message2(" 这都是书  ",30 )
-        end)
-end
 
 local bookshelf_twonum = 1
 function Mainscene:bookshelf_two()
@@ -753,31 +687,7 @@ function Mainscene:bookshelf_two()
     
 end
 
-local L_drawernum = 1
-function Mainscene:L_drawer()
-    print("L_drawer")
-    --书桌左抽屉
-           
-        local L_drawer_locationx,L_drawer_locationy = UItool:getitem_location(self.furniture:getChildByName("L_drawer"), self.bg:getPositionX())
 
-        self:Girl_bg_move( L_drawer_locationx,L_drawer_locationy ,function ()
-            
-
-        end)
-end
-
-local R_drawernum = 1
-function Mainscene:R_drawer()
-    print("R_drawer")
-    --书桌右抽屉
-    local R_drawer_locationx,R_drawer_locationy = UItool:getitem_location(self.furniture:getChildByName("R_drawer"), self.bg:getPositionX())
-
-    self:Girl_bg_move( R_drawer_locationx,R_drawer_locationy ,function ()
-        
-        
-    end)
-
-end
 
 local booknum = 1
 function Mainscene:book()
@@ -786,13 +696,13 @@ function Mainscene:book()
 
     self:Girl_bg_move( book_locationx,book_locationy ,function ()
         self.layer=cc.Layer:create()
-        local shildinglayer = Shieldingscreen:new()
+        local shildinglayer = ShieldingLayerpin:new()
         self.layer:addChild(shildinglayer)
         self.layer:addTo(self,6)
         --1.8秒消失后
         local layer =  self.layer
         local timer = TimerExBuf()
-        timer:create(1.9,1,1)
+        timer:create(1.35,1,1)
         function timer:onTime()
             layer:removeFromParent()
             timer:stop()
@@ -809,33 +719,13 @@ function Mainscene:book()
             self.merge:removeSelf()
             self.merge = Merge:createScene()
             self:addChild(self.merge,5)
-            else
-                UItool:message2("  不需要太多  ",30) 
+            self.furniture:getChildByName("book"):setVisible(false)
+            self.furniture:getChildByName("book"):setTouchEnabled(false)
+
         end
     end)
 end
 
-local Pintunum = 1
-function Mainscene:Pintu()
-    print("Pintu")
-    local Pintu_locationx,Pintu_locationy = UItool:getitem_location(self.furniture:getChildByName("Pintu"), self.bg:getPositionX())
-
-    self:Girl_bg_move( Pintu_locationx,Pintu_locationy ,function ()
-    end)
-end
-
-local wardrobe_drawer_1num = 0
-function Mainscene:wardrobe_drawer_1()
-    --立柜抽屉一层  多次点击 
-    print("wardrobe_drawer_1")
-            local wardrobe_drawer_1_locationx,wardrobe_drawer_1_locationy = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_1"), self.bg:getPositionX())
-
-            self:Girl_bg_move( wardrobe_drawer_1_locationx,wardrobe_drawer_1_locationy ,function ()
-                
-            end)
-        
-        
-end
 
 local wardrobe_drawer_2num = 1
 function Mainscene:wardrobe_drawer_2()
@@ -845,13 +735,13 @@ function Mainscene:wardrobe_drawer_2()
 
         self:Girl_bg_move( wardrobe_drawer_2_locationx,wardrobe_drawer_2_locationy ,function ()
             self.layer=cc.Layer:create()
-            local shildinglayer = Shieldingscreen:new()
+            local shildinglayer = ShieldingLayerpin:new()
             self.layer:addChild(shildinglayer)
             self.layer:addTo(self,6)
             --1.8秒消失后
             local layer =  self.layer
             local timer = TimerExBuf()
-            timer:create(2,1,1)
+            timer:create(1.5,1,1)
             function timer:onTime()
                 layer:removeFromParent()
                 timer:stop()
@@ -865,27 +755,16 @@ function Mainscene:wardrobe_drawer_2()
                 wardrobe_drawer_2num = wardrobe_drawer_2num+1
                 local key_item = Data.getItemData(6)
                 ModifyData.tableinsert(key_item.key) 
+                self.furniture:getChildByName("ligui"):setTexture("changesprite/ligui2.png")
                 self.merge:removeSelf()
                 self.merge = Merge:createScene()
                 self:addChild(self.merge,5)
                 else
-                    UItool:message2("  没有更多  ",30) 
+                    UItool:message2("  抽屉里什么都没有了  ",30) 
             end
         end)
 end
 
-local wardrobe_drawer_3num = 1
-function Mainscene:wardrobe_drawer_3()
-    print("wardrobe_drawer_3")
-           
-        local wardrobe_drawer_3_locationx,wardrobe_drawer_3_locationy = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_3"), self.bg:getPositionX())
-
-        self:Girl_bg_move( wardrobe_drawer_3_locationx,wardrobe_drawer_3_locationy ,function ()
-            -- self.grossini:getAnimation():play("squat_1")--下蹲
-            -- UItool:setCurrentState("xiadun")
-            -- UItool:message2(" 好像被锁住了 ",30 )
-        end)
-end
 
 local phonenum = 1
 function Mainscene:phone()
@@ -929,27 +808,16 @@ function Mainscene:phone()
 
                         UItool:setBool("phonepaper",false)
                         phonenum = phonenum + 1
-
+                        self.merge:removeSelf()
+                        self.merge = Merge:createScene()
+                        self:addChild(self.merge,5)
                 end
-
-                else
-                    UItool:message2(" 你没有花了 ",30)
             end
             
 
         end)
 end
 
-local wardrobe_albumnum = 1
-function Mainscene:wardrobe_album()
-    print("wardrobe_album") -- 立柜相册
-        -- UItool:message2("线索一",30)
-        local wardrobe_album_locationx,wardrobe_album_locationy = UItool:getitem_location(self.furniture:getChildByName("wardrobe_album"), self.bg:getPositionX())
-
-        self:Girl_bg_move( wardrobe_album_locationx,wardrobe_album_locationy ,function ()
-        end)
-
-end
 
 local doornum = 1
 function Mainscene:door()
@@ -991,7 +859,8 @@ function Mainscene:Big_frame()
         self:Girl_bg_move( Big_frame_locationx,Big_frame_locationy ,function ()
             if Big_framenum==1 then
                 if UItool:getBool("stamp") then
-                    UItool:message2("护身符 +++ 紫花一朵朵",30)
+
+                    UItool:message2("是我的护身符。 ",30)
                     local key_item = Data.getItemData(4)
                     ModifyData.tableinsert(key_item.key)
                     
@@ -1002,7 +871,7 @@ function Mainscene:Big_frame()
                             break
                         end
                     end
-
+                    self.furniture:getChildByName("Big_frame_s"):setTexture("changesprite/Big_frame2.png")
                     self.merge:removeSelf()
                     self.merge = Merge:createScene()
                     self:addChild(self.merge,5)
@@ -1012,9 +881,6 @@ function Mainscene:Big_frame()
                         UItool:message2(" 这画下面有个凹槽，好像要用什么东西插进去才能打开。 ",30)
 
                 end
-
-                else
-                    UItool:message2(" 我一直在看着你 ",30)
             end
             
             
@@ -1030,7 +896,7 @@ function Mainscene:hua_frame()
 
         self:Girl_bg_move( hua_frame_locationx,hua_frame_locationy ,function ()
             if UItool:ifcontain(21) then
-                UItool:message2(" 这里好多花啊 ，黄色的花有3朵 ",30 )
+                UItool:message2(" 这幅画上的花是黄颜色，有4朵。 ",30 )
                 else
                     UItool:message2(" 画上有好多花 ",30 )
             end
@@ -1046,7 +912,7 @@ function Mainscene:fang_frame()
 
         self:Girl_bg_move( fang_frame_locationx,fang_frame_locationy ,function ()
             if UItool:ifcontain(21) then
-                UItool:message2(" 这里好多花啊 ，粉色的花有7朵 ",30 )
+                UItool:message2(" 这幅画上的花是粉颜色，有6朵。 ",30 )
                 else
                     UItool:message2(" 画上有好多花 ",30 )
             end
@@ -1062,7 +928,7 @@ function Mainscene:yuan_frame()
         self:Girl_bg_move( yuan_frame_locationx,yuan_frame_locationy ,function ()
 
         if UItool:ifcontain(21) then
-                UItool:message2(" 这里好多花啊 ，绿色的花有4朵 ",30 )
+                UItool:message2(" 这幅画上的花是白颜色，有9朵。",30 )
                 else
                     UItool:message2(" 画上有好多花 ",30 )
             end
@@ -1077,7 +943,22 @@ function Mainscene:frame_1()
 
         self:Girl_bg_move( frame_locationx,frame_locationy ,function ()
             if UItool:ifcontain(21) then
-                UItool:message2(" 这里好多花啊 ，蓝色的花有5朵 ",30 )
+                UItool:message2(" 这幅画上的花是蓝颜色，有5朵。 ",30 )
+                else
+                    UItool:message2(" 画上有好多花 ",30 )
+            end
+        end)
+end
+
+local frame_1num = 1
+function Mainscene:bigframe()
+    print("bigframe")
+        
+        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("bigframe"), self.bg:getPositionX())
+
+        self:Girl_bg_move( bigframe_locationx,bigframe_locationy ,function ()
+            if UItool:ifcontain(21) then
+                UItool:message2(" 这幅画里的我拿了一朵紫色的花——那是我最喜欢的颜色。 ",30 )
                 else
                     UItool:message2(" 画上有好多花 ",30 )
             end
@@ -1105,6 +986,8 @@ function Mainscene:wardrobe_top()
                         break
                     end
                 end
+                self.furniture:getChildByName("wardrobe_top"):setTouchEnabled(false)
+                self.furniture:getChildByName("wardrobe_top"):setVisible(false)
                 self.merge:removeSelf()
                 self.merge = Merge:createScene()
                 self:addChild(self.merge,5)
@@ -1123,140 +1006,97 @@ end
 
 function Mainscene:AllButtons(  )
     self.AllButtons = 
-    {
-            self.furniture:getChildByName("L_curtain"),
-            self.furniture:getChildByName("R_curtain"),
-            self.furniture:getChildByName("bed_up"),
-            self.furniture:getChildByName("bed_down"),
-            self.furniture:getChildByName("toilet_glass"),
-            self.furniture:getChildByName("bedside_table"),
-            self.furniture:getChildByName("toilet_drawer"),
-            self.furniture:getChildByName("stool"),
-            self.furniture:getChildByName("wardrobe"),
-            self.furniture:getChildByName("cushion"),
-            self.furniture:getChildByName("B_vase"),
-            self.furniture:getChildByName("S_vase"),
-            self.furniture:getChildByName("sofaback"),
-            self.furniture:getChildByName("L_drawer"),
-            self.furniture:getChildByName("R_drawer"),
-            self.furniture:getChildByName("bookshelf_one"),
-            self.furniture:getChildByName("bookshelf_two"),
-            self.furniture:getChildByName("book"),
-            self.furniture:getChildByName("Pintu"),
-            self.furniture:getChildByName("wardrobe_drawer_1"),
-            self.furniture:getChildByName("wardrobe_drawer_2"),
-            self.furniture:getChildByName("wardrobe_drawer_3"),
-            self.furniture:getChildByName("phone"),
-            self.furniture:getChildByName("wardrobe_album"),
-            self.furniture:getChildByName("door"),
-            self.furniture:getChildByName("Big_frame"),
-            self.furniture:getChildByName("hua_frame"),
-            self.furniture:getChildByName("yuan_frame"),
-            self.furniture:getChildByName("fang_frame"),
-            self.furniture:getChildByName("wardrobe_top"),
-            self.furniture:getChildByName("frame_1"),
-            self.furniture:getChildByName("bear")
+    {  
+        self.furniture:getChildByName("bed_up"),
+        self.furniture:getChildByName("bed_down"),
+        self.furniture:getChildByName("toilet_glass"),
+        self.furniture:getChildByName("bedside_table_btn"),
+        self.furniture:getChildByName("stool"),
+        self.furniture:getChildByName("wardrobe"),
+        self.furniture:getChildByName("cushion"),
+        self.furniture:getChildByName("B_vase"),
+        self.furniture:getChildByName("bookshelf_two"),
+        self.furniture:getChildByName("book"),
+        self.furniture:getChildByName("wardrobe_drawer_2"),
+        self.furniture:getChildByName("phone"),
+        self.furniture:getChildByName("door"),
+        self.furniture:getChildByName("Big_frame"),
+        self.furniture:getChildByName("hua_frame"),
+        self.furniture:getChildByName("yuan_frame"),
+        self.furniture:getChildByName("fang_frame"),
+        self.furniture:getChildByName("wardrobe_top"),
+        self.furniture:getChildByName("frame_1"),
+        self.furniture:getChildByName("bear_btn"),
+        self.furniture:getChildByName("bigframe")
+
 
     }
     local function renwu_haoyou_shezhiButtonClick(event,eventType)
         if eventType == TOUCH_EVENT_ENDED then
-            if event:getName()=="L_curtain" then
-                print("L_curtain")
-                self:L_curtain()
-                elseif event:getName()=="R_curtain" then
-                    print("R_curtain")
-                    self:R_curtain()
-                    elseif event:getName()=="bed_up" then
-                        print("bed_up")
-                        self:bed_up()
-                        elseif event:getName()=="bed_down" then
-                            print("bed_down")
-                            self:bed_down()
-                            elseif event:getName()=="toilet_glass" then
-                                print("toilet_glass")
-                                self:toilet_glass()
-                                elseif event:getName()=="bedside_table" then
-                                    print("bedside_table")
-                                    self:bedside_table()
-                                    elseif event:getName()=="toilet_drawer" then
-                                        print("toilet_drawer")
-                                        self:toilet_drawer()
-                                        elseif event:getName()=="stool" then
-                                            print("stool")
-                                            self:stool()
-                                            elseif event:getName()=="wardrobe" then
-                                                print("wardrobe")
-                                                self:wardrobe()
-                                                elseif event:getName()=="cushion" then
-                                                    print("cushion")
-                                                    self:cushion()
-                                                    elseif event:getName()=="B_vase" then
-                                                        print("B_vase")
-                                                        self:B_vase()
-                                                        elseif event:getName()=="S_vase" then
-                                                            print("S_vase")
-                                                            self:S_vase()
-                                                            elseif event:getName()=="sofaback" then
-                                                                print("sofaback")
-                                                                self:sofaback()
-                                                                elseif event:getName()=="L_drawer" then
-                                                                    print("L_drawer")
-                                                                    self:L_drawer()
-                                                                    elseif event:getName()=="R_drawer" then
-                                                                        print("··R_drawer·")
-                                                                        self:R_drawer()
-                                                                        elseif event:getName()=="bookshelf_one" then
-                                                                            print("bookshelf_one")
-                                                                            self:bookshelf_one()
-                                                                            elseif event:getName()=="bookshelf_two" then
-                                                                                print("··bookshelf_two·")
-                                                                                self:bookshelf_two()
-                                                                                elseif event:getName()=="book" then
-                                                                                    print("book")
-                                                                                    self:book()
-                                                                                    elseif event:getName()=="Pintu" then
-                                                                                        print("Pintu")
-                                                                                        self:Pintu()
-                                                                                        elseif event:getName()=="wardrobe_drawer_1" then
-                                                                                            print("wardrobe_drawer_1")
-                                                                                            self:wardrobe_drawer_1()
-                                                                                            elseif event:getName()=="wardrobe_drawer_2" then
-                                                                                                print("·wardrobe_drawer_2··")
-                                                                                                self:wardrobe_drawer_2()
-                                                                                                elseif event:getName()=="wardrobe_drawer_3" then
-                                                                                                    print("··wardrobe_drawer_3·")
-                                                                                                    self:wardrobe_drawer_3()
-                                                                                                    elseif event:getName()=="phone" then
-                                                                                                        print("··phone·")
-                                                                                                        self:phone()
-                                                                                                        elseif event:getName()=="wardrobe_album" then
-                                                                                                            print("··wardrobe_album·")
-                                                                                                            self:wardrobe_album()
-                                                                                                            elseif event:getName()=="door" then
-                                                                                                                print("··door·")
-                                                                                                                self:door()
-                                                                                                                elseif event:getName()=="Big_frame" then
-                                                                                                                    print("··Big_frame·")
-                                                                                                                    self:Big_frame()
-                                                                                                                    elseif event:getName()=="hua_frame" then
-                                                                                                                        print("·hua_frame··")
-                                                                                                                        self:hua_frame()
-                                                                                                                        elseif event:getName()=="yuan_frame" then
-                                                                                                                            print("yuan_frame")
-                                                                                                                            self:yuan_frame()
-                                                                                                                            elseif event:getName()=="fang_frame" then
-                                                                                                                                print("fang_frame")
-                                                                                                                                self:fang_frame()
-                                                                                                                                elseif event:getName()=="wardrobe_top" then
-                                                                                                                                    print("wardrobe_top")
-                                                                                                                                    self:wardrobe_top()
-                                                                                                                                    elseif event:getName()=="frame_1" then
-                                                                                                                                        print("frame_1")
-                                                                                                                                        self:frame_1()
-                                                                                                                                        elseif event:getName()=="bear" then
-                                                                                                                                            print("bear")
-                                                                                                                                            self:bear()
-                                                                                                                    
+            if event:getName()=="bed_up" then
+                print("bed_up")
+                self:bed_up()
+                elseif event:getName()=="bed_down" then
+                    print("bed_down")
+                    self:bed_down()
+                    elseif event:getName()=="toilet_glass" then
+                        print("toilet_glass")
+                        self:toilet_glass()
+                        elseif event:getName()=="bedside_table_btn" then
+                            print("bedside_table_btn")
+                            self:bedside_table()
+                            elseif event:getName()=="stool" then
+                                print("stool")
+                                self:stool()
+                                elseif event:getName()=="wardrobe" then
+                                    print("wardrobe")
+                                    self:wardrobe()
+                                    elseif event:getName()=="cushion" then
+                                        print("cushion")
+                                        self:cushion()
+                                        elseif event:getName()=="B_vase" then
+                                            print("B_vase")
+                                            self:B_vase()
+                                            elseif event:getName()=="bookshelf_two" then
+                                                print("··bookshelf_two·")
+                                                self:bookshelf_two()
+                                                elseif event:getName()=="book" then
+                                                    print("book")
+                                                    self:book()
+                                                    elseif event:getName()=="wardrobe_drawer_2" then
+                                                        print("·wardrobe_drawer_2··")
+                                                        self:wardrobe_drawer_2()
+                                                        elseif event:getName()=="phone" then
+                                                            print("··phone·")
+                                                            self:phone()
+                                                            elseif event:getName()=="door" then
+                                                                print("··door·")
+                                                                self:door()
+                                                                elseif event:getName()=="Big_frame" then
+                                                                    print("··Big_frame·")
+                                                                    self:Big_frame()
+                                                                    elseif event:getName()=="hua_frame" then
+                                                                        print("·hua_frame··")
+                                                                        self:hua_frame()
+                                                                        elseif event:getName()=="yuan_frame" then
+                                                                            print("yuan_frame")
+                                                                            self:yuan_frame()
+                                                                            elseif event:getName()=="fang_frame" then
+                                                                                print("fang_frame")
+                                                                                self:fang_frame()
+                                                                                elseif event:getName()=="wardrobe_top" then
+                                                                                    print("wardrobe_top")
+                                                                                    self:wardrobe_top()
+                                                                                    elseif event:getName()=="frame_1" then
+                                                                                        print("frame_1")
+                                                                                        self:frame_1()
+                                                                                        elseif event:getName()=="bear_btn" then
+                                                                                            print("bear")
+                                                                                            self:bear()
+                                                                                            elseif event:getName()=="bigframe" then
+                                                                                                print("bigframe")
+                                                                                                self:bigframe()
+                                                                                                            
                                                                                                                  
             end
         end
@@ -1280,7 +1120,7 @@ function Mainscene:grossiniwalk()
     self.grossini:setScaleY(0.25)
     
     self.grossini:getAnimation():playWithIndex(1)
-    -- self.grossini:getAnimation():setSpeedScale(1.2)
+    -- self.grossini:getAnimation():setSpeedScale(1.1)
     self.grossini:getAnimation():play("stand")
      UItool:setCurrentState("stand")
     self.grossini:setPosition(cc.p(170,155))
@@ -1306,7 +1146,7 @@ function Mainscene:ontouch( ... )
 	--实现事件触发回调
 	local function onTouchBegan(touch, event)
 		--人物行走调用
-        local rect = cc.rect(0, self.visibleSize.height - self.bg:getContentSize().height*0.85,self.bg:getContentSize().width, self.bg:getContentSize().height)  
+        local rect = cc.rect(0, 150,self.bg:getContentSize().width, self.bg:getContentSize().height)  
   
         if cc.rectContainsPoint(rect, touch:getLocation()) then  
            local gril_pointx = self.grossini:getPositionX()
@@ -1453,7 +1293,7 @@ function Mainscene:Girl_bg_move(X, Y,event)
         local delta =  apoint - gril_pointx
         --距离
         local x = apoint-self.visibleSize.width/2
-        local x2 = self.bg:getPositionX()+ self.visibleSize.width
+        local x2 = self.bg:getContentSize().width + self.bg:getPositionX() - self.visibleSize.width
     --速度
         local speed = 390
     --时间
@@ -1476,7 +1316,7 @@ function Mainscene:Girl_bg_move(X, Y,event)
            if UItool:getCurrentState()=="stand" then
             
                 UItool:setCurrentState("stand")
-                self.delaystand = cc.DelayTime:create(0)
+                -- self.delaystand = cc.DelayTime:create(0)
             end
         end
 
@@ -1516,12 +1356,12 @@ function Mainscene:Girl_bg_move(X, Y,event)
                             if self.bg:getPositionX()<delta  then
                                 -- print("l地图小于")
                                 self.bgmove=cc.MoveBy:create( math.abs(self.time), cc.p(-delta,self.bg:getPositionY()))
-                                self.bgsequence = cc.Sequence:create(self.delaystand,self.bgmove)
+                                self.bgsequence = cc.Sequence:create(self.bgmove)
                                 self.bg:runAction(self.bgsequence)
                                 else
                                     -- print("l地图大于")
                                     self.bgmove=cc.MoveTo:create( math.abs(self.time2), cc.p(0,self.bg:getPositionY()))
-                                    self.bgsequence = cc.Sequence:create(self.delaystand,self.bgmove)
+                                    self.bgsequence = cc.Sequence:create(self.bgmove)
                                     self.bg:runAction(self.bgsequence)
                             end
                             elseif self.bg:getPositionX()==0 then
@@ -1547,13 +1387,13 @@ function Mainscene:Girl_bg_move(X, Y,event)
                      elseif self.grossini:getPositionX()==self.visibleSize.width/2 then
                         -- print("r人物在中间的时候")
                         if self.bg:getPositionX() <= 0 and self.bg:getPositionX() > self.visibleSize.width-self.bg:getContentSize().width then
-                            if self.bg:getPositionX()+ self.visibleSize.width>apoint-self.visibleSize.width/2 then
+                            if self.bg:getContentSize().width + self.bg:getPositionX() - self.visibleSize.width > apoint-self.visibleSize.width/2 then
                                 self.bgmove=cc.MoveBy:create( math.abs(self.time), cc.p(-delta,self.bg:getPositionY()))
-                                self.bgsequence = cc.Sequence:create(self.delaystand,self.bgmove)
+                                self.bgsequence = cc.Sequence:create(self.bgmove)
                                 self.bg:runAction(self.bgsequence)
                                 else
                                     self.bgmove=cc.MoveTo:create( math.abs(self.time3), cc.p(self.visibleSize.width-self.bg:getContentSize().width,self.bg:getPositionY()))
-                                    self.bgsequence = cc.Sequence:create(self.delaystand,self.bgmove)
+                                    self.bgsequence = cc.Sequence:create(self.bgmove)
                                     self.bg:runAction(self.bgsequence)
                             end
                             elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width then
@@ -1572,35 +1412,35 @@ function Mainscene:Girl_bg_move(X, Y,event)
         if self.grossini:getPositionX() == self.visibleSize.width/2 then
             --背景在原点，且点击在右边
             if self.bg:getPositionX() == 0 and apoint > self.visibleSize.width/2  then
-                self.sequence = cc.Sequence:create(self.delaystand,cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
+                self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
                 -- 背景在原点 点击在左边
                 elseif self.bg:getPositionX() == 0 and apoint < self.visibleSize.width/2 then
-                    self.sequence = cc.Sequence:create(self.delaystand,cc.CallFunc:create(onestep),delaystand,self.girlmoveto,cc.CallFunc:create(threestep))
+                    self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delaystand,self.girlmoveto,cc.CallFunc:create(threestep))
                     -- 背景在最左边
                     elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width and 
                     apoint >self.visibleSize.width/2  then
-                        self.sequence = cc.Sequence:create(self.delaystand,cc.CallFunc:create(onestep),self.delaystand,self.girlmoveto,cc.CallFunc:create(threestep))
+                        self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
                         elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width and
                     apoint < self.visibleSize.width/2 then
-                            self.sequence = cc.Sequence:create(self.delaystand,cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
+                            self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
                             
             end
             --背景不在边上的时候
             if self.bg:getPositionX()~=0 and self.bg:getPositionX() ~= self.visibleSize.width-self.bg:getContentSize().width then
                 if apoint>self.visibleSize.width/2 then
                     if self.bg:getPositionX()+ self.visibleSize.width>apoint-self.visibleSize.width/2 then
-                        self.sequence = cc.Sequence:create(self.delaystand,cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
+                        self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
                         
                         else
-                            self.sequence = cc.Sequence:create(self.delaystand,cc.CallFunc:create(onestep),delay3,self.girlmoveto,cc.CallFunc:create(threestep))
+                            self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay3,self.girlmoveto,cc.CallFunc:create(threestep))
                             
                     end
                     else
                         if self.bg:getPositionX()<delta then
-                            self.sequence = cc.Sequence:create(self.delaystand,cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
+                            self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
                             
                             else
-                                self.sequence = cc.Sequence:create(self.delaystand,cc.CallFunc:create(onestep),delay2,self.girlmoveto,cc.CallFunc:create(threestep))
+                                self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay2,self.girlmoveto,cc.CallFunc:create(threestep))
                         end
                 end
                 else
@@ -1612,7 +1452,7 @@ function Mainscene:Girl_bg_move(X, Y,event)
                 
                 
                 -- print("停顿时间",self.tingdun)
-                self.sequence = cc.Sequence:create(self.delaystand,cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
+                self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
         end
         self.grossini:runAction(self.sequence)
 end
