@@ -18,9 +18,9 @@ function Message3:ctor()
 
     local visiblesize = cc.Director:getInstance():getVisibleSize()
 
-    local movedown = cc.MoveTo:create(0.8, cc.p(0,0-self.topbar:getContentSize().height))
-    local moveup = cc.MoveTo:create(0.8, cc.p(0,0))
-    local delay = cc.DelayTime:create(2.5)
+    local movedown = cc.MoveTo:create(0.5, cc.p(0,0-self.topbar:getContentSize().height))
+    local moveup = cc.MoveTo:create(0.5, cc.p(0,0))
+    local delay = cc.DelayTime:create(1.8)
     local se = cc.Sequence:create(movedown,delay)
     self.topbar:runAction(movedown)
     
@@ -62,12 +62,12 @@ function Message3:touch(str1,str2,size)
         self:openHandler(str1,str2,size)
         if self.touchnum ==2 then
             self.touchnum = 1 + self.touchnum
-            local moveup = cc.MoveTo:create(0.8, cc.p(0,0))
+            local moveup = cc.MoveTo:create(0.3, cc.p(0,0))
             self.topbar:runAction(moveup)
 
             local panel = self
             local timer = TimerExBuf()
-                timer:create(0.8,1,1)
+                timer:create(0.3,1,1)
                 function timer:onTime()
                     if panel then
                         panel:removeFromParent()

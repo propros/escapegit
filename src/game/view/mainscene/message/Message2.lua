@@ -16,9 +16,9 @@ function Message2:ctor()
     self:addChild(self.panel,125)
     local visiblesize = cc.Director:getInstance():getVisibleSize()
 
-    local movedown = cc.MoveTo:create(0.8, cc.p(0,0-self.topbar:getContentSize().height))
-    local moveup = cc.MoveTo:create(0.8, cc.p(0,0))
-    local delay = cc.DelayTime:create(2.5)
+    local movedown = cc.MoveTo:create(0.5, cc.p(0,0-self.topbar:getContentSize().height))
+    local moveup = cc.MoveTo:create(0.5, cc.p(0,0))
+    local delay = cc.DelayTime:create(1.3)
     local se = cc.Sequence:create(movedown,delay,moveup)
     self.topbar:runAction(se)
 

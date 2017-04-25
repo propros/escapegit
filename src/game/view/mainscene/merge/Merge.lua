@@ -51,7 +51,7 @@ function Merge:initMatrix()
         self.sprite:setTag(var)
         self.sprite:setAnchorPoint(cc.p(0.5,0.5))
         self.sprite:setPosition((key-1)*self.sprite:getContentSize().width*1.05 + 80 ,y)
-        print("坐标",self.sprite:getPositionX())
+        -- print("坐标",self.sprite:getPositionX())
         self.bag:addChild(self.sprite,2) 
         self.bag_table[key] = self.sprite
 
@@ -78,6 +78,7 @@ function Merge:itemshake( item )
             end
             
     end
+
     local moveup = cc.MoveTo:create(0.5, cc.p(self.srcitemx , self.srcitemy+10))
     local movedown = cc.MoveTo:create(0.5, cc.p(self.srcitemx , self.srcitemy))
     local sequencd= cc.Sequence:create(moveup,movedown)
@@ -194,6 +195,8 @@ function Merge:itemtouch()
         end
 
         local location = touch:getLocation()
+        -- self.new_srcItem:setPosition(cc.p(touch:getLocation().x,self.srcitemy))
+        
         local rects = cc.rect(0, 0,self.bag:getContentSize().width, self.bag:getContentSize().height)
         local halfSushiWidth = self.m_srcItem:getContentSize().width * 0.5  
         local halfSushiHeight = self.m_srcItem:getContentSize().height * 0.5 
@@ -233,14 +236,21 @@ function Merge:itemtouch()
     local function onTouchEnded(touch, events)
         -- self:moveitem()
         local location = touch:getLocation()
-        local rects = cc.rect(0, 0,self.bag:getContentSize().width, self.bag:getContentSize().height)
-        if cc.rectContainsPoint(rects, location) then
-            
-            if self.new_srcItem and self.m_srcItem then
+
+        if self.new_srcItem and self.m_srcItem then
                 self:moveitem()
                 self:itemshake(self.new_srcItem)
             end
-        end
+
+            
+        -- local rects = cc.rect(0, 0,self.bag:getContentSize().width, self.bag:getContentSize().height)
+        -- if cc.rectContainsPoint(rects, location) then
+            
+        --     if self.new_srcItem and self.m_srcItem then
+        --         self:moveitem()
+        --         self:itemshake(self.new_srcItem)
+        --     end
+        -- end
 
     end
     

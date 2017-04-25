@@ -6,6 +6,9 @@ end)
 
 Mainscene.panel = nil
 function Mainscene:ctor()
+
+    self.girlx = 0.28
+    self.girly = 0.28
    
 	self.director = cc.Director:getInstance()
 	self.visibleSize = cc.Director:getInstance():getVisibleSize() 
@@ -28,11 +31,11 @@ function Mainscene:ctor()
     local dianjilayer = TouchLayer:new()
     self.bg:addChild(dianjilayer,101)
 
-    local draw = cc.DrawNode:create()  
-    -- local points = {cc.p(0,0), cc.p(0 + size, 0), cc.p(0 + size, 0 + size), cc.p(0, 0 + size)}  
-    draw:drawDot(cc.p(self.bg:getPositionX(),150),50,cc.c4b(0,0,0,1))  
-    -- draw:setTag("draw")  
-    self:addChild(draw,100)  
+    -- local draw = cc.DrawNode:create()  
+    -- -- local points = {cc.p(0,0), cc.p(0 + size, 0), cc.p(0 + size, 0 + size), cc.p(0, 0 + size)}  
+    -- draw:drawDot(cc.p(self.bg:getPositionX(),150),50,cc.c4b(0,0,0,1))  
+    -- -- draw:setTag("draw")  
+    -- self:addChild(draw,100)  
 
     self.doublefish = self.bg:getChildByName("doublefish")
     self.feifish = self.bg:getChildByName("feifish")
@@ -236,7 +239,7 @@ function Mainscene:bed_up()
     --床上
     print("bed_up")
     local bed_up_locationx ,bed_up_locationy = UItool:getitem_location(self.furniture:getChildByName("bed_up"), self.bg:getPositionX())
-    self:Girl_bg_move( bed_up_locationx,bed_up_locationy ,function (  )
+    self:Girl_bg_move(bed_up_locationx,bed_up_locationy ,function (  )
 
         self.layer=cc.Layer:create()
         local shildinglayer = ShieldingLayerpin:new()
@@ -276,7 +279,7 @@ function Mainscene:bed_down()
     --床底
     local bed_down_locationx, bed_down_locationy= UItool:getitem_location(self.furniture:getChildByName("bed_down"), self.bg:getPositionX())
 
-    self:Girl_bg_move( bed_down_locationx ,bed_down_locationy,function (  )
+    self:Girl_bg_move(bed_down_locationx ,bed_down_locationy,function (  )
         self.layer=cc.Layer:create()
         local shildinglayer = ShieldingLayerpin:new()
         self.layer:addChild(shildinglayer)
@@ -316,7 +319,7 @@ function Mainscene:bedside_table()
     print("bedside_table_btn")
         local bedside_table_locationx, bedside_table_locationy= UItool:getitem_location(self.furniture:getChildByName("bedside_table_btn"), self.bg:getPositionX())
 
-        self:Girl_bg_move( bedside_table_locationx+self.grossini:getContentSize().width/5,bedside_table_locationy ,function (  )
+        self:Girl_bg_move( math.floor(bedside_table_locationx+self.grossini:getContentSize().width/6),bedside_table_locationy ,function (  )
             self.layer=cc.Layer:create()
             local shildinglayer = ShieldingLayerpin:new()
             self.layer:addChild(shildinglayer)
@@ -331,6 +334,9 @@ function Mainscene:bedside_table()
             end
             timer:start()
 
+            self.grossini:setScaleX(self.girlx)
+            self.grossini:setScaleY(self.girly)
+
             self.grossini:getAnimation():play("squat_1") -- 下蹲
             UItool:setCurrentState("xiadun")
             if bedside_tablenum==1 then
@@ -338,6 +344,12 @@ function Mainscene:bedside_table()
                 if UItool:getBool("bedkey") then
                     bedside_tablenum= 1+ bedside_tablenum
                     UItool:message2(" 这是什么东西……一半剪刀？ ",30)
+
+                    local key_item = Data.getItemData(12)
+                    ModifyData.tableinsert(key_item.key)
+
+                    UItool:setBool("bedkey",false)
+
                     local itemnum = UItool:getInteger("bedkeynum")
                     for i=1,#ModifyData.getTable() do
                         if ModifyData.getTable()[i] == itemnum then
@@ -355,16 +367,7 @@ function Mainscene:bedside_table()
                 else
                     UItool:message2(" 它锁住了 ",30)
                 end
-
-                elseif bedside_tablenum==2 then
-                    local key_item = Data.getItemData(12)
-                    ModifyData.tableinsert(key_item.key)
-
-                    self.merge:removeSelf()
-                    self.merge = Merge:createScene()
-                    self:addChild(self.merge,5)
-                    bedside_tablenum= 1+ bedside_tablenum
-                    UItool:setBool("bedkey",false)
+                    
             end
             
 
@@ -377,14 +380,14 @@ function Mainscene:bear()
     print("bear_btn")
 
     local bear_locationx, bear_locationy= UItool:getitem_location(self.furniture:getChildByName("bear_btn"), self.bg:getPositionX())
-    
-    if self.grossini:getPositionX()<bear_locationx then
-        bear_locationx = bear_locationx - self.grossini:getContentSize().width/6
-        else
-            bear_locationx = bear_locationx + self.grossini:getContentSize().width/6
-    end
+    print("xion位置",math.floor(bear_locationx-self.grossini:getContentSize().width/6))
+    print("···人位置",math.floor(self.grossini:getPositionX()))
 
-    self:Girl_bg_move( bear_locationx,bear_locationy,function (  )
+    self:Girl_bg_move(math.floor( bear_locationx)-math.floor(self.grossini:getContentSize().width/6),bear_locationy,function (  )
+
+        self.grossini:setScaleX(-self.girlx)
+        self.grossini:setScaleY(self.girly)
+
         if bearnum==1 then
             UItool:message2(" 我喜欢的小熊，但和它在一起的洋娃娃不见了。 ",30)
             bearnum = 1+bearnum 
@@ -399,19 +402,20 @@ function Mainscene:bear()
                         local key_item = Data.getItemData(19)
                         ModifyData.tableinsert(key_item.key)
                         
-                        local itemnum = UItool:getInteger("scissorsnum")
-                        for i=1,#ModifyData.getTable() do
-                            if ModifyData.getTable()[i] == itemnum then
-                                table.remove(ModifyData.getTable(),i) 
-                                break
-                            end
-                        end
+                        -- local itemnum = UItool:getInteger("scissorsnum")
+                        -- for i=1,#ModifyData.getTable() do
+                        --     if ModifyData.getTable()[i] == itemnum then
+                        --         table.remove(ModifyData.getTable(),i) 
+                        --         break
+                        --     end
+                        -- end
+
                         self.furniture:getChildByName("bear"):setTexture("changesprite/bear2.png")
                         self.merge:removeSelf()
                         self.merge = Merge:createScene()
                         self:addChild(self.merge,5)
                         bearnum = 1+bearnum 
-                        UItool:setBool("scissors",false) 
+                        -- UItool:setBool("scissors",false) 
                         else
                             UItool:message2(" 小熊的身体里好像有什么东西，但是我要怎么取出来？",30)
 
@@ -429,13 +433,15 @@ function Mainscene:toilet_glass()
     print("toilet_glass")
     local toilet_glass_locationx,toilet_glass_locationy = UItool:getitem_location(self.furniture:getChildByName("toilet_glass"), self.bg:getPositionX())
     
-    if self.grossini:getPositionX()<toilet_glass_locationx then
-        toilet_glass_locationx = toilet_glass_locationx - self.grossini:getContentSize().width/6
-        else
-            toilet_glass_locationx = toilet_glass_locationx + self.grossini:getContentSize().width/6
-    end
+    -- if self.grossini:getPositionX()<toilet_glass_locationx then
+    --     toilet_glass_locationx = toilet_glass_locationx - self.grossini:getContentSize().width/6
+    --     else
+    --         toilet_glass_locationx = toilet_glass_locationx + self.grossini:getContentSize().width/6
+    -- end
     
-        self:Girl_bg_move( toilet_glass_locationx,toilet_glass_locationy ,function (  )
+        self:Girl_bg_move(math.floor( toilet_glass_locationx-self.grossini:getContentSize().width/6),toilet_glass_locationy ,function (  )
+            self.grossini:setScaleX(-self.girlx)
+            self.grossini:setScaleY(self.girly)
             if toilet_glassnum == 1 then
                 -- 刚开始没碎第一次点击
                 UItool:message3("为什么我在镜子里看不见自己？我在这里啊！","不……这镜子太邪门了，我不想看见它……",30)
@@ -551,6 +557,7 @@ function Mainscene:wardrobe()
 
         self:Girl_bg_move( wardrobe_locationx,wardrobe_locationy ,function (  )
             if wardrobenum==1 then
+                
                 if UItool:getBool("key") then
                     UItool:message2(" 发现有个密码箱子 ",30)
                     UItool:setBool("yansemima", true)
@@ -571,8 +578,10 @@ function Mainscene:wardrobe()
                         UItool:message2(" 衣柜锁住了",30)
 
                 end
-                elseif wardrobenum==2 then
-                    UItool:password("15964",5) -- 密码四
+
+                elseif wardrobenum>=2 and Data.getItemData(5).ifcontain == true then
+                    UItool:password("96514",5) -- 密码四
+                    wardrobenum = wardrobenum + 1
                 else
                     UItool:message2(" 已经空了 ",30)
             end
@@ -586,13 +595,17 @@ function Mainscene:cushion()
            
     local cushion_locationx,cushion_locationy = UItool:getitem_location(self.furniture:getChildByName("cushion"), self.bg:getPositionX())
     
-    if self.grossini:getPositionX()<cushion_locationx then
-        cushion_locationx = cushion_locationx - self.grossini:getContentSize().width/5
-        else
-            cushion_locationx = cushion_locationx + self.grossini:getContentSize().width/5
-    end
+    -- if self.grossini:getPositionX()<cushion_locationx then
+    --     cushion_locationx = cushion_locationx - self.grossini:getContentSize().width/5
+    --     else
+    --         cushion_locationx = cushion_locationx + self.grossini:getContentSize().width/5
+    -- end
    
-    self:Girl_bg_move( cushion_locationx,cushion_locationy ,function (  )
+    self:Girl_bg_move( math.floor(cushion_locationx-self.grossini:getContentSize().width/5),cushion_locationy ,function (  )
+
+        self.grossini:setScaleX(-self.girlx)
+        self.grossini:setScaleY(self.girly)
+
         self.layer=cc.Layer:create()
         local shildinglayer = ShieldingLayerpin:new()
         self.layer:addChild(shildinglayer)
@@ -637,19 +650,22 @@ function Mainscene:B_vase()
     print("B_vase")
     local B_vase_locationx,B_vase_locationy = UItool:getitem_location(self.furniture:getChildByName("B_vase"), self.bg:getPositionX())
 
-    if self.grossini:getPositionX()<B_vase_locationx then
-        B_vase_locationx = B_vase_locationx - self.grossini:getContentSize().width/5
-        else
-            B_vase_locationx = B_vase_locationx + self.grossini:getContentSize().width/5
-    end
+    -- if self.grossini:getPositionX()<B_vase_locationx then
+    --     B_vase_locationx = B_vase_locationx - self.grossini:getContentSize().width/5
+    --     else
+    --         B_vase_locationx = B_vase_locationx + self.grossini:getContentSize().width/5
+    -- end
 
-    self:Girl_bg_move( B_vase_locationx,B_vase_locationy ,function (  )
+    self:Girl_bg_move( math.floor(B_vase_locationx-self.grossini:getContentSize().width/6),B_vase_locationy ,function (  )
+        self.grossini:setScaleX(-self.girlx)
+        self.grossini:setScaleY(self.girly)
         if B_vasenum==1 then
+                --todo
             if UItool:getBool("redbrush") then
-                UItool:message2(" 刷成了红色，感觉好看了些，就是不知道为什么让我觉得有些恐怖。 ",30)
                 local key_item = Data.getItemData(16)
                 ModifyData.tableinsert(key_item.key)
 
+                UItool:message2("刷成了红色，感觉好看了些，就是不知道为什么让我觉得有些恐怖。",30)
                 local itemnum = UItool:getInteger("redbrushnum")
                 for i=1,#ModifyData.getTable() do
                     if ModifyData.getTable()[i] == itemnum then
@@ -657,7 +673,24 @@ function Mainscene:B_vase()
                         break
                     end
                 end
+
+                self.layer=cc.Layer:create()
+                local shildinglayer = ShieldingLayerpin:new()
+                self.layer:addChild(shildinglayer)
+                self.layer:addTo(self,6)
+                --1.25秒消失后
+                local layer =  self.layer
+                local timer = TimerExBuf()
+                timer:create(1.2,1,1)
+                function timer:onTime()
+                    layer:removeFromParent()
+                    UItool:message2("叮叮叮。。。电话响了。。。",30)
+                    timer:stop()
+                end
+                timer:start()
+
                 self.furniture:getChildByName("redflower"):setTexture("changesprite/redflower2.png")
+                
                 self.merge:removeSelf()
                 self.merge = Merge:createScene()
                 self:addChild(self.merge,5)
@@ -667,7 +700,7 @@ function Mainscene:B_vase()
                     UItool:message2(" 白色的插花。 ",30)
             end
             else
-                UItool:message2(" 花朵被摘走了 ",30)
+                UItool:message2(" 摘走了一些花朵，我不需要更多的花了。 ",30)
 
         end
         
@@ -684,8 +717,8 @@ function Mainscene:bookshelf_two()
         local bookshelf_two_locationx,bookshelf_two_locationy = UItool:getitem_location(self.furniture:getChildByName("bookshelf_two"), self.bg:getPositionX())
 
         self:Girl_bg_move( bookshelf_two_locationx,bookshelf_two_locationy ,function ()
-
-            if bookshelf_twonum == 1 then
+            local flower_item = Data.getItemData(16)
+            if bookshelf_twonum == 1 and flower_item.use==false  then
                UItool:message2(" 书可真多啊 !" , 30)
                bookshelf_twonum = bookshelf_twonum + 1
                elseif  bookshelf_twonum == 2 then
@@ -703,7 +736,6 @@ function Mainscene:bookshelf_two()
                             UItool:message2(" 书可真多啊 ! " , 30)
             end
             
-            
     end)
         
     
@@ -717,13 +749,16 @@ function Mainscene:book()
     print("book")
     local book_locationx,book_locationy = UItool:getitem_location(self.furniture:getChildByName("book"), self.bg:getPositionX())
 
-    if self.grossini:getPositionX()<book_locationx then
-        book_locationx = book_locationx - self.grossini:getContentSize().width/5
-        else
-            book_locationx = book_locationx + self.grossini:getContentSize().width/5
-    end
+    -- if self.grossini:getPositionX()<book_locationx then
+    --     book_locationx = book_locationx - self.grossini:getContentSize().width/5
+    --     else
+    --         book_locationx = book_locationx + self.grossini:getContentSize().width/5
+    -- end
 
-    self:Girl_bg_move( book_locationx,book_locationy ,function ()
+    self:Girl_bg_move(math.floor( book_locationx-self.grossini:getContentSize().width/5),book_locationy ,function ()
+        self.grossini:setScaleX(-self.girlx)
+        self.grossini:setScaleY(self.girly)
+        
         self.layer=cc.Layer:create()
         local shildinglayer = ShieldingLayerpin:new()
         self.layer:addChild(shildinglayer)
@@ -762,7 +797,7 @@ function Mainscene:wardrobe_drawer_2()
     --立柜抽屉二层
         local wardrobe_drawer_2_locationx,wardrobe_drawer_2_locationy = UItool:getitem_location(self.furniture:getChildByName("wardrobe_drawer_2"), self.bg:getPositionX())
 
-        self:Girl_bg_move( wardrobe_drawer_2_locationx-self.grossini:getContentSize().width/6 ,wardrobe_drawer_2_locationy ,function ()
+        self:Girl_bg_move(math.floor( wardrobe_drawer_2_locationx-self.grossini:getContentSize().width/6 ),wardrobe_drawer_2_locationy ,function ()
             self.layer=cc.Layer:create()
             local shildinglayer = ShieldingLayerpin:new()
             self.layer:addChild(shildinglayer)
@@ -776,6 +811,9 @@ function Mainscene:wardrobe_drawer_2()
                 timer:stop()
             end
             timer:start()
+
+            self.grossini:setScaleX(-self.girlx)
+            self.grossini:setScaleY(self.girly)
 
             self.grossini:getAnimation():play("squat_1")--下蹲
             UItool:setCurrentState("xiadun")
@@ -801,7 +839,10 @@ function Mainscene:phone()
         
         local phone_locationx,phone_locationy = UItool:getitem_location(self.furniture:getChildByName("phone"), self.bg:getPositionX())
 
-        self:Girl_bg_move( phone_locationx,phone_locationy ,function ()
+        self:Girl_bg_move( math.floor(phone_locationx-self.grossini:getContentSize().width/7),phone_locationy ,function ()
+            
+            self.grossini:setScaleX(-self.girlx)
+            self.grossini:setScaleY(self.girly)
             if phonenum==1 or phonenum==2 then
 
                if UItool:getBool("redflower") then
@@ -810,12 +851,24 @@ function Mainscene:phone()
                     ModifyData.tableinsert(key_item.key)
 
                     local itemnum = UItool:getInteger("redflowernum")
+                    Data.getItemData(itemnum).use = true
                     for i=1,#ModifyData.getTable() do
                         if ModifyData.getTable()[i] == itemnum then
                             table.remove(ModifyData.getTable(),i) 
                             break
                         end
                     end
+
+                    local phonepapernum = UItool:getInteger("phonepapernum")
+                    if phonepapernum then
+                        for i=1,#ModifyData.getTable() do
+                            if ModifyData.getTable()[i] == phonepapernum then
+                                table.remove(ModifyData.getTable(),i) 
+                                break
+                            end
+                        end
+                    end
+                        
 
                     self.merge:removeSelf()
                     self.merge = Merge:createScene()
@@ -826,21 +879,26 @@ function Mainscene:phone()
                     elseif UItool:getBool("phonepaper") then
                         
                         UItool:message2(" 你喜欢花吗？我最喜欢了，尤其是红色的。 ",30)
-                        local itemnum = UItool:getInteger("phonepapernum")
                         
-                        for i=1,#ModifyData.getTable() do
-                            if ModifyData.getTable()[i] == itemnum then
-                                table.remove(ModifyData.getTable(),i) 
-                                break
-                            end
-                        end
+                        -- local itemnum = UItool:getInteger("phonepapernum")
+                        
+                        -- for i=1,#ModifyData.getTable() do
+                        --     if ModifyData.getTable()[i] == itemnum then
+                        --         table.remove(ModifyData.getTable(),i) 
+                        --         break
+                        --     end
+                        -- end
 
-                        UItool:setBool("phonepaper",false)
-                        phonenum = phonenum + 1
+                        -- UItool:setBool("phonepaper",false)
+                        -- phonenum = phonenum + 1
                         self.merge:removeSelf()
                         self.merge = Merge:createScene()
                         self:addChild(self.merge,5)
+                        else
+                            UItool:message2(" 你拿到我想要的东西了嘛 ？ ",30)
                 end
+
+
             end
             
 
@@ -1145,14 +1203,14 @@ function Mainscene:grossiniwalk()
     --骨骼动画
     ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/loli/Export/loli/loli.ExportJson") 
     self.grossini = ccs.Armature:create("loli")
-    self.grossini:setScaleX(-0.25)
-    self.grossini:setScaleY(0.25)
+    self.grossini:setScaleX(-self.girlx)
+    self.grossini:setScaleY(self.girly)
     
     self.grossini:getAnimation():playWithIndex(1)
     -- self.grossini:getAnimation():setSpeedScale(1.1)
     self.grossini:getAnimation():play("stand")
      UItool:setCurrentState("stand")
-    self.grossini:setPosition(cc.p(self.visibleSize.width/4,155))
+    self.grossini:setPosition(cc.p(self.visibleSize.width/4+44,140))
     self:addChild(self.grossini)
 end
 
@@ -1310,7 +1368,7 @@ function Mainscene:Girl_bg_move(X, Y,event)
                     end
             end
     --人物位置
-        local gril_pointx = self.grossini:getPositionX()
+        local gril_pointx =math.floor( self.grossini:getPositionX())
         local delta =  apoint - gril_pointx
         --距离
         local x = apoint-self.visibleSize.width/2
@@ -1330,12 +1388,12 @@ function Mainscene:Girl_bg_move(X, Y,event)
         local function onestep()
             
             --面部朝向
-            if delta>0 then
-                self.grossini:setScaleX(-0.25)
-                self.grossini:setScaleY(0.25)
+            if delta>=0 then
+                self.grossini:setScaleX(-self.girlx)
+                self.grossini:setScaleY(self.girly)
                 else
-                    self.grossini:setScaleX(0.25)
-                    self.grossini:setScaleY(0.25)
+                    self.grossini:setScaleX(self.girlx)
+                    self.grossini:setScaleY(self.girly)
             end
            if UItool:getCurrentState()=="stand" then
             

@@ -11,6 +11,8 @@ function password:ctor( )
     local shildinglayer = Shieldingscreenpas:new()
     self:addChild(shildinglayer)
     self:addChild(self.panel)
+    
+    
 end
 
 function password:open( ... )

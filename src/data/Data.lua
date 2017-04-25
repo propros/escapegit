@@ -47,7 +47,7 @@ ITEM[12] = {key=12,pic="icon/scissorsright.png",name="剪刀右半",appear=true,
 ITEM[13] = {key=13,pic="icon/scissorsleft.png",name="剪刀左半",appear=true,ifcontain = true,inname="scissorsleft"}
 ITEM[14] = {key=14,pic="icon/hammer.png",name="小锤子",appear=true,ifcontain = true,inname="hammer"}
 ITEM[15] = {key=15,pic="icon/paperpen.png",name="笔和纸",appear=true,ifcontain = true,inname="paperpen"}
-ITEM[16] = {key=16,pic="icon/redflower.png",name="红色花朵",appear=true,ifcontain = true,inname="redflower"}
+ITEM[16] = {key=16,pic="icon/redflower.png",name="红色花朵",appear=true,ifcontain = true,inname="redflower",use = false}
 ITEM[17] = {key=17,pic="icon/bedkey.png",name="床头柜钥匙",appear=true,ifcontain = true,inname="bedkey"}
 ITEM[18] = {key=18,pic="icon/key.png",name="衣柜钥匙",appear=true,ifcontain = true,inname="key"}
 ITEM[19] = {key=19,pic="icon/doorkey.png",name="门钥匙",appear=true,ifcontain = true,inname="doorkey"}
