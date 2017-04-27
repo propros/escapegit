@@ -7,6 +7,7 @@ end)
 Message2.panel = nil
 
 function Message2:ctor()
+    print("message 2 ______________")
     self.panel = cc.CSLoader:createNode(Config.RES_MESSAGETWO)
     self.topbar = self.panel:getChildByName("Node_top"):getChildByName("bg")
     
@@ -18,24 +19,9 @@ function Message2:ctor()
 
     local movedown = cc.MoveTo:create(0.5, cc.p(0,0-self.topbar:getContentSize().height))
     local moveup = cc.MoveTo:create(0.5, cc.p(0,0))
-    local delay = cc.DelayTime:create(1.3)
+    local delay = cc.DelayTime:create(2.3)
     local se = cc.Sequence:create(movedown,delay,moveup)
     self.topbar:runAction(se)
-
-    -- local panel = self
-    -- local timer = TimerExBuf()
-    --     timer:create(4.3,1,1)
-    --     function timer:onTime()
-    --         -- if panel then
-    --         --     panel:removeFromParent()
-    --             -- UItool:setBool("topbar",false)
-    --         --     else
-
-    --         -- end
-            
-    --         timer:stop()
-    --     end
-    --     timer:start()
 
 end
 
@@ -48,8 +34,15 @@ end
 function Message2:open( ... )
     self:openHandler(...)
     --
+    
+
+
     local scene = UItool:getRunningSceneObj()
-    scene:addChild(self)
+    scene:addChild(self,11)
+
+    print("selfgetparent ",self:getParent())
+    print("scenegetparent ",scene)
+
 end
 
 function Message2:openHandler(str,size,callback,this)
@@ -60,8 +53,9 @@ function Message2:openHandler(str,size,callback,this)
 end
 
 function Message2:setContent(str,size)
-    --  print("设置显示内容 = ", utils.wrap(str, 30))
+
     --local str = utils.wrap(str, 34)
+    print("++++++++++++",str,size )
     local str = str or "警告"
     local alert = self.topbar:getChildByName("Text_1")
     -- alert:setAnchorPoint(cc.p(0,0))

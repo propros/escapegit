@@ -78,33 +78,26 @@ function Loading:onCreate()
         --    ModifyData.tableinsert(1)
     -- end
 
-    local function wardrobecallback( )
+    local function began( )
         UItool:setBool("topbar",false)
-        local scene = Mainscene.new()
-		-- local turn = cc.TransitionPageTurn:create(0.5, scene, false)
-		cc.Director:getInstance():replaceScene(scene)
+        
+        self.scene = Mainscene.new()
+        
+		local turn = cc.TransitionFade:create(0.1, self.scene)
+		cc.Director:getInstance():replaceScene(turn)
         
     end
-
-    
+-- UItool:message4(" ...... "," “这里是，我的房间吗……？” ","“但为什么，窗外像是海底的世界呢？”","“我想我应该出去看看……”",30)
+-- UItool:message3(" “为什么我在镜子里看不见自己？我在这里啊！” "," “不……这镜子太邪门了，我不想看见它……” ",30)
+    -- UItool:message2("*****&*&**&^&*^^&^&T&*UBGUJVG",30)
 
     local acount = 1
     local function settingcallback( )
 
-        UItool:message3("123","234",30)
+        UItool:message2("显示红色了234",30)
         print("loading message3")
-        -- local timer = TimerExBuf()
-        -- timer:create(3,1,1)
-        -- function timer:onTime()
-        --     UItool:message("设置",45)
-        --     timer:stop()
-        -- end
-        -- timer:start()
+        UItool:message4(" ...... "," 这里是，我的房间吗……？ ","但为什么，窗外像是海底的世界呢？","我想我应该出去看看……",30)
 
-
-
-        -- UItool:message2("测试是否有效"..acount,30)
-        -- acount = acount +1
 
         -- local PlayerLayer = PlayerLayer:createScene()
         -- print("进入拼图界面", PlayerLayer)
@@ -116,7 +109,7 @@ function Loading:onCreate()
     self.wardrobe:setAnchorPoint(cc.p(0.5,0.5))
     self.wardrobe:setScale(2)
     -- 对该按钮注册按键响应函数：
-    self.wardrobe:registerScriptTapHandler(wardrobecallback)
+    self.wardrobe:registerScriptTapHandler(began)
 
     self.setting = cc.MenuItemImage:create("comm/setting.png","comm/setting.png")
     self.setting:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2-100))
@@ -163,6 +156,28 @@ function Loading:onCreate()
     --  UItool:setBool("stool",false)
     
 end
+
+function Loading:onEnter()
+    print("enter")
+end
+
+function Loading:onExitTransitionDidStart()
+    print("onExitTransitionDidStart")
+end
+
+function Loading:onExit()
+    print("onExit()")
+    -- UItool:message2("测试message2 ",30)
+    -- local ss = cc.Sprite:create("changesprite/ligui2.png")
+    -- ss:setPosition(cc.p(500,500))
+    -- self.scene:addChild(ss,128)
+    UItool:message4(" ...... "," “这里是，我的房间吗……？” ","“但为什么，窗外像是海底的世界呢？”","“我想我应该出去看看……”",30,self.scene)
+end
+
+function Loading:onEnterTransitionDidFinish()
+    print("***************onEnterTransitionDidFinish")
+end
+
 
 return Loading
 

@@ -189,7 +189,7 @@ function TouchLayer:ctor()
 
     ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/dianji/Export/dianji/dianji.ExportJson") 
     self.dianji = ccs.Armature:create("dianji")
-    self:addChild(self.dianji,102)
+    self:addChild(self.dianji,127)
 
 
     -- 创建一个事件监听器类型为 OneByOne 的单点触摸  

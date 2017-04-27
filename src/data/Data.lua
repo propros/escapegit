@@ -53,6 +53,11 @@ ITEM[18] = {key=18,pic="icon/key.png",name="衣柜钥匙",appear=true,ifcontain 
 ITEM[19] = {key=19,pic="icon/doorkey.png",name="门钥匙",appear=true,ifcontain = true,inname="doorkey"}
 ITEM[20] = {key=20,pic="icon/stamp.png",name="印章",appear=true,ifcontain = true,inname="stamp"}
 ITEM[21] = {key=21,pic="icon/yansemima.png",name="颜色密码箱",appear=true,ifcontain = true,inname="yansemima"}
+ITEM[22] = {key=22,pic="icon/familyphoto.png",name="家族照片",appear=true,ifcontain = true,inname="familyphoto"}
+ITEM[23] = {key=23,pic="icon/liguikey.png",name="立柜钥匙",appear=true,ifcontain = true,inname="liguikey"}
+
+
+
 
 MERGE={}
 

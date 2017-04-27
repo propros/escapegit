@@ -18,7 +18,7 @@ end
 function password:open( ... )
 	self:openHandler(...)
 	local scene = UItool:getRunningSceneObj()
-    scene:addChild(self)
+    scene:addChild(self,11)
 	print("open(...)")
 end
 
@@ -54,7 +54,7 @@ function password:setpassword(str,itemnum)
         			if Data.getItemData(itemnum).ifcontain == true  then
         				self.key_item = Data.getItemData(itemnum)
 			        	ModifyData.tableinsert(self.key_item.key)
-			        	UItool:message2("里面是个颜料罐……怎么净是一些奇奇怪怪的东西",30)
+			        	UItool:message2("“里面是个颜料罐……怎么净是一些奇奇怪怪的东西”",30)
 			        	Data.getItemData(itemnum).ifcontain = false 
 
                         -- local itempassnum = UItool:getInteger("yansemima")

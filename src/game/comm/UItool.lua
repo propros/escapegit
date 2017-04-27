@@ -18,6 +18,13 @@ function UItool:message3(str1,str2,size)
     print("uitool message3")
 end
 
+function UItool:message4(str1,str2,str3,str4,size,parente)
+
+    local message4 = Message4.new()   
+    message4:open(str1,str2,str3,str4,size,parente)
+    print("uitool message4")
+end
+
 function UItool:message2(...)
     
     if UItool.message ~= nil then

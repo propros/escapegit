@@ -23,16 +23,16 @@ function Merge:initScene()
     self.panel = cc.CSLoader:createNode(Config.RES_MERGE)
     self.bag = self.panel:getChildByName("Node_center"):getChildByName("bg")
     
-    self:addChild(self.panel,125)
+    self:addChild(self.panel)
     self.content_size = self.bag:getContentSize()
 
     self:initMatrix()
     self:itemtouch()
-    -- self:touchpoint()
+    self:touchpoint()
 
     for key,var in pairs(self.bag_table) do
         local key_items = Data.getItemData(var:getTag())
-        -- key_item.appear = true
+
         if key_item== var:getTag()then
             
             else
@@ -91,7 +91,7 @@ function Merge:itemshake( item )
             UItool:setInteger(inname.inname.."num",self.capyitem[1]:getTag())
             self.capyitem[1]:runAction( cc.RepeatForever:create(sequencd))
             local key_item = Data.getItemData(self.capyitem[1]:getTag())
-            self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
+            -- self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
     end
 end
 
@@ -132,6 +132,9 @@ end
 
 function Merge:OnTouchBegan(touch, event)
     
+    self.dianji:getAnimation():playWithIndex(0,-1,-1)
+    self.dianji:setPosition(cc.p(touch:getLocation().x,touch:getLocation().y))
+
     local target = event:getCurrentTarget()  
     self.m_isTouchEnable = true
     local locationInNode = target:convertToNodeSpace(touch:getLocation())  

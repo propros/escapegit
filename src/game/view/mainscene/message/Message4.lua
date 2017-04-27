@@ -1,13 +1,15 @@
+--只是为了开头剧情
 
 
-Message3 = class("Message3", function()
+
+Message4 = class("Message4", function()
     return cc.Layer:create()
 end)
 
-Message3.panel = nil
+Message4.panel = nil
 
-function Message3:ctor()
-    print("message3.lua  ...")
+function Message4:ctor()
+    -- print("Message4.lua  ...")
     self.panel = cc.CSLoader:createNode(Config.RES_MESSAGETWO)
     self.topbar = self.panel:getChildByName("Node_top"):getChildByName("bg")
     
@@ -24,25 +26,13 @@ function Message3:ctor()
     --屏蔽时间
     self.screen = 2.5
 
-    self.layer=cc.Layer:create()
-    local shildinglayer = ShieldingLayerpin:new()
-    self.layer:addChild(shildinglayer)
-    self.layer:addTo(self,126)
-    local layer =  self.layer
-
-    local timer = TimerExBuf()
-    timer:create(self.screen,1,1)
-    function timer:onTime()
-        layer:removeFromParent()
-        timer:stop()
-    end
-    timer:start()
+    
     
     self.touchnum = 0
 
 end
 
-function Message3:touch(str1,str2,size)
+function Message4:touch(str1,str2,str3,str4,size)
 
     -- 创建一个事件监听器类型为 OneByOne 的单点触摸  
     local  listenner = cc.EventListenerTouchOneByOne:create()  
@@ -73,8 +63,8 @@ function Message3:touch(str1,str2,size)
         
         --点击屏蔽层，返回，相当于返回按钮
         self.touchnum = 1 + self.touchnum
-        self:openHandler(str1,str2,size)
-        if self.touchnum ==2 then
+        self:openHandler(str1,str2,str3,str4,size)
+        if self.touchnum ==4 then
 
             self.touchnum = 1 + self.touchnum
             local moveup = cc.MoveTo:create(0.5, cc.p(0,0))
@@ -101,33 +91,52 @@ function Message3:touch(str1,str2,size)
     eventDispatcher:addEventListenerWithSceneGraphPriority(listenner, self)  
 end
 
-function Message3:removeFromParents()
+function Message4:removeFromParents()
     self.panel:removeFromParent()
 end
 
-function Message3:open( str1,str2,size )
-    self:openHandler(str1,str2,size)
+function Message4:open( str1,str2,str3,str4,size ,parente)
+
+    self:openHandler(str1,str2,str3,str4,size)
     --
+    print("openopenopwenopenoopen 21112222222")
     local scene = UItool:getRunningSceneObj()
-    scene:addChild(self,11)
+    print("scene scene scene ",scene )
+    parente:addChild(self,15)
 end
 
-function Message3:openHandler(str1,str2,size)
-    -- assert(type(str1) == "string" or type(str) == "number", "提示框内容只能是字符串或者是数字类型！")
-    -- print(str)
-    self:setContent(str1,str2,size)
-    self:touch(str1,str2,size)
+function Message4:openHandler(str1,str2,str3,str4,size)
+
+    self:setContent(str1,str2,str3,str4,size)
+    self:touch(str1,str2,str3,str4,size)
 
 end
 
-function Message3:setContent(str1,str2,size)
-
+function Message4:setContent(str1,str2,str3,str4,size)
+    -- print("message4",str1,str2,str3,str4,size)
     local str1 = str1 or "警告"
     local str2 = str2 or nil
 
     self.alert = self.topbar:getChildByName("Text_1")
     if self.touchnum==0 then
         self.alert:setString(str1)
+
+        self.layer=cc.Layer:create()
+        local shildinglayer = ShieldingLayerpin:new()
+        self.layer:addChild(shildinglayer)
+        self.layer:addTo(self,126)
+        local layer =  self.layer
+
+        local timer = TimerExBuf()
+        timer:create(self.screen,1,1)
+        function timer:onTime()
+            print("self.layer 44444444",layer)
+            print("self.layer 55555555",layer:getParent())
+            
+            layer:removeSelf()
+            timer:stop()
+        end
+        timer:start()
         elseif self.touchnum==1 then
             self.alert:setString(str2)
             
@@ -144,6 +153,39 @@ function Message3:setContent(str1,str2,size)
                 timer:stop()
             end
             timer:start()
+            elseif self.touchnum==2 then
+	            self.alert:setString(str3)
+	            
+	            self.layer=cc.Layer:create()
+	            local shildinglayer = ShieldingLayerpin:new()
+	            self.layer:addChild(shildinglayer)
+	            self.layer:addTo(self,12)
+	            local layer =  self.layer
+
+	            local timer = TimerExBuf()
+	            timer:create(self.screen,1,1)
+	            function timer:onTime()
+	                layer:removeFromParent()
+	                timer:stop()
+	            end
+	            timer:start()
+	            elseif self.touchnum==3 then
+		            self.alert:setString(str4)
+		            
+		            self.layer=cc.Layer:create()
+		            local shildinglayer = ShieldingLayerpin:new()
+		            self.layer:addChild(shildinglayer)
+		            self.layer:addTo(self,12)
+		            local layer =  self.layer
+
+		            local timer = TimerExBuf()
+		            timer:create(self.screen,1,1)
+		            function timer:onTime()
+		                layer:removeFromParent()
+		                timer:stop()
+		            end
+		            timer:start()
+
 
     end
     
