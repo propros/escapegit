@@ -7,7 +7,6 @@ end)
 Message2.panel = nil
 
 function Message2:ctor()
-    print("message 2 ______________")
     self.panel = cc.CSLoader:createNode(Config.RES_MESSAGETWO)
     self.topbar = self.panel:getChildByName("Node_top"):getChildByName("bg")
     
@@ -16,16 +15,13 @@ function Message2:ctor()
     
     self:addChild(self.panel,125)
     local visiblesize = cc.Director:getInstance():getVisibleSize()
-
     local movedown = cc.MoveTo:create(0.5, cc.p(0,0-self.topbar:getContentSize().height))
     local moveup = cc.MoveTo:create(0.5, cc.p(0,0))
-    local delay = cc.DelayTime:create(2.3)
+    local delay = cc.DelayTime:create(2.0)
     local se = cc.Sequence:create(movedown,delay,moveup)
     self.topbar:runAction(se)
 
 end
-
-
 
 function Message2:removeFromParents()
     self.panel:removeFromParent()
@@ -34,28 +30,19 @@ end
 function Message2:open( ... )
     self:openHandler(...)
     --
-    
-
-
     local scene = UItool:getRunningSceneObj()
     scene:addChild(self,11)
-
-    print("selfgetparent ",self:getParent())
-    print("scenegetparent ",scene)
 
 end
 
 function Message2:openHandler(str,size,callback,this)
     assert(type(str) == "string" or type(str) == "number", "提示框内容只能是字符串或者是数字类型！")
-    -- print(str)
     self:setContent(str,size)
 
 end
 
 function Message2:setContent(str,size)
 
-    --local str = utils.wrap(str, 34)
-    print("++++++++++++",str,size )
     local str = str or "警告"
     local alert = self.topbar:getChildByName("Text_1")
     -- alert:setAnchorPoint(cc.p(0,0))

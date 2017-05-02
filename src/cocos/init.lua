@@ -27,8 +27,10 @@ require "cocos.cocos2d.Cocos2dConstants"
 require "cocos.cocos2d.functions"
 
 if CC_USE_FRAMEWORK then
+    print("存在CC_USE_FRAMEWORK 存在")
     require "cocos.framework.init"
 else
+    print("不存在 CC_USE_FRAMEWORK  不存在")
     -- opengl
     require "cocos.cocos2d.Opengl"
     require "cocos.cocos2d.OpenglConstants"

@@ -54,7 +54,7 @@ function password:setpassword(str,itemnum)
         			if Data.getItemData(itemnum).ifcontain == true  then
         				self.key_item = Data.getItemData(itemnum)
 			        	ModifyData.tableinsert(self.key_item.key)
-			        	UItool:message2("“里面是个颜料罐……怎么净是一些奇奇怪怪的东西”",30)
+			        	UItool:message2("“里面是个颜料罐……怎么净是一些奇奇怪怪的东西。”",30)
 			        	Data.getItemData(itemnum).ifcontain = false 
 
                         -- local itempassnum = UItool:getInteger("yansemima")
@@ -68,13 +68,13 @@ function password:setpassword(str,itemnum)
 			        	self:removeFromParent()
                         UItool:setBool("pasitem", true)
 		        	else
-		        		UItool:message2(" 里面已经没东西了  ",30)
+		        		UItool:message2(" 里面已经没东西了。  ",30)
 			        	self:removeFromParent()
         			end
         	end
         	else
         	    self:removeFromParent()
-        		UItool:message2("密码不正确",30)
+        		UItool:message2("密码不正确。",30)
         end
     end)
 end

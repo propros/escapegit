@@ -19,7 +19,7 @@ function Merge:initScene()
     self.bag_table = {}
     self.capyitem = {}
     -- self.itemtouchnum = true 
---底层
+    --底层
     self.panel = cc.CSLoader:createNode(Config.RES_MERGE)
     self.bag = self.panel:getChildByName("Node_center"):getChildByName("bg")
     
@@ -50,8 +50,7 @@ function Merge:initMatrix()
         local y = 80 
         self.sprite:setTag(var)
         self.sprite:setAnchorPoint(cc.p(0.5,0.5))
-        self.sprite:setPosition((key-1)*self.sprite:getContentSize().width*1.05 + 80 ,y)
-        -- print("坐标",self.sprite:getPositionX())
+        self.sprite:setPosition((key-1)*self.sprite:getContentSize().width*1.1 + 90 ,y)
         self.bag:addChild(self.sprite,2) 
         self.bag_table[key] = self.sprite
 
@@ -67,12 +66,11 @@ function Merge:itemshake( item )
             if self.capyitem[1]==self.capyitem[2] then
                 -- print("两个是相同的")
                 local inname = Data.getItemData(self.capyitem[1]:getTag())
-                UItool:setBool(inname.inname, false)
                 self.capyitem[1]:removeFromParent()
+                UItool:setBool(inname.inname, false)
                 table.remove(self.capyitem,2)
                 table.remove(self.capyitem,1)
                 else
-                    -- print("不相同")
                     self.capyitem[1]:removeFromParent()
                     table.remove(self.capyitem,1)
             end
@@ -91,7 +89,8 @@ function Merge:itemshake( item )
             UItool:setInteger(inname.inname.."num",self.capyitem[1]:getTag())
             self.capyitem[1]:runAction( cc.RepeatForever:create(sequencd))
             local key_item = Data.getItemData(self.capyitem[1]:getTag())
-            -- self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
+            -- 物品名称
+            self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
     end
 end
 
@@ -126,15 +125,13 @@ function Merge:itemname(str,size,x,y,parente)
     alert:setFontName(Zapfino)
     alert:setFontSize(size+5)
     alert:setColor(cc.c3b(251, 138, 38))
-    alert:setPosition(cc.p( 10,parente:getContentSize().height+10))
+    alert:setPosition(cc.p( 15,parente:getContentSize().height+10))
     parente:addChild(alert,12)
 end
 
 function Merge:OnTouchBegan(touch, event)
     
-    self.dianji:getAnimation():playWithIndex(0,-1,-1)
-    self.dianji:setPosition(cc.p(touch:getLocation().x,touch:getLocation().y))
-
+    
     local target = event:getCurrentTarget()  
     self.m_isTouchEnable = true
     local locationInNode = target:convertToNodeSpace(touch:getLocation())  
@@ -142,7 +139,8 @@ function Merge:OnTouchBegan(touch, event)
     local rect = cc.rect(0, 0, s.width, s.height) 
 
     if cc.rectContainsPoint(rect, locationInNode) then
-        
+        self.dianji:getAnimation():playWithIndex(0,-1,-1)
+        self.dianji:setPosition(cc.p(touch:getLocation().x,touch:getLocation().y))
         self.m_srcItem = nil  
         if self.m_isTouchEnable then  
             local location = touch:getLocation()
@@ -171,8 +169,8 @@ function Merge:OnTouchBegan(touch, event)
                     elseif key_item.appear == false then
                         -- print("2222222222")
                         table.insert(self.capyitem, self.new_srcItem)
-                        self.m_srcItem:setVisible(true)
                         key_item.appear = true
+                        self.m_srcItem:setVisible(true)
                 end
             end
         end
@@ -242,7 +240,7 @@ function Merge:itemtouch()
 
         if self.new_srcItem and self.m_srcItem then
                 self:moveitem()
-                self:itemshake(self.new_srcItem)
+                self:itemshake()
             end
 
             

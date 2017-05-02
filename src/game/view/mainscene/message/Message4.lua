@@ -8,6 +8,7 @@ end)
 
 Message4.panel = nil
 
+
 function Message4:ctor()
     -- print("Message4.lua  ...")
     self.panel = cc.CSLoader:createNode(Config.RES_MESSAGETWO)
@@ -24,7 +25,7 @@ function Message4:ctor()
     self.topbar:runAction(movedown)
 
     --屏蔽时间
-    self.screen = 2.5
+    self.screen = 2
 
     
     
@@ -64,15 +65,20 @@ function Message4:touch(str1,str2,str3,str4,size)
         --点击屏蔽层，返回，相当于返回按钮
         self.touchnum = 1 + self.touchnum
         self:openHandler(str1,str2,str3,str4,size)
-        if self.touchnum ==4 then
-
+        local num 
+        if str4 == nil then
+            num = 3
+            elseif str4 ~= nil then
+                num = 4
+        end
+        if self.touchnum ==num then
             self.touchnum = 1 + self.touchnum
             local moveup = cc.MoveTo:create(0.5, cc.p(0,0))
             self.topbar:runAction(moveup)
 
             local panel = self
             local timer = TimerExBuf()
-                timer:create(0.5,1,1)
+                timer:create(0.4,1,1)
                 function timer:onTime()
                     if panel then
                         panel:removeFromParent()
@@ -96,13 +102,18 @@ function Message4:removeFromParents()
 end
 
 function Message4:open( str1,str2,str3,str4,size ,parente)
-
+    parente = parente or nil 
     self:openHandler(str1,str2,str3,str4,size)
     --
     print("openopenopwenopenoopen 21112222222")
     local scene = UItool:getRunningSceneObj()
     print("scene scene scene ",scene )
-    parente:addChild(self,15)
+    if parente then
+         parente:addChild(self,15)
+         else
+             scene:addChild(self,15)
+    end
+   
 end
 
 function Message4:openHandler(str1,str2,str3,str4,size)
@@ -170,21 +181,26 @@ function Message4:setContent(str1,str2,str3,str4,size)
 	            end
 	            timer:start()
 	            elseif self.touchnum==3 then
-		            self.alert:setString(str4)
-		            
-		            self.layer=cc.Layer:create()
-		            local shildinglayer = ShieldingLayerpin:new()
-		            self.layer:addChild(shildinglayer)
-		            self.layer:addTo(self,12)
-		            local layer =  self.layer
 
-		            local timer = TimerExBuf()
-		            timer:create(self.screen,1,1)
-		            function timer:onTime()
-		                layer:removeFromParent()
-		                timer:stop()
-		            end
-		            timer:start()
+                    if str4 == nil then
+                        elseif str4 ~= nil then
+                            self.alert:setString(str4)
+                            
+                            self.layer=cc.Layer:create()
+                            local shildinglayer = ShieldingLayerpin:new()
+                            self.layer:addChild(shildinglayer)
+                            self.layer:addTo(self,12)
+                            local layer =  self.layer
+
+                            local timer = TimerExBuf()
+                            timer:create(self.screen,1,1)
+                            function timer:onTime()
+                                layer:removeFromParent()
+                                timer:stop()
+                            end
+                            timer:start()
+                    end
+		            
 
 
     end

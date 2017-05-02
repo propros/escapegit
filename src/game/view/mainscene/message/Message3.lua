@@ -22,7 +22,7 @@ function Message3:ctor()
     self.topbar:runAction(movedown)
 
     --屏蔽时间
-    self.screen = 2.5
+    self.screen = 2
 
     self.layer=cc.Layer:create()
     local shildinglayer = ShieldingLayerpin:new()
