@@ -62,9 +62,8 @@ function Merge:itemshake( item )
     if #self.capyitem==1 then
         
         elseif #self.capyitem==2 then
-            
             if self.capyitem[1]==self.capyitem[2] then
-                -- print("两个是相同的")
+                
                 local inname = Data.getItemData(self.capyitem[1]:getTag())
                 self.capyitem[1]:removeFromParent()
                 UItool:setBool(inname.inname, false)
@@ -80,9 +79,8 @@ function Merge:itemshake( item )
     local moveup = cc.MoveTo:create(0.5, cc.p(self.srcitemx , self.srcitemy+10))
     local movedown = cc.MoveTo:create(0.5, cc.p(self.srcitemx , self.srcitemy))
     local sequencd= cc.Sequence:create(moveup,movedown)
-    print("个数",#self.capyitem)
+    
     if #self.capyitem==0 then
-
         else
             local inname = Data.getItemData(self.capyitem[1]:getTag())
             UItool:setBool(inname.inname, true)
@@ -90,7 +88,7 @@ function Merge:itemshake( item )
             self.capyitem[1]:runAction( cc.RepeatForever:create(sequencd))
             local key_item = Data.getItemData(self.capyitem[1]:getTag())
             -- 物品名称
-            self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
+            -- self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
     end
 end
 
@@ -148,8 +146,9 @@ function Merge:OnTouchBegan(touch, event)
             if self.m_srcItem then
 
                 local key_item = Data.getItemData(self.m_srcItem:getTag())
+                UItool:message2("这是"..key_item.tishi,30)
+
                 if key_item.appear == true then
-                    -- print("11111111")
                     self.new_srcItem = self:clone(self.m_srcItem)
                     
                     table.insert(self.capyitem, self.new_srcItem)
@@ -242,16 +241,6 @@ function Merge:itemtouch()
                 self:moveitem()
                 self:itemshake()
             end
-
-            
-        -- local rects = cc.rect(0, 0,self.bag:getContentSize().width, self.bag:getContentSize().height)
-        -- if cc.rectContainsPoint(rects, location) then
-            
-        --     if self.new_srcItem and self.m_srcItem then
-        --         self:moveitem()
-        --         self:itemshake(self.new_srcItem)
-        --     end
-        -- end
 
     end
     

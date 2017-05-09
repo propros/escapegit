@@ -1,11 +1,33 @@
 
-require("game/view/mainscene/onescene/PlayerLayer")
 Mainscene=class("Mainscene", function()
     return cc.Scene:create()
 end)
 
 Mainscene.panel = nil
+local roomNumber
+local chapterNumber
+
 function Mainscene:ctor()
+
+    if #PublicData.SAVEDATA==0 then
+        local docpath = cc.FileUtils:getInstance():getWritablePath().."savedata.txt"
+        print("文件是否存在",cc.FileUtils:getInstance():isFileExist(docpath),docpath)
+        if cc.FileUtils:getInstance():isFileExist(docpath)==false then
+            local str = json.encode(Data.SAVEDATA)
+            ModifyData.writeToDoc(str,"savedata")
+            PublicData.SAVEDATA = Data.SAVEDATA
+            print("写文件")
+        else
+            print("读文件")
+            local str = ModifyData.readFromDoc("savedata")
+            PublicData.SAVEDATA = json.decode(str)
+        end
+    end
+
+    self.savedata = PublicData.SAVEDATA
+
+    roomNumber = ModifyData.getRoomNum()
+    chapterNumber = ModifyData.getChapterNum()
 
     --人物缩放
     self.girlx = 0.28
@@ -15,7 +37,6 @@ function Mainscene:ctor()
     self.screenxiadun = 1.3
     --弯腰屏蔽时间
     self.screenwanyao = 1.2
-
 
 	self.director = cc.Director:getInstance()
 	self.visibleSize = cc.Director:getInstance():getVisibleSize() 
@@ -38,8 +59,17 @@ function Mainscene:ctor()
     self.node:setPosition(0, self.visibleSize.height)
     --背景
     self.bg = self.node:getChildByName("bg")
-    
-    -- UItool:message4(" ...... "," “这里是，我的房间吗……？” ","“但为什么，窗外像是海底的世界呢？”","“我想我应该出去看看……”",30)
+    self.bg:setPositionX(self.savedata.bgpositionx)
+    local mainback = self.bg:getChildByName("back")
+    mainback:addClickEventListener(function ()
+        if UItool:getBool("effect") then
+            AudioEngine.playEffect("gliss.mp3")
+        end
+        --返回loading
+        local scene = Loading.new()
+        local turn = cc.TransitionFade:create(1,scene)
+        cc.Director:getInstance():replaceScene(turn)
+        end)
     
     
     --点击效果层
@@ -87,9 +117,12 @@ function Mainscene:ctor()
         end
     end  
     self:scheduleUpdateWithPriorityLua(update,0.3)
+
+    
+
     self:init()
    
-    -- UItool:message4(" ...... "," “这里是，我的房间吗……？” ","“但为什么，窗外像是海底的世界呢？”","“我想我应该出去看看……”",30)
+    
     
 end
 
@@ -107,8 +140,30 @@ function Mainscene:init()
     self.runtime = nil 
 
     self:fishmove() --鱼的移动 
+
     
-     -- UItool:message2("测试message2 ",30)
+    local callbackEntry
+    local function messageupdate(delta)  
+        -- print("定时器作用")
+        if UItool:getBool("message4")==false then
+
+            self.jiantou = cc.Sprite:create("jiantou.png")
+            self.jiantou:setScale(2)
+            -- self.jiantou:setAnchorPoint(cc.p(0,0))
+            self.jiantou:setPosition(cc.p(self.furniture:getChildByName("bed_down"):getPositionX()+40,self.furniture:getChildByName("bed_down"):getPositionY()+60))
+            self.furniture:addChild(self.jiantou,5)
+
+            local moveup = cc.OrbitCamera:create(1, 1, 0, 0, 360, 0, 0);
+            local movedown = cc.RotateBy:create(0.5, 0)
+            -- local sequencd = cc.Sequence:create(moveup,movedown)
+            self.jiantou:runAction(cc.RepeatForever:create(moveup))
+
+            cc.Director:getInstance():getScheduler():unscheduleScriptEntry(callbackEntry)
+        end
+    end  
+
+    callbackEntry = cc.Director:getInstance():getScheduler():scheduleScriptFunc(messageupdate, 1, false)
+
     
 end
 
@@ -254,7 +309,7 @@ end
 local bed_upnum = 1
 function Mainscene:bed_up()
     --床上
-    print("bed_up")
+    
     local bed_up_locationx ,bed_up_locationy = UItool:getitem_location(self.furniture:getChildByName("bed_up"), self.bg:getPositionX())
     self:Girl_bg_move(bed_up_locationx,bed_up_locationy ,function (  )
 
@@ -276,12 +331,16 @@ function Mainscene:bed_up()
         self.grossini:getAnimation():play("stoop_1")--弯腰
         UItool:setCurrentState("wanyao")
         if bed_upnum==1 then
+            print("有个盒子")
             UItool:message2(" “有个盒子，绳子太紧了，我解不开。需要什么东西把绳子割开。”  ",30)
+            print("太紧了")
             self.furniture:getChildByName("bed_up"):setVisible(false)
             self.furniture:getChildByName("bed_up"):setTouchEnabled(false)
             local key_item = Data.getItemData(3)
             ModifyData.tableinsert(key_item.key)
+            
             self.merge:removeSelf()
+            print("解不开")
             self.merge = Merge:createScene()
             self:addChild(self.merge,5)
             bed_upnum=bed_upnum+1
@@ -327,7 +386,8 @@ function Mainscene:bed_down()
         UItool:setCurrentState("xiadun")
 
         if bed_downnum==1 then
-            UItool:message2(" “这里有把小锤子，可能会有用。”  ",30)
+            
+            UItool:message2(" “这里有把小锤子，可能会有用。” ",30)
             local key_item = Data.getItemData(14)
             ModifyData.tableinsert(key_item.key)
             self.merge:removeSelf()
@@ -335,6 +395,7 @@ function Mainscene:bed_down()
             self:addChild(self.merge,5)
             bed_downnum=bed_downnum+1
             self.bg:getChildByName("hammer_s"):setVisible(false)
+            self.jiantou:setPosition(cc.p(100,90))
             else
                 UItool:message2(" 什么也没有了。 ",30)
         end
@@ -355,6 +416,7 @@ function Mainscene:bedside_table()
             self.layer:addTo(self,126)
             --1.8秒消失后
             local layer =  self.layer
+            
             local timer = TimerExBuf()
             timer:create(self.screenxiadun,1,1)
             function timer:onTime()
@@ -987,6 +1049,7 @@ function Mainscene:liguiframe()
             if liguiframenum==1 then
                 if UItool:getBool("familyphoto") then
                     UItool:message2(" “看来这张照片原本应该是放在这的，有把小钥匙从相框的夹层里掉出来了。”  ",30)
+                    self.furniture:getChildByName("frame_ligui"):setTexture("changesprite/frame1.png")
                     local key_item = Data.getItemData(23)
                     ModifyData.tableinsert(key_item.key)
                     
@@ -1082,19 +1145,19 @@ function Mainscene:phone()
 
 
                 end
-
-
-            --     else
-            --         UItool:message2(" 一部电话。",30)
-            -- end
-
-
             
             
 
         end)
 end
 
+function Mainscene:modify()
+
+    local tb = PublicData.ROOMTABLE
+    tb[chapterNumber][roomNumber+1].lock=0
+    local str = json.encode(tb)
+    ModifyData.writeToDoc(str,"room")
+end
 
 local doornum = 1
 function Mainscene:door()
@@ -1105,7 +1168,6 @@ function Mainscene:door()
         self:Girl_bg_move( door_locationx,door_locationy ,function ()
              if UItool:getBool("doorkey") then
                 UItool:message2(" door open  ",30)
-
                 local itemnum = UItool:getInteger("doorkeynum")
                 for i=1,#ModifyData.getTable() do
                     if ModifyData.getTable()[i] == itemnum then
@@ -1119,6 +1181,8 @@ function Mainscene:door()
                 self:addChild(self.merge,5)
                 doornum = doornum + 1
                  UItool:setBool("doorkey",false)
+
+                 self.modify()
                 else
                     UItool:message2(" “打不开……我需要找到钥匙。”  ",30)
 
@@ -1345,6 +1409,7 @@ function Mainscene:AllButtons(  )
     }
     local function renwu_haoyou_shezhiButtonClick(event,eventType)
         if eventType == TOUCH_EVENT_ENDED then
+            AudioEngine.playEffect("gliss.mp3")
             if event:getName()=="bed_up" then
                 print("bed_up")
                 self:bed_up()
@@ -1456,7 +1521,8 @@ function Mainscene:grossiniwalk()
     -- self.grossini:getAnimation():setSpeedScale(1.1)
     self.grossini:getAnimation():play("stand")
      UItool:setCurrentState("stand")
-    self.grossini:setPosition(cc.p(self.visibleSize.width/4+44,140))
+     print("人物的位置",self.savedata.girlpositionx)
+    self.grossini:setPosition(cc.p(self.savedata.girlpositionx,140))
     self:addChild(self.grossini,6)
 end
 
@@ -1526,21 +1592,6 @@ function Mainscene:Girl_bg_move(X, Y,event)
                 self.bg:stopAction(self.bgsequence)
             else
                 self.grossini:getAnimation():play("walk")
-
-                -- if UItool:getCurrentState()=="stand" then
-                --     self.grossini:getAnimation():play("walk")
-                --     UItool:setCurrentState("stand")
-                --     self.delaystand = cc.DelayTime:create(0)
-                --     elseif UItool:getCurrentState()=="xiadun" then
-                --         self.delaystand = cc.DelayTime:create(1)
-                --         self.tingdun = 2
-                --         self.grossini:getAnimation():play("squat_2")--站起来
-                --         UItool:setCurrentState("stand")
-                --         elseif UItool:getCurrentState()=="wanyao"  then
-                --             self.delaystand = cc.DelayTime:create(1)
-                --             self.grossini:getAnimation():play("stoop_2")--直腰
-                --             UItool:setCurrentState("stand")
-                -- end
                 
             end
 
@@ -1551,20 +1602,6 @@ function Mainscene:Girl_bg_move(X, Y,event)
                     self.bg:stopAction(self.bgsequence)
                 else
                     self.grossini:getAnimation():play("walk")
-                    -- if UItool:getCurrentState()=="stand" then
-                    --     self.grossini:getAnimation():play("walk")
-                    --     UItool:setCurrentState("stand")
-                    --     self.delaystand = cc.DelayTime:create(0)
-                    --     elseif UItool:getCurrentState()=="xiadun" then
-                    --         self.delaystand = cc.DelayTime:create(1)
-                    --         self.tingdun = 2
-                    --         self.grossini:getAnimation():play("squat_2")--站起来
-                    --         UItool:setCurrentState("stand")
-                    --         elseif UItool:getCurrentState()=="wanyao"  then
-                    --             self.delaystand = cc.DelayTime:create(1)
-                    --             self.grossini:getAnimation():play("stoop_2")--直腰
-                    --             UItool:setCurrentState("stand")
-                    -- end
                     
                 end
 
@@ -1574,43 +1611,17 @@ function Mainscene:Girl_bg_move(X, Y,event)
                         self.grossini:stopAction(self.sequence)
                         self.bg:stopAction(self.bgsequence)
                     else
-                        -- if UItool:getCurrentState()=="stand" then
-                            self.grossini:getAnimation():play("walk")
-                        --     UItool:setCurrentState("stand")
-                        --     self.delaystand = cc.DelayTime:create(0)
-                        --     elseif UItool:getCurrentState()=="xiadun" then
-                        --         self.delaystand = cc.DelayTime:create(1)
-                        --         self.tingdun = 2
-                        --         self.grossini:getAnimation():play("squat_2")--站起来
-                        --         UItool:setCurrentState("stand")
-                        --         elseif UItool:getCurrentState()=="wanyao"  then
-                        --             self.delaystand = cc.DelayTime:create(1)
-                        --             self.grossini:getAnimation():play("stoop_2")--直腰
-                        --             UItool:setCurrentState("stand")
-                        -- end
-                    
+                        self.grossini:getAnimation():play("walk")
                     end
 
                     elseif self.grossini:getScaleX() < 0  and X < gril_pointx then
-                        -- print("self.grossini:getScaleX() < 0 ，脸是右朝向  点击左边")
+                        
                         if self.grossini:getNumberOfRunningActions()>0  then
                             self.grossini:stopAction(self.sequence)
                             self.bg:stopAction(self.bgsequence)
                         else
-                            -- if UItool:getCurrentState()=="stand" then
-                                self.grossini:getAnimation():play("walk")
-                            --     UItool:setCurrentState("stand")
-                            --     self.delaystand = cc.DelayTime:create(0)
-                            --     elseif UItool:getCurrentState()=="xiadun" then
-                            --         self.delaystand = cc.DelayTime:create(1)
-                            --         self.tingdun = 2
-                            --         self.grossini:getAnimation():play("squat_2")--站起来
-                            --         UItool:setCurrentState("stand")
-                            --         elseif UItool:getCurrentState()=="wanyao"  then
-                            --             self.delaystand = cc.DelayTime:create(1)
-                            --             self.grossini:getAnimation():play("stoop_2")--直腰
-                            --             UItool:setCurrentState("stand")
-                            -- end
+                            
+                            self.grossini:getAnimation():play("walk")
                     end
             end
     --人物位置
@@ -1659,6 +1670,16 @@ function Mainscene:Girl_bg_move(X, Y,event)
                     
                     
             end
+
+            local girlpositionx = self.grossini:getPositionX()
+            local bgpositionx = self.bg:getPositionX()
+            print("背景坐标",bgpositionx,self.bg:getPositionX())
+            local tb = PublicData.SAVEDATA
+            tb.girlpositionx=girlpositionx
+            tb.bgpositionx=bgpositionx
+            local str = json.encode(tb)
+            ModifyData.writeToDoc(str,"savedata")
+
         end
 
         if apoint<self.visibleSize.width/2 then
