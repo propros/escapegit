@@ -28,22 +28,22 @@ end
 function UItool:message2(...)
     
     if UItool.message ~= nil then
-        print("*********")
+
         if UItool:getBool("topbar") then
-            print("&&&&&&&&&&&&")
+
             UItool:setBool("topbar",true)
-            UItool.message:removeFromParent()
+            UItool.message:removeSelf()
             UItool.message = Message2.new()
             UItool.message:open(...)
 
             else
-                print("%%%%%%%%%%%%%%")
+
                 UItool.message = Message2.new()
                 UItool.message:open(...)
                 UItool:setBool("topbar",true)
         end
         else
-            print("++++++++++++")
+
             UItool.message = Message2.new()
             UItool.message:open(...)
             UItool:setBool("topbar",true)
@@ -54,6 +54,10 @@ function UItool:password(...)
 
     local password = password.new()
     password:open(...)
+end
+function UItool:message2removeFromParent()
+    local message = Message2.new()
+    message:removeFromParents()
 end
 
 function UItool:getRunningSceneObj()
@@ -91,7 +95,7 @@ end
 
 -- 根据key获取字符串，default为获取失败时返回的默认值
 function UItool:getBool( key , default)
-    local value = cc.UserDefault:getInstance():getBoolForKey(key,default)
+    local value = cc.UserDefault:getInstance():getBoolForKey(key)
    return value
 end
 
@@ -128,40 +132,6 @@ function UItool:getCurrentState()
     return self.m_currentState
 end
 
-function UItool:addBtnTouchEvent(_btn,_beganFun,_movedFun,_endedFun,canceledFun,_soundfile,_self)
-    local function onBack(_fun,_touch,_type)
-        
-        if _fun ~= nil then
-            if _self ~= nil then
-                _fun(_self,_touch,_type)
-            else
-                _fun(_touch,_type)
-            end
-        end
-    end
-    local starTime = 0
-    local function onTouchEvent(touch, _type)
-        if _type == TOUCH_EVENT_BEGAN then --ccui.TouchEventType.began then
-        
-            if _soundfile ~= nil then
-                --MusicFacade:playSoundForTag(_soundType)
-                AudioEngine.playEffect(_soundfile)
-            end
-            print("*************")
-            -- onBack(_beganFun,touch,_type)
-            onBack(_endedFun,touch,_type)
-        elseif _type == TOUCH_EVENT_MOVED then -- ccui.TouchEventType.moved then
-            print("00000000000")
-            onBack(_movedFun,touch,_type) 
-        elseif _type == TOUCH_EVENT_ENDED then
-            print("+++++++++++++")
-            onBack(_endedFun,touch,_type)
-        elseif _type == TOUCH_EVENT_CANCELED then
-            onBack(canceledFun,touch,_type)
-        end
-    end
-    _btn:addClickEventListener(onTouchEvent)
-end
 
 --@param _slv 底层图片
 --@param _allNodeNum 总共要添加子类的个数 如果传_childList 了这个可以不传

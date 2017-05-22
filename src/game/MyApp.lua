@@ -24,17 +24,6 @@ function MyApp:onCreate()
 
     
     print("******")
-
-    -- if UItool:getBool("music", true) then
-    --     print("音乐背景 true ")
-    --     UItool:setBool("music", true)
-    --     AudioEngine.playMusic("music/jintou.mp3")
-    --     else
-    --         UItool:setBool("music", false)
-    --         print("音乐背景 false ")
-    -- end
-    AudioEngine.preloadMusic("jintou.mp3")
-    AudioEngine.preloadEffect("gliss.mp3")
    
 end
 

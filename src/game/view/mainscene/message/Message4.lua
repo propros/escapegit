@@ -11,7 +11,6 @@ Message4.panel = nil
 
 function Message4:ctor()
     -- print("Message4.lua  ...")
-    UItool:setBool("message4", true)
     self.panel = cc.CSLoader:createNode(Config.RES_MESSAGETWO)
     self.topbar = self.panel:getChildByName("Node_top"):getChildByName("bg")
     
@@ -83,7 +82,6 @@ function Message4:touch(str1,str2,str3,str4,size)
                 function timer:onTime()
                     if panel then
                         panel:removeFromParent()
-                        UItool:setBool("message4", false)
                         else
                     end
                     
@@ -107,9 +105,9 @@ function Message4:open( str1,str2,str3,str4,size ,parente)
     parente = parente or nil 
     self:openHandler(str1,str2,str3,str4,size)
     --
-
+    print("openopenopwenopenoopen 21112222222")
     local scene = UItool:getRunningSceneObj()
-
+    print("scene scene scene ",scene )
     if parente then
          parente:addChild(self,15)
          else
@@ -143,6 +141,8 @@ function Message4:setContent(str1,str2,str3,str4,size)
         local timer = TimerExBuf()
         timer:create(self.screen,1,1)
         function timer:onTime()
+            print("self.layer 44444444",layer)
+            print("self.layer 55555555",layer:getParent())
             
             layer:removeSelf()
             timer:stop()

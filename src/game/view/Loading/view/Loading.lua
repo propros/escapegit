@@ -1,13 +1,12 @@
 
 
-Loading=class("Loading", function()
-    return cc.Scene:create()
-end)
+local Loading = class("Loading", cc.load("mvc").ViewBase)
 
-function Loading:ctor()
 
-    
-    
+
+-- require "cocos.network.DeprecatedNetworkFunc"
+
+function Loading:onCreate()
     self.director = cc.Director:getInstance()
 	self.visibleSize = cc.Director:getInstance():getVisibleSize()
     self.origin = cc.Director:getInstance():getVisibleOrigin()
@@ -17,18 +16,18 @@ function Loading:ctor()
     self.bg:setAnchorPoint(cc.p(0,0))
     self.bg:addTo(self)
 
-    UItool:setBool("topbar",false) -- 对话框二
     UItool:setBool("merge", true) -- 物品栏是否可以点击
-    -- ModifyData.tableinsert(19)
+    UItool:setBool("topbar",false)
 
-    self:signin() --UI
+    
+    
     
     local function began( )
-        -- UItool:setBool("topbar",false)
+        UItool:setBool("topbar",false)
+
         self.scene = Mainscene.new()
-        local turn = cc.TransitionFade:create(1, self.scene)
-        cc.Director:getInstance():replaceScene(turn)
-        UItool:message4(" ...... "," “这里是，我的房间吗……？” ","“但为什么，窗外像是海底的世界呢？”","“我想我应该出去看看……”",30,self.scene)
+		local turn = cc.TransitionFade:create(1, self.scene)
+		cc.Director:getInstance():replaceScene(turn)
         
         
     end
@@ -40,10 +39,6 @@ function Loading:ctor()
         -- local PlayerLayer = PlayerLayer:createScene()
         -- print("进入拼图界面", PlayerLayer)
         -- self:addChild(PlayerLayer,125)
-
-        local cliplayers = ClipLayer:create()  
-        cliplayers:createClip(self.menu,1)
-        self:addChild(cliplayers,5)
         
     end
     
@@ -61,9 +56,9 @@ function Loading:ctor()
     -- 对该按钮注册按键响应函数：
     self.setting:registerScriptTapHandler(settingcallback)
 
-    -- self.menu=cc.Menu:create(self.start,self.setting)
-    -- self.menu:setPosition(0,0) 
-    -- self:addChild(self.menu,2)
+    local menu=cc.Menu:create(self.start,self.setting)
+    menu:setPosition(0,0) 
+    self:addChild(menu,2)
 
     -- for i=1,16 do
     --     print("*****",(i-1)%4)
@@ -85,96 +80,41 @@ function Loading:ctor()
     --     print(math.random(1,100)) --产生1到100之间的随机数
     -- end
 
+    self:signin(self.scene)
+
     
-    
-    
-end
-
-function Loading:newgame(  )
-    print("newgame")
-
-end
-
-function Loading:kaishi(  )
-    print("kaishi")
-    local chapters = Chapters:createScene()
-    print("章节选择", chapters)
-    self:addChild(chapters,3)
-end
-
-function Loading:shezhi(  )
-    print("shezhi")
-    local setting = Setting:createScene()
-    print("shezhixuanze", setting)
-    self:addChild(setting,3)
-
-end
-
-function Loading:shoucang(  )
-    print("shoucang")
-end
-
-function Loading:likai(  )
-    print("likai")
-
 end
 
 function Loading:signin( parent ,num)
     self.panel = cc.CSLoader:createNode(Config.RES_LOADING)
+    self.password_bg = self.panel:getChildByName("password_bg")
     self:addChild(self.panel)
 
-    local center = self.panel:getChildByName("Node_center")
-    center:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
-
-    local left = self.panel:getChildByName("Node_left")
-    left:setPosition(cc.p(0,self.visibleSize.height/2))
-    
-    left:getChildByName("newgame"):setVisible(false)
-    local allUIbtn = 
-    {
-    left:getChildByName("newgame"),
-    left:getChildByName("began"),
-    left:getChildByName("shoucang"),
-    left:getChildByName("shezhi"),
-    left:getChildByName("likai")
-    }
-
-    local function allUIbtnclick(event,eventType)
-        if eventType == TOUCH_EVENT_ENDED then
-            if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
-            end
-            
-            if event:getName()=="newgame" then
-                self:newgame()
-                elseif event:getName()=="began" then
-                    self:kaishi()
-                    elseif event:getName()=="shoucang" then
-                        self:shoucang()
-                        elseif event:getName()=="shezhi" then
-                            self:shezhi()
-                            elseif event:getName()=="likai" then
-                                self:likai()
-            end
-            
-        end
-
+    local function textFieldEvent(sender, eventType)
+        -- print("点击输入框")
+        self.acc = self.password_bg:getChildByName("TextField_1_0"):getString() 
+        self.pwd = self.password_bg:getChildByName("TextField_1"):getString() 
+        print("shuru")
     end
 
-    for key, var in pairs(allUIbtn) do
-        
-        var:addClickEventListener(allUIbtnclick)
+        self.password_bg:getChildByName("TextField_1"):addEventListener(textFieldEvent) 
 
-    end
+        local denglubtn = self.password_bg:getChildByName("denglu")
+        denglubtn:addClickEventListener(function(psender,event)
 
+            sendGetServer(self.acc , self.pwd ,parent)
+            end)
 
+        local zhucebtn = self.password_bg:getChildByName("zhuce")
+        zhucebtn:addClickEventListener(function(psender,event)
+            print("注册地")
+            -- sendGetServer(self.acc , self.pwd ,parent)
+            end)
     
 end
 
-
-
-function Loading:onEnter()
-    
+function Loading:onExit()
+    UItool:message4(" ...... "," “这里是，我的房间吗……？” ","“但为什么，窗外像是海底的世界呢？”","“我想我应该出去看看……”",30,self.scene)
 end
 
 
