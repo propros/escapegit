@@ -265,6 +265,7 @@ function Mainscene:update( delta )
         possfish = width *2 +self.sfish:getContentSize().width*0.6
     end
 
+<<<<<<< HEAD
 
     if possshark > width *2 +self.sshark:getContentSize().width*0.6 then
         possshark = -self.sshark:getContentSize().width*0.6
@@ -718,6 +719,11 @@ function Mainscene:cushion()
         function timer:onTime()
             layer:removeFromParent()
             timer:stop()
+=======
+        -- 椅子旋转45度
+        local function reorderSprite()
+            self.stool:setRotation(45)
+>>>>>>> parent of 5329b02... key changes
         end
         timer:start()
 
