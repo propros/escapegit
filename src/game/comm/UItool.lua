@@ -5,10 +5,41 @@ UItool = class("UItool")
 UItool.m_currentState = nil
 UItool.message = nil 
 
+--table深拷贝
+function UItool:deepcopy(object)
+    local lookup_table = {}  
+    local function _copy(object)  
+        if type(object) ~= "table" then  
+            return object  
+        elseif lookup_table[object] then  
+  
+            return lookup_table[object]  
+        end  -- if          
+        local new_table = {}  
+        lookup_table[object] = new_table  
+  
+  
+        for index, value in pairs(object) do  
+            new_table[_copy(index)] = _copy(value)  
+        end   
+        return setmetatable(new_table, getmetatable(object))      
+    end       
+    return _copy(object)  
+end 
+
+--特殊物品特效
+function UItool:specialitem(...)
+
+    local special = SpecialItembg.new()   
+    special:open(...)
+    print("uitool special")
+end
+
 --弹出框
-function UItool:message(...)
-    local message = Message.new()   
-    message:open(...)
+function UItool:message1(...)
+    print("是否走到了这里")
+    local messages = Message.new()   
+    messages:open(...)
 end
 
 function UItool:message3(str1,str2,size)
@@ -18,32 +49,27 @@ function UItool:message3(str1,str2,size)
     print("uitool message3")
 end
 
+
 function UItool:message4(str1,str2,str3,str4,size,parente)
 
     local message4 = Message4.new()   
     message4:open(str1,str2,str3,str4,size,parente)
-    print("uitool message4")
 end
 
 function UItool:message2(...)
     
     if UItool.message ~= nil then
-
         if UItool:getBool("topbar") then
-
             UItool:setBool("topbar",true)
             UItool.message:removeSelf()
             UItool.message = Message2.new()
             UItool.message:open(...)
-
             else
-
                 UItool.message = Message2.new()
                 UItool.message:open(...)
                 UItool:setBool("topbar",true)
         end
         else
-
             UItool.message = Message2.new()
             UItool.message:open(...)
             UItool:setBool("topbar",true)
@@ -54,10 +80,6 @@ function UItool:password(...)
 
     local password = password.new()
     password:open(...)
-end
-function UItool:message2removeFromParent()
-    local message = Message2.new()
-    message:removeFromParents()
 end
 
 function UItool:getRunningSceneObj()
@@ -89,31 +111,84 @@ end
 -- bool类型
 function UItool:setBool( key , value )
     cc.UserDefault:getInstance():setBoolForKey(key, value)
+    cc.UserDefault:getInstance():flush()
     -- print("sound is :",cc.UserDefault:getInstance():getBoolForKey(key))
 -- print("··///·",cc.FileUtils:getInstance():getWritablePath())
 end
 
 -- 根据key获取字符串，default为获取失败时返回的默认值
 function UItool:getBool( key , default)
-    local value = cc.UserDefault:getInstance():getBoolForKey(key)
+    local value = cc.UserDefault:getInstance():getBoolForKey(key,default)
    return value
 end
 
 -- 整数类型
 function UItool:setInteger( key , value )
     cc.UserDefault:getInstance():setIntegerForKey(key, value)
+    cc.UserDefault:getInstance():flush()
 --     print("sound is :",cc.UserDefault:getInstance():getBoolForKey(key))
 -- print("··///·",cc.FileUtils:getInstance():getWritablePath())
 end
 
 -- 根据key获取字符串，default为获取失败时返回的默认值
-function UItool:getInteger( key , default)
+function UItool:getInteger( key )
     local value = cc.UserDefault:getInstance():getIntegerForKey(key)
    return value
 end
 
+function UItool:getIntegerdefault( key , default)
+    local value = cc.UserDefault:getInstance():getIntegerForKey(key,default)
+   return value
+end
+
+
+
+function UItool:removeUserXML( )
+    local xmlpaths = cc.UserDefault:getXMLFilePath()
+    print("xmlpaths:",xmlpaths)
+    local strTab=UItool:StringSplit(xmlpaths,"Caches/UserDefault.xml")  
+    local xmlpath=strTab[1].."Preferences/com.cangland.EscapeGame.plist"
+    print("xmlpath2222222:",xmlpath)
+    if xmlpath then
+        print("存在")
+        else
+            print("不存在")
+    end
+    cc.FileUtils:getInstance():removeFile(xmlpath)
+end
+
+-- local strTab=StringSplit("1233333456","33")  
+-- for index = 1,#strTab do  
+--     print(strTab[index])  
+-- end
+
+--截取lua字符串
+function UItool:StringSplit(str, splitStr,addNemptyStr,addSplitStrInTable)  
+    if not addNemptyStr then addNemptyStr = false end  
+    if not addSplitStrInTable then addSplitStrInTable = false end  
+    local subStrTab = {};  
+    while (true) do  
+        local pos = string.find(str, splitStr);  
+        if (not pos)  then  
+            if str ~="" or addNemptyStr then  
+                subStrTab[#subStrTab + 1] = str;  
+            end  
+            break;  
+        end  
+        local subStr = string.sub(str, 1, pos - 1);  
+        if subStr~="" or addNemptyStr then  
+            subStrTab[#subStrTab + 1] = subStr;  
+        end  
+        if addSplitStrInTable then  
+            subStrTab[#subStrTab + 1] = splitStr;  
+        end  
+        str = string.sub(str, pos +string.len(splitStr) , #str);  
+    end  
+    return subStrTab;  
+end 
+
 function UItool:ifcontain( num )
-    for key,var in pairs(ModifyData.getTable()) do
+    for key,var in pairs(PublicData.MERGEITEM) do
         if var == num then
             return true
 
@@ -132,6 +207,40 @@ function UItool:getCurrentState()
     return self.m_currentState
 end
 
+function UItool:addBtnTouchEvent(_btn,_beganFun,_movedFun,_endedFun,canceledFun,_soundfile,_self)
+    local function onBack(_fun,_touch,_type)
+        
+        if _fun ~= nil then
+            if _self ~= nil then
+                _fun(_self,_touch,_type)
+            else
+                _fun(_touch,_type)
+            end
+        end
+    end
+    local starTime = 0
+    local function onTouchEvent(touch, _type)
+        if _type == TOUCH_EVENT_BEGAN then --ccui.TouchEventType.began then
+        
+            if _soundfile ~= nil then
+                --MusicFacade:playSoundForTag(_soundType)
+                AudioEngine.playEffect(_soundfile)
+            end
+            print("*************")
+            -- onBack(_beganFun,touch,_type)
+            onBack(_endedFun,touch,_type)
+        elseif _type == TOUCH_EVENT_MOVED then -- ccui.TouchEventType.moved then
+            print("00000000000")
+            onBack(_movedFun,touch,_type) 
+        elseif _type == TOUCH_EVENT_ENDED then
+            print("+++++++++++++")
+            onBack(_endedFun,touch,_type)
+        elseif _type == TOUCH_EVENT_CANCELED then
+            onBack(canceledFun,touch,_type)
+        end
+    end
+    _btn:addClickEventListener(onTouchEvent)
+end
 
 --@param _slv 底层图片
 --@param _allNodeNum 总共要添加子类的个数 如果传_childList 了这个可以不传

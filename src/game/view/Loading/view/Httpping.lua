@@ -1,6 +1,8 @@
 
 
 function sendGetServer(acc, pwd,parent)
+    
+    print("sendGetServer(acc, pwd, parent)")
     local xhr = cc.XMLHttpRequest:new() -- 新建一个XMLHttpRequest对象  
  
     xhr.responseType = cc.XMLHTTPREQUEST_RESPONSE_JSON -- json数据类型  
@@ -40,8 +42,6 @@ function sendGetServer(acc, pwd,parent)
     xhr:send(json.encode(msg))  -- 发送请求  
     print("发送请求消息1")
 end
-
-
 
 
 

@@ -12,6 +12,31 @@ function Merge:createScene()
 end
 
 function Merge:initScene()
+    if #PublicData.MERGEITEM==0 then
+        local docpath = cc.FileUtils:getInstance():getWritablePath().."mergeitem.txt"
+        -- print("文件是否存在",cc.FileUtils:getInstance():isFileExist(docpath),docpath)
+        if cc.FileUtils:getInstance():isFileExist(docpath)==false then
+            local str = json.encode(ModifyData.ITEM_TABLE) --ModifyData.getTable()
+            ModifyData.writeToDoc(str,"mergeitem")
+            PublicData.MERGEITEM = ModifyData.ITEM_TABLE
+            print("是新的")
+        else
+            print("不是新的")
+            
+    
+            local str = ModifyData.readFromDoc("mergeitem")
+            PublicData.MERGEITEM = json.decode(str)
+        end
+    end
+
+    -- PublicData.MERGEITEM = ModifyData.ITEM_TABLE
+    local tb = PublicData.MERGEITEM
+    local str = json.encode(tb)
+    ModifyData.writeToDoc(str,"mergeitem")
+
+    self.mergeitem = PublicData.MERGEITEM
+
+
     self.m_srcItem = nil  
     -- self.m_destItem = nil   
     self.m_isTouchEnable = true
@@ -30,6 +55,7 @@ function Merge:initScene()
     self:itemtouch()
     self:touchpoint()
 
+    UItool:setBool("elseitem", false)
     for key,var in pairs(self.bag_table) do
         local key_items = Data.getItemData(var:getTag())
 
@@ -44,12 +70,14 @@ end
 
 function Merge:initMatrix()
     -- 初始化item 
-    for key,var in pairs(ModifyData.getTable()) do
+    for key,var in pairs(self.mergeitem) do
+
         local icon = Data.getItemData(var)
         self.sprite = cc.Sprite:create(icon.pic)
         local y = 80 
         self.sprite:setTag(var)
         self.sprite:setAnchorPoint(cc.p(0.5,0.5))
+        
         self.sprite:setPosition((key-1)*self.sprite:getContentSize().width*1.1 + 90 ,y)
         self.bag:addChild(self.sprite,2) 
         self.bag_table[key] = self.sprite
@@ -58,15 +86,13 @@ function Merge:initMatrix()
 end
 
 function Merge:itemshake( item )
-    
     if #self.capyitem==1 then
-        
         elseif #self.capyitem==2 then
-            
             if self.capyitem[1]==self.capyitem[2] then
-                -- print("两个是相同的")
+                
                 local inname = Data.getItemData(self.capyitem[1]:getTag())
                 self.capyitem[1]:removeFromParent()
+                UItool:setBool("elseitem", false)
                 UItool:setBool(inname.inname, false)
                 table.remove(self.capyitem,2)
                 table.remove(self.capyitem,1)
@@ -80,17 +106,17 @@ function Merge:itemshake( item )
     local moveup = cc.MoveTo:create(0.5, cc.p(self.srcitemx , self.srcitemy+10))
     local movedown = cc.MoveTo:create(0.5, cc.p(self.srcitemx , self.srcitemy))
     local sequencd= cc.Sequence:create(moveup,movedown)
-    print("个数",#self.capyitem)
+    
     if #self.capyitem==0 then
-
         else
             local inname = Data.getItemData(self.capyitem[1]:getTag())
+            UItool:setBool("elseitem", true)
             UItool:setBool(inname.inname, true)
             UItool:setInteger(inname.inname.."num",self.capyitem[1]:getTag())
             self.capyitem[1]:runAction( cc.RepeatForever:create(sequencd))
             local key_item = Data.getItemData(self.capyitem[1]:getTag())
             -- 物品名称
-            self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
+            -- self:itemname(key_item.name, 30,self.capyitem[1]:getPositionX(), self.capyitem[1]:getPositionY()+100,self.capyitem[1])
     end
 end
 
@@ -99,7 +125,6 @@ function Merge:touchpoint()
     self.dianji = ccs.Armature:create("dianji")
     self.dianji:getAnimation():playWithIndex(0,-1,-1)
     self.dianji:setPosition(cc.p(-200,-200))
-    
     self.bag:addChild(self.dianji,13)
 end
 
@@ -130,8 +155,6 @@ function Merge:itemname(str,size,x,y,parente)
 end
 
 function Merge:OnTouchBegan(touch, event)
-    
-    
     local target = event:getCurrentTarget()  
     self.m_isTouchEnable = true
     local locationInNode = target:convertToNodeSpace(touch:getLocation())  
@@ -148,18 +171,21 @@ function Merge:OnTouchBegan(touch, event)
             if self.m_srcItem then
 
                 local key_item = Data.getItemData(self.m_srcItem:getTag())
+                UItool:message2(key_item.tishi,30)
+
                 if key_item.appear == true then
-                    -- print("11111111")
                     self.new_srcItem = self:clone(self.m_srcItem)
                     
                     table.insert(self.capyitem, self.new_srcItem)
                     self.srcitemx , self.srcitemy =  self.new_srcItem:getPosition()
                     self.m_srcItem:setVisible(false)
+
+                    UItool:setBool("elseitem", false)
+
                     for key,var in pairs(self.bag_table) do
                         local key_items = Data.getItemData(var:getTag())
                         -- key_item.appear = true
                         if key_item== var:getTag()then
-                            
                             else
                                 key_items.appear = true
                                 UItool:setBool(key_items.inname, false)
@@ -243,16 +269,6 @@ function Merge:itemtouch()
                 self:itemshake()
             end
 
-            
-        -- local rects = cc.rect(0, 0,self.bag:getContentSize().width, self.bag:getContentSize().height)
-        -- if cc.rectContainsPoint(rects, location) then
-            
-        --     if self.new_srcItem and self.m_srcItem then
-        --         self:moveitem()
-        --         self:itemshake(self.new_srcItem)
-        --     end
-        -- end
-
     end
     
     local listener = cc.EventListenerTouchOneByOne:create() -- 创建一个事件监听器
@@ -269,14 +285,14 @@ function Merge:itempoint( location )
     local item 
     local rect = cc.rect(0,0,0,0)  
     for key,var in pairs(self.bag_table) do
-        -- local key_item = Data.getItemData(var:getTag())
-        -- key_item.appear = true
+        
+        
         var:setVisible(true)
          var:setName(key)
      end
     for key,var in pairs(self.bag_table) do
          item = self.bag_table[key]  
-         -- item:setSwallowTouches(true)
+         
         if item then
            rect.x = item:getPositionX() - item:getContentSize().width * 0.5  
            rect.y = item:getPositionY() - item:getContentSize().height * 0.5  
@@ -298,43 +314,68 @@ function Merge:moveitem( ... )
        
         if key==self.itemnumber then
             else
-                local rec1 = self.new_srcItem:getBoundingBox()
+
+                local halfwidth = self.new_srcItem:getContentSize().width/4
+                local halfheight = self.new_srcItem:getContentSize().height/2
+                local rec1 = cc.rect(self.new_srcItem:getPositionX()-halfwidth,self.new_srcItem:getPositionY()-halfheight,self.new_srcItem:getContentSize().width/2,self.new_srcItem:getContentSize().height/2)
                 local srcid = self.new_srcItem:getTag()
                 local destid = var:getTag()
                 local srcname = self.m_srcItem:getName()
                 local destname = var:getName()
-               
-                local rec2 = var:getBoundingBox()
+            
+                local rec2 = cc.rect(var:getPositionX()-halfwidth,var:getPositionY()-halfheight,var:getContentSize().width/2,var:getContentSize().height/2)
                 if cc.rectIntersectsRect(rec1,rec2) then
 
                     for i=1,#Data.getdestMergeTable() do
                         local merged = Data.getMergeData(i) 
-                         
+                         --self.mergeitem
                         if merged.id[1]==srcid and merged.id[2]==destid or merged.id[2]==srcid and merged.id[1]==destid  then
                             if srcname > destname then
-                                table.remove(ModifyData.getTable(),tonumber(srcname))
-                                table.remove(ModifyData.getTable(),tonumber(destname))
-                                -- print("srcname > destname  srcname :%s , destname : %s",srcname,destname)
+                                table.remove(PublicData.MERGEITEM,tonumber(srcname))
+                                table.remove(PublicData.MERGEITEM,tonumber(destname))
+                                ---[[
+                                local tb = PublicData.MERGEITEM
+                                local str = json.encode(tb)
+                                ModifyData.writeToDoc(str,"mergeitem")
+                                --]]
                                 else
                                     -- print("srcname < destname  srcname :%s , destname : %s",srcname,destname)
-                                    table.remove(ModifyData.getTable(),tonumber(destname))
-                                    table.remove(ModifyData.getTable(),tonumber(srcname))
+                                    table.remove(PublicData.MERGEITEM,tonumber(destname))
+                                    table.remove(PublicData.MERGEITEM,tonumber(srcname))
+                                    local tb = PublicData.MERGEITEM
+                                    
+                                    local str = json.encode(tb)
+                                    ModifyData.writeToDoc(str,"mergeitem")
                             end
                             local src_item=Data.getItemData(srcid)
                             local dest_item=Data.getItemData(destid)
                             local padlock_item = Data.getItemData(merged.nid)
-                            ModifyData.tableinsert(padlock_item.key)
-                             UItool:setBool("pasitem", true)
-                             UItool:setBool("touchend", false)
-                             UItool:message2(src_item.name.." 和 "..dest_item.name.." 合成了 "..padlock_item.name,30)
+                            -- ModifyData.tableinsert(padlock_item.key)
+                            table.insert(PublicData.MERGEITEM, padlock_item.key)
+                            local tb = PublicData.MERGEITEM
+                            local str = json.encode(tb)
+                            ModifyData.writeToDoc(str,"mergeitem")
 
+                            UItool:setBool("pasitem", true) --重新渲染合成界面开关
+                            -- UItool:setBool("touchend", false)
+                            UItool:message2(src_item.name.." 和 "..dest_item.name.." 合成了 "..padlock_item.name,30)
+                            -- local x = 0
+                            -- for key,var in pairs(PublicData.MERGEITEM) do
+                            --     if var==37 or var==38 or var==39 then
+                            --         x=x+1
+                            --     end
+                            -- end
+                            -- if x>=2 then
+                            --     UItool:message2("恭喜你同时获得了两个花束",30)
+                            -- end
                             break
 
                             else
                                 local src_item=Data.getItemData(srcid)
                                 local dest_item=Data.getItemData(destid)
                                 UItool:message2(src_item.name.." 和 "..dest_item.name.." 合成失败 ",30)
-                                UItool:setBool("touchend", true)
+                                -- UItool:setBool("touchend", true)
+                               
                                 
                         end
                     end

@@ -12,7 +12,7 @@ function Message:ctor()
 
 	print("Message ")
 	self.panel = cc.CSLoader:createNode(Config.RES_MESSAGE)
-    local shildinglayer = Shieldingscreen:new()
+    local shildinglayer = Shieldingscreenpas:new()
     self:addChild(shildinglayer)
     self:addChild(self.panel,125)
     self.bg = self.panel:getChildByName("Node_center"):getChildByName("bg")
@@ -31,7 +31,7 @@ function Message:open( ... )
 	self:openHandler(...)
 	--
 	local scene = UItool:getRunningSceneObj()
-    scene:addChild(self)
+    scene:addChild(self,12)
 	
 	print("open(...)")
 end

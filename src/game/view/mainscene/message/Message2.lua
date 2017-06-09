@@ -7,6 +7,7 @@ end)
 Message2.panel = nil
 
 function Message2:ctor()
+    
     self.panel = cc.CSLoader:createNode(Config.RES_MESSAGETWO)
     self.topbar = self.panel:getChildByName("Node_top"):getChildByName("bg")
     
@@ -28,8 +29,10 @@ function Message2:removeFromParents()
 end
 
 function Message2:open( ... )
+    
     self:openHandler(...)
     --
+    
     local scene = UItool:getRunningSceneObj()
     scene:addChild(self,11)
 
@@ -50,6 +53,7 @@ function Message2:setContent(str,size)
     alert:setString(str)
     alert:setFontName(Zapfino)
     alert:setFontSize(size+10)
+
     -- alert:setColor(cc.c3b(251, 138, 38))
     -- alert:setPosition(cc.p( 105,185))
     -- self.topbar:addChild(alert,1)

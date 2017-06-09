@@ -25,7 +25,7 @@ function Message3:ctor()
     self.screen = 2
 
     self.layer=cc.Layer:create()
-    local shildinglayer = ShieldingLayerpin:new()
+    local shildinglayer = Shieldingscreenmessage3:new()
     self.layer:addChild(shildinglayer)
     self.layer:addTo(self,126)
     local layer =  self.layer
@@ -82,7 +82,7 @@ function Message3:touch(str1,str2,size)
 
             local panel = self
             local timer = TimerExBuf()
-                timer:create(0.5,1,1)
+                timer:create(0.1,1,1)
                 function timer:onTime()
                     if panel then
                         panel:removeFromParent()
@@ -132,7 +132,7 @@ function Message3:setContent(str1,str2,size)
             self.alert:setString(str2)
             
             self.layer=cc.Layer:create()
-            local shildinglayer = ShieldingLayerpin:new()
+            local shildinglayer = Shieldingscreenmessage3:new()
             self.layer:addChild(shildinglayer)
             self.layer:addTo(self,12)
             local layer =  self.layer

@@ -37,8 +37,6 @@ function Shieldingscreen:ctor(isset)
         else
             self:removeFromParent()
         end
-        
-        print("EVENT_TOUCH_ENDED")  
     end, cc.Handler.EVENT_TOUCH_ENDED )  
 
     local eventDispatcher = self:getEventDispatcher()  
@@ -139,7 +137,7 @@ function ShieldingLayerTe:ctor()
 end  
 
 ShieldingLayerpin = class("ShieldingLayerpin", function ()  
-    return cc.LayerColor:create(cc.c4b(0,0,0,0))  
+    return cc.LayerColor:create(cc.c4b(89,89,89,230))  
 end)  
 
 --初始化  
@@ -233,7 +231,7 @@ end)
 
 --初始化  
 function Shieldingscreenmessage3:ctor()  
-    local touchnum = 0
+    -- local touchnum = 0
     -- 创建一个事件监听器类型为 OneByOne 的单点触摸  
     local  listenner = cc.EventListenerTouchOneByOne:create()  
 
@@ -260,13 +258,7 @@ function Shieldingscreenmessage3:ctor()
     -- 实现 onTouchEnded 事件回调函数  
     listenner:registerScriptHandler(function(touch, event)  
         local locationInNodeX = self:convertToNodeSpace(touch:getLocation()).x  
-        touchnum = 1 + touchnum
-        --点击屏蔽层，返回，相当于返回按钮
-        if touchnum >=3 then
-            self:removeFromParent()
-        end
-        
-        print("EVENT_TOUCH_ENDED")  
+         
     end, cc.Handler.EVENT_TOUCH_ENDED )  
 
     local eventDispatcher = self:getEventDispatcher()  
