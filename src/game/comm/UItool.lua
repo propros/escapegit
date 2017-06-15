@@ -242,7 +242,9 @@ function UItool:addBtnTouchEvent(_btn,_beganFun,_movedFun,_endedFun,canceledFun,
     _btn:addClickEventListener(onTouchEvent)
 end
 
---@param _slv 底层图片
+--设置滚动容器
+--@param _slv 滚动容器
+--@param _sld 滚动条
 --@param _allNodeNum 总共要添加子类的个数 如果传_childList 了这个可以不传
 --@param _countNum 每行个数  不传时默认是1
 --@param _spX 子类x轴的间隔
@@ -251,30 +253,75 @@ end
 
 
 --UIunit:setScrollView(self.srollview,1,3,400,480,list)
-function UItool:setScrollView(_slv,_allNodeNum,_countNum,_spX,_spY,_childList,_startX,_startY)
-    local coun = 0
+-- function UItool:setScrollView(_slv,_allNodeNum,_countNum,_spX,_spY,_childList,_startX,_startY)
+--     local coun = 0
 
+--     if _childList ~= nil then
+--      _allNodeNum = #_childList
+--     end
+
+--     _startX = _startX or 0
+--     _startY = _startY or 0
+
+--         local cc = math.floor(_allNodeNum/_countNum)
+--         if _allNodeNum%_countNum >0 then
+--             cc = cc+1
+--         end
+--         coun = cc*_spY
+    
+--     local _size = _slv 
+--     if _childList ~= nil then
+--         for var=1, #_childList do
+--             local node_1 = _childList[var]
+--             local y = _size.height-(math.floor((var-1)/_countNum)+1)*_spY
+--             node_1:setPosition(((var-1)%_countNum)*_spX+_startX,y+_startY)
+--             _slv:addChild(node_1)
+--         end
+--     end
+
+-- end
+
+function UItool:setScrollView(_slv,_sld,_allNodeNum,_countNum,_spX,_spY,_childList,_startX,_startY)
+    print("是否走着？")
+    print("table 有几个纸",#_childList)
+    local coun = 0
+    local direType = _slv:getDirection()
+    print("类型",_slv:getDirection())
     if _childList ~= nil then
      _allNodeNum = #_childList
     end
-
+    --  1 代表 SCROLLVIEW_DIR_VERTICAL
     _startX = _startX or 0
     _startY = _startY or 0
-
+    if  direType == 1 then
+        if _countNum == nil or _countNum == 0 then
+            _countNum = 1
+        end
         local cc = math.floor(_allNodeNum/_countNum)
         if _allNodeNum%_countNum >0 then
             cc = cc+1
         end
         coun = cc*_spY
-    
-    local _size = _slv 
+    elseif direType  == SCROLLVIEW_DIR_HORIZONTAL  then
+        coun = _allNodeNum*_spX
+    end
+    if _spX == nil then _spX = 0 end
+    local _size = UItool:onlySetScrollView(_slv,_sld,coun)
     if _childList ~= nil then
+        if direType == 1 then
             for var=1, #_childList do
                 local node_1 = _childList[var]
                 local y = _size.height-(math.floor((var-1)/_countNum)+1)*_spY
                 node_1:setPosition(((var-1)%_countNum)*_spX+_startX,y+_startY)
                 _slv:addChild(node_1)
             end
+        elseif direType == SCROLLVIEW_DIR_HORIZONTAL  then
+            for var=1, #_childList do
+                local node_1 = _childList[var]
+                node_1:setPosition((var-1)*_spX+_startX,_startY)
+                _slv:addChild(node_1)
+            end
+        end
     end
 
 end

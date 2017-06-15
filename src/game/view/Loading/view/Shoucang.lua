@@ -32,13 +32,10 @@ function Shoucang:initScene()
         end
     end
 
-    
-
-
     self.background = cc.CSLoader:createNode(Config.RES_SHOUCANG)
-    --屏蔽层
-    -- local shildinglayer = ShieldingLayerpin:new()
-    -- self:addChild(shildinglayer) 
+    -- --屏蔽层
+    local shildinglayer = ShieldingLayerpin:new()
+    self:addChild(shildinglayer) 
     self:addChild(self.background)
 
     local center = self.background:getChildByName("Node_center")
@@ -52,18 +49,40 @@ function Shoucang:initScene()
         self:removeFromParent()
         end)
 
+    self.srollview = center:getChildByName("ScrollView_1")
 
-    for k,v in pairs(PublicData.SHOUCANG) do
+    -- for k,v in pairs(PublicData.SHOUCANG) do
         
-        local icon = Data.getItemData(v)
-        self.sprite = cc.Sprite:create(icon.pic)
-        local y = 1080-(math.floor((k-1)/2)+1)*340
-        -- local y = 10 
-        self.sprite:setAnchorPoint(cc.p(0,0))
-        self.sprite:setPosition(((k-1)%2)*430+600  ,y)
-        self:addChild(self.sprite,2) 
+    --     local icon = Data.getItemData(v)
+    --     self.sprite = cc.Sprite:create(icon.pic)
+    --     local y = 1080-(math.floor((k-1)/2)+1)*340
+    --     -- local y = 10 
+    --     self.sprite:setAnchorPoint(cc.p(0,0))
+    --     self.sprite:setPosition(((k-1)%2)*430+600  ,y)
+    --     self:addChild(self.sprite,2) 
+    -- end
+
+
+    
+   self.srollview:removeAllChildren()
+   local list = {}
+    for i=1,#PublicData.SHOUCANG+1 do
+        self.item=cc.CSLoader:createNode("cn/Load/collectitem.csb")
+        self.di = self.item:getChildByName("Sprite_1")
+        self.que = self.item:getChildByName("question")
+        if i == #PublicData.SHOUCANG+1 then
+            
+            else
+                -- PublicData.SHOUCANG[i]
+                self.que:setTexture("role"..i..".jpg")
+        end
+        
+        table.insert(list,self.item)
+
     end
-       
+    UItool:setScrollView(self.srollview,nil,1,2,500,self.di:getContentSize().height*1.5,list)
+
+
 end
 
 
@@ -71,6 +90,7 @@ end
 function Shoucang:onExit()
     
 end
+
 
 
 return Shoucang

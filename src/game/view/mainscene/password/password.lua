@@ -9,6 +9,8 @@ function password:ctor( )
 end
 
 function password:passwords()
+    self.furnituretb = PublicData.FURNITURE --存储文件
+
     self.panel = cc.CSLoader:createNode(Config.RES_PASSWORD)
     self.center = self.panel:getChildByName("Node_center")
     self.bg = self.center:getChildByName("pass_di")
@@ -103,19 +105,14 @@ function password:passbtn( )
                 AudioEngine.playEffect("gliss.mp3")
             end
             if event:getName()=="password1" then
-                print("点击测试1")
                 self:passwordbtn1()
                 elseif event:getName()=="password2" then
-                    print("点击测试2")
                     self:passwordbtn2()
                     elseif event:getName()=="password3" then
-                        print("点击测试3")
                         self:passwordbtn3()
                         elseif event:getName()=="password4" then
-                            print("点击测试4")
                             self:passwordbtn4()
                             elseif event:getName()=="password5" then
-                                print("点击测试5")
                                 self:passwordbtn5()     
                         
             end
@@ -156,7 +153,6 @@ function password:setpassword(str,itemnum)
     local OKbutton = self.bg:getChildByName("OK")
     OKbutton:addClickEventListener(function(psender,event)
         local sendpass = self.pass1..self.pass2..self.pass3..self.pass4..self.pass5
-        print("我的密码事",sendpass)
         if str == sendpass then
         	if itemnum == nil  then
 
@@ -167,7 +163,10 @@ function password:setpassword(str,itemnum)
 			        	-- ModifyData.tableinsert(self.key_item.key)
                         table.insert(PublicData.MERGEITEM, self.key_item.key)
 			        	UItool:message2("里面是个颜料罐……怎么净是一些奇奇怪怪的东西。",30)
-			        	Data.getItemData(itemnum).ifcontain = false 
+
+                        self.furnituretb[7].passpass = true
+                        local str = json.encode(self.furnituretb)
+                        ModifyData.writeToDoc(str,"furniture")
 
 			        	self:removeFromParent()
                         UItool:setBool("pasitem", true)

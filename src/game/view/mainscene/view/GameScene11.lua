@@ -110,9 +110,7 @@ function GameScene11:ctor()
         if UItool:getBool("pasitem") then
             --重新渲染合成界面
             UItool:setBool("pasitem",false)
-            self.merge:removeSelf()
-            self.merge = Merge:createScene()
-            self:addChild(self.merge,5)
+            self:megerupdate()
             
         end
     end  
@@ -124,10 +122,13 @@ function GameScene11:ctor()
     
 end
 
+function GameScene11:megerupdate()
+    self.merge:removeSelf()
+    self.merge = Merge:createScene()
+    self:addChild(self.merge,5)
+end
+
 function GameScene11:init()
-
-    
-
     --家具
     self.furniture = self.bg:getChildByName("furniture")
 
@@ -346,7 +347,7 @@ function GameScene11:bed_up()
         UItool:setCurrentState("wanyao")
         if self.furnituretb[1].num==1 then
 
-            UItool:message2(" 有个盒子，绳子太紧了，我解不开。需要什么东西把绳子割开。  ",30)
+            UItool:message2(" 这有个盒子，上面用缎带打了个死结，看起来很难拆开的样子。  ",30)
 
             self.furniture:getChildByName("bed_up"):setVisible(false)
             self.furniture:getChildByName("bed_up"):setTouchEnabled(false)
@@ -354,20 +355,15 @@ function GameScene11:bed_up()
             table.insert(PublicData.MERGEITEM, key_item.key)
             self.furnituretb[1].bool = false
              -- PublicData.MERGEITEM(key_item.key)
-            
-            self.merge:removeSelf()
 
-            self.merge = Merge:createScene()
-            self:addChild(self.merge,5)
             self.furnituretb[1].num=self.furnituretb[1].num+1
-            else
-                UItool:message2(" 这是我的床。 ",30)
         end
 
         -- local tb = PublicData.FURNITURE
         -- tb[1].num = self.furnituretb[1].num
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
+        self:megerupdate()
 
     end)
 end
@@ -412,9 +408,7 @@ function GameScene11:bed_down()
             local key_item = Data.getItemData(14)
             table.insert(PublicData.MERGEITEM, key_item.key)
             self.furnituretb[2].bool = false
-            self.merge:removeSelf()
-            self.merge = Merge:createScene()
-            self:addChild(self.merge,5)
+            
             self.furnituretb[2].num=self.furnituretb[2].num+1
             self.bg:getChildByName("hammer_s"):setVisible(false)
 
@@ -424,7 +418,7 @@ function GameScene11:bed_down()
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
-
+        self:megerupdate()
     end)
 end 
 
@@ -459,7 +453,7 @@ function GameScene11:bedside_table()
                 
                 if UItool:getBool("bedkey") then
                     self.furnituretb[6].num= 1+ self.furnituretb[6].num
-                    UItool:message2(" 这是什么东西……一半剪刀？ ",30)
+                    UItool:message2(" 里面有什么东西……是一半剪刀。 ",30)
 
                     local key_item = Data.getItemData(12)
                     -- ModifyData.tableinsert(key_item.key)
@@ -475,19 +469,24 @@ function GameScene11:bedside_table()
                         end
                     end
 
-                    self.merge:removeSelf()
-                    self.merge = Merge:createScene()
-                    self:addChild(self.merge,5)
-
                     self.furniture:getChildByName("bedside_table_s"):setTexture("changesprite/GameScene11/bedside_table2.png")
                     self.furnituretb[6].ifchangesprite = true
                 else
-                    UItool:message2(" 它锁住了。 ",30)
+                    if UItool:getBool("elseitem") then
+                        UItool:message2( Data.TALK[math.random(5)],30)
+                        else
+                            UItool:message2(" 它锁住了。 ",30)
+                    end
+                    
                 end
+                elseif self.furnituretb[6].num==2 then
+                    UItool:message2("里面什么也没有了。",30)
+
                     
             end
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
+            self:megerupdate()
 
         end)
 end
@@ -511,8 +510,6 @@ function GameScene11:bear()
     --print("bear_btn")
 
     local bear_locationx, bear_locationy= UItool:getitem_location(self.furniture:getChildByName("bear_btn"), self.bg:getPositionX())
-    --print("xion位置",math.floor(bear_locationx-self.grossini:getContentSize().width/6))
-    --print("···人位置",math.floor(self.grossini:getPositionX()))
 
     self:Girl_bg_move(math.floor( bear_locationx)-math.floor(self.grossini:getContentSize().width/6),bear_locationy,function (  )
 
@@ -549,7 +546,11 @@ function GameScene11:bear()
                         self.furnituretb[5].num = 1+self.furnituretb[5].num 
                         -- UItool:setBool("scissors",false) 
                         else
-                            UItool:message2(" 小熊的身体里好像有什么东西，但是我要怎么取出来？",30)
+                            if UItool:getBool("elseitem") then
+                                UItool:message2( Data.TALK[math.random(5)],30)
+                                else
+                                    UItool:message2(" 小熊的身体里好像有什么东西，但是我要怎么取出来？",30)
+                            end
 
                     end
                     else
@@ -557,6 +558,7 @@ function GameScene11:bear()
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
+        self:megerupdate()
 
         
     end)
@@ -586,7 +588,7 @@ function GameScene11:toilet_glass()
             self.grossini:setScaleY(self.girly)
             if self.furnituretb[3].num==1 then
                 -- 刚开始没碎第一次点击
-                UItool:message4(" 梳妆台的镜子。","我能从里面看到桌子和凳子的倒影，但是看不见我自己。 "," 这让我觉得有点邪门。","我不想看见它，有没有什么办法可以让它从我眼前消失... ",30)
+                UItool:message3(" 镜子里面没有我的倒影……真让人害怕。 ","我不想看见它，有没有什么办法可以让它从我眼前消失... ",30)
                 self.furnituretb[3].num = self.furnituretb[3].num + 1
 
                 elseif self.furnituretb[3].num == 2 then
@@ -594,7 +596,7 @@ function GameScene11:toilet_glass()
                     if UItool:getBool("hammer") then
                         local key_item = Data.getItemData(1)
                         table.insert(PublicData.MERGEITEM, key_item.key)
-                        UItool:message4(" 镜子被砸碎了，碎片看起来很锋利。镜子里面写了四个数字。 "," ……奇怪的是，当我移开目光之后，就记不清上面究竟写了些什么…… ","我需要把这段数字写下来。",nil,30)
+                        UItool:message3(" 镜子里面是一行数字，奇怪的是，我移开目光后就记不清上面写的什么…… "," 我想我需要把它们写下来。 ",30)
                         local itemnum = UItool:getInteger("hammernum")
                         for i=1,#PublicData.MERGEITEM do
                             if PublicData.MERGEITEM[i] == itemnum then
@@ -604,18 +606,21 @@ function GameScene11:toilet_glass()
                         end
                         self.bg:getChildByName("dressing_table"):setTexture("changesprite/GameScene11/dressing_table2.png")
                         self.furnituretb[3].ifchangesprite = true
-                        self.merge:removeSelf()
-                        self.merge = Merge:createScene()
-                        self:addChild(self.merge,5)
+                        
                         self.furnituretb[3].num = self.furnituretb[3].num + 1
                         UItool:setBool("hammer",false)
                         else
-                            UItool:message2(" 我不想看见它…… ",30)
+                            if UItool:getBool("elseitem") then
+                                UItool:message2( Data.TALK[math.random(5)],30)
+                                else
+                                    UItool:message2(" 我不想看见它…… ",30)
+                            end
+                            
 
                     end
                     elseif self.furnituretb[3].num == 3 then
                         if UItool:getBool("paperpen") then
-                            UItool:message2(" 获得了密码纸。 ",30)
+                            UItool:message2(" 用纸和笔将镜子上的数字抄写了下来。明明很短，为什么就是记不住呢…… ",30)
                             local key_item = Data.getItemData(2)
                             table.insert(PublicData.MERGEITEM, key_item.key)
                             
@@ -627,20 +632,25 @@ function GameScene11:toilet_glass()
                                 end
                             end
 
-                            self.merge:removeSelf()
-                            self.merge = Merge:createScene()
-                            self:addChild(self.merge,5)
+                            
                             self.furnituretb[3].num = self.furnituretb[3].num + 1
                             UItool:setBool("paperpen",false)
                             
                             else
-                                UItool:message2(" 你需要纸把它记录下来。 ",30)
+                                
+                                if UItool:getBool("elseitem") then
+                                    UItool:message2( Data.TALK[math.random(5)],30)
+                                    else
+                                        UItool:message2(" 我需要把这段数字写下来。 ",30)
+                                end
                                 
                         end
+                        else
+                            UItool:message2("一面被砸碎的镜子。",30)
             end
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
-            
+            self:megerupdate()
             
         end)
 end
@@ -673,9 +683,7 @@ function GameScene11:stool()
                 UItool:message2(" 嘿……这凳子还挺轻的。  ",30)
                 local key_item = Data.getItemData(8)
                 table.insert(PublicData.MERGEITEM, key_item.key)
-                self.merge:removeSelf()
-                self.merge = Merge:createScene()
-                self:addChild(self.merge,5)
+                
                 self.furnituretb[4].bool = false
                 self.furniture:getChildByName("stool"):setVisible(false)
                 self.furniture:getChildByName("stool"):setTouchEnabled(false)
@@ -685,7 +693,7 @@ function GameScene11:stool()
             end
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
-
+            self:megerupdate()
         end)
 end
 
@@ -698,7 +706,7 @@ function GameScene11:wardrobe()
             if self.furnituretb[7].num==1 then
                 
                 if UItool:getBool("yiguikey") then
-                    UItool:message2(" 里面有个密码箱子。 ",30)
+                    UItool:message2(" 打开了衣柜，里面空荡荡的，只有一个箱子。 ",30)
                     UItool:setBool("yansemima", true)
 
                     local itemnum = UItool:getInteger("yiguikeynum")
@@ -717,24 +725,28 @@ function GameScene11:wardrobe()
                     self.furniture:getChildByName("yigui"):setTexture("changesprite/GameScene11/wardrobe2.png")
                     self.furnituretb[7].ifchangesprite = true
                     
-                    self.merge:removeSelf()
-                    self.merge = Merge:createScene()
-                    self:addChild(self.merge,5)
                     self.furnituretb[7].num = self.furnituretb[7].num + 1
                     UItool:setBool("yiguikey",false) 
                     else
-                        UItool:message2(" 衣柜锁住了。",30)
+                        if UItool:getBool("elseitem") then
+                            UItool:message2( Data.TALK[math.random(5)],30)
+                            else
+                                UItool:message2(" 锁住了。",30)
+                        end
+                        
 
                 end
 
-                elseif self.furnituretb[7].num>=2 and Data.getItemData(5).ifcontain == true then
+                elseif self.furnituretb[7].num>=2 and self.furnituretb[7].passpass == false then
                     UItool:password("96514",5) -- 密码四
                     self.furnituretb[7].num = self.furnituretb[7].num + 1
                 else
                     UItool:message2(" 已经空了。 ",30)
             end
+        
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
+            self:megerupdate()
     end)
 end
 
@@ -769,22 +781,23 @@ function GameScene11:cushion()
         if self.furnituretb[8].num == 1 then
             self.furnituretb[8].ifmoved = true
             self.furniture:getChildByName("cushion"):setPosition(cc.p(self.furniture:getChildByName("cushion"):getPositionX()+30,self.furniture:getChildByName("cushion"):getPositionY()-20))
-            UItool:message2(" 这有把钥匙。 ",30)
+            UItool:message2(" 这有把钥匙，好像是衣柜的。",30)
             self.furnituretb[8].num = self.furnituretb[8].num+1
             elseif self.furnituretb[8].num == 2 then
+                UItool:message2("拿到了钥匙。",30)
                 self.furnituretb[8].ifremoved = true
                 self.furniture:getChildByName("key"):removeSelf()
                 local key_item = Data.getItemData(18)
                 table.insert(PublicData.MERGEITEM, key_item.key)
-                self.merge:removeSelf()
-                self.merge = Merge:createScene()
-                self:addChild(self.merge,5)
+                
                 self.furnituretb[8].num = self.furnituretb[8].num+1
+                else
+                    UItool:message2("舒服的沙发，可是我现在没有时间休息。",30)
             
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
-        
+        self:megerupdate()
         
     end)
 end
@@ -871,13 +884,16 @@ function GameScene11:B_vase()
 
                 self.furniture:getChildByName("redflower"):setTexture("changesprite/GameScene11/redflower2.png")
                 self.furnituretb[9].ifchangesprite = true
-                self.merge:removeSelf()
-                self.merge = Merge:createScene()
-                self:addChild(self.merge,5)
+                
                 self.furnituretb[9].num = self.furnituretb[9].num + 1
                 UItool:setBool("redbrush",false)
                 else
-                    UItool:message2(" 白色的插花。 ",30)
+                    if UItool:getBool("elseitem") then
+                        UItool:message2( Data.TALK[math.random(5)],30)
+                        else
+                            UItool:message2(" 白色的插花，看起来真朴素。 ",30)
+                    end
+                    
             end
             else
                 UItool:message2(" 摘走了一些花朵，我不需要更多的花了。 ",30)
@@ -885,7 +901,7 @@ function GameScene11:B_vase()
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
-        
+        self:megerupdate()
 
     end)
 end
@@ -916,7 +932,7 @@ function GameScene11:bookshelf_two()
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
         local flower_item = Data.getItemData(16)
-        if self.furnituretb[10].num == 1 and flower_item.use==false  then
+        if self.furnituretb[10].num == 1 and self.furnituretb[14].redflower==false  then
            UItool:message2(" 书可真多啊 !" , 30)
            self.furnituretb[10].num = self.furnituretb[10].num + 1
            elseif  self.furnituretb[10].num == 2 then
@@ -925,13 +941,11 @@ function GameScene11:bookshelf_two()
                elseif self.furnituretb[10].num == 3 then
 
                    self.furnituretb[10].num = self.furnituretb[10].num + 1
-                   UItool:message2("咦，有东西掉出来了。一串电话号码，是谁留下的呢？" , 30)
+                   UItool:message2("书里掉出来了一张纸，上面有一串电话号码，是谁留下的呢？" , 30)
                    local key_item = Data.getItemData(9)
                     table.insert(PublicData.MERGEITEM, key_item.key)
                     
-                    self.merge:removeSelf()
-                    self.merge = Merge:createScene()
-                    self:addChild(self.merge,5)
+                    
 
                     self.layer=cc.Layer:create()
                     local shildinglayer = Shieldingscreenmessage3:new()
@@ -956,7 +970,7 @@ function GameScene11:bookshelf_two()
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
-            
+        self:megerupdate()
     end)
 end
 
@@ -1003,9 +1017,7 @@ function GameScene11:book()
             self.furnituretb[11].num = self.furnituretb[11].num+1
             local key_item = Data.getItemData(15)
             table.insert(PublicData.MERGEITEM, key_item.key)
-            self.merge:removeSelf()
-            self.merge = Merge:createScene()
-            self:addChild(self.merge,5)
+            
             self.furnituretb[11].bool = false
             self.furniture:getChildByName("book"):setVisible(false)
             self.furniture:getChildByName("book"):setTouchEnabled(false)
@@ -1013,6 +1025,7 @@ function GameScene11:book()
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
+        self:megerupdate()
     end)
 end
 
@@ -1063,13 +1076,16 @@ function GameScene11:wardrobe_drawer_2()
                         end
                     end
                     
-                    self.merge:removeSelf()
-                    self.merge = Merge:createScene()
-                    self:addChild(self.merge,5)
+                    
                     self.furnituretb[12].num = self.furnituretb[12].num+1
                     UItool:setBool("liguikey",false)
                     else
-                        UItool:message2(" 抽屉上锁了。 ",30) 
+                        if UItool:getBool("elseitem") then
+                            UItool:message2( Data.TALK[math.random(5)],30)
+                            else
+                                UItool:message2(" 抽屉上锁了。 ",30) 
+                        end
+                        
                 end
                 
                 else
@@ -1078,6 +1094,7 @@ function GameScene11:wardrobe_drawer_2()
             end
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
+            self:megerupdate()
         end)
 end
 
@@ -1107,21 +1124,24 @@ function GameScene11:liguiframe()
                         end
                     end
                     
-                    self.merge:removeSelf()
-                    self.merge = Merge:createScene()
-                    self:addChild(self.merge,5)
+                    
                     self.furnituretb[13].num = self.furnituretb[13].num+1
                     UItool:setBool("familyphoto",false)
                     else
-                        UItool:message2(" 相框是空的，或许里面原本应该有张照片？   ",30)
+                        if UItool:getBool("elseitem") then
+                            UItool:message2( Data.TALK[math.random(5)],30)
+                            else
+                                UItool:message2(" 相框是空的，或许里面原本应该有张照片？   ",30)
+                        end
+                        
                 end
                 
             else
-                UItool:message2(" 这上面到底是谁呢？  ",30)
+                UItool:message2(" 爸爸……妈妈……  ",30)
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
-
+        self:megerupdate()
         end)
 end
 
@@ -1136,12 +1156,13 @@ function GameScene11:phone()
                 if self.furnituretb[14].num==1  then
 
                    if UItool:getBool("redflower") then
-                        UItool:message2(" 很好，我们可以进行交换了。 ",30)
+                        UItool:message2(" 很好，为了表示感谢，这个给你。我想你会需要它的。 ",30)
                         local key_item = Data.getItemData(17)
                         table.insert(PublicData.MERGEITEM, key_item.key)
 
                         local itemnum = UItool:getInteger("redflowernum")
-                        Data.getItemData(itemnum).use = true
+                        self.furnituretb[14].redflower = true 
+                        
                         for i=1,#PublicData.MERGEITEM do
                             if PublicData.MERGEITEM[i] == itemnum then
                                 table.remove(PublicData.MERGEITEM,i) 
@@ -1149,8 +1170,6 @@ function GameScene11:phone()
                             end
                         end
 
-                        -- local phonepapernum = UItool:getInteger("phonepapernum")
-                        -- if phonepapernum then
                         --电话纸的key==9
                             for i=1,#PublicData.MERGEITEM do
                                 if PublicData.MERGEITEM[i] == 9 then
@@ -1160,9 +1179,7 @@ function GameScene11:phone()
                             end
                         -- end
                         
-                        self.merge:removeSelf()
-                        self.merge = Merge:createScene()
-                        self:addChild(self.merge,5)
+    
                         self.furnituretb[14].num = self.furnituretb[14].num + 1
                         UItool:setBool("redflower",false)
 
@@ -1170,24 +1187,22 @@ function GameScene11:phone()
                             
                             UItool:message2(" 你喜欢花吗？我最喜欢了，尤其是红色的。 ",30)
                             
-                            self.merge:removeSelf()
-                            self.merge = Merge:createScene()
-                            self:addChild(self.merge,5)
+        
                             else
                                 if UItool:ifcontain(16) then
-                                    UItool:message2(" 你拿到我想要的东西了嘛 ？ ",30)
+                                    UItool:message2(" 你手上有我想要的东西，可以把它给我吗？",30)
                                     else
                                         UItool:message2(" 一部电话。",30)
                                 end   
                     end
 
                     else
-                        UItool:message2(" 嘟。。嘟。。嘟。。  ",30)
+                        UItool:message2(" 嘟......嘟......嘟......  ",30)
 
                 end
                 local str = json.encode(self.furnituretb)
                 ModifyData.writeToDoc(str,"furniture")
-            
+                self:megerupdate()
             
 
         end)
@@ -1202,25 +1217,18 @@ function GameScene11:modify()
     local str = json.encode(tb)
     ModifyData.writeToDoc(str,"room")
     UItool:setBool("topbar",false)
-    
-    PublicData.SAVEDATA = {}
+
     ModifyData.removeDoc("GBposition")
-    PublicData.FURNITURE = {}
     ModifyData.removeDoc("furniture")
+    ModifyData.removeDoc("mergeitem")
+    PublicData.MERGEITEM={}
+    PublicData.FURNITURE={}
+    PublicData.SAVEDATA={}
+    table.insert(PublicData.MERGEITEM, 11)
+
+
     ModifyData.setRoomNum(2)
     UItool:setInteger("roomNumber", 2)
-    
-    if #PublicData.MERGEITEM>1 then
-        
-        for i=1,#PublicData.MERGEITEM do
-            if PublicData.MERGEITEM[i]==20 then
-                
-                table.remove(PublicData.MERGEITEM, i)
-                
-            end
-        end
-        
-    end
     
 
     local scene = GameScene12.new()
@@ -1243,57 +1251,76 @@ function GameScene11:door()
                     end
                 end
 
-                self.merge:removeSelf()
-                self.merge = Merge:createScene()
-                self:addChild(self.merge,5)
-                 -- UItool:setBool("doorkey",false)
+               
 
                  self.modify()
                 else
-                    UItool:message2(" 打不开……我需要找到钥匙。  ",30)
+                    if UItool:getBool("elseitem") then
+                        UItool:message2( Data.TALK[math.random(5)],30)
+                        else
+                            UItool:message2(" 打不开……我需要找到钥匙。  ",30)
+                    end
+                    
                 end
+                self:megerupdate()
         end)
 end
 
 
-function GameScene11:Big_frame()
+function GameScene11:aocao()
     --print("Big_frame")
         
         local Big_frame_locationx,Big_frame_locationy = UItool:getitem_location(self.furniture:getChildByName("Big_frame"), self.bg:getPositionX())
 
-        self:Girl_bg_move( Big_frame_locationx,Big_frame_locationy ,function ()
+        self:Girl_bg_move( math.floor(Big_frame_locationx-self.grossini:getContentSize().width/6),Big_frame_locationy  ,function ()
+            self.grossini:setScaleX(-self.girlx)
+            self.grossini:setScaleY(self.girly)
+            
             if self.furnituretb[15].num==1 then
-                if UItool:getBool("stamp") then
-                    -- UItool:message2("获得收藏品奥拉汀女神的护身符",30)
-                    UItool:specialitem("获得收藏品奥拉汀女神的护身符",4)
+                self.furniture:getChildByName("Big_frame"):setScale(2)
+                UItool:message2(" 这画下面有个圆形的凹槽，好像要用什么东西插进去才能打开。 ",30)
+                self.furnituretb[15].num = self.furnituretb[15].num + 1
+                self.furnituretb[15].ifbigger = true
+                elseif self.furnituretb[15].num==2 then
+                    --todo
+                    if UItool:getBool("stamp") then
+                        
+                        UItool:specialitem("收藏品奥拉汀女神的护身符",4)
 
-                    -- local tb = PublicData.ROOMTABLE
-                    -- tb[chapterNumber][roomNumber+1].lock=0
-                    -- local str = json.encode(tb)
-                    -- ModifyData.writeToDoc(str,"room")
-                    
-                    local itemnum = UItool:getInteger("stampnum")
-                    for i=1,#PublicData.MERGEITEM do
-                        if PublicData.MERGEITEM[i] == itemnum then
-                            table.remove(PublicData.MERGEITEM,i) 
-                            break
+                        -- local tb = PublicData.ROOMTABLE
+                        -- tb[chapterNumber][roomNumber+1].lock=0
+                        -- local str = json.encode(tb)
+                        -- ModifyData.writeToDoc(str,"room")
+                        local itemnum = UItool:getInteger("stampnum")
+                        for i=1,#PublicData.MERGEITEM do
+                            if PublicData.MERGEITEM[i] == itemnum then
+                                table.remove(PublicData.MERGEITEM,i) 
+                                break
+                            end
                         end
+                        self.furniture:getChildByName("Big_frame"):setScale(1)
+                        self.furnituretb[15].ifbigger = false
+                        self.furniture:getChildByName("Big_frame"):setTexture("changesprite/GameScene11/Big_frame2.png")
+                        self.furnituretb[15].ifchangesprite = true
+                        
+                        self.furnituretb[15].num = self.furnituretb[15].num + 1
+                        UItool:setBool("stamp",false)
+                        else
+                            if UItool:getBool("elseitem") then
+                                UItool:message2( Data.TALK[math.random(5)],30)
+                                else
+                                    UItool:message2(" 这画下面有个凹槽，好像要用什么东西插进去才能打开。  ",30)
+                            end
+                            self.furniture:getChildByName("Big_frame"):setScale(1)
+                            self.furnituretb[15].ifbigger =false
+                            self.furnituretb[15].num = self.furnituretb[15].num - 1
                     end
-                    self.furniture:getChildByName("Big_frame_s"):setTexture("changesprite/GameScene11/Big_frame2.png")
-                    self.furnituretb[15].ifchangesprite = true
-                    self.merge:removeSelf()
-                    self.merge = Merge:createScene()
-                    self:addChild(self.merge,5)
-                    self.furnituretb[15].num = self.furnituretb[15].num + 1
-                    UItool:setBool("stamp",false)
                     else
-                        UItool:message2(" 这画下面有个圆形的凹槽，好像要用什么东西插进去才能打开。 ",30)
-
-                end
+                        UItool:message2("真奇怪，我并不知道画后面还有这样的一个空间……",30)
             end
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
-            
+            self:megerupdate()
 
         end)
 end
@@ -1308,7 +1335,7 @@ function GameScene11:hua_frame()
             if UItool:getBool("yansemima") then
                 UItool:message2(" 这幅画上的花是粉颜色，有6朵。 ",30 )
                 else
-                    UItool:message2(" 画上有好多花。 ",30 )
+                    UItool:message2(" 画上有很多花，五颜六色的。 ",30 )
             end
         
         end)
@@ -1323,12 +1350,10 @@ function GameScene11:frame_5()
         self:Girl_bg_move( frame_5_locationx,frame_5_locationy ,function ()
             if self.furnituretb[16].num==1 then
 
-                UItool:message3(" 咦，画的后面似乎有什么东西。  ","是一张全家福，但没有我…… ",30)
+                UItool:message2(" 画的后面夹了一张照片，上面是爸爸和妈妈，没有我…… ",30)
                 local key_item = Data.getItemData(22)
                 table.insert(PublicData.MERGEITEM, key_item.key)
-                self.merge:removeSelf()
-                self.merge = Merge:createScene()
-                self:addChild(self.merge,5)
+                
                 self.furnituretb[16].num=self.furnituretb[16].num+1
 
             else
@@ -1336,7 +1361,7 @@ function GameScene11:frame_5()
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
-        
+        self:megerupdate()
         end)
 end
 
@@ -1350,7 +1375,7 @@ function GameScene11:fang_frame()
             if UItool:getBool("yansemima") then
                 UItool:message2(" 这幅画上的花是蓝颜色，有5朵。 ",30 )
                 else
-                    UItool:message2(" 画上有好多花。 ",30 )
+                    UItool:message2(" 画上有很多花，五颜六色的。 ",30 )
             end
         end)
 end
@@ -1366,12 +1391,12 @@ function GameScene11:yuan_frame()
         if UItool:getBool("yansemima") then
                 UItool:message2(" 这幅画上的花是白颜色，有9朵。",30 )
                 else
-                    UItool:message2(" 画上有好多花。 ",30 )
+                    UItool:message2(" 画上有很多花，五颜六色的。 ",30 )
             end
         end)
 end
 
-local frame_1num = 1
+
 function GameScene11:frame_1()
     --print("frame_1")
         local frame_locationx,frame_locationy = UItool:getitem_location(self.furniture:getChildByName("frame_1"), self.bg:getPositionX())
@@ -1379,27 +1404,96 @@ function GameScene11:frame_1()
             if UItool:getBool("yansemima") then
                 UItool:message2(" 这幅画上的花是黄颜色，有4朵。 ",30 )
                 else
-                    UItool:message2(" 画上有好多花。 ",30 )
+                    UItool:message2(" 画上有很多花，五颜六色的。 ",30 )
             end
         end)
 end
 
-local bigframenum = 1
-function GameScene11:bigframe()
+
+function GameScene11:photo()
     --print("bigframe")
         
-        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("bigframe"), self.bg:getPositionX())
+        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("Big_frame"), self.bg:getPositionX())
 
-        self:Girl_bg_move( bigframe_locationx,bigframe_locationy ,function ()
+        self:Girl_bg_move( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
             if UItool:getBool("yansemima") then
                 UItool:message2(" 这幅画里的我拿了一朵紫色的花——那是我最喜欢的颜色。 ",30 )
                 else
-                    UItool:message2(" 画上有好多花。 ",30 )
+                    UItool:message2(" 画上有很多花，五颜六色的。 ",30 )
             end
         end)
 end
 
-local wardrobe_topnum = 1
+function GameScene11:zashu()
+    --print("bigframe")
+        
+        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("zashu"), self.bg:getPositionX())
+
+        self:Girl_bg_move( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
+            UItool:message2("嗯……好像没有什么帮助。",30)
+        end)
+end
+
+function GameScene11:Tguizi()
+    --print("bigframe")
+        
+        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("Tguizi"), self.bg:getPositionX())
+
+        self:Girl_bg_move( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
+            UItool:message2("奇怪，柜子里面什么都没有。",30)
+        end)
+end
+
+function GameScene11:Tguizi_0()
+    --print("bigframe")
+        
+        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("Tguizi_0"), self.bg:getPositionX())
+
+        self:Girl_bg_move( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
+            UItool:message2("奇怪，柜子里面什么都没有。",30)
+        end)
+end
+
+function GameScene11:Tchouti()
+    --print("bigframe")
+        
+        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("Tchouti"), self.bg:getPositionX())
+
+        self:Girl_bg_move( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
+            UItool:message2("抽屉是空的……里面的东西都到哪去了……",30)
+        end)
+end
+
+function GameScene11:doublechouti1()
+    --print("bigframe")
+        
+        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("doublechouti1"), self.bg:getPositionX())
+
+        self:Girl_bg_move( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
+            UItool:message2("抽屉是空的……里面的东西都到哪去了……",30)
+        end)
+end
+
+function GameScene11:doublechouti2()
+    --print("bigframe")
+        
+        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("doublechouti2"), self.bg:getPositionX())
+
+        self:Girl_bg_move( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
+            UItool:message2("抽屉是空的……里面的东西都到哪去了……",30)
+        end)
+end
+
+function GameScene11:Lchouti()
+    --print("bigframe")
+        
+        local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("Lchouti"), self.bg:getPositionX())
+
+        self:Girl_bg_move( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
+            UItool:message2("里面没有什么有用的东西。",30)
+        end)
+end
+
 function GameScene11:wardrobe_top()
     --衣柜顶
     --print("wardrobe_top")
@@ -1409,7 +1503,7 @@ function GameScene11:wardrobe_top()
         self:Girl_bg_move( yuan_frame_locationx,yuan_frame_locationy ,function ()
         if self.furnituretb[17].num==1 then
             if UItool:getBool("stool") then
-                UItool:message2(" 我从衣柜顶上拿到了一个密码盒子。",30)
+                UItool:message2(" 拿到了一个密码盒。",30)
                 local key_item = Data.getItemData(10)
                 table.insert(PublicData.MERGEITEM, key_item.key)
                 
@@ -1423,13 +1517,16 @@ function GameScene11:wardrobe_top()
                 self.furniture:getChildByName("wardrobe_top"):setTouchEnabled(false)
                 self.furniture:getChildByName("wardrobe_top"):setVisible(false)
                 self.furnituretb[17].bool = true
-                self.merge:removeSelf()
-                self.merge = Merge:createScene()
-                self:addChild(self.merge,5)
+                
                 self.furnituretb[17].num = self.furnituretb[17].num+1
                 UItool:setBool("stool",false)
                 else
-                    UItool:message2(" 太高了，我够不到！ ",30)
+                    if UItool:getBool("elseitem") then
+                        UItool:message2( Data.TALK[math.random(5)],30)
+                        else
+                            UItool:message2(" 太高了，我够不到！ ",30)
+                    end
+                    
             end
 
             else
@@ -1437,7 +1534,7 @@ function GameScene11:wardrobe_top()
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
-        
+        self:megerupdate()
 
         end)
 end
@@ -1458,21 +1555,28 @@ function GameScene11:AllButtons(  )
         self.furniture:getChildByName("wardrobe_drawer_2"),
         self.furniture:getChildByName("phone"),
         self.furniture:getChildByName("door"),
-        self.furniture:getChildByName("Big_frame"),
+        self.furniture:getChildByName("Big_frame"):getChildByName("aocao"),
         self.furniture:getChildByName("hua_frame"),
         self.furniture:getChildByName("yuan_frame"),
         self.furniture:getChildByName("fang_frame"),
         self.furniture:getChildByName("wardrobe_top"),
         self.furniture:getChildByName("frame_1"),
         self.furniture:getChildByName("bear_btn"),
-        self.furniture:getChildByName("bigframe"),
+        self.furniture:getChildByName("Big_frame"):getChildByName("photo"),
         self.furniture:getChildByName("frame_5"),
         self.furniture:getChildByName("liguiframe"),
         self.furniture:getChildByName("teaflower"),
         self.furniture:getChildByName("quilt"),
         self.furniture:getChildByName("cup"),
         self.furniture:getChildByName("linglan"),
-        self.furniture:getChildByName("lamp")
+        self.furniture:getChildByName("lamp"),
+        self.furniture:getChildByName("Lchouti"),
+        self.furniture:getChildByName("Tguizi"),
+        self.furniture:getChildByName("Tchouti"),
+        self.furniture:getChildByName("Tguizi_0"),
+        self.furniture:getChildByName("doublechouti1"),
+        self.furniture:getChildByName("doublechouti2")
+
 
     }
     --是否显示或者更换图片
@@ -1540,7 +1644,10 @@ function GameScene11:AllButtons(  )
     end
     --大相框
     if self.furnituretb[15].ifchangesprite then
-        self.furniture:getChildByName("Big_frame_s"):setTexture("changesprite/GameScene11/Big_frame2.png")
+        self.furniture:getChildByName("Big_frame"):setTexture("changesprite/GameScene11/Big_frame2.png")
+    end
+    if self.furnituretb[15].ifbigger then
+        self.furniture:getChildByName("Big_frame"):setScale(2)
     end
     --衣柜顶
     if self.furnituretb[17] == false then
@@ -1592,9 +1699,9 @@ function GameScene11:AllButtons(  )
                                                             elseif event:getName()=="door" then
                                                                 --print("··door·")
                                                                 self:door()
-                                                                elseif event:getName()=="Big_frame" then
+                                                                elseif event:getName()=="aocao" then
                                                                     --print("··Big_frame·")
-                                                                    self:Big_frame()
+                                                                    self:aocao()
                                                                     elseif event:getName()=="hua_frame" then
                                                                         --print("·hua_frame··")
                                                                         self:hua_frame()
@@ -1613,9 +1720,11 @@ function GameScene11:AllButtons(  )
                                                                                         elseif event:getName()=="bear_btn" then
                                                                                             --print("bear")
                                                                                             self:bear()
-                                                                                            elseif event:getName()=="bigframe" then
+                                                                    
+                                                                                            elseif event:getName()=="photo" then
                                                                                                 --print("bigframe")
-                                                                                                self:bigframe()
+                                                                                                self:photo()
+                                                                                                
                                                                                                 elseif event:getName()=="liguiframe" then
                                                                                                     --print("liguiframe")
                                                                                                     self:liguiframe()
@@ -1637,7 +1746,21 @@ function GameScene11:AllButtons(  )
                                                                                                                         elseif event:getName()=="linglan" then
                                                                                                                             --print("linglan")
                                                                                                                             self:linglan()
-                                                                                                            
+                                                                                                                            elseif event:getName()=="Lchouti" then
+                                                                                                                                self:Lchouti()
+                                                                                                                                elseif event:getName()=="Tguizi" then
+                                                                                                                                    self:Tguizi()
+                                                                                                                                    elseif event:getName()=="Tchouti" then
+                                                                                                                                        self:Tchouti()
+                                                                                                                                        elseif event:getName()=="zashu" then
+                                                                                                                                            self:zashu()
+                                                                                                                                            elseif event:getName()=="Tguizi_0" then
+                                                                                                                                                self:Tguizi_0()
+                                                                                                                                                elseif event:getName()=="doublechouti2" then
+                                                                                                                                                    self:doublechouti2()
+                                                                                                                                                    elseif event:getName()=="doublechouti1" then
+                                                                                                                                                        self:doublechouti1()
+                                                                                                                
                                                                                                                  
             end
         end
@@ -2024,13 +2147,13 @@ function GameScene11:onEnterTransitionFinish ()
 
     UItool:setBool("yansemima", false) -- 颜色密码箱
 
-    self:init()
+    
    
 end
 
 function GameScene11:onEnter()
    
-    
+    self:init()
     -- self.right = cc.Sprite:create("cn/Load/image/UI/pause.png")
     -- self.right:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
     -- self:addChild(self.right,29)

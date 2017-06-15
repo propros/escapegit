@@ -105,7 +105,7 @@ function Loading:ctor()
     
     local chapternum = UItool:getIntegerdefault("chapterNumber",1)
     local roomnum = UItool:getIntegerdefault("roomNumber",1)
-    print("chapternum , rooomnum ",chapternum,roomnum)
+    -- print("chapternum , rooomnum ",chapternum,roomnum)
     
     
     
@@ -192,6 +192,14 @@ end
 function Loading:signin( parent ,num)
     self.panel = cc.CSLoader:createNode(Config.RES_LOADING)
     self:addChild(self.panel,1)
+
+    -- local btn = self.panel:getChildByName("Button_9")
+    -- btn:addClickEventListener(function ()
+    --     print("fdafdasfdafdafdafda")
+    --     btn:loadTextures("changesprite/GameScene12/flowerpot1.png","changesprite/GameScene12/flowerpot1.png")
+    --     btn:setScale(3)
+    --     end)
+
 
     self.center = self.panel:getChildByName("Node_center")
     self.center:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))

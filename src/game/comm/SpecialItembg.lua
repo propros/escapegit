@@ -49,36 +49,44 @@ function SpecialItembg:openHandler(str,itemnum)
     self:SpecialItembgs()
     local icon = Data.getItemData(itemnum)  
 
-    self.sprite = cc.Sprite:create(icon.pic)
+    self.sprite = cc.Sprite:create(icon.shoucangpic)
     self.sprite:setAnchorPoint(cc.p(0.5,0.5))
-    self.sprite:setPosition(cc.p(self.visibleSize.width/3,self.visibleSize.height/2))
+    self.sprite:setPosition(cc.p(self.visibleSize.width/2.8,self.visibleSize.height/2))
     self:addChild(self.sprite,13)
 
     local function labelcommcallback( ... )
-        local label = cc.LabelTTF:create("获得收藏品", "Arial", 50)
-        label:setPosition(cc.p(self.visibleSize.width/1.8,self.visibleSize.height/1.85))  
+        local label = cc.LabelTTF:create("获得收藏品", "Arial", 45)
+        label:setPosition(cc.p(self.visibleSize.width/1.7,self.visibleSize.height/1.85))  
+        label:setOpacity(0)
+        local fadein = cc.FadeIn:create(0.3)
+        label:runAction(fadein)
         self:addChild(label, 13)
+
+        
     end
 
     local function labelstr( ... )
-        local label = cc.LabelTTF:create(str, "Arial", 70)
-        label:setPosition(cc.p(self.visibleSize.width/1.8,self.visibleSize.height/2.1))  
+        local label = cc.LabelTTF:create(str, "Arial", 65)
+        label:setPosition(cc.p(self.visibleSize.width/1.7,self.visibleSize.height/2.1))  
+        label:setOpacity(0)
+        local fadein = cc.FadeIn:create(0.3)
+        label:runAction(fadein)
         self:addChild(label, 13)
+        -- local fadein = cc.FadeIn:create(1)
+        -- label:runAction(fadein)
     end
 
     local delaytime = cc.DelayTime:create(0.2)
 
-    local scaltob = cc.ScaleTo:create(0.2, 4.5, 4.5)
-    local scaltos = cc.ScaleTo:create(0.2, 2.8, 2.8)
+    local scaltob = cc.ScaleTo:create(0.3, 1.25, 1.25)
+    local scaltos = cc.ScaleTo:create(0.3, 0.75, 0.75)
     local sequence = cc.Sequence:create(scaltob,scaltos,delaytime,cc.CallFunc:create(labelcommcallback),delaytime,cc.CallFunc:create(labelstr) )
     self.sprite:runAction(sequence)
-
-
-
 
     --加入到收藏夹中
     local str = ModifyData.readFromDoc("shoucang")
     PublicData.SHOUCANG = json.decode(str)
+    
     local key_item = Data.getItemData(itemnum)
     local ifcontain = false
     

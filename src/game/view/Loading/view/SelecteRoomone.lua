@@ -103,6 +103,8 @@ function SelecteRoomone:scene2(  )
                     PublicData.FURNITURE={}
                     PublicData.SAVEDATA={}
                     table.insert(PublicData.MERGEITEM, 11)
+                    Data.getItemData(5).ifcontain = true
+                    
                     ModifyData.setRoomNum(2)
                     UItool:setInteger("roomNumber", 2)
                     UItool:setBool("ifcontinue", true) 
