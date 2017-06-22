@@ -24,10 +24,6 @@ function Message2:ctor()
 
 end
 
-function Message2:removeFromParents()
-    self.panel:removeFromParent()
-end
-
 function Message2:open( ... )
     
     self:openHandler(...)

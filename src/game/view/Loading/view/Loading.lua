@@ -11,8 +11,6 @@ function Loading:ctor()
     self.director = cc.Director:getInstance()
 	self.visibleSize = cc.Director:getInstance():getVisibleSize()
     self.origin = cc.Director:getInstance():getVisibleOrigin()
- 
-    
     
     UItool:setBool("topbar",false) -- 对话框二
     -- UItool:removeUserXML( ) 
@@ -49,27 +47,19 @@ function Loading:ctor()
         -- self:addChild(PlayerLayer,125)
 
         -- 遮罩 
-        -- local cliplayers = ClipLayer:create()  
-        -- cliplayers:createClip(self.menu,1)
-        -- self:addChild(cliplayers,5)
+        
 
         --网络
         -- sendGetServer("zzzzzz", "zzzzzzz")
 
         --更改人物
-        -- changerole(chapternum,roomnum,self)
+        local chapternum = UItool:getIntegerdefault("chapterNumber",1)
+        local roomnum = UItool:getIntegerdefault("roomNumber",1)
+    
+        changerole(chapternum,roomnum,self)
         
         -- cc.Application:getInstance():openURL("http://www.baidu.com")
         
-        
-        -- ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/wupinlan/wupinlan.ExportJson") 
-
-        -- self.specialitembg = ccs.Armature:create("wupinlan")
-        -- self.specialitembg:getAnimation():playWithIndex(1)
-    
-        -- self.specialitembg:getAnimation():play("Animation1")
-        -- self.specialitembg:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
-        -- self:addChild(self.specialitembg,127)
         
         -- UItool:specialitem(4)
         -- UItool:message("ceshi message ",30 ,function (select )
@@ -83,7 +73,7 @@ function Loading:ctor()
         
         UItool:specialitem("奥拉汀女神的护身符",4)
 
-    --      local right = cc.Sprite:create("cn/Load/image/UI/pause.png")
+    -- local right = cc.Sprite:create("cn/Load/image/UI/pause.png")
     -- right:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
     -- self:addChild(right,29)
     -- local rotate = cc.RotateBy:create(2, -30)
@@ -92,24 +82,26 @@ function Loading:ctor()
     end
 
     self.setting = cc.MenuItemImage:create("continue.png","continue2.png")
-    self.setting:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2-100))
+    self.setting:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
     self.setting:setAnchorPoint(cc.p(0.5,0.5))
     -- self.setting:setScale(2)
     -- 对该按钮注册按键响应函数：
     self.setting:registerScriptTapHandler(settingcallback)
 
-    self.menu=cc.Menu:create(self.setting)
+    self.setting2 = cc.MenuItemImage:create("continue.png","continue2.png")
+    self.setting2:setPosition(cc.p(self.visibleSize.width/8,self.visibleSize.height/2))
+    self.setting2:setAnchorPoint(cc.p(0.5,0.5))
+    -- 对该按钮注册按键响应函数：
+    self.setting2:registerScriptTapHandler(settingcallback)
+
+    
+    self.menu=cc.Menu:create(self.setting,self.setting2)
     self.menu:setPosition(0,0) 
     self:addChild(self.menu,2)
 
     
     local chapternum = UItool:getIntegerdefault("chapterNumber",1)
     local roomnum = UItool:getIntegerdefault("roomNumber",1)
-    -- print("chapternum , rooomnum ",chapternum,roomnum)
-    
-    
-    
-   
     --背景移动
     self.bg = cc.Sprite:create(Data.JXSCENE[chapternum][roomnum].bg)
     self.bg:setAnchorPoint(cc.p(0,0))
@@ -145,7 +137,40 @@ function Loading:ctor()
     
 end 
 
-function Loading:kaishi( )
+function Loading:continue( )
+
+    if #PublicData.STUDY==0 then
+        local docpath = cc.FileUtils:getInstance():getWritablePath().."study_over.txt"
+        ---- print("文件是否存在",cc.FileUtils:getInstance():isFileExist(docpath),docpath)
+        if cc.FileUtils:getInstance():isFileExist(docpath)==false then
+            local str = json.encode(Data.STUDY)
+            ModifyData.writeToDoc(str,"study_over")
+            PublicData.STUDY = UItool:deepcopy(Data.STUDY)  
+        else
+            local str = ModifyData.readFromDoc("study_over")
+            PublicData.STUDY = json.decode(str)
+        end
+    end
+
+    self.savedata = PublicData.STUDY
+
+    if self.savedata.study_over==true then
+        print("真的")
+        else
+            print("假的")
+            ModifyData.removeDoc("GBposition")
+            ModifyData.removeDoc("furniture")
+            ModifyData.removeDoc("mergeitem")
+            -- ModifyData.removeDoc("chapter")
+            ModifyData.removeDoc("shoucang")
+            -- ModifyData.removeDoc("room")
+            PublicData.MERGEITEM={}
+            PublicData.FURNITURE={}
+            PublicData.SAVEDATA={}
+            -- PublicData.CHAPTERTABLE = {}
+            -- PublicData.ROOMTABLE = {}
+            PublicData.SHOUCANG = {}
+    end
 
     local chapterstr = ModifyData.readFromDoc("chapter")
     PublicData.CHAPTERTABLE = json.decode(chapterstr)
@@ -161,7 +186,7 @@ function Loading:kaishi( )
     ModifyData.setChapterNum(chapternum)
     ModifyData.setRoomNum(roomnum)
     self.scene = Data.JXSCENE[chapternum][roomnum].name.new()
-    local turn = cc.TransitionFade:create(2, self.scene)
+    local turn = cc.TransitionFade:create(1, self.scene)
     cc.Director:getInstance():replaceScene(turn)
     
 end
@@ -238,7 +263,7 @@ function Loading:signin( parent ,num)
             if event:getName()=="chapter" then
                 self:newgame()
                 elseif event:getName()=="continue" then
-                    self:kaishi()
+                    self:continue()
                     elseif event:getName()=="handbook" then
                         print("handbook 收藏")
                         self:shoucang()

@@ -185,7 +185,7 @@ end)
 
 function TouchLayer:ctor()  
 
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/dianji/Export/dianji/dianji.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/dianji/Export/dianji/dianji.ExportJson") 
     self.dianji = ccs.Armature:create("dianji")
     self:addChild(self.dianji,127)
 

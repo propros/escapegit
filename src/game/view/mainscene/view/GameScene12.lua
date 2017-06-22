@@ -162,14 +162,14 @@ function GameScene12:init()
 end
 
 function GameScene12:fire_weiniang_mao( )
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/huolu/huolu.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/huolu/huolu.ExportJson") 
     self.huolu = ccs.Armature:create("huolu")
     self.huolu:setAnchorPoint(cc.p(0.5,0.4))
     self.huolu:getAnimation():playWithIndex(0,1,1)
     self.huolu:setPosition(cc.p(self.furniture:getChildByName("stove"):getPositionX()+10,self.furniture:getChildByName("stove"):getPositionY()+10))
     self.bg:addChild(self.huolu,16)
     
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/weiniang/weiniang.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/weiniang/weiniang.ExportJson") 
     self.weiniang = ccs.Armature:create("weiniang")
     
     self.weiniang:setAnchorPoint(cc.p(0.5,0.4))
@@ -179,7 +179,7 @@ function GameScene12:fire_weiniang_mao( )
     self.weiniang:setPosition(cc.p(self.furniture:getChildByName("weiniang"):getPositionX(),self.furniture:getChildByName("weiniang"):getPositionY()-10))
     self.bg:addChild(self.weiniang,16)
 
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/mao/mao.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/mao/mao.ExportJson") 
     self.mao = ccs.Armature:create("mao")
     self.mao:setAnchorPoint(cc.p(0.5,0))
     self.mao:getAnimation():playWithIndex(0,1,1)
@@ -296,9 +296,9 @@ function GameScene12:frontdoor()
     print("前门")
     local frontdoor_locationx,frontdoor_locationy = UItool:getitem_location(self.furniture:getChildByName("frontdoor"), self.bg:getPositionX())
     
-        self:Girl_bg_move(math.floor( frontdoor_locationx),frontdoor_locationy ,function (  )
-            UItool:message2("我不需要回去。",30)
-            end)
+    GameScenemove(math.floor( frontdoor_locationx),frontdoor_locationy ,function (  )
+        UItool:message2("我不需要回去。",30)
+        end,self.grossini,self.bg)
 
 end
 
@@ -307,7 +307,7 @@ function GameScene12:biaopan()
     
     local bell6_locationx,bell6_locationy = UItool:getitem_location(self.furniture:getChildByName("bell6"), self.bg:getPositionX())
     
-        self:Girl_bg_move(math.floor( bell6_locationx-self.grossini:getContentSize().width/4),bell6_locationy ,function (  )
+        GameScenemove(math.floor( bell6_locationx-self.grossini:getContentSize().width/4),bell6_locationy ,function (  )
             self.grossini:setScaleX(-self.girlx)
             self.grossini:setScaleY(self.girly)
             if self.furnituretb[19].num==1 then
@@ -329,8 +329,30 @@ function GameScene12:biaopan()
                                 UItool:setBool("knife",false)
                                 
 
-                                UItool:message2("刚刚好插进去，应该可以撬开它……小刀断掉了，不过好在钟表的罩子也打开了。",30)
-                                --音效
+                                UItool:message2("刚刚好插进去，应该可以撬开它……",30)
+
+                                self.layers=cc.Layer:create()
+                                local shildinglayer = Shieldingscreenmessage3:new()
+                                self.layers:addChild(shildinglayer)
+                                self.layers:addTo(self,126)
+                                --1.25秒消失后
+                                local layers =  self.layers
+
+                                local selfs =  self
+                                local timer = TimerExBuf()
+                                timer:create(1,1,1)
+
+                                function timer:onTime()
+                                    --音效
+                                    layers:removeFromParent()
+                                    selfs:megerupdate()
+                                    UItool:message2("小刀断掉了，不过好在钟表的罩子也打开了。",30)
+                                    timer:stop()
+                                end
+                                timer:start()
+
+                                
+                                
                                 self.furnituretb[19].num=self.furnituretb[19].num+1
                                 self.furnituretb[19].open = true
                                 if self.furnituretb[17].open then
@@ -394,7 +416,7 @@ function GameScene12:biaopan()
             ModifyData.writeToDoc(str,"furniture")
             self:megerupdate()
 
-            end)
+            end,self.grossini,self.bg)
         
 
 end
@@ -425,7 +447,7 @@ function GameScene12:zhizhenzhuandong( )
             UItool:message2("密码正确提示",30)
         end
 
-        print("分针数字:",self.fen_num)
+        -- print("分针数字:",self.fen_num)
         
         end)
 
@@ -454,7 +476,7 @@ function GameScene12:zhizhenzhuandong( )
             UItool:message2("密码正确提示",30)
         end
 
-        print("时针数字",self.shi_num)
+        -- print("时针数字",self.shi_num)
         
         end)
 
@@ -474,7 +496,7 @@ function GameScene12:biaoshen()
     print("表身")
     local bell6_locationx,bell6_locationy = UItool:getitem_location(self.furniture:getChildByName("bell6"), self.bg:getPositionX())
     
-        self:Girl_bg_move(math.floor( bell6_locationx-self.grossini:getContentSize().width/3),bell6_locationy ,function (  )
+        GameScenemove(math.floor( bell6_locationx-self.grossini:getContentSize().width/3),bell6_locationy ,function (  )
             self.grossini:setScaleX(-self.girlx)
             self.grossini:setScaleY(self.girly)
         if self.furnituretb[17].num==1 then
@@ -607,7 +629,7 @@ function GameScene12:biaoshen()
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
-        end)
+        end,self.grossini,self.bg)
 end
 
 function GameScene12:biaoshen_men()
@@ -649,7 +671,7 @@ function GameScene12:changji()
     print("唱机")
     local changji_locationx,changji_locationy = UItool:getitem_location(self.furniture:getChildByName("phonograph"), self.bg:getPositionX())
     
-        self:Girl_bg_move(math.floor( changji_locationx-self.grossini:getContentSize().width/6),changji_locationy ,function (  )
+        GameScenemove(math.floor( changji_locationx-self.grossini:getContentSize().width/6),changji_locationy ,function (  )
             self.grossini:setScaleX(-self.girlx)
             self.grossini:setScaleY(self.girly)
         if self.furnituretb[15].num==1 then
@@ -695,14 +717,14 @@ function GameScene12:changji()
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
 
-        end)
+        end,self.grossini,self.bg)
 end
 
 function GameScene12:jigui()
     print("机柜") 
     local jigui_locationx,jigui_locationy = UItool:getitem_location(self.furniture:getChildByName("phonograph"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor( jigui_locationx-self.grossini:getContentSize().width/6),jigui_locationy ,function ()
+        GameScenemove( math.floor( jigui_locationx-self.grossini:getContentSize().width/6),jigui_locationy ,function ()
 
             self.grossini:setScaleX(-self.girlx)
             self.grossini:setScaleY(self.girly)
@@ -763,7 +785,7 @@ function GameScene12:jigui()
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
 
-        end)
+        end,self.grossini,self.bg)
 
 end
 
@@ -771,12 +793,9 @@ function GameScene12:stove()
     print("火炉")
     local stove_locationx,stove_locationy = UItool:getitem_location(self.furniture:getChildByName("stove"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor( stove_locationx-self.grossini:getContentSize().width/6),stove_locationy ,function ()
+        GameScenemove( math.floor( stove_locationx-self.grossini:getContentSize().width/6),stove_locationy ,function ()
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
-
-        
-
         if self.furnituretb[7].num==1 then 
             UItool:message2( "壁炉烧着火，里面似乎有什么东西？",30)
             self.furnituretb[7].num=self.furnituretb[7].num+1
@@ -831,20 +850,19 @@ function GameScene12:stove()
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
 
-        end)
+        end,self.grossini,self.bg)
 
 end
 
 function GameScene12:dabihua()
     print("大壁画")
-
     local bihua_locationx,bihua_locationy = UItool:getitem_location(self.furniture:getChildByName("dabihua"), self.bg:getPositionX())
 
-        self:Girl_bg_move( bihua_locationx,bihua_locationy ,function (  )
+        GameSCenemove( bihua_locationx,bihua_locationy ,function (  )
             print("开大图")
             UItool:message2("壁画上面的钟指向了九点",30)
 
-        end)
+        end,self.grossini,self.bg)
 
 end
 
@@ -853,7 +871,7 @@ function GameScene12:statuecat()
 
      local statuecat_locationx,statuecat_locationy= UItool:getitem_location(self.furniture:getChildByName("statuecat"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor( statuecat_locationx-self.grossini:getContentSize().width/6),statuecat_locationy ,function ()
+        GameScenemove( math.floor( statuecat_locationx-self.grossini:getContentSize().width/6),statuecat_locationy ,function ()
 
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
@@ -891,7 +909,7 @@ function GameScene12:statuecat()
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
 
-        end)
+        end,self.grossini,self.bg)
 
 end
 
@@ -899,7 +917,7 @@ function GameScene12:ligui()
     print("立柜")
     local ligui_locationx,ligui_locationy = UItool:getitem_location(self.bg:getChildByName("ligui"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor( ligui_locationx-self.grossini:getContentSize().width/6),ligui_locationy ,function (  )
+        GameScenemove( math.floor( ligui_locationx-self.grossini:getContentSize().width/6),ligui_locationy ,function (  )
 
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
@@ -935,7 +953,7 @@ function GameScene12:ligui()
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
             self:megerupdate()
-        end)
+        end,self.grossini,self.bg)
 
 end
 
@@ -943,7 +961,7 @@ function GameScene12:letter()
     print("信件")
     local letter_locationx,letter_locationy = UItool:getitem_location(self.furniture:getChildByName("letter"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor( letter_locationx-self.grossini:getContentSize().width/6),letter_locationy ,function (  )
+        GameScenemove( math.floor( letter_locationx-self.grossini:getContentSize().width/6),letter_locationy ,function (  )
 
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
@@ -979,18 +997,18 @@ function GameScene12:letter()
             ModifyData.writeToDoc(str,"furniture")
             self:megerupdate()
 
-        end)
+        end,self.grossini,self.bg)
 end
 
 function GameScene12:teatable()
     print("茶几")
     
     local teatable_locationx,teatable_locationy = UItool:getitem_location(self.furniture:getChildByName("teatable"), self.bg:getPositionX())
-    self:Girl_bg_move( math.floor( teatable_locationx-self.grossini:getContentSize().width/6),teatable_locationy ,function (  )
+    GameScenemove( math.floor( teatable_locationx-self.grossini:getContentSize().width/6),teatable_locationy ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
         UItool:message2("……可以踩上去吗？",30)
-        end)
+        end,self.grossini,self.bg)
 
 end
 
@@ -998,9 +1016,7 @@ function GameScene12:cat()
     print("cat猫")
     local cat_locationx,cat_locationy = UItool:getitem_location(self.furniture:getChildByName("cat"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor( cat_locationx-self.grossini:getContentSize().width/6),cat_locationy ,function (  )
-
-            
+        GameScenemove( math.floor( cat_locationx-self.grossini:getContentSize().width/6),cat_locationy ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
             
@@ -1039,14 +1055,14 @@ function GameScene12:cat()
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
             self:megerupdate()
-        end)
+        end,self.grossini,self.bg)
 end
 
 function GameScene12:handsclock()
     print("handsclock")
     local handsclock_locationx,handsclock_locationy = UItool:getitem_location(self.furniture:getChildByName("handsclock"), self.bg:getPositionX())
 
-    self:Girl_bg_move( math.floor(handsclock_locationx-self.grossini:getContentSize().width/6),handsclock_locationy ,function ()
+    GameScenemove( math.floor(handsclock_locationx-self.grossini:getContentSize().width/6),handsclock_locationy ,function ()
         
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
@@ -1081,7 +1097,7 @@ function GameScene12:handsclock()
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
-    end)
+    end,self.grossini,self.bg)
 
 end
 
@@ -1090,7 +1106,7 @@ function GameScene12:dengzhao()
 
     local dengzhao_locationx,dengzhao_locationy = UItool:getitem_location(self.furniture:getChildByName("dengzhao"), self.bg:getPositionX())
 
-    self:Girl_bg_move( math.floor(dengzhao_locationx-self.grossini:getContentSize().width/6),dengzhao_locationy ,function ()
+    GameScenemove( math.floor(dengzhao_locationx-self.grossini:getContentSize().width/6),dengzhao_locationy ,function ()
         
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
@@ -1114,7 +1130,7 @@ function GameScene12:dengzhao()
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
-    end)
+    end,self.grossini,self.bg)
 end
 
 local gaytalknum = 1
@@ -1122,7 +1138,7 @@ function GameScene12:weiniangcallback()
     print("伪娘")
     local weiniang_locationx,weiniang_locationy = UItool:getitem_location(self.furniture:getChildByName("weiniang"), self.bg:getPositionX())
 
-    self:Girl_bg_move( math.floor(weiniang_locationx-self.grossini:getContentSize().width/6),weiniang_locationy ,function ()
+    GameScenemove( math.floor(weiniang_locationx-self.grossini:getContentSize().width/6),weiniang_locationy ,function ()
         
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
@@ -1221,7 +1237,7 @@ function GameScene12:weiniangcallback()
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
-    end)
+    end,self.grossini,self.bg)
 end
 
 function GameScene12:key_up()
@@ -1229,7 +1245,7 @@ function GameScene12:key_up()
 
     local key_up_locationx,key_up_locationy = UItool:getitem_location(self.furniture:getChildByName("key_up"), self.bg:getPositionX())
 
-        self:Girl_bg_move( key_up_locationx,key_up_locationy ,function (  )
+        self:GameScenemove( key_up_locationx,key_up_locationy ,function (  )
 
             if self.furnituretb[9].num==1 and self.furnituretb[13].foodhad == false then
                 UItool:message2("茶几正上方的吊灯上吊着一把钥匙，可是茶几上的那只猫太凶了，我不敢贸然踩上去。 ",30)
@@ -1250,14 +1266,14 @@ function GameScene12:key_up()
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
             self:megerupdate()
-        end)
+        end,self.grossini,self.bg)
 
 end
 
 function GameScene12:built_in()
     print("壁橱")
     local built_in_locationx,built_in_locationy = UItool:getitem_location(self.furniture:getChildByName("built_in"), self.bg:getPositionX())
-    self:Girl_bg_move( built_in_locationx,built_in_locationy ,function ()
+    GameScenemove( built_in_locationx,built_in_locationy ,function ()
         if self.furnituretb[21].num==1 then
             if UItool:getBool("qianggui_key") then
                 UItool:message2(" 是个套娃，它看起来长得好像我的洋娃娃。",30)
@@ -1280,9 +1296,6 @@ function GameScene12:built_in()
                         else
                             UItool:message2("被锁上了，打不开。",30)
                     end
-                    
-                
-                
             end
 
             elseif self.furnituretb[21].num==2 then
@@ -1301,7 +1314,7 @@ function GameScene12:built_in()
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
-        end)
+        end,self.grossini,self.bg)
 end
 
 local daocaonum = 0
@@ -1309,7 +1322,7 @@ function GameScene12:flowerpot()
     print("flowerpot花盆")
     local dengzhao_locationx,dengzhao_locationy = UItool:getitem_location(self.furniture:getChildByName("flowerpot"), self.bg:getPositionX())
 
-    self:Girl_bg_move( math.floor(dengzhao_locationx-self.grossini:getContentSize().width/6),dengzhao_locationy ,function ()
+    GameScenemove( math.floor(dengzhao_locationx-self.grossini:getContentSize().width/6),dengzhao_locationy ,function ()
         
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
@@ -1396,14 +1409,14 @@ function GameScene12:flowerpot()
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
-    end)
+    end,self.grossini,self.bg)
 end
 
 function GameScene12:qinghua()
     print("绿花")
      local qinghua_locationx,qinghuap_locationy = UItool:getitem_location(self.furniture:getChildByName("qinghua"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor(qinghua_locationx-self.grossini:getContentSize().width/6),qinghua_locationy ,function (  )
+        GameScenemove( math.floor(qinghua_locationx-self.grossini:getContentSize().width/6),qinghua_locationy ,function (  )
             self.grossini:setScaleX(-self.girlx)
             self.grossini:setScaleY(self.girly)
             
@@ -1418,21 +1431,19 @@ function GameScene12:qinghua()
                 -- end
                 else
                     UItool:message2("绿色的花朵，看起来很好看。",30)
-                
-                
             end
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
             self:megerupdate()
 
-        end)
+        end,self.grossini,self.bg)
 end
 
 function GameScene12:zihua()
     print("紫色花")
     local zihua_locationx,zihua_locationy = UItool:getitem_location(self.furniture:getChildByName("zihua"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor(zihua_locationx-self.grossini:getContentSize().width/6),zihua_locationy ,function (  )
+        GameScenemove( math.floor(zihua_locationx-self.grossini:getContentSize().width/6),zihua_locationy ,function (  )
             self.grossini:setScaleX(-self.girlx)
             self.grossini:setScaleY(self.girly)
 
@@ -1454,14 +1465,14 @@ function GameScene12:zihua()
             ModifyData.writeToDoc(str,"furniture")
             self:megerupdate()
 
-        end)
+        end,self.grossini,self.bg)
 end
 
 function GameScene12:fenhua()
     print("粉色花")
     local chenghua_locationx,chenghua_locationy = UItool:getitem_location(self.furniture:getChildByName("fenhua"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor(chenghua_locationx-self.grossini:getContentSize().width/6),chenghua_locationy ,function (  )
+        GameScenemove( math.floor(chenghua_locationx-self.grossini:getContentSize().width/6),chenghua_locationy ,function (  )
 
             self.grossini:setScaleX(-self.girlx)
             self.grossini:setScaleY(self.girly)
@@ -1476,16 +1487,13 @@ function GameScene12:fenhua()
                 -- end
                 else
                     UItool:message2("粉色的花朵，看起来很好看。",30)
-                
-                
-
             end
 
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
             self:megerupdate()
 
-        end)
+        end,self.grossini,self.bg)
 end
 
 function GameScene12:yifu()
@@ -1493,7 +1501,7 @@ function GameScene12:yifu()
 
     local yifu_locationx,yifu_locationy = UItool:getitem_location(self.furniture:getChildByName("yifu"), self.bg:getPositionX())
 
-    self:Girl_bg_move( math.floor(yifu_locationx-self.grossini:getContentSize().width/6),yifu_locationy ,function ()
+    GameScenemove( math.floor(yifu_locationx-self.grossini:getContentSize().width/6),yifu_locationy ,function ()
         
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
@@ -1566,36 +1574,38 @@ function GameScene12:yifu()
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
-    end)
+    end,self.grossini,self.bg)
 
 end
 
 function GameScene12:modify()
-    
     local tb = PublicData.ROOMTABLE
-
     tb[chapterNumber][roomNumber+1].lock=0
     local str = json.encode(tb)
     ModifyData.writeToDoc(str,"room")
     UItool:setBool("topbar",false)
-    
-    PublicData.SAVEDATA = {}
-    ModifyData.removeDoc("GBposition")
-    PublicData.FURNITURE = {}
-    ModifyData.removeDoc("furniture")
-    ModifyData.setRoomNum(2)
-    UItool:setInteger("roomNumber", 2)
 
+    ModifyData.removeDoc("GBposition")
+    ModifyData.removeDoc("furniture")
+    ModifyData.removeDoc("mergeitem")
+    PublicData.MERGEITEM={}
+    PublicData.FURNITURE={}
+    PublicData.SAVEDATA={}
+    -- table.insert(PublicData.MERGEITEM, 11)
+    ModifyData.setRoomNum(3)
+    UItool:setInteger("roomNumber", 3)
+    
     local scene = GameScene13.new()
     local turn = cc.TransitionFade:create(1, scene)
     cc.Director:getInstance():replaceScene(turn)
+
 end
 
 function GameScene12:backdoor()
     --print("door")
     --门
         local backdoor_locationx,backdoor_locationy = UItool:getitem_location(self.furniture:getChildByName("backdoor"), self.bg:getPositionX())
-        self:Girl_bg_move( backdoor_locationx,backdoor_locationy ,function ()
+        GameScenemove( math.floor( backdoor_locationx-self.grossini:getContentSize().width/6),backdoor_locationy  ,function ()
              if UItool:getBool("door_key") then
                 local itemnum = UItool:getInteger("door_keynum")
                 for i=1,#PublicData.MERGEITEM do
@@ -1604,6 +1614,7 @@ function GameScene12:backdoor()
                         break
                     end
                 end
+                UItool:setBool("door_key",false)
 
                  self.modify()
                 else
@@ -1615,20 +1626,20 @@ function GameScene12:backdoor()
                     
                 end
                 self:megerupdate()
-        end)
+        end,self.grossini,self.bg)
 end
 
 function GameScene12:hongjiu()
     print("红酒")
     
     local hongjiu_locationx,hongjiu_locationy = UItool:getitem_location(self.furniture:getChildByName("hongjiu"), self.bg:getPositionX())
-    self:Girl_bg_move( math.floor( hongjiu_locationx-self.grossini:getContentSize().width/6),hongjiu_locationy ,function (  )
+    GameScenemove( math.floor( hongjiu_locationx-self.grossini:getContentSize().width/6),hongjiu_locationy ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
 
                 UItool:message2("我不太喜欢酒的味道……",30)
         
-        end)
+        end,self.grossini,self.bg)
 
 end
 
@@ -1636,12 +1647,12 @@ function GameScene12:lu()
     print("鹿")
     
     local lu_locationx,lu_locationy = UItool:getitem_location(self.furniture:getChildByName("lu"), self.bg:getPositionX())
-    self:Girl_bg_move( math.floor( lu_locationx-self.grossini:getContentSize().width/6),lu_locationy ,function (  )
+    GameScenemove( math.floor( lu_locationx-self.grossini:getContentSize().width/6),lu_locationy ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
         UItool:message2("一对鹿的雕像，雕工很精致，看上去好可爱啊。",30)
         
-        end)
+        end,self.grossini,self.bg)
 
 end
 
@@ -1649,12 +1660,12 @@ function GameScene12:zhutai()
     print("烛台")
     
     local zhutai_locationx,zhutai_locationy = UItool:getitem_location(self.furniture:getChildByName("zhutai"), self.bg:getPositionX())
-    self:Girl_bg_move( math.floor( zhutai_locationx-self.grossini:getContentSize().width/6),zhutai_locationy ,function (  )
+    GameScenemove( math.floor( zhutai_locationx-self.grossini:getContentSize().width/6),zhutai_locationy ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
         UItool:message2("这个屋子足够亮了，应该没必要把这个烛台点燃。",30)
 
-        end)
+        end,self.grossini,self.bg)
 
 end
 
@@ -1662,13 +1673,13 @@ function GameScene12:cup()
     print("茶杯")
     
     local cup_locationx,cup_locationy = UItool:getitem_location(self.furniture:getChildByName("cup"), self.bg:getPositionX())
-    self:Girl_bg_move( math.floor( cup_locationx-self.grossini:getContentSize().width/6),cup_locationy ,function (  )
+    GameScenemove( math.floor( cup_locationx-self.grossini:getContentSize().width/6),cup_locationy ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
     
                 UItool:message2("普通的茶杯。",30)
 
-        end)
+        end,self.grossini,self.bg)
 
 end
 
@@ -1676,13 +1687,11 @@ function GameScene12:teabook()
     print("teabook")
     
     local teabook_locationx,teabook_locationy = UItool:getitem_location(self.furniture:getChildByName("teabook"), self.bg:getPositionX())
-    self:Girl_bg_move( math.floor( teabook_locationx-self.grossini:getContentSize().width/6),teabook_locationy ,function (  )
+    GameScenemove( math.floor( teabook_locationx-self.grossini:getContentSize().width/6),teabook_locationy ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
-
-                UItool:message2("一摞书，都是些我看不懂的内容……",30)
-
-        end)
+            UItool:message2("一摞书，都是些我看不懂的内容……",30)
+        end,self.grossini,self.bg)
 
 end
 
@@ -1690,27 +1699,21 @@ function GameScene12:zhuangshi()
     print("zhuangshi")
     
     local zhuangshi_locationx,zhuangshi_locationy = UItool:getitem_location(self.furniture:getChildByName("zhuangshi"), self.bg:getPositionX())
-    self:Girl_bg_move( math.floor( zhuangshi_locationx-self.grossini:getContentSize().width/6),zhuangshi_locationy ,function (  )
+    GameScenemove( math.floor( zhuangshi_locationx-self.grossini:getContentSize().width/6),zhuangshi_locationy ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
-        
-
-                UItool:message2("用来装饰的瓶子，好像没什么用。",30)
-
-        end)
+            UItool:message2("用来装饰的瓶子，好像没什么用。",30)
+        end,self.grossini,self.bg)
 
 end
 
 function GameScene12:xiangkuang()    
     local xiangkuang_locationx,xiangkuang_locationy = UItool:getitem_location(self.furniture:getChildByName("xiangkuang"), self.bg:getPositionX())
-    self:Girl_bg_move( math.floor( xiangkuang_locationx-self.grossini:getContentSize().width/6),xiangkuang_locationy ,function (  )
+    GameScenemove( math.floor( xiangkuang_locationx-self.grossini:getContentSize().width/6),xiangkuang_locationy ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
-        
-
-                UItool:message2("这些相框里面什么都没有。",30)
-
-        end)
+            UItool:message2("这些相框里面什么都没有。",30)
+        end,self.grossini,self.bg)
 
 end
 
@@ -1746,7 +1749,8 @@ function GameScene12:AllButtons(  )
         self.furniture:getChildByName("teabook"),
         self.furniture:getChildByName("zhutai"),
         self.furniture:getChildByName("zhuangshi"),
-        self.furniture:getChildByName("xiangkuang")
+        self.furniture:getChildByName("xiangkuang"),
+        self.furniture:getChildByName("backdoor")
         
 
     }
@@ -1970,12 +1974,10 @@ function GameScene12:ontouch( ... )
            local touchlocation = touch:getLocation()
            --点击效果
 
-           self:Girl_bg_move(touchlocation.x,touchlocation.y)
+           GameScenemove(touchlocation.x,touchlocation.y,nil,self.grossini,self.bg)
            else
         end  
-        self.merge:removeSelf()
-        self.merge = Merge:createScene()
-        self:addChild(self.merge,5)
+        self:megerupdate()
          
         return true
         
@@ -1999,291 +2001,11 @@ function GameScene12:ontouch( ... )
 
 end
 
-function GameScene12:Girl_bg_move(X, Y,event)
-
-    --点击位置
-        local apoint = X
-        local gril_pointx = self.grossini:getPositionX()
-        local delta =  X - gril_pointx
-
-        -- 继续点击的时候是否连续
-        if self.grossini:getScaleX()>0  and X < gril_pointx then
-            ---- print("self.grossini:getScaleX() > 0 , 脸是左朝向 点击左边")
-            if self.grossini:getNumberOfRunningActions()>0  then
-                self.grossini:stopAction(self.sequence)
-                self.bg:stopAction(self.bgsequence)
-            else
-                self.grossini:walk()
-                
-            end
-
-            elseif self.grossini:getScaleX() > 0  and X > gril_pointx then
-                ---- print("self.grossini:getScaleX() > 0 ，脸是左朝向  点击右边")
-                if self.grossini:getNumberOfRunningActions()>0  then
-                    self.grossini:stopAction(self.sequence)
-                    self.bg:stopAction(self.bgsequence)
-                else
-                    self.grossini:walk()
-                    
-                end
-
-                elseif self.grossini:getScaleX() < 0  and X > gril_pointx then
-                    ---- print("self.grossini:getScaleX() < 0 ，脸是右朝向  点击右边")
-                    if self.grossini:getNumberOfRunningActions()>0  then
-                        self.grossini:stopAction(self.sequence)
-                        self.bg:stopAction(self.bgsequence)
-                    else
-                        self.grossini:walk()
-                    end
-
-                    elseif self.grossini:getScaleX() < 0  and X < gril_pointx then
-                        
-                        if self.grossini:getNumberOfRunningActions()>0  then
-                            self.grossini:stopAction(self.sequence)
-                            self.bg:stopAction(self.bgsequence)
-                        else
-                            
-                            self.grossini:walk()
-                    end
-            end
-    --人物位置
-        local gril_pointx =math.floor( self.grossini:getPositionX())
-        local delta =  apoint - gril_pointx
-        --距离
-        local x = apoint-self.visibleSize.width/2
-        local x2 = self.bg:getContentSize().width + self.bg:getPositionX() - self.visibleSize.width
-    --速度
-        local speed = 390
-    --时间
-        self.time = delta / speed  --普通距离
-        self.time1 = math.abs((math.abs(delta)-math.abs(x)))/speed -- 人物到中间的时候
-        self.time2 = math.abs( self.bg:getPositionX() ) / speed  --地图最左边的时候
-        self.time3 = x2 /speed --地图到最右边的时候
-        self.time4 = x / speed 
-        self.time5 = (x-x2)/speed
-        self.time6 = ( -delta + self.bg:getPositionX() )/speed
-        
-        --一步
-        local function onestep()
-            
-            --面部朝向
-            if delta>=0 then
-                self.grossini:setScaleX(-self.girlx)
-                self.grossini:setScaleY(self.girly)
-                else
-                    self.grossini:setScaleX(self.girlx)
-                    self.grossini:setScaleY(self.girly)
-            end
-           if UItool:getCurrentState()=="stand" then
-            
-                UItool:setCurrentState("stand")
-                -- self.delaystand = cc.DelayTime:create(0)
-            end
-        end
-
-        local function threestep()
-            
-            -- self.grossini:getAnimation():play("stand")
-            self.grossini:stand()
-            event = event or nil 
-            if event ~= nil  then
-                event()
-                
-                else
-            end
-
-            --更新数据表里面的位置数据
-            local girlpositionx = self.grossini:getPositionX()
-            local bgpositionx = self.bg:getPositionX()
-            
-            local tb = PublicData.SAVEDATA
-            tb.girlpositionx=girlpositionx
-            tb.bgpositionx=bgpositionx
-            local str = json.encode(tb)
-            
-            local docpath = cc.FileUtils:getInstance():getWritablePath().."GBposition.txt"
-        ---- print("文件是否存在",cc.FileUtils:getInstance():isFileExist(docpath),docpath)
-            if cc.FileUtils:getInstance():isFileExist(docpath)==true then
-               
-                ModifyData.writeToDoc(str,"GBposition")
-                else
-                 
-                    PublicData.SAVEDATA = {}
-            end
-            
-
-        end
-
-        if apoint<self.visibleSize.width/2 then
-            --点击在左边的时候
-            ---- print("l点击在左边的时候")
-            if self.grossini:getPositionX()<self.visibleSize.width/2 then
-                --人物在左边的时候
-                ---- print("l人物在左边的时候")
-                if self.bg:getPositionX()==0 then
-                    ---- print("l地图在原点")
-                    self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
-                    self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
-                    
-                end
-                
-                elseif self.grossini:getPositionX()>self.visibleSize.width/2 then
-                    --人物在右边的时候
-                    ---- print("l人物在右边的时候")
-
-                    self.bgmove=cc.MoveBy:create( math.abs(self.time4), cc.p(-x,self.bg:getPositionY()))
-                    local delaybg = cc.DelayTime:create(math.abs(self.time1))
-                    self.bgsequence = cc.Sequence:create(delaybg,self.bgmove)
-                    self.bg:runAction(self.bgsequence)
-
-                    local delaygirl = cc.DelayTime:create(math.abs(self.time4))
-                    self.girlmoveto = cc.MoveTo:create(math.abs(self.time1), cc.p(self.visibleSize.width/2 ,self.grossini:getPositionY()))
-                    self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,delaygirl,cc.CallFunc:create(threestep))
-
-                    elseif self.grossini:getPositionX()==self.visibleSize.width/2 then
-                        --人物在中间的时候
-                        ---- print("l人物在中间的时候")
-                        if self.bg:getPositionX()<0  then
-                            
-                            if self.bg:getPositionX()<delta  then
-                                ---- print("l地图小于")
-                                --print("点击在左边 ，背景向右走")
-                                self.bgmove=cc.MoveBy:create( math.abs(self.time), cc.p(-delta,self.bg:getPositionY()))
-                                self.bgsequence = cc.Sequence:create(self.bgmove)
-                                self.bg:runAction(self.bgsequence)
-                                else
-                                    ---- print("l地图大于")
-                                    --print("点击在左边 ，背景走到最右")
-                                    self.girlmoveto = cc.MoveTo:create(math.abs(self.time6), cc.p( apoint - self.bg:getPositionX(),self.grossini:getPositionY()))
-                                    self.bgmove=cc.MoveTo :create( math.abs(self.time2), cc.p(0,self.bg:getPositionY()))
-                                    self.bgsequence = cc.Sequence:create(self.bgmove)
-                                    self.bg:runAction(self.bgsequence)
-                            end
-                            elseif self.bg:getPositionX()==0 then
-                                self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
-                        end
-            end
-
-            elseif apoint>self.visibleSize.width/2 then
-                --点击在右边的时候
-                ---- print("r点击在右边的时候")
-                if self.grossini:getPositionX()<self.visibleSize.width/2 then
-                    --人物在左边的时候
-                    ---- print("r人物在左边的时候")
-                    if self.bg:getPositionX()==0 then
-                        ---- print("r地图在原点")
-                        self.girlmoveto = cc.MoveTo:create(math.abs(self.time1), cc.p(self.visibleSize.width/2 ,self.grossini:getPositionY()))
-                        self.bgmove=cc.MoveBy:create( math.abs(self.time4), cc.p(-x,self.bg:getPositionY()))
-
-                        local delaybg = cc.DelayTime:create(math.abs(self.time1))
-                        self.bgsequence = cc.Sequence:create(delaybg,self.bgmove)
-                        self.bg:runAction(self.bgsequence)
-                        
-                        local delaygirl = cc.DelayTime:create(self.time4)
-                        self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,delaygirl,cc.CallFunc:create(threestep))
-
-                    end
-                
-                    elseif self.grossini:getPositionX()>self.visibleSize.width/2 then
-                        --人物在右边的时候
-                        ---- print("r人物在右边的时候")
-                        self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
-                        self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
-
-                         elseif self.grossini:getPositionX()==self.visibleSize.width/2 then
-                            ---- print("r人物在中间的时候")
-                            if self.bg:getPositionX() <= 0 and self.bg:getPositionX() > self.visibleSize.width-self.bg:getContentSize().width then
-
-                                if self.bg:getContentSize().width + self.bg:getPositionX() - self.visibleSize.width > apoint-self.visibleSize.width/2 then
-
-                                    self.bgmove=cc.MoveBy:create( math.abs(self.time), cc.p(-delta,self.bg:getPositionY()))
-                                    self.bgsequence = cc.Sequence:create(self.bgmove)
-                                    self.bg:runAction(self.bgsequence)
-
-                                    else
-                                        ------
-                                        self.girlmoveto = cc.MoveTo:create(math.abs(self.time5), cc.p(apoint-(self.bg:getContentSize().width-self.visibleSize.width+self.bg:getPositionX()),self.grossini:getPositionY()))
-
-                                        self.bgmove=cc.MoveTo:create( math.abs(self.time3), cc.p(self.visibleSize.width-self.bg:getContentSize().width,self.bg:getPositionY()))
-                                        self.bgsequence = cc.Sequence:create(self.bgmove)
-                                        self.bg:runAction(self.bgsequence)
-                                end
-                                elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width then
-                                    ---- print("r画面在最左的时候")
-                                    self.girlmoveto = cc.MoveTo:create(math.abs(self.time), cc.p(apoint,self.grossini:getPositionY()))
-                                    
-                            end
-            end
-            
-        end
-
-        local delay = cc.DelayTime:create(math.abs(self.time))
-        local delay1 = cc.DelayTime:create(math.abs(self.time1))
-        local delay2 = cc.DelayTime:create(math.abs(self.time2))-- zuo
-        local delay3 = cc.DelayTime:create(math.abs(self.time3))--you
-        --人物在中间
-        if self.grossini:getPositionX() == self.visibleSize.width/2 then
-            --背景在原点，且点击在右边
-            if self.bg:getPositionX() == 0 and apoint > self.visibleSize.width/2  then
-                self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-                -- 背景在原点 点击在左边
-                elseif self.bg:getPositionX() == 0 and apoint < self.visibleSize.width/2 then
-                    self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delaystand,self.girlmoveto,cc.CallFunc:create(threestep))
-                    -- 背景在最左边
-                    elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width and 
-                    apoint >self.visibleSize.width/2  then
-                        self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),self.girlmoveto,cc.CallFunc:create(threestep))
-                        elseif self.bg:getPositionX() == self.visibleSize.width-self.bg:getContentSize().width and
-                    apoint < self.visibleSize.width/2 then
-                            self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-                            
-            end
-            --背景不在边上的时候
-            if self.bg:getPositionX()~=0 and self.bg:getPositionX() ~= self.visibleSize.width-self.bg:getContentSize().width then
-
-                if apoint>self.visibleSize.width/2 then
-
-                    if self.bg:getContentSize().width + self.bg:getPositionX() - self.visibleSize.width >apoint-self.visibleSize.width/2 then
-                        ------
-                        --print("人物在中间，点击在右边，背景向左走")
-                        self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-                        
-                        else
-                            --print("人物在中间，点击在右边，背景走到最左")
-                            self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay3,self.girlmoveto,cc.CallFunc:create(threestep))
-                            
-                    end
-                    else
-
-                        if self.bg:getPositionX()<delta then
-                            --print("********")
-                            self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay,self.girlmoveto,cc.CallFunc:create(threestep))
-                            
-                            else
-                                --print("&&&&&&&&")
-                                self.sequence = cc.Sequence:create(cc.CallFunc:create(onestep),delay2,self.girlmoveto,cc.CallFunc:create(threestep))
-                        end
-                end
-                else
-            end
-
-            else
-
-        end
-        self.grossini:runAction(self.sequence)
-end
-
-
 function GameScene12:onEnterTransitionFinish ()
-    
-  
-    
     -- self.right:removeFromParent()
     --点击效果层
     local dianjilayer = TouchLayer:new()
     self.bg:addChild(dianjilayer,128)
-
-    
    
 end
 

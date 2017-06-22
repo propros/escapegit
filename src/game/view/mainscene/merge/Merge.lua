@@ -121,7 +121,7 @@ function Merge:itemshake( item )
 end
 
 function Merge:touchpoint()
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/dianji/Export/dianji/dianji.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/dianji/Export/dianji/dianji.ExportJson") 
     self.dianji = ccs.Armature:create("dianji")
     self.dianji:getAnimation():playWithIndex(0,-1,-1)
     self.dianji:setPosition(cc.p(-200,-200))
@@ -168,7 +168,15 @@ function Merge:OnTouchBegan(touch, event)
         if self.m_isTouchEnable then  
             local location = touch:getLocation()
             self.m_srcItem = self:itempoint(location) 
-            if self.m_srcItem then
+
+            local rects = cc.rect(0,0,0,0)  
+            rects.x = self.m_srcItem:getPositionX() - self.m_srcItem:getContentSize().width * 0.5  
+           rects.y = self.m_srcItem:getPositionY() - self.m_srcItem:getContentSize().height * 0.5  
+           rects.width = self.m_srcItem:getContentSize().width  
+           rects.height = self.m_srcItem:getContentSize().height  
+
+
+            if self.m_srcItem and cc.rectContainsPoint(rects, locationInNode) then
 
                 local key_item = Data.getItemData(self.m_srcItem:getTag())
                 UItool:message2(key_item.tishi,30)

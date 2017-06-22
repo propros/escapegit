@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<AnimationProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\张嗣平\密室逃脱\loli</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>E:\张嗣平\密室逃脱\loli\Resources</Resources>
+  <Name>loli</Name>
+  <JsonFileName>loli.json</JsonFileName>
+  <JsonFolder>E:\张嗣平\密室逃脱\loli\Json</JsonFolder>
+  <JsonList />
+  <CanvasSize>
+    <Width>0</Width>
+    <Height>0</Height>
+  </CanvasSize>
+  <filePath>E:\张嗣平\密室逃脱\loli\loli.xml.animation</filePath>
+  <ProjectType>AnimationProject</ProjectType>
+  <ResRelativePath />
+  <ResourceFileList>
+    <string>loli0.plist</string>
+    <string>loli1.plist</string>
+    <string>loli2.plist</string>
+    <string>loli3.plist</string>
+    <string>loli4.plist</string>
+    <string>loli5.plist</string>
+    <string>loli6.plist</string>
+  </ResourceFileList>
+  <bBatchImage>true</bBatchImage>
+</AnimationProject>

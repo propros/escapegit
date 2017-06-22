@@ -14,4 +14,6 @@ MERGEITEM = {}
 -- 家具数据存储
 FURNITURE = {}
 
+STUDY = {}
+
 CESHI={}

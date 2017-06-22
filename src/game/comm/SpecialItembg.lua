@@ -27,7 +27,7 @@ function SpecialItembg:ctor( )
 end
 
 function SpecialItembg:SpecialItembgs()
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/wupinlan/wupinlan.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/wupinlan/wupinlan.ExportJson") 
 
     self.specialitembg = ccs.Armature:create("wupinlan")
     self.specialitembg:getAnimation():playWithIndex(1)

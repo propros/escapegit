@@ -144,7 +144,7 @@ JXSCENE = {}
 JXSCENE[1] = {}
 JXSCENE[1][1] = {name = GameScene11,bg="bgroll/gamescene11.png"}
 JXSCENE[1][2] = {name = GameScene12,bg="bgroll/gamescene12.jpg"}
-JXSCENE[1][3] = {name = GameScene13}
+JXSCENE[1][3] = {name = GameScene13,bg="bgroll/gamescene13.png"}
 
 JXSCENE[2] = {}
 JXSCENE[2][1] = {name = GameScene21}
@@ -166,6 +166,8 @@ CHAPTER[3] = {lock = 1}
 -- 保存游戏人物和背景位置
 
 SAVEDATA = {girlpositionx = 480, bgpositionx = 0 }
+--新手教程存储
+STUDY={study_over = false,touhnum = 1}
 
 CESHI={}
 CESHI[1]={a=1}

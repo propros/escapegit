@@ -1,7 +1,7 @@
 
 Girlactions = class("Girlactions",function( )
     -- local str = select(1,...) 
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/loli/Export/loli/loli.ExportJson")
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson")
 	return ccs.Armature:create("loli")
     end)
 

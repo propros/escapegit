@@ -33,6 +33,7 @@ require("game/comm/Shieldingscreen")
 require("game/comm/UItool")
 require("game/comm/Config")
 require("game/comm/SpecialItembg")
+require("game/model/GameScenemove")
 
 GIRL = require("game/model/Girlactions")
 

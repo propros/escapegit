@@ -1149,7 +1149,7 @@ end
     --角色移动
 function Mainscene:grossiniwalk()
     --骨骼动画
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/loli1/Export/loli/loli.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli1/Export/loli/loli.ExportJson") 
     self.grossini = ccs.Armature:create("loli")
     self.grossini:setScaleX(-0.25)
     self.grossini:setScaleY(0.25)
@@ -1162,7 +1162,7 @@ function Mainscene:grossiniwalk()
 end
 
 function Mainscene:touchpoint()
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/dianji/Export/dianji/dianji.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/dianji/Export/dianji/dianji.ExportJson") 
     self.dianji = ccs.Armature:create("dianji")
     self.dianji:getAnimation():playWithIndex(0,-1,-1)
     self.dianji:setPosition(cc.p(-200,-200))

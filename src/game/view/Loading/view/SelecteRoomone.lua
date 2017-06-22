@@ -43,6 +43,39 @@ function SelecteRoomone:scene1(  )
 
     self:getParent():removeFromParent()
 
+    if #PublicData.STUDY==0 then
+        local docpath = cc.FileUtils:getInstance():getWritablePath().."study_over.txt"
+        ---- print("文件是否存在",cc.FileUtils:getInstance():isFileExist(docpath),docpath)
+        if cc.FileUtils:getInstance():isFileExist(docpath)==false then
+            local str = json.encode(Data.STUDY)
+            ModifyData.writeToDoc(str,"study_over")
+            PublicData.STUDY = UItool:deepcopy(Data.STUDY)  
+        else
+            local str = ModifyData.readFromDoc("study_over")
+            PublicData.STUDY = json.decode(str)
+        end
+    end
+
+    self.savedata = PublicData.STUDY
+
+    if self.savedata.study_over==true then
+        print("真的")
+        else
+            print("假的")
+            ModifyData.removeDoc("GBposition")
+            ModifyData.removeDoc("furniture")
+            ModifyData.removeDoc("mergeitem")
+            -- ModifyData.removeDoc("chapter")
+            ModifyData.removeDoc("shoucang")
+            -- ModifyData.removeDoc("room")
+            PublicData.MERGEITEM={}
+            PublicData.FURNITURE={}
+            PublicData.SAVEDATA={}
+            -- PublicData.CHAPTERTABLE = {}
+            -- PublicData.ROOMTABLE = {}
+            PublicData.SHOUCANG = {}
+    end
+
     if UItool:getInteger("roomNumber")==1 and UItool:getInteger("chapterNumber")==1 then
         ModifyData.setRoomNum(1)
         UItool:setInteger("roomNumber", 1)
@@ -54,27 +87,29 @@ function SelecteRoomone:scene1(  )
         else
             if UItool:getInteger("roomNumber")>1 or UItool:getInteger("chapterNumber")>1 then
                 UItool:message1("你确定要删除之前的存档重新开始游戏嘛？",30,function(select)
-                if select == "yes" then
+                    if select == "yes" then
 
-                    ModifyData.removeDoc("GBposition")
-                    ModifyData.removeDoc("furniture")
-                    ModifyData.removeDoc("mergeitem")
-                    ModifyData.ITEM_TABLE={}
-                    PublicData.MERGEITEM={}
-                    PublicData.FURNITURE={}
-                    PublicData.SAVEDATA={}
-                    
-                    ModifyData.setRoomNum(1)
-                    UItool:setInteger("roomNumber", 1)
-                    UItool:setBool("ifcontinue", true) 
-                    self.scene = GameScene11.new()
-                    local turn = cc.TransitionFade:create(2, self.scene)
-                    cc.Director:getInstance():replaceScene(turn)
-                    UItool:message4(" ...... "," 这里是，我的房间吗……？ ","但为什么，窗外像是海底的世界呢？","我想我应该出去看看……",30,self.scene)
-                    elseif select == "no" then
+                        ModifyData.removeDoc("GBposition")
+                        ModifyData.removeDoc("furniture")
+                        ModifyData.removeDoc("mergeitem")
+                        ModifyData.ITEM_TABLE={}
+                        PublicData.MERGEITEM={}
+                        PublicData.FURNITURE={}
+                        PublicData.SAVEDATA={}
                         
-                end
+                        ModifyData.setRoomNum(1)
+                        UItool:setInteger("roomNumber", 1)
+                        UItool:setBool("ifcontinue", true) 
+                        self.scene = GameScene11.new()
+                        local turn = cc.TransitionFade:create(2, self.scene)
+                        cc.Director:getInstance():replaceScene(turn)
+                        UItool:message4(" ...... "," 这里是，我的房间吗……？ ","但为什么，窗外像是海底的世界呢？","我想我应该出去看看……",30,self.scene)
+                        elseif select == "no" then
+                            
+                    end
+
                 end)
+
                 else
                     ModifyData.setRoomNum(1)
                     UItool:setInteger("roomNumber", 1)
@@ -83,9 +118,10 @@ function SelecteRoomone:scene1(  )
                     local turn = cc.TransitionFade:create(2, self.scene)
                     cc.Director:getInstance():replaceScene(turn)
                     UItool:message4(" ...... "," 这里是，我的房间吗……？ ","但为什么，窗外像是海底的世界呢？","我想我应该出去看看……",30,self.scene)
-            end
-            
+            end 
     end
+
+    
     
 end
 

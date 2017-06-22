@@ -56,9 +56,13 @@ end
 
 --删除文件
 function  removeDoc( data )
-	print("删除文件",data)
+	-- print("删除文件",data)
+
 	local docpath = cc.FileUtils:getInstance():getWritablePath()..data..".txt"
-	cc.FileUtils:getInstance():removeFile(docpath)
+	if cc.FileUtils:getInstance():isFileExist(docpath) then
+		cc.FileUtils:getInstance():removeFile(docpath)
+	end
+	
 end
 
 

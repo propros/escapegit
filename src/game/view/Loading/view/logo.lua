@@ -10,7 +10,7 @@ function logo:onCreate()
 	self.visibleSize = cc.Director:getInstance():getVisibleSize()
     self.origin = cc.Director:getInstance():getVisibleOrigin()
  
-    self.bg = cc.Sprite:create("cn/Load/image/UI/logo.png")
+    self.bg = cc.Sprite:create("cn/Load/image/UI/gamelogo.png")
     self.bg:setAnchorPoint(cc.p(0.5,0.5))
     self.bg:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
     self.bg:addTo(self,1)
