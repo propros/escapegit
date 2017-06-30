@@ -33,6 +33,10 @@ function SpecialItembg:SpecialItembgs()
     self.specialitembg:getAnimation():playWithIndex(1)
     self.specialitembg:getAnimation():play("Animation1")
     self.specialitembg:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
+    -- self.layer=cc.Layer:create()
+    -- local shildinglayer = Shieldingscreenmessage3:new()
+    -- self.layer:addChild(shildinglayer)
+    -- self.layer:addTo(self,13)
     self:addChild(self.specialitembg,12)
 end
 

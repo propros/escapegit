@@ -30,8 +30,6 @@ function SelecteRoomthree:initScene()
             PublicData.ROOMTABLE = json.decode(str)
         end
     end
-    
-    
     self.ROOMTABLE = PublicData.ROOMTABLE
 
     self:Chapterbtn()

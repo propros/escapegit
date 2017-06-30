@@ -126,12 +126,12 @@ MERGE[15] = {key=15,id={38,39},nid=40}
 
 SCENE = {}
 SCENE[1] = {}
-SCENE[1][1] = {lock = 0,changerolepic = "changerole11.png"}
-SCENE[1][2] = {lock = 1,changerolepic = "changerole12.png"}
-SCENE[1][3] = {lock = 1,changerolepic = "changerole13.png"}
+SCENE[1][1] = {lock = 0,changerolepic = "changerole/changerole11.png"}
+SCENE[1][2] = {lock = 1,changerolepic = "changerole/changerole12.png"}
+SCENE[1][3] = {lock = 1,changerolepic = "changerole/changerole13.png"}
 
 SCENE[2] = {}
-SCENE[2][1] = {lock = 0,changerolepic = "changerole21.png"}
+SCENE[2][1] = {lock = 0,changerolepic = "changerole/changerole21.png"}
 SCENE[2][2] = {lock = 1,changerolepic = "changerole22.png"}
 SCENE[2][3] = {lock = 1,changerolepic = "changerole23.png"}
 
@@ -147,9 +147,9 @@ JXSCENE[1][2] = {name = GameScene12,bg="bgroll/gamescene12.jpg"}
 JXSCENE[1][3] = {name = GameScene13,bg="bgroll/gamescene13.png"}
 
 JXSCENE[2] = {}
-JXSCENE[2][1] = {name = GameScene21}
-JXSCENE[2][2] = {name = GameScene22}
-JXSCENE[2][3] = {name = GameScene23}
+JXSCENE[2][1] = {name = GameScene21,bg="bgroll/gamescene21.png"}
+JXSCENE[2][2] = {name = GameScene22,bg="bgroll/gamescene11.png"}
+JXSCENE[2][3] = {name = GameScene23,bg="bgroll/gamescene11.png"}
 
 JXSCENE[3] = {}
 JXSCENE[3][1] = {name = GameScene31}
@@ -167,7 +167,7 @@ CHAPTER[3] = {lock = 1}
 
 SAVEDATA = {girlpositionx = 480, bgpositionx = 0 }
 --新手教程存储
-STUDY={study_over = false,touhnum = 1}
+STUDY={study_over= false,touhnum = 1}
 
 CESHI={}
 CESHI[1]={a=1}

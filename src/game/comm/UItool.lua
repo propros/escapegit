@@ -1,3 +1,4 @@
+-- require("cocos/ui/DeprecatedUIEnum")
 
 UItool = class("UItool")
 
@@ -282,8 +283,7 @@ end
 -- end
 
 function UItool:setScrollView(_slv,_sld,_allNodeNum,_countNum,_spX,_spY,_childList,_startX,_startY)
-    print("是否走着？")
-    print("table 有几个纸",#_childList)
+   
     local coun = 0
     local direType = _slv:getDirection()
     print("类型",_slv:getDirection())
@@ -291,6 +291,7 @@ function UItool:setScrollView(_slv,_sld,_allNodeNum,_countNum,_spX,_spY,_childLi
      _allNodeNum = #_childList
     end
     --  1 代表 SCROLLVIEW_DIR_VERTICAL
+    print("cha  aaa", direType , SCROLLVIEW_DIR_VERTICAL)
     _startX = _startX or 0
     _startY = _startY or 0
     if  direType == 1 then
@@ -347,7 +348,7 @@ function UItool:onlySetScrollView(_slv,_sld,_slvHeighOrWidth)
     local contenSize = _slv:getContentSize()
     local innerLength = 0
     local conntentLength = 0
-    if  direType == SCROLLVIEW_DIR_VERTICAL then
+    if  direType == 1 then
         if  _slvHeighOrWidth - _size.height >0 then
             _size.height = _slvHeighOrWidth
         end
@@ -368,7 +369,7 @@ function UItool:onlySetScrollView(_slv,_sld,_slvHeighOrWidth)
     if innerLength - conntentLength <=2 then return _size end
     local function setInfo()
         local _py  = 0
-        if direType == SCROLLVIEW_DIR_VERTICAL then
+        if direType == 1 then
             _py = 1-(0-_slv:getInnerContainer():getPositionY())/(_size.height - _slv:getContentSize().height)
         elseif direType  == SCROLLVIEW_DIR_HORIZONTAL  then
             _py  = _slv:getInnerContainer():getPositionX()/(_slv:getContentSize().width-_size.width)
@@ -376,7 +377,7 @@ function UItool:onlySetScrollView(_slv,_sld,_slvHeighOrWidth)
         _sld:setPercent(_py*100)
     end
     local  function getInnerPosition()
-        if direType == SCROLLVIEW_DIR_VERTICAL then
+        if direType == 1 then
             return _slv:getInnerContainer():getPositionY()
         elseif direType  == SCROLLVIEW_DIR_HORIZONTAL  then
             return _slv:getInnerContainer():getPositionX()

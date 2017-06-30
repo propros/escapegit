@@ -125,6 +125,19 @@ function GameScene11:ctor()
             self:megerupdate()
             
         end
+
+        if UItool:getBool("message4") then
+            else
+                -- 新手指引
+                if self.studydata.study_over then
+                    
+                    else
+                    local cliplayers = ClipLayer:create()  
+                    self:addChild(cliplayers,6)
+                    UItool:setBool("message4", true)
+                end
+        end
+
     end  
     self:scheduleUpdateWithPriorityLua(update,0.3)
 
@@ -151,16 +164,9 @@ function GameScene11:init()
     self:ontouch()
     self:AllButtons()
 
-    -- 新手指引
-    if self.studydata.study_over then
-        
-        else
-        local cliplayers = ClipLayer:create()  
-        self:addChild(cliplayers,6)
-    end
     
-
-    self.runtime = nil 
+    
+    -- self.runtime = nil 
 
     -- self:fishmove() --鱼的移动 
 
@@ -357,7 +363,7 @@ function GameScene11:bed_up()
         --1.25秒消失后
         local layer =  self.layer
         local timer = TimerExBuf()
-        timer:create(self.screenwanyao,1,1)
+        timer:create(self.screenwanyao,1,0.5)
         function timer:onTime()
             layer:removeFromParent()
             timer:stop()

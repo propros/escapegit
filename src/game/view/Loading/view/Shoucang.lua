@@ -80,6 +80,14 @@ function Shoucang:initScene()
         table.insert(list,self.item)
 
     end
+
+    -- for i=1,20 do
+    --     self.item=cc.CSLoader:createNode("cn/Load/collectitem.csb")
+    --     self.di = self.item:getChildByName("Sprite_1")
+    --     table.insert(list,self.item)
+    -- end
+
+
     UItool:setScrollView(self.srollview,nil,1,2,500,self.di:getContentSize().height*1.5,list)
 
 

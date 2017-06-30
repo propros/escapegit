@@ -367,6 +367,7 @@ function Merge:moveitem( ... )
                             UItool:setBool("pasitem", true) --重新渲染合成界面开关
                             -- UItool:setBool("touchend", false)
                             UItool:message2(src_item.name.." 和 "..dest_item.name.." 合成了 "..padlock_item.name,30)
+                            UItool:setBool("techmove", true)
                             -- local x = 0
                             -- for key,var in pairs(PublicData.MERGEITEM) do
                             --     if var==37 or var==38 or var==39 then

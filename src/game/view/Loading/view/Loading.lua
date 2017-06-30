@@ -53,10 +53,8 @@ function Loading:ctor()
         -- sendGetServer("zzzzzz", "zzzzzzz")
 
         --更改人物
-        local chapternum = UItool:getIntegerdefault("chapterNumber",1)
-        local roomnum = UItool:getIntegerdefault("roomNumber",1)
-    
-        changerole(chapternum,roomnum,self)
+
+        
         
         -- cc.Application:getInstance():openURL("http://www.baidu.com")
         
@@ -73,6 +71,11 @@ function Loading:ctor()
         
         UItool:specialitem("奥拉汀女神的护身符",4)
 
+        
+
+
+        
+
     -- local right = cc.Sprite:create("cn/Load/image/UI/pause.png")
     -- right:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
     -- self:addChild(right,29)
@@ -87,15 +90,8 @@ function Loading:ctor()
     -- self.setting:setScale(2)
     -- 对该按钮注册按键响应函数：
     self.setting:registerScriptTapHandler(settingcallback)
-
-    self.setting2 = cc.MenuItemImage:create("continue.png","continue2.png")
-    self.setting2:setPosition(cc.p(self.visibleSize.width/8,self.visibleSize.height/2))
-    self.setting2:setAnchorPoint(cc.p(0.5,0.5))
-    -- 对该按钮注册按键响应函数：
-    self.setting2:registerScriptTapHandler(settingcallback)
-
     
-    self.menu=cc.Menu:create(self.setting,self.setting2)
+    self.menu=cc.Menu:create(self.setting)
     self.menu:setPosition(0,0) 
     self:addChild(self.menu,2)
 
@@ -107,19 +103,6 @@ function Loading:ctor()
     self.bg:setAnchorPoint(cc.p(0,0))
     self.bg:setPosition(0, 0)
     self:addChild(self.bg)
-    -- self.furniture = self.bg:getChildByName("furniture")
-    -- if chapternum==1 and roomnum==2 then
-    --     self.furniture:getChildByName("bell6"):getChildByName("bad_key"):setVisible(false)
-    --     self.furniture:getChildByName("bell6"):getChildByName("taowa"):setVisible(false)
-
-    --     ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/weiniang/weiniang.ExportJson") 
-    --     self.weiniang = ccs.Armature:create("weiniang")
-    --     self.weiniang:setAnchorPoint(cc.p(0.5,0.4))
-    --     self.weiniang:getAnimation():playWithIndex(0,1,1)
-    --     self.weiniang:getAnimation():play("Animation1")
-    --     self.weiniang:setPosition(cc.p(self.furniture:getChildByName("weiniang"):getPositionX(),self.furniture:getChildByName("weiniang"):getPositionY()-10))
-    --     self.bg:addChild(self.weiniang,16)
-    -- end
 
     local x
     local function update(delta) 
@@ -154,23 +137,23 @@ function Loading:continue( )
 
     self.savedata = PublicData.STUDY
 
-    if self.savedata.study_over==true then
-        print("真的")
-        else
-            print("假的")
-            ModifyData.removeDoc("GBposition")
-            ModifyData.removeDoc("furniture")
-            ModifyData.removeDoc("mergeitem")
-            -- ModifyData.removeDoc("chapter")
-            ModifyData.removeDoc("shoucang")
-            -- ModifyData.removeDoc("room")
-            PublicData.MERGEITEM={}
-            PublicData.FURNITURE={}
-            PublicData.SAVEDATA={}
-            -- PublicData.CHAPTERTABLE = {}
-            -- PublicData.ROOMTABLE = {}
-            PublicData.SHOUCANG = {}
-    end
+    -- if self.savedata.study_over==true then
+    --     print("真的")
+    --     else
+    --         print("假的")
+    --         ModifyData.removeDoc("GBposition")
+    --         ModifyData.removeDoc("furniture")
+    --         ModifyData.removeDoc("mergeitem")
+    --         -- ModifyData.removeDoc("chapter")
+    --         ModifyData.removeDoc("shoucang")
+    --         -- ModifyData.removeDoc("room")
+    --         PublicData.MERGEITEM={}
+    --         PublicData.FURNITURE={}
+    --         PublicData.SAVEDATA={}
+    --         -- PublicData.CHAPTERTABLE = {}
+    --         -- PublicData.ROOMTABLE = {}
+    --         PublicData.SHOUCANG = {}
+    -- end
 
     local chapterstr = ModifyData.readFromDoc("chapter")
     PublicData.CHAPTERTABLE = json.decode(chapterstr)
@@ -215,8 +198,14 @@ function Loading:shoucang(  )
 end
 
 function Loading:signin( parent ,num)
+    print("打印输出")
     self.panel = cc.CSLoader:createNode(Config.RES_LOADING)
     self:addChild(self.panel,1)
+
+    local chapternum = UItool:getIntegerdefault("chapterNumber",1)
+    local roomnum = UItool:getIntegerdefault("roomNumber",1)
+
+    
 
     -- local btn = self.panel:getChildByName("Button_9")
     -- btn:addClickEventListener(function ()
@@ -229,6 +218,7 @@ function Loading:signin( parent ,num)
     self.center = self.panel:getChildByName("Node_center")
     self.center:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
     -- self.center:getChildByName("role"):setVisible(false)
+    changerole(chapternum,roomnum,self.center:getChildByName("role"))
 
     local right = self.panel:getChildByName("Node_right")
     right:setPosition(cc.p(self.visibleSize.width,self.visibleSize.height/2))

@@ -81,7 +81,7 @@ function SelecteRoomone:scene1(  )
         UItool:setInteger("roomNumber", 1)
         UItool:setBool("ifcontinue", true) 
         self.scene = GameScene11.new()
-        local turn = cc.TransitionFade:create(2, self.scene)
+        local turn = cc.TransitionFade:create(1, self.scene)
         cc.Director:getInstance():replaceScene(turn)
         
         else
@@ -101,7 +101,7 @@ function SelecteRoomone:scene1(  )
                         UItool:setInteger("roomNumber", 1)
                         UItool:setBool("ifcontinue", true) 
                         self.scene = GameScene11.new()
-                        local turn = cc.TransitionFade:create(2, self.scene)
+                        local turn = cc.TransitionFade:create(1, self.scene)
                         cc.Director:getInstance():replaceScene(turn)
                         UItool:message4(" ...... "," 这里是，我的房间吗……？ ","但为什么，窗外像是海底的世界呢？","我想我应该出去看看……",30,self.scene)
                         elseif select == "no" then
@@ -115,7 +115,7 @@ function SelecteRoomone:scene1(  )
                     UItool:setInteger("roomNumber", 1)
                     UItool:setBool("ifcontinue", true) 
                     self.scene = GameScene11.new()
-                    local turn = cc.TransitionFade:create(2, self.scene)
+                    local turn = cc.TransitionFade:create(1, self.scene)
                     cc.Director:getInstance():replaceScene(turn)
                     UItool:message4(" ...... "," 这里是，我的房间吗……？ ","但为什么，窗外像是海底的世界呢？","我想我应该出去看看……",30,self.scene)
             end 
@@ -167,13 +167,41 @@ end
 
 function SelecteRoomone:scene3(  )
     self:getParent():removeFromParent()
-    
-    ModifyData.setRoomNum(3)
-    UItool:setInteger("roomNumber", 3)
-    UItool:setBool("ifcontinue", true) 
-    self.scene = GameScene13.new()
-    local turn = cc.TransitionFade:create(1, self.scene)
-    cc.Director:getInstance():replaceScene(turn)
+    if UItool:getInteger("roomNumber")~=3 or UItool:getInteger("chapterNumber")~=1 then
+        
+        UItool:message1("你确定要删除之前的存档重新开始游戏嘛？",30,function(select)
+                if select == "yes" then
+
+                    ModifyData.removeDoc("GBposition")
+                    ModifyData.removeDoc("furniture")
+                    ModifyData.removeDoc("mergeitem")
+                    PublicData.MERGEITEM={}
+                    PublicData.FURNITURE={}
+                    PublicData.SAVEDATA={}
+                    -- table.insert(PublicData.MERGEITEM, 11)
+                    -- Data.getItemData(5).ifcontain = true
+                    
+                    ModifyData.setRoomNum(3)
+                    UItool:setInteger("roomNumber", 3)
+                    UItool:setBool("ifcontinue", true) 
+                    self.scene = GameScene13.new()
+                    local turn = cc.TransitionFade:create(1, self.scene)
+                    cc.Director:getInstance():replaceScene(turn)
+                    
+                    elseif select == "no" then
+                        
+                end
+                end)
+
+        else
+            ModifyData.setRoomNum(3)
+            UItool:setInteger("roomNumber", 3)
+            UItool:setBool("ifcontinue", true) 
+            self.scene = GameScene13.new()
+            local turn = cc.TransitionFade:create(1, self.scene)
+            cc.Director:getInstance():replaceScene(turn)
+
+    end
     print("room3")
 end
 

@@ -79,7 +79,7 @@ function Message4:touch(str1,str2,str3,str4,size)
 
             local panel = self
             local timer = TimerExBuf()
-                timer:create(0.1,1,1)
+                timer:create(0.1,1,0.5)
                 function timer:onTime()
                     if panel then
                         panel:removeFromParent()

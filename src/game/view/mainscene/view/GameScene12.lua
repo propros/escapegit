@@ -1442,7 +1442,6 @@ end
 function GameScene12:zihua()
     print("紫色花")
     local zihua_locationx,zihua_locationy = UItool:getitem_location(self.furniture:getChildByName("zihua"), self.bg:getPositionX())
-
         GameScenemove( math.floor(zihua_locationx-self.grossini:getContentSize().width/6),zihua_locationy ,function (  )
             self.grossini:setScaleX(-self.girlx)
             self.grossini:setScaleY(self.girly)
