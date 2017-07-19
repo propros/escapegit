@@ -28,7 +28,9 @@ function Loading:ctor()
         end
     end
 
-
+    for i=1,10 do
+        print("次数",i%2)
+    end
 
     self:signin() --UI
     

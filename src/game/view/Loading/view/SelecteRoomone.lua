@@ -88,7 +88,7 @@ function SelecteRoomone:scene1(  )
             if UItool:getInteger("roomNumber")>1 or UItool:getInteger("chapterNumber")>1 then
                 UItool:message1("你确定要删除之前的存档重新开始游戏嘛？",30,function(select)
                     if select == "yes" then
-
+                        UItool:setBool("oneroomagain", true)
                         ModifyData.removeDoc("GBposition")
                         ModifyData.removeDoc("furniture")
                         ModifyData.removeDoc("mergeitem")

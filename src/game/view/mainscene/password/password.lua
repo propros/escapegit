@@ -136,34 +136,42 @@ function password:open( ... )
 	--print("open(...)")
 end
 
-function password:openHandler(str,itemnum)  -- itemnum 密码打开以后里面的物品
+function password:openHandler(str,itemnum1,itemnum2,strs)  -- itemnum 密码打开以后里面的物品
     assert(type(str) == "string" or type(str) == "number", "提示框内容只能是字符串或者是数字类型！")
     --print(str)
-    self:setpassword(str,itemnum)
+    self:setpassword(str,itemnum1,itemnum2,strs)
 
 end
 
-function password:setpassword(str,itemnum)
+function password:setpassword(str,itemnum1,itemnum2,strs)
 	--print("输入的数字",str)
 	local str = str or "警告"
-	local itemnum = itemnum or nil 
+	local itemnum1 = itemnum1 or nil 
+    local itemnum2 = itemnum2 or nil 
    
-    
-    
     local OKbutton = self.bg:getChildByName("OK")
     OKbutton:addClickEventListener(function(psender,event)
         local sendpass = self.pass1..self.pass2..self.pass3..self.pass4..self.pass5
         if str == sendpass then
-        	if itemnum == nil  then
+        	if itemnum1 == nil  then
 
         		else
                     
-        			if Data.getItemData(itemnum).ifcontain == true  then
-        				self.key_item = Data.getItemData(itemnum)
-			        	-- ModifyData.tableinsert(self.key_item.key)
+        			if Data.getItemData(itemnum1).ifcontain == true  then
+        				self.key_item = Data.getItemData(itemnum1)
                         table.insert(PublicData.MERGEITEM, self.key_item.key)
-			        	UItool:message2("里面是个颜料罐……怎么净是一些奇奇怪怪的东西。",30)
 
+                        if itemnum2 then
+                            self.key_item = Data.getItemData(itemnum2)
+                            table.insert(PublicData.MERGEITEM, self.key_item.key)
+                            else
+                                
+                        end
+
+                        if strs then
+                            UItool:message2(strs,30)
+                        end
+			        	
                         self.furnituretb[7].passpass = true
                         local str = json.encode(self.furnituretb)
                         ModifyData.writeToDoc(str,"furniture")

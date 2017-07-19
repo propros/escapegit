@@ -169,11 +169,14 @@ function Merge:OnTouchBegan(touch, event)
             local location = touch:getLocation()
             self.m_srcItem = self:itempoint(location) 
 
-            local rects = cc.rect(0,0,0,0)  
-            rects.x = self.m_srcItem:getPositionX() - self.m_srcItem:getContentSize().width * 0.5  
-           rects.y = self.m_srcItem:getPositionY() - self.m_srcItem:getContentSize().height * 0.5  
-           rects.width = self.m_srcItem:getContentSize().width  
-           rects.height = self.m_srcItem:getContentSize().height  
+            local rects = cc.rect(0,0,0,0) 
+            if self.m_srcItem then
+                rects.x = self.m_srcItem:getPositionX() - self.m_srcItem:getContentSize().width * 0.5  
+                rects.y = self.m_srcItem:getPositionY() - self.m_srcItem:getContentSize().height * 0.5  
+                rects.width = self.m_srcItem:getContentSize().width  
+                rects.height = self.m_srcItem:getContentSize().height  
+             end 
+            
 
 
             if self.m_srcItem and cc.rectContainsPoint(rects, locationInNode) then
@@ -347,7 +350,7 @@ function Merge:moveitem( ... )
                                 ModifyData.writeToDoc(str,"mergeitem")
                                 --]]
                                 else
-                                    -- print("srcname < destname  srcname :%s , destname : %s",srcname,destname)
+                                    
                                     table.remove(PublicData.MERGEITEM,tonumber(destname))
                                     table.remove(PublicData.MERGEITEM,tonumber(srcname))
                                     local tb = PublicData.MERGEITEM

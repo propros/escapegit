@@ -6,6 +6,7 @@ Config.RES_ROOT_URL = "res/"..Config.res_lang.."/"
 --主界面
 Config.RES_MAINSCENE = Config.RES_ROOT_URL.."GameScene/MainScene.csb"
 Config.RES_GAMESCENE12 = Config.RES_ROOT_URL.."GameScene/Gamescene12.csb"
+Config.RES_GAMESCENE13 = Config.RES_ROOT_URL.."GameScene/Gamescene13.csb"
 Config.RES_MESSAGE = Config.RES_ROOT_URL.."message/messagescene.csb"
 Config.RES_TISHI = Config.RES_ROOT_URL.."message/TISHI.csb"
 Config.RES_MESSAGETWO = Config.RES_ROOT_URL.."message/message2scene.csb"

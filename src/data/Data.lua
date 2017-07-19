@@ -94,6 +94,38 @@ ITEM[49] = {key=49,pic="icon/icon12/door_key.png",name="门钥匙",appear=true,i
 ITEM[50] = {key=50,pic="icon/icon12/doll.png",name="洋娃娃",appear=true,ifcontain = true,inname="doll",tishi="我最喜欢的洋娃娃，大家都说她长得和我一模一样。"}
 
 
+--GameScene13
+ITEM[51] = {key=51,pic="icon/icon13/files_key.png",name="档案柜钥匙",appear=true,ifcontain = true,inname="files_key",tishi="一把钥匙，不知道是哪里的。"}
+ITEM[52] = {key=52,pic="icon/icon13/diandiping.png",name="点滴瓶",appear=true,ifcontain = true,inname="diandiping",tishi="一个空的输液瓶。"}
+ITEM[53] = {key=53,pic="icon/icon13/handle.png",name="柜子把手",appear=true,ifcontain = true,inname="handle",tishi="像是个把手。"}
+ITEM[54] = {key=54,pic="icon/icon13/table_key.png",name="桌子钥匙",appear=true,ifcontain = true,inname="table_key",tishi="一把小钥匙。"}
+ITEM[55] = {key=55,pic="icon/icon13/daoguan.png",name="导管",appear=true,ifcontain = true,inname="daoguan",tishi="一条导管。"}
+ITEM[56] = {key=56,pic="icon/icon13/button.png",name="按钮",appear=true,ifcontain = true,inname="button",tishi="似乎是插在哪里的按钮。"}
+ITEM[57] = {key=57,pic="icon/icon13/daoping.png",name="导管输液瓶",appear=true,ifcontain = true,inname="daoping",tishi="插上了导管的空输液瓶。"}
+ITEM[58] = {key=58,pic="icon/icon13/CTphoto.png",name="CT照片",appear=true,ifcontain = true,inname="CTphoto",tishi="一张肺部的CT照片，上边似乎有些什么文字，不过看不太清……"}
+ITEM[59] = {key=59,pic="icon/icon13/record_B.png",name="病例_B",appear=true,ifcontain = true,inname="record_B",tishi="病例B"}
+ITEM[60] = {key=60,pic="icon/icon13/zhenguan.png",name="针管",appear=true,ifcontain = true,inname="zhenguan",tishi="医院里常见的针管，要小心不要被扎到才好。"}
+ITEM[61] = {key=61,pic="icon/icon13/shoushudao.png",name="手术剪刀",appear=true,ifcontain = true,inname="shoushudao",tishi="一把手术剪刀。"}
+ITEM[62] = {key=62,pic="icon/icon13/cloth.png",name="一块布",appear=true,ifcontain = true,inname="cloth",tishi="看起来吸水性很好的一块布。"}
+ITEM[63] = {key=63,pic="icon/icon13/qingjieji.png",name="清洁剂",appear=true,ifcontain = true,inname="qingjieji",tishi="清洁剂"}
+ITEM[64] = {key=64,pic="icon/icon13/qingjiebu.png",name="清洁布",appear=true,ifcontain = true,inname="qingjiebu",tishi="蘸有清洁剂的布。"}
+ITEM[65] = {key=65,pic="icon/icon13/passpad.png",name="密码板",appear=true,ifcontain = true,inname="passpad",tishi="写有密码的一块板子。"}
+ITEM[66] = {key=66,pic="icon/icon13/record_A.png",name="病例_A",appear=true,ifcontain = true,inname="record_A",tishi="病例_A"}
+ITEM[67] = {key=67,pic="icon/icon13/heart.png",name="心脏标本",appear=true,ifcontain = true,inname="cardiac",tishi="装着一颗心脏的标本瓶……"}
+ITEM[68] = {key=68,pic="icon/icon13/glass_key.png",name="玻璃柜钥匙",appear=true,ifcontain = true,inname="glass_key",tishi="不知道是哪里的钥匙。"}
+ITEM[69] = {key=69,pic="icon/icon13/record_C.png",name="病例_c",appear=true,ifcontain = true,inname="record_C",tishi="病例_c"}
+ITEM[70] = {key=70,pic="icon/icon13/hair_simple.png",name="头发标本",appear=true,ifcontain = true,inname="hair_simple",tishi="装着头发的标本瓶……"}
+ITEM[71] = {key=71,pic="icon/icon13/record_D.png",name="病例_D",appear=true,ifcontain = true,inname="record_D",tishi="病例_D"}
+ITEM[72] = {key=72,pic="icon/icon13/binglisuipian.png",name="病理碎片",appear=true,ifcontain = true,inname="binglisuipian",tishi="病例碎片"}
+ITEM[73] = {key=73,pic="icon/icon13/glue.png",name="胶水",appear=true,ifcontain = true,inname="glue",tishi="一瓶胶水。"}
+ITEM[74] = {key=74,pic="icon/icon13/bingli.png",name="病例",appear=true,ifcontain = true,inname="bingli",tishi="这是我的病历……我……"}
+ITEM[75] = {key=75,pic="icon/icon13/guanxue.png",name="一针管血",appear=true,ifcontain = true,inname="guanxue",tishi="抽满了血的针管……"}
+ITEM[76] = {key=76,pic="icon/icon13/xuediping.png",name="血滴瓶",appear=true,ifcontain = true,inname="xuediping",tishi="里面灌满了血的输液瓶……看上去好恐怖……"}
+ITEM[77] = {key=77,pic="icon/icon13/pliers.png",name="钳子",appear=true,ifcontain = true,inname="pliers",tishi="一把结实的钳子，可以用它来将东西拧下来。"}
+ITEM[78] = {key=78,pic="icon/icon13/double.png",name="两个",appear=true,ifcontain = true,inname="double",tishi="两个碎片"}
+ITEM[79] = {key=79,pic="icon/icon13/trible.png",name="三个",appear=true,ifcontain = true,inname="trible",tishi="三个碎片"}
+ITEM[80] = {key=80,pic="icon/icon13/xianglian.png",name="项链",appear=true,ifcontain = true,inname="xianglian",tishi="形状很独特的项链，里面装着我的照片。"}
+
 
 MERGE={}
 
@@ -112,15 +144,30 @@ MERGE[10] = {key=10,id={32,37},nid=40}
 MERGE[11] = {key=11,id={36,44},nid=45}
 MERGE[12] = {key=12,id={30,32},nid=38}
 
-
 MERGE[13] = {key=13,id={37,38},nid=40}
 MERGE[14] = {key=14,id={37,39},nid=40}
 MERGE[15] = {key=15,id={38,39},nid=40}
 
+--GamneScne13 
+MERGE[16] = {key=16,id={52,55},nid=57}
+MERGE[17] = {key=17,id={62,63},nid=64}
+MERGE[18] = {key=18,id={72,73},nid=74}
+MERGE[19] = {key=19,id={75,57},nid=76}
+MERGE[20] = {key=20,id={59,66},nid=78}
+MERGE[21] = {key=21,id={59,69},nid=78}
+MERGE[22] = {key=22,id={59,71},nid=78}
+MERGE[23] = {key=23,id={66,69},nid=78}
+MERGE[24] = {key=24,id={66,71},nid=78}
+MERGE[25] = {key=25,id={69,71},nid=78}
+MERGE[26] = {key=26,id={78,71},nid=79}
+MERGE[27] = {key=27,id={78,69},nid=79}
+MERGE[28] = {key=28,id={78,66},nid=79}
+MERGE[29] = {key=29,id={78,59},nid=79}
 
-
-
-
+MERGE[30] = {key=30,id={79,59},nid=72}
+MERGE[31] = {key=31,id={79,66},nid=72}
+MERGE[32] = {key=32,id={79,69},nid=72}
+MERGE[33] = {key=33,id={79,71},nid=72}
 
 
 
@@ -152,11 +199,9 @@ JXSCENE[2][2] = {name = GameScene22,bg="bgroll/gamescene11.png"}
 JXSCENE[2][3] = {name = GameScene23,bg="bgroll/gamescene11.png"}
 
 JXSCENE[3] = {}
-JXSCENE[3][1] = {name = GameScene31}
-JXSCENE[3][2] = {name = GameScene32}
-JXSCENE[3][3] = {name = GameScene33}
-
-
+JXSCENE[3][1] = {name = GameScene31,bg="bgroll/gamescene31.png"}
+JXSCENE[3][2] = {name = GameScene32,bg="bgroll/gamescene32.png"}
+JXSCENE[3][3] = {name = GameScene33,bg="bgroll/gamescene33.png"}
 
 CHAPTER = {}
 CHAPTER[1] = {lock = 0}
@@ -216,8 +261,35 @@ FURNITURE12[19] = {inname = "biaopan",bool = true ,num = 1,open = false , zhizhe
 FURNITURE12[20] = {inname = "weiniang",bool = true ,num = 1,heihua = false}
 FURNITURE12[21] = {inname = "built_in",bool = true ,num = 1}
 
+FURNITURE13 = {}
+FURNITURE13[1]={iname="yangzhuang",bool = true ,num = 1}
+FURNITURE13[2]={iname="tiaokuan",bool = true ,num = 1,xianglian = false,passpad=false}
+FURNITURE13[3]={iname="youchouti",bool = true ,num = 1,ifchangesprite = false}
+FURNITURE13[4]={iname="gongjuxiang",bool = true ,num = 1,ifchangesprite = false}
+FURNITURE13[5]={iname="diandiping",bool = true ,num = 1}
+FURNITURE13[6]={iname="tool_car",bool = true,num=1}
+FURNITURE13[7]={iname="dangangui",bool = true,num=1}
+FURNITURE13[8]={iname="light_screen",bool = true,num=1}
+FURNITURE13[9]={iname="first_aid",bool = true,num=1}
+FURNITURE13[10]={iname="Curtain_btn",bool = true,num=1,passpad = false}
+FURNITURE13[11]={iname="wash_cabinet",bool = true,num=1,appear = false,ifchangesprite = false}
+
+FURNITURE13[12]={iname="screen",bool = true,num=1,use = false,cabinetopen=false}
+
+FURNITURE13[13]={iname="passpad",bool = true,num=1}
+FURNITURE13[14]={iname="glass_btn_L",bool = true,num=1}
+FURNITURE13[15]={iname="glass_btn_R",bool = true,num=1,weiniang = false}
+FURNITURE13[16]={iname="human_model",bool = true,num=1}
+FURNITURE13[17]={iname="rack",bool = true,num=1,ifchangesprite = false}
+
+FURNITURE13[18]={iname="screen_cabinet",bool = true,num=1,ifchangesprite = false}
+FURNITURE13[19]={iname="tap",bool = true,num=1}
+FURNITURE13[20]={iname="operating_table",bool = true,num=1}
+
+
+
 --使用错误物品点击的文本
-TALK={"我觉得这样不行。","这个东西应该不是用在这里的吧⋯⋯","看上去好像不能这样做。","还是试试别的东西比较好。","不太合适⋯⋯"}
+COMMTALK={"我觉得这样不行。","这个东西应该不是用在这里的吧⋯⋯","看上去好像不能这样做。","还是试试别的东西比较好。","不太合适⋯⋯"}
 GAYTALK={"如果你可以给我我想要的，作为交换，说不定我会给你一些有用的东西。","我很喜欢花，你呢？","你的头发真漂亮啊，亮闪闪的金色，真让人羡慕呢。","你要给我什么？"}
 
 

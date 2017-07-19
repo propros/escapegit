@@ -91,6 +91,7 @@ function GameScene12:ctor()
     self.node:setPosition(0, self.visibleSize.height)
     --背景
     self.bg = self.node:getChildByName("bg")
+    self.yuyan = self.bg:getChildByName("yuyan")
     --家具层
     self.furniture = self.bg:getChildByName("furniture")
 
@@ -108,8 +109,8 @@ function GameScene12:ctor()
         cc.Director:getInstance():replaceScene(turn)
         end)
 
-    local shezhi = self.node:getChildByName("shezhi")
-    shezhi:addClickEventListener(function ()
+        local shezhi = self.panel:getChildByName("Node_right_top"):getChildByName("shezhi")
+        shezhi:addClickEventListener(function ()
         if UItool:getBool("effect") then
             AudioEngine.playEffect("gliss.mp3")
         end
@@ -151,6 +152,42 @@ function GameScene12:megerupdate()
     self.merge:removeSelf()
     self.merge = Merge:createScene()
     self:addChild(self.merge,5)
+end
+
+function GameScene12:wanyao()
+    self.layer=cc.Layer:create()
+    local shildinglayer = Shieldingscreenmessage3:new()
+    self.layer:addChild(shildinglayer)
+    self.layer:addTo(self,126)
+    --1.8秒消失后
+    local layer =  self.layer
+    local timer = TimerExBuf()
+    timer:create(self.screenwanyao,1,1)
+    function timer:onTime()
+        layer:removeFromParent()
+        timer:stop()
+    end
+    timer:start()
+    
+    self.grossini:getAnimation():play("stoop_1")--弯腰
+end 
+
+
+function GameScene12:xiadun()
+    self.layer=cc.Layer:create()
+    local shildinglayer = Shieldingscreenmessage3:new()
+    self.layer:addChild(shildinglayer)
+    self.layer:addTo(self,126)
+    --1.8秒消失后
+    local layer =  self.layer
+    local timer = TimerExBuf()
+    timer:create(self.screenxiadun,1,1)
+    function timer:onTime()
+        layer:removeFromParent()
+        timer:stop()
+    end
+    timer:start()
+    self.grossini:getAnimation():play("squat_1") -- 下蹲
 end
 
 
@@ -564,7 +601,7 @@ function GameScene12:biaoshen()
                             UItool:setBool("taowa",false)
                             else
                                 if UItool:getBool("elseitem") then
-                                    UItool:message2( Data.TALK[math.random(5)],30)
+                                    UItool:message2( Data.COMMTALK[math.random(5)],30)
                                     else
                                         UItool:message2("里面似乎曾经放过什么东西。",30)
                                 end
@@ -692,7 +729,7 @@ function GameScene12:changji()
                 UItool:setBool("changpian",false)
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2(" 留声机。如果我有唱片的话，就可以让它播放出美妙的音乐。 ",30)
                     end
@@ -707,7 +744,7 @@ function GameScene12:changji()
                 
             else
                 if UItool:getBool("elseitem") then
-                    UItool:message2( Data.TALK[math.random(5)],30)
+                    UItool:message2( Data.COMMTALK[math.random(5)],30)
                     else
                         UItool:message2(" 留声机，可以播放出美妙的音乐。 ",30)
                 end
@@ -726,23 +763,7 @@ function GameScene12:jigui()
 
         GameScenemove( math.floor( jigui_locationx-self.grossini:getContentSize().width/6),jigui_locationy ,function ()
 
-            self.grossini:setScaleX(-self.girlx)
-            self.grossini:setScaleY(self.girly)
-
-            self.layer=cc.Layer:create()
-            local shildinglayer = Shieldingscreenmessage3:new()
-            self.layer:addChild(shildinglayer)
-            self.layer:addTo(self,126)
-            --1.8秒消失后
-            local layer =  self.layer
-            local timer = TimerExBuf()
-            timer:create(self.screenxiadun,1,1)
-            function timer:onTime()
-                layer:removeFromParent()
-                timer:stop()
-            end
-            timer:start()
-            self.grossini:getAnimation():play("squat_1") -- 下蹲
+            self:xiadun()--
 
         if self.furnituretb[14].num==1 then
                 --todo
@@ -764,7 +785,7 @@ function GameScene12:jigui()
                 UItool:setBool("jigui_key",false)
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2(" 锁住了，打不开……",30)
                     end
@@ -802,20 +823,7 @@ function GameScene12:stove()
             elseif self.furnituretb[7].num==2 then
 
                 if UItool:getBool("huoqian") then
-                    self.layer=cc.Layer:create()
-                    local shildinglayer = Shieldingscreenmessage3:new()
-                    self.layer:addChild(shildinglayer)
-                    self.layer:addTo(self,126)
-                    --1.8秒消失后
-                    local layer =  self.layer
-                    local timer = TimerExBuf()
-                    timer:create(self.screenxiadun,1,1)
-                    function timer:onTime()
-                        layer:removeFromParent()
-                        timer:stop()
-                    end
-                    timer:start()
-                    self.grossini:getAnimation():play("squat_1") -- 下蹲
+                    self:xiadun() -- 下蹲
 
                     UItool:setBool("huoqian",false)
                     UItool:message2(" 是把熔化了的钥匙，如果不把它恢复原状的话是没有办法使用的。",30)
@@ -837,7 +845,7 @@ function GameScene12:stove()
                     else
                         
                         if UItool:getBool("elseitem") then
-                            UItool:message2( Data.TALK[math.random(5)],30)
+                            UItool:message2( Data.COMMTALK[math.random(5)],30)
                             else
                                 UItool:message2(" 就这样伸手去拿会烫伤的，我不要…… ",30)
                         end
@@ -858,7 +866,7 @@ function GameScene12:dabihua()
     print("大壁画")
     local bihua_locationx,bihua_locationy = UItool:getitem_location(self.furniture:getChildByName("dabihua"), self.bg:getPositionX())
 
-        GameSCenemove( bihua_locationx,bihua_locationy ,function (  )
+        GameScenemove( bihua_locationx,bihua_locationy ,function (  )
             print("开大图")
             UItool:message2("壁画上面的钟指向了九点",30)
 
@@ -895,7 +903,7 @@ function GameScene12:statuecat()
                 self.furnituretb[8].ifchangesprite = true
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2(" 这只猫雕塑没有眼睛。 ",30)
                     end
@@ -922,21 +930,7 @@ function GameScene12:ligui()
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
 
-            self.layer=cc.Layer:create()
-            local shildinglayer = Shieldingscreenmessage3:new()
-            self.layer:addChild(shildinglayer)
-            self.layer:addTo(self,126)
-            --1.8秒消失后
-            local layer =  self.layer
-            local timer = TimerExBuf()
-            timer:create(self.screenwanyao,1,1)
-            function timer:onTime()
-                layer:removeFromParent()
-                timer:stop()
-            end
-            timer:start()
-            
-            self.grossini:getAnimation():play("stoop_1")--弯腰
+            self:wanyao() --弯腰
             self.bg:getChildByName("ligui"):loadTextures("changesprite/GameScene12/ligui.png","changesprite/GameScene12/ligui.png")
             if self.furnituretb[6].num==1 then
                 UItool:message2("这是什么？钳子？为什么客厅的柜子里会有这种东西啊……",30)
@@ -965,21 +959,7 @@ function GameScene12:letter()
 
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
-            self.layer=cc.Layer:create()
-            local shildinglayer = Shieldingscreenmessage3:new()
-            self.layer:addChild(shildinglayer)
-            self.layer:addTo(self,126)
-            --1.8秒消失后
-            local layer =  self.layer
-            local timer = TimerExBuf()
-            timer:create(self.screenwanyao,1,1)
-            function timer:onTime()
-                layer:removeFromParent()
-                timer:stop()
-            end
-            timer:start()
-            
-            self.grossini:getAnimation():play("stoop_1")--弯腰
+            self:wanyao()--弯腰
 
             if self.furnituretb[3].num==1 then
                 UItool:message2("亲爱的……我诚挚邀请您参加我们家族的聚会，请务必光临 ",30)
@@ -1043,7 +1023,7 @@ function GameScene12:cat()
 
                     else
                         if UItool:getBool("elseitem") then
-                            UItool:message2( Data.TALK[math.random(5)],30)
+                            UItool:message2( Data.COMMTALK[math.random(5)],30)
                             else
                                 UItool:message2("它看起来太凶了，我不敢靠近……",30)
                         end
@@ -1068,21 +1048,7 @@ function GameScene12:handsclock()
         self.grossini:setScaleY(self.girly)
 
         if self.furnituretb[13].foodhad  then --猫获取到了食物
-            self.layer=cc.Layer:create()
-            local shildinglayer = Shieldingscreenmessage3:new()
-            self.layer:addChild(shildinglayer)
-            self.layer:addTo(self,126)
-            --1.8秒消失后
-            local layer =  self.layer
-            local timer = TimerExBuf()
-            timer:create(self.screenwanyao,1,1)
-            function timer:onTime()
-                layer:removeFromParent()
-                timer:stop()
-            end
-            timer:start()
-            
-            self.grossini:getAnimation():play("stoop_1")--弯腰
+            self:wanyao() --弯腰
 
             UItool:message2("拿到了钟表的时针。",30)
             local key_item = Data.getItemData(36)
@@ -1245,7 +1211,7 @@ function GameScene12:key_up()
 
     local key_up_locationx,key_up_locationy = UItool:getitem_location(self.furniture:getChildByName("key_up"), self.bg:getPositionX())
 
-        self:GameScenemove( key_up_locationx,key_up_locationy ,function (  )
+        GameScenemove( key_up_locationx,key_up_locationy ,function (  )
 
             if self.furnituretb[9].num==1 and self.furnituretb[13].foodhad == false then
                 UItool:message2("茶几正上方的吊灯上吊着一把钥匙，可是茶几上的那只猫太凶了，我不敢贸然踩上去。 ",30)
@@ -1292,7 +1258,7 @@ function GameScene12:built_in()
                 self.furnituretb[21].num = self.furnituretb[21].num+1
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2("被锁上了，打不开。",30)
                     end
@@ -1345,7 +1311,7 @@ function GameScene12:flowerpot()
                 ModifyData.writeToDoc(str,"furniture")
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2("空的花盆。很适合用来种花。",30)
                     end
@@ -1371,7 +1337,7 @@ function GameScene12:flowerpot()
                     ModifyData.writeToDoc(str,"furniture")
                     else
                         if UItool:getBool("elseitem") then
-                            UItool:message2( Data.TALK[math.random(5)],30)
+                            UItool:message2( Data.COMMTALK[math.random(5)],30)
                             else
                                 UItool:message2("种下了种子的花盆，但是如果不做点别的什么的话，它是不会长出来的。",30)
                         end
@@ -1390,7 +1356,7 @@ function GameScene12:flowerpot()
                         self.furniture:getChildByName("flowerpot2"):setTexture("changesprite/GameScene12/flowerpot2.png")
                         else
                             if UItool:getBool("elseitem") then
-                                UItool:message2( Data.TALK[math.random(5)],30)
+                                UItool:message2( Data.COMMTALK[math.random(5)],30)
                                 else
                                     if daocaonum%2==1 then
                                         UItool:message2("金黄色的稻草，颜色和我的头发还挺像的。",30)
@@ -1614,11 +1580,11 @@ function GameScene12:backdoor()
                     end
                 end
                 UItool:setBool("door_key",false)
-
+                -- UItool:message2("闯关完成，",30)
                  self.modify()
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2(" 打不开……我需要找到钥匙。  ",30)
                     end
@@ -1971,9 +1937,11 @@ function GameScene12:ontouch( ... )
            local target = event:getCurrentTarget()
            local locationInNode = target:convertToNodeSpace(touch:getLocation())  
            local touchlocation = touch:getLocation()
-           --点击效果
+           --点击效果]
+           print("鱼眼的位置,和背景和人物",self.yuyan:getPositionX(),self.bg:getPositionX(),self.grossini:getPositionX())
 
            GameScenemove(touchlocation.x,touchlocation.y,nil,self.grossini,self.bg)
+
            else
         end  
         self:megerupdate()
@@ -1986,7 +1954,9 @@ function GameScene12:ontouch( ... )
     end
 
     local function onTouchEnded(touch, events)
-        
+        -- if self.bg:getPositionX()< then
+        --     --todo
+        -- end
     end
     
     local listener = cc.EventListenerTouchOneByOne:create() -- 创建一个事件监听器

@@ -132,9 +132,9 @@ function GameScene11:ctor()
                 if self.studydata.study_over then
                     
                     else
-                    local cliplayers = ClipLayer:create()  
-                    self:addChild(cliplayers,6)
-                    UItool:setBool("message4", true)
+                    -- local cliplayers = ClipLayer:create()  
+                    -- self:addChild(cliplayers,6)
+                    -- UItool:setBool("message4", true)
                 end
         end
 
@@ -500,7 +500,7 @@ function GameScene11:bedside_table()
                     self.furnituretb[6].ifchangesprite = true
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2(" 它锁住了。 ",30)
                     end
@@ -574,7 +574,7 @@ function GameScene11:bear()
                         -- UItool:setBool("scissors",false) 
                         else
                             if UItool:getBool("elseitem") then
-                                UItool:message2( Data.TALK[math.random(5)],30)
+                                UItool:message2( Data.COMMTALK[math.random(5)],30)
                                 else
                                     UItool:message2(" 小熊的身体里好像有什么东西，但是我要怎么取出来？",30)
                             end
@@ -638,7 +638,7 @@ function GameScene11:toilet_glass()
                         UItool:setBool("hammer",false)
                         else
                             if UItool:getBool("elseitem") then
-                                UItool:message2( Data.TALK[math.random(5)],30)
+                                UItool:message2( Data.COMMTALK[math.random(5)],30)
                                 else
                                     UItool:message2(" 我不想看见它…… ",30)
                             end
@@ -666,7 +666,7 @@ function GameScene11:toilet_glass()
                             else
                                 
                                 if UItool:getBool("elseitem") then
-                                    UItool:message2( Data.TALK[math.random(5)],30)
+                                    UItool:message2( Data.COMMTALK[math.random(5)],30)
                                     else
                                         UItool:message2(" 我需要把这段数字写下来。 ",30)
                                 end
@@ -756,7 +756,7 @@ function GameScene11:wardrobe()
                     UItool:setBool("yiguikey",false) 
                     else
                         if UItool:getBool("elseitem") then
-                            UItool:message2( Data.TALK[math.random(5)],30)
+                            UItool:message2( Data.COMMTALK[math.random(5)],30)
                             else
                                 UItool:message2(" 锁住了。",30)
                         end
@@ -765,7 +765,7 @@ function GameScene11:wardrobe()
                 end
 
                 elseif self.furnituretb[7].num>=2 and self.furnituretb[7].passpass == false then
-                    UItool:password("96514",5) -- 密码四
+                    UItool:password("96514",5,nil,"里面是个颜料罐……怎么净是一些奇奇怪怪的东西。") -- 密码四
                     self.furnituretb[7].num = self.furnituretb[7].num + 1
                 else
                     UItool:message2(" 已经空了。 ",30)
@@ -917,7 +917,7 @@ function GameScene11:B_vase()
                 UItool:setBool("redbrush",false)
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2(" 白色的插花，看起来真朴素。 ",30)
                     end
@@ -1109,7 +1109,7 @@ function GameScene11:wardrobe_drawer_2()
                     UItool:setBool("liguikey",false)
                     else
                         if UItool:getBool("elseitem") then
-                            UItool:message2( Data.TALK[math.random(5)],30)
+                            UItool:message2( Data.COMMTALK[math.random(5)],30)
                             else
                                 UItool:message2(" 抽屉上锁了。 ",30) 
                         end
@@ -1157,7 +1157,7 @@ function GameScene11:liguiframe()
                     UItool:setBool("familyphoto",false)
                     else
                         if UItool:getBool("elseitem") then
-                            UItool:message2( Data.TALK[math.random(5)],30)
+                            UItool:message2( Data.COMMTALK[math.random(5)],30)
                             else
                                 UItool:message2(" 相框是空的，或许里面原本应该有张照片？   ",30)
                         end
@@ -1284,7 +1284,7 @@ function GameScene11:door()
                  self.modify()
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2(" 打不开……我需要找到钥匙。  ",30)
                     end
@@ -1335,7 +1335,7 @@ function GameScene11:aocao()
                         UItool:setBool("stamp",false)
                         else
                             if UItool:getBool("elseitem") then
-                                UItool:message2( Data.TALK[math.random(5)],30)
+                                UItool:message2( Data.COMMTALK[math.random(5)],30)
                                 else
                                     UItool:message2(" 这画下面有个凹槽，好像要用什么东西插进去才能打开。  ",30)
                             end
@@ -1560,7 +1560,7 @@ function GameScene11:wardrobe_top()
                 UItool:setBool("stool",false)
                 else
                     if UItool:getBool("elseitem") then
-                        UItool:message2( Data.TALK[math.random(5)],30)
+                        UItool:message2( Data.COMMTALK[math.random(5)],30)
                         else
                             UItool:message2(" 太高了，我够不到！ ",30)
                     end
@@ -1817,8 +1817,16 @@ end
     --角色移动
 function GameScene11:grossiniwalk()
     --骨骼动画
-    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
-    self.grossini = ccs.Armature:create("loli")
+
+    if UItool:getBool("oneroomagain", false)==false then
+        ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
+        self.grossini = ccs.Armature:create("loli")
+        else
+            ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/lolierzhoumu/Export/lolierzhoumu/lolierzhoumu.ExportJson")     
+            self.grossini = ccs.Armature:create("lolierzhoumu")
+    end
+    -- ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
+    
     self.grossini:setScaleX(-self.girlx)
     self.grossini:setScaleY(self.girly)
     
@@ -1887,7 +1895,7 @@ function GameScene11:onEnterTransitionFinish ()
         cc.Director:getInstance():replaceScene(turn)
         end)
 
-    local shezhi = self.node:getChildByName("shezhi")
+    local shezhi = self.panel:getChildByName("Node_right_top"):getChildByName("shezhi")
     shezhi:addClickEventListener(function ()
         if UItool:getBool("effect") then
             AudioEngine.playEffect("gliss.mp3")
