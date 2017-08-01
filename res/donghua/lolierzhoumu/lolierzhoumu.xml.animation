@@ -14,14 +14,6 @@
   <filePath>E:\张嗣平\密室逃脱\lolierzhoumu\lolierzhoumu.xml.animation</filePath>
   <ProjectType>AnimationProject</ProjectType>
   <ResRelativePath />
-  <ResourceFileList>
-    <string>lolierzhoumu0.plist</string>
-    <string>lolierzhoumu1.plist</string>
-    <string>lolierzhoumu2.plist</string>
-    <string>lolierzhoumu3.plist</string>
-    <string>lolierzhoumu4.plist</string>
-    <string>lolierzhoumu5.plist</string>
-    <string>lolierzhoumu6.plist</string>
-  </ResourceFileList>
+  <ResourceFileList />
   <bBatchImage>true</bBatchImage>
 </AnimationProject>

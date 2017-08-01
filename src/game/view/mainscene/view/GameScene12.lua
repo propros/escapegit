@@ -95,8 +95,6 @@ function GameScene12:ctor()
     --家具层
     self.furniture = self.bg:getChildByName("furniture")
 
-
-
     --返回按钮
     local mainback = self.node:getChildByName("back")
     mainback:addClickEventListener(function ()
@@ -104,6 +102,11 @@ function GameScene12:ctor()
             AudioEngine.playEffect("gliss.mp3")
         end
         --返回loading
+
+        ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/huolu/huolu.ExportJson") 
+        ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/weiniang/weiniang.ExportJson") 
+        ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/mao/mao.ExportJson") 
+
         local scene = Loading.new()
         local turn = cc.TransitionFade:create(1,scene)
         cc.Director:getInstance():replaceScene(turn)
@@ -364,10 +367,8 @@ function GameScene12:biaopan()
                                     end
                                 end
                                 UItool:setBool("knife",false)
-                                
-
                                 UItool:message2("刚刚好插进去，应该可以撬开它……",30)
-
+                                
                                 self.layers=cc.Layer:create()
                                 local shildinglayer = Shieldingscreenmessage3:new()
                                 self.layers:addChild(shildinglayer)
@@ -1559,6 +1560,10 @@ function GameScene12:modify()
     -- table.insert(PublicData.MERGEITEM, 11)
     ModifyData.setRoomNum(3)
     UItool:setInteger("roomNumber", 3)
+
+    ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/huolu/huolu.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/weiniang/weiniang.ExportJson") 
+    ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/mao/mao.ExportJson") 
     
     local scene = GameScene13.new()
     local turn = cc.TransitionFade:create(1, scene)

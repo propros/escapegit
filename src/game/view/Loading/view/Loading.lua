@@ -40,6 +40,8 @@ function Loading:ctor()
     self.pass4 = 4
     self.pass5 = 5
 
+    -- wsSendText = cc.WebSocket:create("ws://127.0.0.1:3000")
+
     local acount = 1
     local function settingcallback( )
 
@@ -71,13 +73,11 @@ function Loading:ctor()
         -- end )
         
         
-        UItool:specialitem("奥拉汀女神的护身符",4)
 
+        self.scene = GameScene13.new()
+        local turn = cc.TransitionFade:create(1, self.scene)
+        cc.Director:getInstance():replaceScene(turn)
         
-
-
-        
-
     -- local right = cc.Sprite:create("cn/Load/image/UI/pause.png")
     -- right:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
     -- self:addChild(right,29)
@@ -253,9 +253,11 @@ function Loading:signin( parent ,num)
             end
             
             if event:getName()=="chapter" then
-                self:newgame()
+                -- self:newgame()
+                -- UItool:message2("请点击中间的继续",30)
                 elseif event:getName()=="continue" then
-                    self:continue()
+                    -- self:continue()
+                    -- UItool:message2("请点击中间的继续",30)
                     elseif event:getName()=="handbook" then
                         print("handbook 收藏")
                         self:shoucang()

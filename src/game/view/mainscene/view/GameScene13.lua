@@ -197,9 +197,15 @@ function  GameScene13:wash_cabinet( )
     GameScenemove( math.floor( x-self.grossini:getContentSize().width/6),y ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
+        self:wanyao()--弯腰
         if self.furnituretb[11].num==1 then
             self.furnituretb[11].ifchangesprite = true
-            self.furniture:getChildByName("handswash_1"):setTexture("changesprite/GameScene13/handswash_5.png")
+            if self.furnituretb[11].weiniang then
+                self.furniture:getChildByName("handswash_1"):setTexture("changesprite/GameScene13/handswash_8.png")    
+                else
+                    self.furniture:getChildByName("handswash_1"):setTexture("changesprite/GameScene13/handswash_5.png")    
+            end
+            
             self.furniture:getChildByName("qingjieji"):setVisible(true)
             self.furnituretb[11].num=self.furnituretb[11].num+1
             self.furnituretb[11].appear = true
@@ -219,7 +225,7 @@ function  GameScene13:wash_cabinet( )
 end
 
 --水龙头
-local touchnum=1
+GameScene13.touchnum=1
 function  GameScene13:tap( )
     local x,y = UItool:getitem_location(self.furniture:getChildByName("tap"), self.bg:getPositionX())
     GameScenemove( math.floor( x-self.grossini:getContentSize().width/6),y ,function (  )
@@ -229,14 +235,27 @@ function  GameScene13:tap( )
             UItool:message2("里面好像堵住了，不过还有些红色的液体渗了出来。不，这好像是，血……我的天啊……",30)
             self.furnituretb[19].num=self.furnituretb[19].num+1
             elseif self.furnituretb[19].num==2 then
-                print("点击水龙头次数",touchnum )
-                if touchnum%2==1 then
+                print("点击水龙头次数",self.touchnum )
+                if self.touchnum%2==1 then
                     print("开启水龙头")
-                    
-
+                    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/shuidi/shuidi.ExportJson") 
+                    self.shuidi = ccs.Armature:create("shuidi")
+                    -- self.shuidi:getAnimation():playWithIndex(1)
+                    -- self.shuidi:getAnimation():play("Animation2")
+                    self.furnituretb[15].dishui=true
+                    self.shuidi:setPosition(cc.p(2,26))
+                    self.furniture:getChildByName("Node_10"):addChild(self.shuidi,6)
                     if self.furnituretb[15].weiniang  then
                         print("滴水")
+                        
+                        self.furniture:getChildByName("handswash_1"):setTexture("changesprite/GameScene13/handswash_8.png")
+                        self.shuidi:getAnimation():playWithIndex(1)
+                        self.shuidi:getAnimation():play("Animation3")
                         if UItool:getBool("pliers") then
+                            self.shuidi:getAnimation():playWithIndex(1)
+                            self.shuidi:getAnimation():play("Animation1")
+                            self.shuidi:setPosition(cc.p(0,0))
+                            self.furniture:getChildByName("handswash_1"):setTexture("changesprite/GameScene13/wash_o.png")
                             UItool:message2(" 呀——！水龙头掉了，里面有一条项链，总之赶紧离开这里吧，我不想被溅一身的水……",30)
                             local key_item = Data.getItemData(80)
                             table.insert(PublicData.MERGEITEM, key_item.key)
@@ -254,10 +273,16 @@ function  GameScene13:tap( )
                         end
                         else
                             print("滴血")
+                            self.shuidi:getAnimation():playWithIndex(1)
+                            self.shuidi:getAnimation():play("Animation2")
+                            UItool:message2(" 天啊，是血，好可怕啊…… ",30)     
                     end
 
-                    elseif touchnum%2==0 then
+                    elseif self.touchnum%2==0 then
+                        self.furnituretb[15].dishui=false
                         print("关闭水龙头")
+                        self.shuidi:removeFromParent()
+                        -- self.shuidi:getAnimation():stop()
                         if UItool:getBool("zhenguan") then
                             UItool:message2(" 用针管抽了一管血……希望能派得上用场……",30)
                             local key_item = Data.getItemData(75)
@@ -275,7 +300,7 @@ function  GameScene13:tap( )
                                 UItool:message2(" 它被堵住了，还在向外渗血…… ",30)     
                         end
                 end
-                touchnum=touchnum+1
+                self.touchnum=self.touchnum+1
                 else
                      UItool:message2(" 它还在喷水，我不想再被弄湿了…… ",30)     
                 
@@ -302,7 +327,7 @@ function  GameScene13:dress( )
                 self.furnituretb[1].num=self.furnituretb[1].num+1
                 UItool:message2("衣服的兜里有一把钥匙，不知道是哪里的。",30)
                 else
-                    UItool:message2("和我的洋装一模一样的一件湿裙子。",30)
+                    UItool:message2("一件湿裙子，和我的洋装一模一样。",30)
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
@@ -324,48 +349,99 @@ function  GameScene13:clause_btn( )
                     self.furniture:getChildByName("clause"):setVisible(false)
                     self.furnituretb[2].num=1 + self.furnituretb[2].num
                     elseif self.furnituretb[2].num==3 then
+                        -- self.furnituretb[2].num=1 + self.furnituretb[2].num
+                        self:clause_big( )
                         self.furnituretb[2].num=1 + self.furnituretb[2].num
-                        UItool:message2("（显示大图）是个保险箱。箱子上有文字的密码和一个凹槽，看来需要密码和某个符合凹槽的物品一起才能打开。",30)
+                        UItool:message2("是个保险箱。箱子上有文字的密码和一个凹槽，看来需要密码和某个符合凹槽的物品一起才能打开。",30)
                         elseif self.furnituretb[2].num==4 then
-                            if UItool:getBool("passpad") then
-                                UItool:message2(" 还需要符合凹槽的物品才能打开。",30)
-                                self.furnituretb[2].passpad=true
-                                UItool:setBool("passpad",false)
-                                local itemnum = UItool:getInteger("passpadnum")
-                                for i=1,#PublicData.MERGEITEM do
-                                    if PublicData.MERGEITEM[i] == itemnum then
-                                        table.remove(PublicData.MERGEITEM,i) 
-                                        break
-                                    end
-                                end
-                                
-                                elseif UItool:getBool("xianglian") then
-                                    UItool:setBool("xianglian",false)
-                                    local itemnum = UItool:getInteger("xiangliannum")
-                                    for i=1,#PublicData.MERGEITEM do
-                                        if PublicData.MERGEITEM[i] == itemnum then
-                                            table.remove(PublicData.MERGEITEM,i) 
-                                            break
-                                        end
-                                    end
-                                    if self.furnituretb[2].passpad==true then
-                                        local key_item = Data.getItemData(71)
-                                        table.insert(PublicData.MERGEITEM, key_item.key)
-                                        UItool:message2(" 箱子开了……里面是一片碎纸，和我手上的这几片很相似。 ",30)    
-                                        self.furnituretb[2].num = self.furnituretb[2].num + 1
-                                    end
-                                    else
-                                        UItool:message2("这个结实的保险箱需要密码和某个符合凹槽的物品一起才能打开。",30)
-                            end
+                            self:clause_big( )
                             
-                                
             end
             local str = json.encode(self.furnituretb)
             ModifyData.writeToDoc(str,"furniture")
             self:megerupdate()
         end,self.grossini,self.bg)
 end
+function GameScene13:clause_big( )
+    local passpanel = cc.CSLoader:createNode(Config.RES_BIGSAFE)
+    passpanel:setScale(0.95)
+    local actionTo2 = cc.ScaleTo:create(0.3, 1) 
+    passpanel:runAction(actionTo2)
+    local nodecenter = passpanel:getChildByName("Node_center")
+    nodecenter:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
+    self:addChild(passpanel,7)
 
+    local close=nodecenter:getChildByName("beijing"):getChildByName("close")
+
+    local function allButtonClick(event,eventType)
+        if eventType == TOUCH_EVENT_ENDED then
+            
+            if UItool:getBool("effect") then
+                AudioEngine.playEffect("gliss.mp3")
+            end
+            
+            local actionTo1 = cc.ScaleTo:create(0.3, 0.95)  
+            passpanel:runAction(cc.Sequence:create(actionTo1,cc.CallFunc:create(passpanel:removeFromParent())))
+            
+        
+        end
+        
+    end
+    close:addClickEventListener(allButtonClick)
+
+    local Button_4=nodecenter:getChildByName("beijing"):getChildByName("Button_4")
+
+    local function allButtonClick(event,eventType)
+        if eventType == TOUCH_EVENT_ENDED then
+            
+            if UItool:getBool("effect") then
+                AudioEngine.playEffect("gliss.mp3")
+            end
+            if UItool:getBool("passpad") then
+                UItool:message2(" 还需要符合凹槽的物品才能打开。",30)
+                self.furnituretb[2].passpad=true
+                UItool:setBool("passpad",false)
+                local itemnum = UItool:getInteger("passpadnum")
+                for i=1,#PublicData.MERGEITEM do
+                    if PublicData.MERGEITEM[i] == itemnum then
+                        table.remove(PublicData.MERGEITEM,i) 
+                        break
+                    end
+                end
+                
+                elseif UItool:getBool("xianglian") then
+                    UItool:setBool("xianglian",false)
+                    
+                    if self.furnituretb[2].passpad==true then
+                        local itemnum = UItool:getInteger("xiangliannum")
+                        for i=1,#PublicData.MERGEITEM do
+                            if PublicData.MERGEITEM[i] == itemnum then
+                                table.remove(PublicData.MERGEITEM,i) 
+                                break
+                            end
+                        end
+
+                        local key_item = Data.getItemData(71)
+                        table.insert(PublicData.MERGEITEM, key_item.key)
+                        UItool:message2(" 箱子开了……里面是一片碎纸，和我手上的这几片很相似。 ",30)    
+                        self.furnituretb[2].num = self.furnituretb[2].num + 1
+                        self.furniture:getChildByName("safe_1"):setTexture("changesprite/GameScene13/safe_2.png")
+
+                        passpanel:removeFromParent()
+                    end
+                    else
+                        UItool:message2("这个结实的保险箱需要密码和某个符合凹槽的物品一起才能打开。",30)
+            end   
+            local str = json.encode(self.furnituretb)
+            ModifyData.writeToDoc(str,"furniture")
+            self:megerupdate()    
+        
+        end
+        
+    end
+    Button_4:addClickEventListener(allButtonClick)
+
+end
 --书桌上的点滴瓶
 function GameScene13:infusion_bottle( )
     print("点滴瓶")
@@ -395,6 +471,7 @@ function GameScene13:tool_box()
     GameScenemove( math.floor( x2-self.grossini:getContentSize().width/6),y2 ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
+        self:xiadun()
         if self.furnituretb[4].num==1 then
             local key_item = Data.getItemData(53)
             table.insert(PublicData.MERGEITEM, key_item.key)
@@ -460,6 +537,8 @@ function GameScene13:tool_car( )
         if self.furnituretb[6].num==1 then
             local key_item = Data.getItemData(56)
             table.insert(PublicData.MERGEITEM, key_item.key)
+            self.furniture:getChildByName("btn"):setVisible(false)
+            self.furnituretb[6].ifchangesprite=true
             self.furnituretb[6].num=self.furnituretb[6].num+1
             UItool:message2("这是什么？看起来像是安在什么地方的按钮。",30)
             
@@ -480,7 +559,7 @@ function  GameScene13:glass_btn_L( )
             if UItool:getBool("handle") then
                 self.furniture:getChildByName("Node_2"):getChildByName("glass"):setTexture("changesprite/GameScene13/glass_2.png")
                 UItool:setBool("handle",false)
-                UItool:message2(" 柜子的左半边可以打开了，但是右半边还是需要钥匙才能打开. ",30)     
+                UItool:message2(" 柜子的左半边可以打开了，但是右半边还是需要钥匙才能打开。 ",30)     
                 local itemnum = UItool:getInteger("handlenum")
                 for i=1,#PublicData.MERGEITEM do
                     if PublicData.MERGEITEM[i] == itemnum then
@@ -492,7 +571,7 @@ function  GameScene13:glass_btn_L( )
                 self.furnituretb[14].num = self.furnituretb[14].num+1
                 
                 else
-                    UItool:message2(" 一个装着心脏的标本瓶……看起来好诡异啊…… ",30)     
+                    UItool:message2(" 柜子少了左半边的把手，无法打开。 ",30)     
             end
             elseif self.furnituretb[14].num==2 then
                 
@@ -545,6 +624,18 @@ function  GameScene13:glass_btn_R( )
                 self.furniture:getChildByName("Node_2"):getChildByName("glass"):setTexture("changesprite/GameScene13/glass_6.png")
                 table.insert(PublicData.MERGEITEM, key_item.key)
                 self.furnituretb[15].weiniang = true
+                if self.furnituretb[15].dishui then
+                    self.shuidi:getAnimation():playWithIndex(1)
+                    self.shuidi:getAnimation():play("Animation3")
+                    else
+                        
+                end
+                if self.furnituretb[11].ifchangesprite then
+                    self.furniture:getChildByName("handswash_1"):setTexture("changesprite/GameScene13/handswash_8.png")
+                    else
+                        self.furniture:getChildByName("handswash_1"):setTexture("changesprite/GameScene13/handswash_3.png")
+                end
+                
                 self.furniture:getChildByName("machine_1"):setTexture("changesprite/GameScene13/machine_2.png")
                 UItool:message2("又是一个标本瓶！里面装着一缕金色的头发。",30)
                 else
@@ -563,6 +654,7 @@ function  GameScene13:file_cabinet( )
     GameScenemove( math.floor( x-self.grossini:getContentSize().width/6),y ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
+        self:xiadun()
         if self.furnituretb[7].num==1 then
             if UItool:getBool("files_key") then
                 UItool:message2(" 打开了柜子。",30)
@@ -592,6 +684,11 @@ function  GameScene13:file_cabinet( )
                 UItool:message2(" 唔，好像是一张胸部的CT相片，还有一块不知道有什么用的碎纸。 ",30)  
                 self.furniture:getChildByName("Node_2"):getChildByName("files_cabinet"):setTexture("changesprite/GameScene13/files_cabinet_2.png")   
                 self.furnituretb[7].num = self.furnituretb[7].num+1
+                self.furnituretb[7].guimenopen=true
+                self.furniture:getChildByName("guimen"):setEnabled(true)
+                self.furniture:getChildByName("guimen"):setVisible(true)
+
+
                 else
                     UItool:message2(" 没剩下什么东西了。 ",30)     
 
@@ -600,6 +697,15 @@ function  GameScene13:file_cabinet( )
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
         end,self.grossini,self.bg)
+end
+function GameScene13:guimen( )
+    self.furniture:getChildByName("guimen"):setEnabled(false)
+    self.furniture:getChildByName("guimen"):setVisible(false)
+    self.furnituretb[7].guimenopen=false
+    self.furniture:getChildByName("Node_2"):getChildByName("files_cabinet"):setTexture("cn/GameScene/gamescene13image/files_cabinet_1.png")   
+    local str = json.encode(self.furnituretb)
+        ModifyData.writeToDoc(str,"furniture")
+        self:megerupdate()
 end
 --显像光管
 function GameScene13:light_screen( )
@@ -610,8 +716,7 @@ function GameScene13:light_screen( )
         self.grossini:setScaleY(self.girly)
         if self.furnituretb[8].num==1 then
             if UItool:getBool("CTphoto") then
-                UItool:message2("(显示大图(密码)) 原来如此！这下就能够看清上面写了些什么了。",30)
-                
+                UItool:message2(" 原来如此！这下就能够看清上面写了些什么了。",30)
                 UItool:setBool("CTphoto",false)
                 local itemnum = UItool:getInteger("CTphotonum")
                 for i=1,#PublicData.MERGEITEM do
@@ -627,7 +732,8 @@ function GameScene13:light_screen( )
                     UItool:message2(" 我不太清楚这个是什么，不过我好像在医院里见过。 ",30)     
             end
             else
-                -- UItool:message2(" 抽屉已经空了。 ",30)
+                UItool:message2(" 4677……4825 ",30)
+                self:CT_photo()
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
@@ -635,7 +741,31 @@ function GameScene13:light_screen( )
 
         end,self.grossini,self.bg)
 end
+function GameScene13:CT_photo( )
+    local passpanel = cc.CSLoader:createNode(Config.RES_CT)
+    passpanel:setScale(0.95)
+    local actionTo2 = cc.ScaleTo:create(0.3, 1) 
+    passpanel:runAction(actionTo2)
+    local nodecenter = passpanel:getChildByName("Node_center")
+    nodecenter:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
+    self:addChild(passpanel,7)
 
+    local close=nodecenter:getChildByName("beijing"):getChildByName("close")
+
+    local function allButtonClick(event,eventType)
+        if eventType == TOUCH_EVENT_ENDED then
+            
+            if UItool:getBool("effect") then
+                AudioEngine.playEffect("gliss.mp3")
+            end
+            passpanel:removeFromParent()
+        
+        end
+        
+    end
+    close:addClickEventListener(allButtonClick)
+
+end
 --监控台
 function GameScene13:screen( )
     local x,y= UItool:getitem_location(self.furniture:getChildByName("screen"), self.bg:getPositionX())
@@ -648,7 +778,12 @@ function GameScene13:screen( )
                 UItool:message2("出现画面了",30)
                 self.furnituretb[12].use = true
                 self.furnituretb[12].num = self.furnituretb[12].num+1
-                self.furniture:getChildByName("machine_1"):setTexture("changesprite/GameScene13/machine_4.png")
+                if self.furnituretb[15].weiniang == true then
+                    self.furniture:getChildByName("machine_1"):setTexture("changesprite/GameScene13/machine_2.png")
+                    else
+                        self.furniture:getChildByName("machine_1"):setTexture("changesprite/GameScene13/machine_4.png")        
+                end
+                
                 UItool:setBool("button",false)
                 local itemnum = UItool:getInteger("buttonnum")
                 for i=1,#PublicData.MERGEITEM do
@@ -679,7 +814,7 @@ function GameScene13:screen( )
                         end
                     end
                     else
-                        UItool:message2("你决定好把我想要的东西给我了吗？",30)
+                        UItool:message2("这些画面是什么意思呢？",30)
                 end
             
                
@@ -697,6 +832,7 @@ function GameScene13:cabinet( )
         GameScenemove( math.floor( x-self.grossini:getContentSize().width/6),y ,function ()
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
+        self:xiadun()
         if self.furnituretb[18].num==1 then
                 UItool:message2("一把钳子和一瓶胶水，这些有什么用……",30)
                 local key_item = Data.getItemData(73)
@@ -705,10 +841,10 @@ function GameScene13:cabinet( )
                 local key_items = Data.getItemData(77)
                 table.insert(PublicData.MERGEITEM, key_items.key)
                 self.furniture:getChildByName("machine_1"):setTexture("changesprite/GameScene13/machine_6.png")
-                
+                self.furnituretb[18].num=self.furnituretb[18].num+1
                 
                 else
-                    -- UItool:message2("台子上有很多按钮，不过似乎少了最重要的那个，所以无法开启机器。",30)
+                    UItool:message2("打不开呢。。。",30)
                
         end
         local str = json.encode(self.furnituretb)
@@ -724,16 +860,89 @@ function GameScene13:record_A( )
         GameScenemove( math.floor( x-self.grossini:getContentSize().width/6),y ,function ()
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
+        UItool:message2("一块粘满了便签的小黑板。",30)
         if self.furnituretb[12].use then
-            local key_item = Data.getItemData(66)
-            table.insert(PublicData.MERGEITEM, key_item.key)
-            self.furnituretb[12].use=false
+            self:bigheiban()
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
 
         end,self.grossini,self.bg)
+end
+
+
+function GameScene13:bigheiban( )
+    local passpanel = cc.CSLoader:createNode(Config.RES_BLACKBORD)
+    passpanel:setScale(0.95)
+    local actionTo2 = cc.ScaleTo:create(0.3, 1) 
+    passpanel:runAction(actionTo2)
+    local nodecenter = passpanel:getChildByName("Node_center")
+    nodecenter:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
+    self:addChild(passpanel,7)
+
+    local close=nodecenter:getChildByName("beijing"):getChildByName("close")
+
+    local function allButtonClick(event,eventType)
+        if eventType == TOUCH_EVENT_ENDED then
+            
+            if UItool:getBool("effect") then
+                AudioEngine.playEffect("gliss.mp3")
+            end
+            passpanel:removeFromParent()
+        
+        end
+        
+    end
+    close:addClickEventListener(allButtonClick)
+
+    local Button_28=nodecenter:getChildByName("beijing"):getChildByName("Button_28")
+
+    local function allButtonClick(event,eventType)
+        if eventType == TOUCH_EVENT_ENDED then
+            
+            if UItool:getBool("effect") then
+                AudioEngine.playEffect("gliss.mp3")
+            end
+            
+            local touch = self.furnituretb[21].num
+            self.furnituretb[21].num=self.furnituretb[21].num+1
+            local xxx 
+            local yyy
+            if touch==1 then
+                 xxx = 150
+                 yyy = 150
+                elseif touch==2 then
+                    --todo
+                     xxx = -150
+                     yyy = -150
+                     elseif touch==3 then
+                         xxx = -150
+                         yyy = 150
+                         elseif touch==4 then
+                             xxx = 150
+                             yyy = -150
+            end
+            if touch<=4 then
+                nodecenter:getChildByName("beijing"):getChildByName("b_"..touch):setPosition(cc.p(600+xxx,350+yyy))
+                else
+                    UItool:message2("这片碎纸看起来像是什么文件的一部分，要想知道上面写了些什么还是要先找到文件的其他部分。",30)
+                    local key_item = Data.getItemData(66)
+                    table.insert(PublicData.MERGEITEM, key_item.key)
+                    self.furnituretb[12].use=false
+            end
+            local str = json.encode(self.furnituretb)
+            ModifyData.writeToDoc(str,"furniture")
+            self:megerupdate()  
+            if touch<=4 then
+                else
+                    passpanel:removeFromParent()  
+            end
+        end
+        
+    end
+    Button_28:addClickEventListener(allButtonClick)
+
 end
 
 --急救箱
@@ -743,22 +952,116 @@ function GameScene13:first_aid( )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
         if self.furnituretb[9].num==1 then
-            
-            UItool:message2("（显示大图）这个急救箱需要输入正确的密码才能够打开。",30)
+            self:firstaidpass("46774825")
+            UItool:message2("这个急救箱需要输入正确的密码才能够打开。",30)
             self.furnituretb[9].num = self.furnituretb[9].num+1
             elseif self.furnituretb[9].num ==2 then
-                UItool:password("96524",60,61,"急救箱里有一把手术剪刀和一根针管。") -- 密码四
-                self.furniture:getChildByName("first_aid_c"):setTexture("changesprite/GameScene13/first_aid_o.png")
-                self.furnituretb[9].num = self.furnituretb[9].num+1
-                self.furnituretb[9].ifchangesprite = true
+                self:firstaidpass("46774825")
+                
                 else
-                    UItool:message2(" 我不太清楚这个是什么，不过我好像在医院里见过。 ",30)     
+                    UItool:message2(" 其他的东西还是不要乱动了，我也并不知道它们究竟要怎么用…… ",30)     
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
         self:megerupdate()
 
         end,self.grossini,self.bg)
+end
+
+function GameScene13:firstaidpass(passstr)
+    local passpanel = cc.CSLoader:createNode(Config.RES_PASSWORD13)
+    passpanel:setScale(0.95)
+    local actionTo2 = cc.ScaleTo:create(0.3, 1) 
+    passpanel:runAction(actionTo2)
+    local nodecenter = passpanel:getChildByName("Node_center")
+    nodecenter:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
+    self:addChild(passpanel,7)
+    local mima_text = nodecenter:getChildByName("beijing"):getChildByName("show"):getChildByName("show_pass")
+    local allbtn = 
+    {
+        nodecenter:getChildByName("beijing"):getChildByName("close"),
+        nodecenter:getChildByName("beijing"):getChildByName("back"),
+        nodecenter:getChildByName("beijing"):getChildByName("1"),
+        nodecenter:getChildByName("beijing"):getChildByName("2"),
+        nodecenter:getChildByName("beijing"):getChildByName("3"),
+        nodecenter:getChildByName("beijing"):getChildByName("4"),
+        nodecenter:getChildByName("beijing"):getChildByName("5"),
+        nodecenter:getChildByName("beijing"):getChildByName("6"),
+        nodecenter:getChildByName("beijing"):getChildByName("7"),
+        nodecenter:getChildByName("beijing"):getChildByName("8"),
+        nodecenter:getChildByName("beijing"):getChildByName("9"),
+        nodecenter:getChildByName("beijing"):getChildByName("0")
+    }
+
+    local function allButtonClick(event,eventType)
+        if eventType == TOUCH_EVENT_ENDED then
+            nodecenter:getChildByName("beijing"):getChildByName("show"):setTexture("changesprite/GameScene13/show.png")
+            if UItool:getBool("effect") then
+                AudioEngine.playEffect("gliss.mp3")
+            end
+            if event:getName()=="back" then
+                if string.len(mima_text:getString())==0 then
+                    else
+                        mima_text:setString(string.sub(mima_text:getString(), 1,string.len(mima_text:getString())-1))
+                end
+                
+            end
+
+            if event:getName()=="close" then
+                passpanel:removeFromParent()
+                return
+                elseif event:getName()=="1" then
+                    mima_text:setString(mima_text:getString()..1)
+                    elseif event:getName()=="2" then
+                        mima_text:setString(mima_text:getString()..2)
+                        elseif event:getName()=="3" then
+                            mima_text:setString(mima_text:getString()..3)
+                            elseif event:getName()=="4" then
+                                mima_text:setString(mima_text:getString()..4)
+                                elseif event:getName()=="5" then
+                                    mima_text:setString(mima_text:getString()..5)
+                                    elseif event:getName()=="6" then
+                                        mima_text:setString(mima_text:getString()..6)
+                                        elseif event:getName()=="7" then
+                                            mima_text:setString(mima_text:getString()..7)
+                                            elseif event:getName()=="8" then
+                                                mima_text:setString(mima_text:getString()..8)
+                                                elseif event:getName()=="9" then
+                                                    mima_text:setString(mima_text:getString()..9)
+                                                    elseif event:getName()=="0" then
+                                                        mima_text:setString(mima_text:getString()..0)
+
+            end
+            if mima_text:getString()==passstr then
+                UItool:message2("急救箱里有一把手术剪刀和一根针管。",30)
+                self.furniture:getChildByName("first_aid_c"):setTexture("changesprite/GameScene13/first_aid_o.png")
+                self.furnituretb[9].num = self.furnituretb[9].num+1
+                self.furnituretb[9].ifchangesprite = true
+                local key_item = Data.getItemData(60)
+                table.insert(PublicData.MERGEITEM, key_item.key)
+                local key_item = Data.getItemData(61)
+                table.insert(PublicData.MERGEITEM, key_item.key)
+                local str = json.encode(self.furnituretb)
+                ModifyData.writeToDoc(str,"furniture")
+                self:megerupdate()
+
+                passpanel:removeFromParent()
+                else
+                   if string.len(mima_text:getString())==8 then
+                        mima_text:setString("")
+                        nodecenter:getChildByName("beijing"):getChildByName("show"):setTexture("changesprite/GameScene13/wrong.png")
+                   end
+            end
+
+        end
+        
+    end
+
+
+    for key, var in pairs(allbtn) do
+        var:addClickEventListener(allButtonClick)
+    end
+
 end
 
 --人物模型
@@ -770,7 +1073,7 @@ function GameScene13:human_model( )
         self.grossini:setScaleY(self.girly)
         if self.furnituretb[16].num==1 then
             
-            UItool:message2("虽然看起来就是医院里普通的那种吓人的肌肉人像，但是不知道为什么，我总感觉它不是那么可怕，而且它似乎缺了些什么……",30)
+            UItool:message2("虽然看起来很吓人的肌肉人像，但我并不害怕它，而且它的身上似乎缺了些什么……",30)
             self.furnituretb[16].num = self.furnituretb[16].num+1
             elseif self.furnituretb[16].num ==2 then
                 if UItool:getBool("cardiac") then
@@ -860,6 +1163,7 @@ function  GameScene13:passpad( )
 
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
+        self:xiadun()
         if self.furnituretb[13].num==1 then
             if UItool:getBool("qingjiebu") then
                 self.furnituretb[13].num=self.furnituretb[13].num+1
@@ -881,6 +1185,7 @@ function  GameScene13:passpad( )
                 table.insert(PublicData.MERGEITEM, key_item.key)
                 self.furniture:getChildByName("door_1"):setTexture("changesprite/GameScene13/door_3.png")
                 UItool:message2("将印有密码的板子取了下来。",30)
+                self.furnituretb[10].passpad=false
                 else
                     UItool:message2("“手术中”。还是不要随便进入里面了吧……",30)
         end
@@ -979,7 +1284,7 @@ function GameScene13:operating_table()
                 self.furnituretb[20].num=self.furnituretb[20].num+1
                 self.furniture:getChildByName("sheet_c"):setTexture("changesprite/GameScene13/sheet_o.png")
                 UItool:message2("恭喜通关",30)
-                local itemnum = UItool:getInteger("xuedipingnum")
+                local itemnum = UItool:getInteger("binglinum")
                 for i=1,#PublicData.MERGEITEM do
                     if PublicData.MERGEITEM[i] == itemnum then
                         table.remove(PublicData.MERGEITEM,i) 
@@ -1060,6 +1365,14 @@ function GameScene13:drawer_long()
         end,self.grossini,self.bg)
 end
 
+function GameScene13:petal_btn()
+    local xiangkuang_locationx,xiangkuang_locationy = UItool:getitem_location(self.furniture:getChildByName("petal_btn"), self.bg:getPositionX())
+    GameScenemove( math.floor( xiangkuang_locationx-self.grossini:getContentSize().width/6),xiangkuang_locationy ,function (  )
+        self.grossini:setScaleX(-self.girlx)
+        self.grossini:setScaleY(self.girly)
+            UItool:message2("散落了一地的红色花瓣",30)
+        end,self.grossini,self.bg)
+end
 
 
 function GameScene13:AllButtons(  )
@@ -1067,7 +1380,6 @@ function GameScene13:AllButtons(  )
     {
         self.furniture:getChildByName("dress"),
         self.furniture:getChildByName("clause_btn"),
-        self.furniture:getChildByName("glass_cabinet"),
         self.furniture:getChildByName("files_btn"),
         self.furniture:getChildByName("infusion_bottle"),
         self.furniture:getChildByName("tool_box"),
@@ -1096,8 +1408,10 @@ function GameScene13:AllButtons(  )
         self.furniture:getChildByName("Button_67"),
         self.furniture:getChildByName("Button_69_0"),
         self.furniture:getChildByName("Button_71"),
-        self.furniture:getChildByName("glass_btn_R")
-
+        self.furniture:getChildByName("glass_btn_R"),
+        self.furniture:getChildByName("petal_btn"),
+        self.furniture:getChildByName("guimen")
+        
 
     }
 
@@ -1118,11 +1432,24 @@ function GameScene13:AllButtons(  )
         self.furniture:getChildByName("infusion_bottle"):setVisible(false)
     end
 
+    if self.furnituretb[6].ifchangesprite then
+        self.furniture:getChildByName("btn"):setVisible(false)
+    end
+    
+
     --档案柜
     if self.furnituretb[7].num==2 then
         self.furniture:getChildByName("Node_2"):getChildByName("files_cabinet"):setTexture("changesprite/GameScene13/files_cabinet_3.png")
         elseif self.furnituretb[7].num>=3 then
             self.furniture:getChildByName("Node_2"):getChildByName("files_cabinet"):setTexture("changesprite/GameScene13/files_cabinet_2.png")   
+    end
+
+    if self.furnituretb[7].guimenopen then
+        self.furniture:getChildByName("guimen"):setEnabled(true)
+        self.furniture:getChildByName("guimen"):setVisible(true)
+        else
+            self.furniture:getChildByName("guimen"):setEnabled(false)
+            self.furniture:getChildByName("guimen"):setVisible(false)
     end
 
     --显象光管
@@ -1150,6 +1477,9 @@ function GameScene13:AllButtons(  )
 
     if self.furnituretb[11].ifchangesprite then
         self.furniture:getChildByName("handswash_1"):setTexture("changesprite/GameScene13/handswash_5.png")
+        if self.furnituretb[15].weiniang then
+            self.furniture:getChildByName("handswash_1"):setTexture("changesprite/GameScene13/handswash_8.png")
+        end
     end
 
     if self.furnituretb[10].passpad then
@@ -1276,6 +1606,10 @@ function GameScene13:AllButtons(  )
                                                                                                                                     self:shoushudeng()
                                                                                                                                     elseif event:getName()=="Button_66" then
                                                                                                                                         self:Button_66()
+                                                                                                                                        elseif event:getName()=="petal_btn" then
+                                                                                                                                            self:petal_btn()
+                                                                                                                                            elseif event:getName()=="guimen" then
+                                                                                                                                                self:guimen()
                                                                                                                 
 
             end

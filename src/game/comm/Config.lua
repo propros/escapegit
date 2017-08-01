@@ -21,6 +21,11 @@ Config.RES_SETTING = Config.RES_ROOT_URL.."Load/setting.csb"
 Config.RES_SHOUCANG = Config.RES_ROOT_URL.."Load/Shoucang.csb"
 Config.RES_CLOCK = Config.RES_ROOT_URL.."clock/Clock.csb"
 Config.RES_POCKET_WATCH = Config.RES_ROOT_URL.."clock/pocket_watch.csb"
+Config.RES_PASSWORD13 = Config.RES_ROOT_URL.."password/pass13.csb"
+Config.RES_CT = Config.RES_ROOT_URL.."gamebig/big13/CTphoto.csb"
+Config.RES_BLACKBORD = Config.RES_ROOT_URL.."gamebig/big13/blackbord.csb"
+Config.RES_BIGSAFE = Config.RES_ROOT_URL.."gamebig/big13/big_safe.csb"
+
 
 
 

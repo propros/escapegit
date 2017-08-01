@@ -760,8 +760,6 @@ function GameScene11:wardrobe()
                             else
                                 UItool:message2(" 锁住了。",30)
                         end
-                        
-
                 end
 
                 elseif self.furnituretb[7].num>=2 and self.furnituretb[7].passpass == false then
@@ -1253,7 +1251,12 @@ function GameScene11:modify()
     PublicData.FURNITURE={}
     PublicData.SAVEDATA={}
     table.insert(PublicData.MERGEITEM, 11)
-
+    if UItool:getBool("oneroomagain", false)==false then
+        ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
+        else
+            ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/lolierzhoumu/Export/lolierzhoumu/lolierzhoumu.ExportJson")     
+            
+    end
 
     ModifyData.setRoomNum(2)
     UItool:setInteger("roomNumber", 2)
@@ -1817,7 +1820,8 @@ end
     --角色移动
 function GameScene11:grossiniwalk()
     --骨骼动画
-
+    -- ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
+    -- self.grossini = ccs.Armature:create("loli")
     if UItool:getBool("oneroomagain", false)==false then
         ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
         self.grossini = ccs.Armature:create("loli")
@@ -1890,6 +1894,13 @@ function GameScene11:onEnterTransitionFinish ()
             AudioEngine.playEffect("gliss.mp3")
         end
         --返回loading
+        if UItool:getBool("oneroomagain", false)==false then
+            ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
+            else
+                ccs.ArmatureDataManager:getInstance():removeArmatureFileInfo("res/donghua/lolierzhoumu/Export/lolierzhoumu/lolierzhoumu.ExportJson")     
+                
+        end
+        
         local scene = Loading.new()
         local turn = cc.TransitionFade:create(1,scene)
         cc.Director:getInstance():replaceScene(turn)
