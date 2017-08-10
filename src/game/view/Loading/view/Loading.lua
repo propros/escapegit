@@ -73,10 +73,15 @@ function Loading:ctor()
         -- end )
         
         
+        
 
         self.scene = GameScene13.new()
         local turn = cc.TransitionFade:create(1, self.scene)
         cc.Director:getInstance():replaceScene(turn)
+
+
+
+        
         
     -- local right = cc.Sprite:create("cn/Load/image/UI/pause.png")
     -- right:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
@@ -254,10 +259,8 @@ function Loading:signin( parent ,num)
             
             if event:getName()=="chapter" then
                 -- self:newgame()
-                -- UItool:message2("请点击中间的继续",30)
                 elseif event:getName()=="continue" then
                     -- self:continue()
-                    -- UItool:message2("请点击中间的继续",30)
                     elseif event:getName()=="handbook" then
                         print("handbook 收藏")
                         self:shoucang()

@@ -6,10 +6,7 @@ end)
 GameScene13.panel = nil
 local roomNumber
 local chapterNumber
-
-
 function GameScene13:ctor()
-
     local function onNodeEvent(event)
         
         if event == "enter" then
@@ -82,10 +79,6 @@ function GameScene13:ctor()
     self.panel:setPosition(cc.p(0,0))
     self:addChild(self.panel,4)
 
-    --合成条
-    self.merge = Merge:createScene()
-    self:addChild(self.merge,5)
-
     --主节点
     self.node =  self.panel:getChildByName("Node_left_top")
     self.node:setPosition(0, self.visibleSize.height)
@@ -93,7 +86,6 @@ function GameScene13:ctor()
     self.bg = self.node:getChildByName("bg")
     --家具层
     self.furniture = self.bg:getChildByName("furniture")
-    
 
 
     --返回按钮
@@ -108,15 +100,15 @@ function GameScene13:ctor()
         cc.Director:getInstance():replaceScene(turn)
         end)
 
-        local shezhi = self.panel:getChildByName("Node_right_top"):getChildByName("shezhi")
-        shezhi:addClickEventListener(function ()
+    local shezhi = self.panel:getChildByName("Node_right_top"):getChildByName("shezhi")
+    shezhi:addClickEventListener(function ()
         if UItool:getBool("effect") then
             AudioEngine.playEffect("gliss.mp3")
         end
         --返回loading
         local setting = Setting:createScene()
         self:addChild(setting,13)
-        end)
+    end)
     
     self.grossini = GIRL:new()
     self.grossini:setScaleX(-self.girlx)
@@ -139,8 +131,6 @@ function GameScene13:ctor()
         end
     end  
     self:scheduleUpdateWithPriorityLua(update,0.3)
-
-
 end
 
 function GameScene13:xiadun()
@@ -184,10 +174,8 @@ function GameScene13:megerupdate()
     self:addChild(self.merge,5)
 end
 
-
 function GameScene13:init()
     self:ontouch()
-    
     self:AllButtons()
 end
 
@@ -834,17 +822,17 @@ function GameScene13:cabinet( )
         self.grossini:setScaleY(self.girly)
         self:xiadun()
         if self.furnituretb[18].num==1 then
-                UItool:message2("一把钳子和一瓶胶水，这些有什么用……",30)
-                local key_item = Data.getItemData(73)
-                table.insert(PublicData.MERGEITEM, key_item.key)
+            UItool:message2("一把钳子和一瓶胶水，这些有什么用……",30)
+            local key_item = Data.getItemData(73)
+            table.insert(PublicData.MERGEITEM, key_item.key)
 
-                local key_items = Data.getItemData(77)
-                table.insert(PublicData.MERGEITEM, key_items.key)
-                self.furniture:getChildByName("machine_1"):setTexture("changesprite/GameScene13/machine_6.png")
-                self.furnituretb[18].num=self.furnituretb[18].num+1
-                
-                else
-                    UItool:message2("打不开呢。。。",30)
+            local key_items = Data.getItemData(77)
+            table.insert(PublicData.MERGEITEM, key_items.key)
+            self.furniture:getChildByName("machine_1"):setTexture("changesprite/GameScene13/machine_6.png")
+            self.furnituretb[18].num=self.furnituretb[18].num+1
+            
+            else
+                UItool:message2("打不开呢。。。",30)
                
         end
         local str = json.encode(self.furnituretb)
@@ -1670,26 +1658,20 @@ end
 
 
 function GameScene13:onEnterTransitionFinish ()
-    
-  
-    
-    -- self.right:removeFromParent()
     --点击效果层
     local dianjilayer = TouchLayer:new()
     self.bg:addChild(dianjilayer,128)
 
+    --合成条
+    self.merge = Merge:createScene()
+    self:addChild(self.merge,5)
+
     
-   
 end
 
 function GameScene13:onEnter()
+
     self:init()
-    
-    -- self.right = cc.Sprite:create("cn/Load/image/UI/pause.png")
-    -- self.right:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
-    -- self:addChild(self.right,29)
-    -- local rotate = cc.RotateBy:create(2, -30)
-    -- self.right:runAction( cc.RepeatForever:create(rotate))
      
 end
 
