@@ -92,7 +92,7 @@ function GameScene13:ctor()
     local mainback = self.node:getChildByName("back")
     mainback:addClickEventListener(function ()
         if UItool:getBool("effect") then
-            AudioEngine.playEffect("gliss.mp3")
+            AudioEngine.playEffect("sound/gliss.mp3")
         end
         --返回loading
         local scene = Loading.new()
@@ -103,14 +103,16 @@ function GameScene13:ctor()
     local shezhi = self.panel:getChildByName("Node_right_top"):getChildByName("shezhi")
     shezhi:addClickEventListener(function ()
         if UItool:getBool("effect") then
-            AudioEngine.playEffect("gliss.mp3")
+            AudioEngine.playEffect("sound/gliss.mp3")
         end
         --返回loading
         local setting = Setting:createScene()
         self:addChild(setting,13)
     end)
     
-    self.grossini = GIRL:new()
+    self.ROOMTABLE = PublicData.ROOMTABLE --人物是否露脸table
+    
+    self.grossini = GIRL.new(self.ROOMTABLE[1][3].face)
     self.grossini:setScaleX(-self.girlx)
     self.grossini:setScaleY(self.girly)
     self.grossini:stand()
@@ -185,7 +187,7 @@ function  GameScene13:wash_cabinet( )
     GameScenemove( math.floor( x-self.grossini:getContentSize().width/6),y ,function (  )
         self.grossini:setScaleX(-self.girlx)
         self.grossini:setScaleY(self.girly)
-        self:wanyao()--弯腰
+        self:xiadun()--弯腰
         if self.furnituretb[11].num==1 then
             self.furnituretb[11].ifchangesprite = true
             if self.furnituretb[11].weiniang then
@@ -198,7 +200,8 @@ function  GameScene13:wash_cabinet( )
             self.furnituretb[11].num=self.furnituretb[11].num+1
             self.furnituretb[11].appear = true
             elseif self.furnituretb[11].num==2 then
-                self.furniture:getChildByName("qingjieji"):setVisible(false)
+                local fadeout = cc.FadeOut:create(0.5)
+                self.furniture:getChildByName("qingjieji"):runAction(fadeout)
                 self.furnituretb[11].appear = false
                 local key_item = Data.getItemData(63)
                 table.insert(PublicData.MERGEITEM, key_item.key)
@@ -334,7 +337,8 @@ function  GameScene13:clause_btn( )
                 self.furnituretb[2].num=1 + self.furnituretb[2].num
                 elseif self.furnituretb[2].num==2 then
                     UItool:message2("相框后面竟然有个箱子？",30)
-                    self.furniture:getChildByName("clause"):setVisible(false)
+                    local fadeout = cc.FadeOut:create(0.5)
+                    self.furniture:getChildByName("clause"):runAction(fadeout)
                     self.furnituretb[2].num=1 + self.furnituretb[2].num
                     elseif self.furnituretb[2].num==3 then
                         -- self.furnituretb[2].num=1 + self.furnituretb[2].num
@@ -365,7 +369,7 @@ function GameScene13:clause_big( )
         if eventType == TOUCH_EVENT_ENDED then
             
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             
             local actionTo1 = cc.ScaleTo:create(0.3, 0.95)  
@@ -383,7 +387,7 @@ function GameScene13:clause_big( )
         if eventType == TOUCH_EVENT_ENDED then
             
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             if UItool:getBool("passpad") then
                 UItool:message2(" 还需要符合凹槽的物品才能打开。",30)
@@ -443,7 +447,8 @@ function GameScene13:infusion_bottle( )
             self.furnituretb[5].num=self.furnituretb[5].num+1
             self.furnituretb[5].bool = false
             UItool:message2("拿到了一个瓶子，好像是输液用的。",30)
-            self.furniture:getChildByName("infusion_bottle"):setVisible(false)
+            local fadeout = cc.FadeOut:create(0.5)
+            self.furniture:getChildByName("infusion_bottle"):runAction(fadeout)
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
@@ -525,7 +530,8 @@ function GameScene13:tool_car( )
         if self.furnituretb[6].num==1 then
             local key_item = Data.getItemData(56)
             table.insert(PublicData.MERGEITEM, key_item.key)
-            self.furniture:getChildByName("btn"):setVisible(false)
+            local fadeout = cc.FadeOut:create(0.5)
+            self.furniture:getChildByName("btn"):runAction(fadeout)
             self.furnituretb[6].ifchangesprite=true
             self.furnituretb[6].num=self.furnituretb[6].num+1
             UItool:message2("这是什么？看起来像是安在什么地方的按钮。",30)
@@ -686,7 +692,7 @@ function  GameScene13:file_cabinet( )
         self:megerupdate()
         end,self.grossini,self.bg)
 end
-function GameScene13:guimen( )
+function GameScene13:guimen()
     self.furniture:getChildByName("guimen"):setEnabled(false)
     self.furniture:getChildByName("guimen"):setVisible(false)
     self.furnituretb[7].guimenopen=false
@@ -744,7 +750,7 @@ function GameScene13:CT_photo( )
         if eventType == TOUCH_EVENT_ENDED then
             
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             passpanel:removeFromParent()
         
@@ -875,7 +881,7 @@ function GameScene13:bigheiban( )
         if eventType == TOUCH_EVENT_ENDED then
             
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             passpanel:removeFromParent()
         
@@ -890,7 +896,7 @@ function GameScene13:bigheiban( )
         if eventType == TOUCH_EVENT_ENDED then
             
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             
             local touch = self.furnituretb[21].num
@@ -985,7 +991,7 @@ function GameScene13:firstaidpass(passstr)
         if eventType == TOUCH_EVENT_ENDED then
             nodecenter:getChildByName("beijing"):getChildByName("show"):setTexture("changesprite/GameScene13/show.png")
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             if event:getName()=="back" then
                 if string.len(mima_text:getString())==0 then
@@ -1225,41 +1231,66 @@ function GameScene13:rack( )
 
         end,self.grossini,self.bg)
 end
-
 function GameScene13:modify()
+    self.panel:removeFromParent()
+    self.grossini:removeFromParent()
+    local tongguan = cc.CSLoader:createNode(Config.RES_TONGGUAN13)
+    self:addChild(tongguan)
+    tongguan:setOpacity(0) 
+    local taction = cc.FadeIn:create(0.8)
+    tongguan:runAction(taction)
+    local tcenter = tongguan:getChildByName("Node_center")
+    -- tcenter:setPosition(cc.p(self.visibleSize.width/2, self.visibleSize.height/2))
+    local biyan = tcenter:getChildByName("Button_1")
+    local text1 = tcenter:getChildByName("Text_1")
 
-    local chapter_tb = PublicData.CHAPTERTABLE
-    chapter_tb[2].lock = 0
+    local function eventTouch(event,eventType)
+        if eventType == TOUCH_EVENT_ENDED then
+            if UItool:getBool("effect") then
+                AudioEngine.playEffect("sound/gliss.mp3")
+            end
+            biyan:loadTextures("comm/zhengyan.png","comm/zhengyan.png")
+            text1:setString("阿雅德醒了")
+            text1:setOpacity(0) 
+            local action = cc.FadeIn:create(0.8)
+            text1:runAction(action)
+            
+        end
+    end
+    biyan:addClickEventListener(eventTouch)
 
-    local str = json.encode(chapter_tb)
-    ModifyData.writeToDoc(str,"chapter")
+    -- local chapter_tb = PublicData.CHAPTERTABLE
+    -- chapter_tb[2].lock = 0
+
+    -- local str = json.encode(chapter_tb)
+    -- ModifyData.writeToDoc(str,"chapter")
 
     -- local tb = PublicData.ROOMTABLE
-    -- tb[chapterNumber+1][roomNumber].lock=0
+    -- tb[1][roomNumber].face=true
     -- local str = json.encode(tb)
     -- ModifyData.writeToDoc(str,"room")
-    UItool:setBool("topbar",false)
 
-    ModifyData.removeDoc("GBposition")
-    ModifyData.removeDoc("furniture")
-    ModifyData.removeDoc("mergeitem")
-    PublicData.MERGEITEM={}
-    PublicData.FURNITURE={}
-    PublicData.SAVEDATA={}
-    -- table.insert(PublicData.MERGEITEM, 11)
+    -- UItool:setBool("topbar",false)
+
+    -- ModifyData.removeDoc("GBposition")
+    -- ModifyData.removeDoc("furniture")
+    -- ModifyData.removeDoc("mergeitem")
+    -- PublicData.MERGEITEM={}
+    -- PublicData.FURNITURE={}
+    -- PublicData.SAVEDATA={}
+    -- -- table.insert(PublicData.MERGEITEM, 11)
 
 
-    ModifyData.setRoomNum(1)
-    UItool:setInteger("roomNumber", 1)
+    -- ModifyData.setRoomNum(1)
+    -- UItool:setInteger("roomNumber", 1)
 
-    ModifyData.setChapterNum(2)
-    UItool:setInteger("chapterNumber", 2)
+    -- ModifyData.setChapterNum(2)
+    -- UItool:setInteger("chapterNumber", 2)
     
 
-    local scene = GameScene12.new()
-    local turn = cc.TransitionFade:create(1, scene)
-    cc.Director:getInstance():replaceScene(turn)
-
+    -- local scene = GameScene21.new()
+    -- local turn = cc.TransitionFade:create(1, scene)
+    -- cc.Director:getInstance():replaceScene(turn)
 end
 --手术床
 function GameScene13:operating_table()
@@ -1271,7 +1302,7 @@ function GameScene13:operating_table()
             if UItool:getBool("bingli") then
                 self.furnituretb[20].num=self.furnituretb[20].num+1
                 self.furniture:getChildByName("sheet_c"):setTexture("changesprite/GameScene13/sheet_o.png")
-                UItool:message2("恭喜通关",30)
+                -- UItool:message2("恭喜通关",30)
                 local itemnum = UItool:getInteger("binglinum")
                 for i=1,#PublicData.MERGEITEM do
                     if PublicData.MERGEITEM[i] == itemnum then
@@ -1279,15 +1310,19 @@ function GameScene13:operating_table()
                         break
                     end
                 end
+                -- local delay = cc.DelayTime:create(0.5)
+                -- self.grossini:runAction(cc.Sequence:create(delay,cc.CallFunc:create(self.modify())))
+                self:modify()
+                self.merge:removeFromParent()
                 else
                     UItool:message2("……虽然不知道那里躺着谁，但我不应该去打扰他。",30)
                 end
+
             else
-                -- UItool:message2("输液用的架子。",30)
         end
         local str = json.encode(self.furnituretb)
         ModifyData.writeToDoc(str,"furniture")
-        self:megerupdate()
+        -- self:megerupdate()
     end,self.grossini,self.bg)
 end 
 
@@ -1529,7 +1564,7 @@ function GameScene13:AllButtons(  )
     local function allButtonClick(event,eventType)
         if eventType == TOUCH_EVENT_ENDED then
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
 
             if event:getName()=="dress" then

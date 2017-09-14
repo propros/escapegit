@@ -173,19 +173,19 @@ MERGE[33] = {key=33,id={79,71},nid=72}
 
 SCENE = {}
 SCENE[1] = {}
-SCENE[1][1] = {lock = 0,changerolepic = "changerole/changerole11.png"}
-SCENE[1][2] = {lock = 1,changerolepic = "changerole/changerole12.png"}
-SCENE[1][3] = {lock = 1,changerolepic = "changerole/changerole13.png"}
+SCENE[1][1] = {lock = 0,changerolepic = "changerole/11.png"}
+SCENE[1][2] = {lock = 1,changerolepic = "changerole/12.png"}
+SCENE[1][3] = {lock = 1,changerolepic = "changerole/13.png",face = false}
 
 SCENE[2] = {}
-SCENE[2][1] = {lock = 0,changerolepic = "changerole/changerole21.png"}
-SCENE[2][2] = {lock = 1,changerolepic = "changerole22.png"}
-SCENE[2][3] = {lock = 1,changerolepic = "changerole23.png"}
+SCENE[2][1] = {lock = 0,changerolepic = "changerole/21.png"}
+SCENE[2][2] = {lock = 1,changerolepic = "changerole/22.png",changerolepican = "changerole/an_22.png"}
+SCENE[2][3] = {lock = 1,changerolepic = "changerole/23.png",changerolepican = "changerole/an_23.png",face = false}
 
 SCENE[3] = {}
-SCENE[3][1] = {lock = 0,changerolepic = "changerole31.png"}
-SCENE[3][2] = {lock = 1,changerolepic = "changerole32.png"}
-SCENE[3][3] = {lock = 1,changerolepic = "changerole33.png"}
+SCENE[3][1] = {lock = 0,changerolepic = "changerole/31.png"}
+SCENE[3][2] = {lock = 1,changerolepic = "changerole/32.png",changerolepican = "changerole/an_32.png"}
+SCENE[3][3] = {lock = 1,changerolepic = "changerole/33.png",changerolepican = "changerole/an_33.png",face = false}
 
 JXSCENE = {}
 JXSCENE[1] = {}

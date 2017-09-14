@@ -102,7 +102,7 @@ function password:passbtn( )
         if eventType == TOUCH_EVENT_ENDED then
             
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             if event:getName()=="password1" then
                 self:passwordbtn1()

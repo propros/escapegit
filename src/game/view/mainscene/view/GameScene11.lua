@@ -9,7 +9,6 @@ local chapterNumber
 
 --table 深拷贝
 function GameScene11:ctor()
-
     local function onNodeEvent(event)
         
         if event == "enter" then
@@ -18,8 +17,6 @@ function GameScene11:ctor()
                 self:onEnterTransitionFinish()
         end
     end
-
-    
     self:registerScriptHandler(onNodeEvent)
 
     if #PublicData.STUDY==0 then
@@ -78,8 +75,6 @@ function GameScene11:ctor()
     self.winsize = cc.Director:getInstance():getWinSizeInPixels()
     self.origin = cc.Director:getInstance():getVisibleOrigin()
 
-
-
     roomNumber = ModifyData.getRoomNum()
     chapterNumber = ModifyData.getChapterNum()
 
@@ -91,9 +86,6 @@ function GameScene11:ctor()
     self.screenxiadun = 1.3
     --弯腰屏蔽时间
     self.screenwanyao = 1.2
-
-    
-
     -- 家具底层
     self.panel = cc.CSLoader:createNode(Config.RES_MAINSCENE)
     self.panel:setPosition(cc.p(0,0))
@@ -115,7 +107,16 @@ function GameScene11:ctor()
     -- draw:drawDot(cc.p(self.bg:getPositionX(),150),50,cc.c4b(0,0,0,1))  
     -- draw:setTag("draw")  
     -- self:addChild(draw,100) 
-    
+    self.ROOMTABLE = PublicData.ROOMTABLE --人物是否露脸table
+    self.grossini = GIRL.new(self.ROOMTABLE[1][3].face)
+    self.grossini:setScaleX(-self.girlx)
+    self.grossini:setScaleY(self.girly)
+    self.grossini:stand()
+    self:addChild(self.grossini,12)
+
+    self.bg:setPositionX(self.savedata.bgpositionx)
+    self.grossini:setPosition(cc.p(self.savedata.girlpositionx,140))
+
     local function update(delta)  
         self:update(delta)  
         
@@ -141,7 +142,7 @@ function GameScene11:ctor()
     end  
     self:scheduleUpdateWithPriorityLua(update,0.3)
 
-    self:grossiniwalk()-- 人物动作
+    -- self:grossiniwalk()-- 人物动作
     self:fishmove() --鱼的移动 
    
     
@@ -354,8 +355,9 @@ function GameScene11:bed_up()
     --床上
     
     local bed_up_locationx ,bed_up_locationy = UItool:getitem_location(self.furniture:getChildByName("bed_up"), self.bg:getPositionX())
-    GameScenemove(bed_up_locationx,bed_up_locationy ,function (  )
-
+    GameScenemove(bed_up_locationx-self.grossini:getContentSize().width/6,bed_up_locationy ,function (  )
+        self.grossini:setScaleX(-self.girlx)
+        self.grossini:setScaleY(self.girly)
         self.layer=cc.Layer:create()
         local shildinglayer = Shieldingscreenmessage3:new()
         self.layer:addChild(shildinglayer)
@@ -376,8 +378,8 @@ function GameScene11:bed_up()
 
             UItool:message2(" 这有个盒子，上面用缎带打了个死结，看起来很难拆开的样子。  ",30)
 
-            self.furniture:getChildByName("bed_up"):setVisible(false)
-            self.furniture:getChildByName("bed_up"):setTouchEnabled(false)
+            local action2 = cc.FadeOut:create(0.5)
+            self.furniture:getChildByName("bed_up"):runAction(action2)
             local key_item = Data.getItemData(3)
             table.insert(PublicData.MERGEITEM, key_item.key)
             self.furnituretb[1].bool = false
@@ -411,7 +413,10 @@ function GameScene11:bed_down()
     --床底
     local bed_down_locationx, bed_down_locationy= UItool:getitem_location(self.furniture:getChildByName("bed_down"), self.bg:getPositionX())
 
-    GameScenemove(bed_down_locationx ,bed_down_locationy,function (  )
+    GameScenemove(bed_down_locationx-self.grossini:getContentSize().width/6 ,bed_down_locationy,function (  )
+        self.grossini:setScaleX(-self.girlx)
+        self.grossini:setScaleY(self.girly)
+        
         self.layer=cc.Layer:create()
         local shildinglayer = Shieldingscreenmessage3:new()
         self.layer:addChild(shildinglayer)
@@ -437,8 +442,8 @@ function GameScene11:bed_down()
             self.furnituretb[2].bool = false
             
             self.furnituretb[2].num=self.furnituretb[2].num+1
-            self.bg:getChildByName("hammer_s"):setVisible(false)
-
+            local action2 = cc.FadeOut:create(0.5)
+            self.bg:getChildByName("hammer_s"):runAction(action2)
             -- self.jiantou:setPosition(cc.p(100,90))
             else
                 UItool:message2(" 什么也没有了。 ",30)
@@ -689,7 +694,7 @@ function GameScene11:stool()
     --print("stool")
     local stool_locationx,stool_locationy = UItool:getitem_location(self.furniture:getChildByName("stool"), self.bg:getPositionX())
 
-        GameScenemove( stool_locationx,stool_locationy ,function (  )
+        GameScenemove( stool_locationx-self.grossini:getContentSize().width/6,stool_locationy ,function (  )
             self.layer=cc.Layer:create()
             local shildinglayer = Shieldingscreenmessage3:new()
             self.layer:addChild(shildinglayer)
@@ -712,8 +717,8 @@ function GameScene11:stool()
                 table.insert(PublicData.MERGEITEM, key_item.key)
                 
                 self.furnituretb[4].bool = false
-                self.furniture:getChildByName("stool"):setVisible(false)
-                self.furniture:getChildByName("stool"):setTouchEnabled(false)
+                local fadeout = cc.FadeOut:create(0.5)
+                self.furniture:getChildByName("stool"):runAction(fadeout)
                 self.furnituretb[4].num = self.furnituretb[4].num +1
                 else
                     UItool:message2(" 嘿……凳子搬走了。 ",30)
@@ -729,9 +734,9 @@ function GameScene11:wardrobe()
     --print("wardrobe")
     local wardrobe_locationx,wardrobe_locationy = UItool:getitem_location(self.furniture:getChildByName("wardrobe"), self.bg:getPositionX())
 
-        GameScenemove( wardrobe_locationx,wardrobe_locationy ,function (  )
+        GameScenemove( wardrobe_locationx-self.grossini:getContentSize().width/6,wardrobe_locationy ,function (  )
+            
             if self.furnituretb[7].num==1 then
-                
                 if UItool:getBool("yiguikey") then
                     UItool:message2(" 打开了衣柜，里面空荡荡的，只有一个箱子。 ",30)
                     UItool:setBool("yansemima", true)
@@ -1045,8 +1050,8 @@ function GameScene11:book()
             table.insert(PublicData.MERGEITEM, key_item.key)
             
             self.furnituretb[11].bool = false
-            self.furniture:getChildByName("book"):setVisible(false)
-            self.furniture:getChildByName("book"):setTouchEnabled(false)
+            local fadeout = cc.FadeOut:create(0.5)
+            self.furniture:getChildByName("book"):runAction(fadeout)
 
         end
         local str = json.encode(self.furnituretb)
@@ -1195,7 +1200,6 @@ function GameScene11:phone()
                                 break
                             end
                         end
-
                         --电话纸的key==9
                             for i=1,#PublicData.MERGEITEM do
                                 if PublicData.MERGEITEM[i] == 9 then
@@ -1204,13 +1208,18 @@ function GameScene11:phone()
                                 end
                             end
                         -- end
-                        
     
                         self.furnituretb[14].num = self.furnituretb[14].num + 1
                         UItool:setBool("redflower",false)
 
                         elseif UItool:getBool("phonepaper") then
-                            
+                            local itemnum = UItool:getInteger("phonepaper")
+                            for i=1,#PublicData.MERGEITEM do
+                                if PublicData.MERGEITEM[i] == itemnum then
+                                    table.remove(PublicData.MERGEITEM,i) 
+                                    break
+                                end
+                            end
                             UItool:message2(" 你喜欢花吗？我最喜欢了，尤其是红色的。 ",30)
                             
         
@@ -1281,9 +1290,6 @@ function GameScene11:door()
                         break
                     end
                 end
-
-               
-
                  self.modify()
                 else
                     if UItool:getBool("elseitem") then
@@ -1293,7 +1299,7 @@ function GameScene11:door()
                     end
                     
                 end
-                self:megerupdate()
+                -- self:megerupdate()
         end,self.grossini,self.bg)
 end
 
@@ -1446,7 +1452,7 @@ function GameScene11:photo()
         
         local bigframe_locationx,bigframe_locationy = UItool:getitem_location(self.furniture:getChildByName("Big_frame"), self.bg:getPositionX())
 
-        self:Girl_bg_move( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
+        GameScenemove( math.floor(bigframe_locationx-self.grossini:getContentSize().width/6),bigframe_locationy ,function ()
             if UItool:getBool("yansemima") then
                 UItool:message2(" 这幅画里的我拿了一朵紫色的花——那是我最喜欢的颜色。 ",30 )
                 else
@@ -1555,8 +1561,8 @@ function GameScene11:wardrobe_top()
                         break
                     end
                 end
-                self.furniture:getChildByName("wardrobe_top"):setTouchEnabled(false)
-                self.furniture:getChildByName("wardrobe_top"):setVisible(false)
+                local fadeout = cc.FadeOut:create(0.5)
+                self.furniture:getChildByName("wardrobe_top"):runAction(fadeout)
                 self.furnituretb[17].bool = true
                 
                 self.furnituretb[17].num = self.furnituretb[17].num+1
@@ -1700,7 +1706,7 @@ function GameScene11:AllButtons(  )
     local function allButtonClick(event,eventType)
         if eventType == TOUCH_EVENT_ENDED then
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             if event:getName()=="bed_up" then
                 --print("bed_up")
@@ -1818,28 +1824,28 @@ function GameScene11:AllButtons(  )
 end
 
     --角色移动
-function GameScene11:grossiniwalk()
-    --骨骼动画
-    -- ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
-    -- self.grossini = ccs.Armature:create("loli")
-    if UItool:getBool("oneroomagain", false)==false then
-        ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
-        self.grossini = ccs.Armature:create("loli")
-        else
-            ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/lolierzhoumu/Export/lolierzhoumu/lolierzhoumu.ExportJson")     
-            self.grossini = ccs.Armature:create("lolierzhoumu")
-    end
-    -- ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
+-- function GameScene11:grossiniwalk()
+--     --骨骼动画
+--     -- ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
+--     -- self.grossini = ccs.Armature:create("loli")
+--     if UItool:getBool("oneroomagain", false)==false then
+--         ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
+--         self.grossini = ccs.Armature:create("loli")
+--         else
+--             ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/lolierzhoumu/Export/lolierzhoumu/lolierzhoumu.ExportJson")     
+--             self.grossini = ccs.Armature:create("lolierzhoumu")
+--     end
+--     -- ccs.ArmatureDataManager:getInstance():addArmatureFileInfo("res/donghua/loli/Export/loli/loli.ExportJson") 
     
-    self.grossini:setScaleX(-self.girlx)
-    self.grossini:setScaleY(self.girly)
+--     self.grossini:setScaleX(-self.girlx)
+--     self.grossini:setScaleY(self.girly)
     
-    self.grossini:getAnimation():playWithIndex(1)
-    self.grossini:getAnimation():play("stand")
-    UItool:setCurrentState("stand")
-    self.grossini:setPosition(cc.p(self.savedata.girlpositionx,140))
-    self:addChild(self.grossini,6)
-end
+--     self.grossini:getAnimation():playWithIndex(1)
+--     self.grossini:getAnimation():play("stand")
+--     UItool:setCurrentState("stand")
+--     self.grossini:setPosition(cc.p(self.savedata.girlpositionx,140))
+--     self:addChild(self.grossini,6)
+-- end
 
 
 function GameScene11:ontouch( ... )
@@ -1891,7 +1897,7 @@ function GameScene11:onEnterTransitionFinish ()
     local mainback = self.node:getChildByName("back")
     mainback:addClickEventListener(function ()
         if UItool:getBool("effect") then
-            AudioEngine.playEffect("gliss.mp3")
+            AudioEngine.playEffect("sound/gliss.mp3")
         end
         --返回loading
         if UItool:getBool("oneroomagain", false)==false then
@@ -1909,7 +1915,7 @@ function GameScene11:onEnterTransitionFinish ()
     local shezhi = self.panel:getChildByName("Node_right_top"):getChildByName("shezhi")
     shezhi:addClickEventListener(function ()
         if UItool:getBool("effect") then
-            AudioEngine.playEffect("gliss.mp3")
+            AudioEngine.playEffect("sound/gliss.mp3")
         end
         --返回loading
         local setting = Setting:createScene()

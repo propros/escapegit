@@ -87,7 +87,7 @@ function SelecteRoomtwo:Chapterbtn( )
 
         if eventType == TOUCH_EVENT_ENDED then
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             if event:getName()=="scene1" then
                 -- UItool:message2("room1",30)

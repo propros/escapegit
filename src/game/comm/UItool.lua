@@ -38,7 +38,6 @@ end
 
 --弹出框
 function UItool:message1(...)
-    print("是否走到了这里")
     local messages = Message.new()   
     messages:open(...)
 end
@@ -291,7 +290,6 @@ function UItool:setScrollView(_slv,_sld,_allNodeNum,_countNum,_spX,_spY,_childLi
      _allNodeNum = #_childList
     end
     --  1 代表 SCROLLVIEW_DIR_VERTICAL
-    print("cha  aaa", direType , SCROLLVIEW_DIR_VERTICAL)
     _startX = _startX or 0
     _startY = _startY or 0
     if  direType == 1 then

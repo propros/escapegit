@@ -5,9 +5,6 @@ Loading=class("Loading", function()
 end)
 
 function Loading:ctor()
-
-    
-    
     self.director = cc.Director:getInstance()
 	self.visibleSize = cc.Director:getInstance():getVisibleSize()
     self.origin = cc.Director:getInstance():getVisibleOrigin()
@@ -29,7 +26,14 @@ function Loading:ctor()
     end
 
     for i=1,10 do
-        print("次数",i%2)
+        print("cishu",i)
+        for k=1,10 do
+            print("次数",k)
+            if k==5 then
+                print("打印",k)
+                break
+            end
+        end
     end
 
     self:signin() --UI
@@ -52,16 +56,12 @@ function Loading:ctor()
 
         -- 遮罩 
         
-
         --网络
         -- sendGetServer("zzzzzz", "zzzzzzz")
 
         --更改人物
 
-        
-        
         -- cc.Application:getInstance():openURL("http://www.baidu.com")
-        
         
         -- UItool:specialitem(4)
         -- UItool:message("ceshi message ",30 ,function (select )
@@ -71,36 +71,23 @@ function Loading:ctor()
         --             print("点击取消")
         --         end
         -- end )
-        
-        
-        
-
         self.scene = GameScene13.new()
         local turn = cc.TransitionFade:create(1, self.scene)
         cc.Director:getInstance():replaceScene(turn)
-
-
-
-        
-        
-    -- local right = cc.Sprite:create("cn/Load/image/UI/pause.png")
-    -- right:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
-    -- self:addChild(right,29)
-    -- local rotate = cc.RotateBy:create(2, -30)
-    -- right:runAction( cc.RepeatForever:create(rotate))
         
     end
 
     self.setting = cc.MenuItemImage:create("continue.png","continue2.png")
     self.setting:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
     self.setting:setAnchorPoint(cc.p(0.5,0.5))
+    self.setting:setVisible(false)
     -- self.setting:setScale(2)
     -- 对该按钮注册按键响应函数：
     self.setting:registerScriptTapHandler(settingcallback)
     
     self.menu=cc.Menu:create(self.setting)
     self.menu:setPosition(0,0) 
-    self:addChild(self.menu,2)
+    self:addChild(self.menu,12)
 
     
     local chapternum = UItool:getIntegerdefault("chapterNumber",1)
@@ -126,7 +113,6 @@ function Loading:ctor()
     self:scheduleUpdateWithPriorityLua(update,0.1)
     
 end 
-
 function Loading:continue( )
 
     if #PublicData.STUDY==0 then
@@ -171,8 +157,6 @@ function Loading:continue( )
     local chapternum = UItool:getInteger("chapterNumber")
     local roomnum = UItool:getInteger("roomNumber")
 
-
-
     ModifyData.setChapterNum(chapternum)
     ModifyData.setRoomNum(roomnum)
     self.scene = Data.JXSCENE[chapternum][roomnum].name.new()
@@ -181,113 +165,110 @@ function Loading:continue( )
     
 end
 
-function Loading:newgame(  )
+function Loading:newgame()
     print("newgame")
-    local chapters = Chapters:createScene()
-    print("章节选择", chapters)
-    self:addChild(chapters,3)
-
+    self.panel:setVisible(false)
+    local scene = cc.Director:getInstance():getRunningScene()
+    Chapters:createScene(scene,self.panel)
+    -- self:addChild(chapters,3)
 end
 
-function Loading:shezhi(  )
+function Loading:shezhi()
     print("shezhi")
     local setting = Setting:createScene()
     print("shezhixuanze", setting)
     self:addChild(setting,3)
-
 end
 
-function Loading:shoucang(  )
+function Loading:shoucang()
     print("shoucang")
     local shoucang = Shoucang:createScene()
     self:addChild(shoucang,3)
 
 end
 
-function Loading:signin( parent ,num)
+function Loading:signin()
     print("打印输出")
     self.panel = cc.CSLoader:createNode(Config.RES_LOADING)
     self:addChild(self.panel,1)
 
     local chapternum = UItool:getIntegerdefault("chapterNumber",1)
     local roomnum = UItool:getIntegerdefault("roomNumber",1)
-
-    
-
-    -- local btn = self.panel:getChildByName("Button_9")
-    -- btn:addClickEventListener(function ()
-    --     print("fdafdasfdafdafdafda")
-    --     btn:loadTextures("changesprite/GameScene12/flowerpot1.png","changesprite/GameScene12/flowerpot1.png")
-    --     btn:setScale(3)
-    --     end)
-
-
     self.center = self.panel:getChildByName("Node_center")
+    local Node_logo = self.center:getChildByName("Node_logo") 
     self.center:setPosition(cc.p(self.visibleSize.width/2,self.visibleSize.height/2))
-    -- self.center:getChildByName("role"):setVisible(false)
-    changerole(chapternum,roomnum,self.center:getChildByName("role"))
+    -- changerole(chapternum,roomnum,self.center:getChildByName("role"))
 
     local right = self.panel:getChildByName("Node_right")
     right:setPosition(cc.p(self.visibleSize.width,self.visibleSize.height/2))
-    local ruman = right:getChildByName("ruman")
+    local Node_btn = right:getChildByName("Node_btn")
+    Node_btn:setVisible(false)
+
+    local ruman = self.center:getChildByName("Node_logo"):getChildByName("ruman")
     local rotate = cc.RotateBy:create(2, -30)
     ruman:runAction( cc.RepeatForever:create(rotate))
+
+    local shadow = self.center:getChildByName("shadow")
+    shadow:addClickEventListener(function ()
+        local moveto = cc.MoveTo:create(0.8, cc.p(-self.visibleSize.width/7,0))
+        local scale = cc.ScaleTo:create(0.8, 0.85)
+        Node_logo:runAction(cc.Spawn:create(moveto,scale))
+
+        Node_btn:setVisible(true)
+        Node_btn:setOpacity(0)
+        local fadein = cc.FadeIn:create(0.8)
+        Node_btn:runAction(fadein)
+        shadow:setEnabled(false)
+        end) 
+
+    
 
     local left = self.panel:getChildByName("Node_left")
     left:setPosition(cc.p(0,self.visibleSize.height/2))
     
     if UItool:getBool("ifcontinue", false) then
         --todo
-        right:getChildByName("continue"):setVisible(true)
+        right:getChildByName("Node_btn"):getChildByName("continue"):setVisible(true)
         else
-            right:getChildByName("continue"):setVisible(false)
+            right:getChildByName("Node_btn"):getChildByName("continue"):setVisible(false)
     end
     
     local allUIbtn = 
     {
-    right:getChildByName("continue"),
-    right:getChildByName("chapter"),
+    right:getChildByName("Node_btn"):getChildByName("continue"),
+    right:getChildByName("Node_btn"):getChildByName("chapter"),
     left:getChildByName("shezhi"),
-    right:getChildByName("handbook")
+    right:getChildByName("Node_btn"):getChildByName("handbook")
     }
 
     local function allUIbtnclick(event,eventType)
         if eventType == TOUCH_EVENT_ENDED then
             if UItool:getBool("effect",true) then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             
             if event:getName()=="chapter" then
-                -- self:newgame()
+                self:newgame()
                 elseif event:getName()=="continue" then
-                    -- self:continue()
+                    self:continue()
                     elseif event:getName()=="handbook" then
                         print("handbook 收藏")
                         self:shoucang()
                         elseif event:getName()=="shezhi" then
                             print("设置")
                             self:shezhi()
-            end
-            
+            end 
         end
-
     end
-
     for key, var in pairs(allUIbtn) do
-        
         var:addClickEventListener(allUIbtnclick)
-
-    end
-
-
-    
+    end 
 end
-
-
-
 function Loading:onEnter()
     
 end
+
+
 
 
 

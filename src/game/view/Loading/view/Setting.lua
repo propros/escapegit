@@ -61,7 +61,7 @@ function Setting:Settingbtn( )
 
         if eventType == TOUCH_EVENT_ENDED then
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             self:back()
         end
@@ -85,7 +85,7 @@ function Setting:Settingbtn( )
                 print("soundItem:getSelectedIndex()~=1")
                 UItool:setBool("effect",true)
                 
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             
         end
      end
@@ -103,10 +103,10 @@ function Setting:Settingbtn( )
             UItool:setBool("music", false)
             else
                 print("musicItem:getSelectedIndex()~=1")
-                AudioEngine.playMusic("jintou.mp3",true)
+                AudioEngine.playMusic("sound/jintou.mp3",true)
                 UItool:setBool("music", true)
                 if UItool:getBool("effect") then
-                    AudioEngine.playEffect("gliss.mp3")
+                    AudioEngine.playEffect("sound/gliss.mp3")
                 end
         end
         

@@ -35,7 +35,7 @@ function logo:onExit()
 	if UItool:getBool("music", true) then
         
         UItool:setBool("music", true)
-        AudioEngine.playMusic("jintou.mp3",true)
+        AudioEngine.playMusic("sound/jintou.mp3",true)
         else
             UItool:setBool("music", false)
             

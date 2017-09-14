@@ -1,6 +1,7 @@
 
 require("game.comm.RequireLua")
 
+
 local MyApp = class("MyApp", cc.load("mvc").AppBase)
 
 function MyApp:onCreate()
@@ -25,14 +26,14 @@ function MyApp:onCreate()
     
     math.randomseed(os.time())  
 
-    if UItool:getBool("music", true) then
-        print("音乐背景 true ")
-        UItool:setBool("music", true)
-        AudioEngine.playMusic("music/jintou.mp3")
-        else
-            UItool:setBool("music", false)
-            print("音乐背景 false ")
-    end
+    -- if UItool:getBool("music", true) then
+    --     print("音乐背景 true ")
+    --     UItool:setBool("music", true)
+    --     AudioEngine.playMusic("sound/jintou.mp3")
+    --     else
+    --         UItool:setBool("music", false)
+    --         print("音乐背景 false ")
+    -- end
     -- AudioEngine.preloadMusic("jintou.mp3")
     -- AudioEngine.preloadEffect("gliss.mp3")
    

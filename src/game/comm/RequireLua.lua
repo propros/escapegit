@@ -1,3 +1,4 @@
+-- require("framework.init")
 -- require("game/view/mainscene/onescene/Onescene")
 require("game/view/Loading/view/Loading")
 require("game/view/Loading/view/Chapters")

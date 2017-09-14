@@ -99,7 +99,7 @@ function GameScene12:ctor()
     local mainback = self.node:getChildByName("back")
     mainback:addClickEventListener(function ()
         if UItool:getBool("effect") then
-            AudioEngine.playEffect("gliss.mp3")
+            AudioEngine.playEffect("sound/gliss.mp3")
         end
         --返回loading
 
@@ -115,17 +115,15 @@ function GameScene12:ctor()
         local shezhi = self.panel:getChildByName("Node_right_top"):getChildByName("shezhi")
         shezhi:addClickEventListener(function ()
         if UItool:getBool("effect") then
-            AudioEngine.playEffect("gliss.mp3")
+            AudioEngine.playEffect("sound/gliss.mp3")
         end
         --返回loading
         local setting = Setting:createScene()
         self:addChild(setting,13)
         end)
     
-    
-    
-    
-    self.grossini = GIRL:new()
+    self.ROOMTABLE = PublicData.ROOMTABLE --人物是否露脸table
+    self.grossini = GIRL.new(self.ROOMTABLE[1][3].face)
     self.grossini:setScaleX(-self.girlx)
     self.grossini:setScaleY(self.girly)
     self.grossini:stand()
@@ -560,6 +558,7 @@ function GameScene12:biaoshen()
                     if UItool:getBool("rongyaoshi") then    
                         UItool:message2("放进了熔化的钥匙。",30)
                         local itemnum = UItool:getInteger("rongyaoshinum")
+
                         self.furniture:getChildByName("bell6"):getChildByName("bad_key"):setVisible(true)
                         self.furnituretb[17].putin=true 
                         for i=1,#PublicData.MERGEITEM do
@@ -968,7 +967,8 @@ function GameScene12:letter()
                 table.insert(PublicData.MERGEITEM, key_item.key)
                 
                 self.furnituretb[3].bool = false
-                self.furniture:getChildByName("letter"):setVisible(false)
+                local fadeout = cc.FadeOut:create(0.5)
+                self.furniture:getChildByName("letter"):runAction(fadeout)
                 self.furniture:getChildByName("qingjian"):setTouchEnabled(false)
                 self.furnituretb[3].num = self.furnituretb[3].num +1
                 
@@ -1056,7 +1056,8 @@ function GameScene12:handsclock()
             table.insert(PublicData.MERGEITEM, key_item.key)
             
             self.furnituretb[16].bool=false
-            self.furniture:getChildByName("handsclock"):setVisible(false)
+            local fadeout = cc.FadeOut:create(0.5)
+            self.furniture:getChildByName("handsclock"):runAction(fadeout)
             self.furniture:getChildByName("handsclock_btn"):setEnabled(false)
             else
                 UItool:message2("桌上有只看起来很凶的猫，它的爪子下似乎有什么东西。",30)
@@ -1223,8 +1224,8 @@ function GameScene12:key_up()
                     UItool:message2(" 趁着它在吃东西，取走了钥匙。 ",30)
 
                     self.furnituretb[9].bool = false
-                    self.furniture:getChildByName("key_up"):setVisible(false)
-                    self.furniture:getChildByName("key_up"):setTouchEnabled(false)
+                    local fadeout = cc.FadeOut:create(0.5)
+                    self.furniture:getChildByName("key_up"):runAction(fadeout)
                     self.furnituretb[9].num = self.furnituretb[3].num +1
                 else
                     UItool:message2("那只猫太凶了…… ",30)
@@ -1849,7 +1850,7 @@ function GameScene12:AllButtons(  )
     local function allButtonClick(event,eventType)
         if eventType == TOUCH_EVENT_ENDED then
             if UItool:getBool("effect") then
-                AudioEngine.playEffect("gliss.mp3")
+                AudioEngine.playEffect("sound/gliss.mp3")
             end
             if event:getName()=="biaopan" then
                 self:biaopan()
